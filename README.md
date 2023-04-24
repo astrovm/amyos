@@ -1,6 +1,6 @@
 # Starting point
 
-[![build-ublue](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml/badge.svg)](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml)
+[![build-ublue](https://github.com/astrolince/amy-os/actions/workflows/build.yml/badge.svg)](https://github.com/astrolince/amy-os/actions/workflows/build.yml)
 
 This is a starting point Fedora Silverblue image designed to be customized to whatever you want, have GitHub build it for you, and then host it for you. You then just tell your computer to boot off of that image. GitHub keeps 90 days worth image backups for you, thanks Microsoft!
 
@@ -13,7 +13,7 @@ See the [Make Your Own -page in the documentation](https://ublue.it/making-your-
 Don't worry, it only requires some basic knowledge about using the terminal and git.
 
 > **Note**
-> Everywhere in this repository, make sure to replace `ublue-os/startingpoint` with the details of your own repository. Unless you used [`create-ublue-image`](https://github.com/EinoHR/create-ublue-image), in which case the previous repo identifier should already be your repo's details.
+> Everywhere in this repository, make sure to replace `astrolince/amy-os` with the details of your own repository. Unless you used [`create-ublue-image`](https://github.com/EinoHR/create-ublue-image), in which case the previous repo identifier should already be your repo's details.
 
 ## Customization
 
@@ -62,13 +62,13 @@ The files `/etc/profile.d/ublue-firstboot.sh` and `/etc/skel.d/.config/autostart
 To rebase an existing Silverblue/Kinoite installation to the latest build:
 
 ```
-sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/startingpoint:latest
+sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/astrolince/amy-os:latest
 ```
 
 This repository builds date tags as well, so if you want to rebase to a particular day's build:
 
 ```
-sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/startingpoint:20230403
+sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/astrolince/amy-os:20230403
 ```
 
 The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `release.yml`, so you won't get accidentally updated to the next major version.
@@ -97,6 +97,6 @@ Check the [just website](https://just.systems) for tips on modifying and adding 
 
 These images are signed with sisgstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
 
-    cosign verify --key cosign.pub ghcr.io/ublue-os/startingpoint
+    cosign verify --key cosign.pub ghcr.io/astrolince/amy-os
 
 If you're forking this repo, the uBlue website has [instructions](https://ublue.it/making-your-own/) for setting up signing properly.
