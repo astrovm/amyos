@@ -1,14 +1,17 @@
 # The image will be at ghcr.io/yourusername/name
 name: amy-os
+
 # The native container image to build on top of
 # images. 
 # Warning: Non-uBlue images might function unexpectly
 base-container: ghcr.io/ublue-os/silverblue-main
+
 # What fedora version to use. Use an explicit version or `latest`.
 # If you use `latest`, you will be automatically updated
 # to the next major version assuming the image you're using as your base container
 # builds with the tag (all uBlue images do this). 
 fedora-version: 38
+
 # This description will be visible in the container metadata
 description: A starting point for further customization of uBlue images. Make your own! https://ublue.it/making-your-own/
 
@@ -21,15 +24,44 @@ scripts:
 # using rpm-ostree and will be preinstalled in the final image
 rpms:
   - python3-pip # needed for yafti (the first boot installer)
+  - firewall-config
+  - gparted
+  - kdeconnectd
+  - neofetch
+  - neovim
+  - tmux
+  - virt-manager
+
 # These Flatpaks (from flathub) will be available for install on boot
 # this is just an example selection.
 # If you leave this empty you can use yafti for post-boot installation
 flatpaks:
-  - org.mozilla.firefox
-  - org.mozilla.Thunderbird
-  - com.mattjakeman.ExtensionManager
-  - org.libreoffice.LibreOffice
-  - org.gnome.DejaDup
-  - org.gustavoperedo.FontDownloader
+  - com.bitwarden.desktop
+  - com.brave.Browser
+  - com.discordapp.Discord
+  - com.github.k4zmu2a.spacecadetpinball
+  - com.github.micahflee.torbrowser-launcher
   - com.github.tchx84.Flatseal
-  - io.github.celluloid_player.Celluloid
+  - com.github.wwmm.easyeffects
+  - com.obsproject.Studio
+  - com.spotify.Client
+  - com.stremio.Stremio
+  - im.riot.Riot
+  - io.github.hakuneko.HakuNeko
+  - io.gitlab.librewolf-community
+  - net.davidotek.pupgui2
+  - net.lutris.Lutris
+  - network.loki.Session
+  - org.audacityteam.Audacity
+  - org.blender.Blender
+  - org.duckstation.DuckStation
+  - org.fedoraproject.MediaWriter
+  - org.gimp.GIMP
+  - org.gnome.Extensions
+  - org.kde.kdenlive
+  - org.libreoffice.LibreOffice
+  - org.qbittorrent.qBittorrent
+  - org.signal.Signal
+  - org.telegram.desktop
+  - org.videolan.VLC
+  - org.yuzu_emu.yuzu
