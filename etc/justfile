@@ -35,13 +35,12 @@ setup-flatpaks:
 setup-pwa:
   echo 'Giving browser permission to create PWAs (Progressive Web Apps)'
   # Add for your favorite chromium-based browser
-  flatpak override --user --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.microsoft.Edge
+  flatpak override --user --filesystem=~/.local/share/applications --filesystem=~/.local/share/icons com.brave.Browser
 
 setup-gaming:
   echo 'Setting up gaming experience ... lock and load.'
   flatpak install -y --user \\
   com.discordapp.Discord \\
-  com.feaneron.Boatswain \\
   org.freedesktop.Platform.VulkanLayer.MangoHud//22.08 \\
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//22.08 \\
   org.freedesktop.Platform.VulkanLayer.vkBasalt//22.08 \\
