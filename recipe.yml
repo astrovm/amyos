@@ -11,11 +11,11 @@ base-image: ghcr.io/ublue-os/silverblue-main
 # What fedora version to use. Use an explicit version or `latest`.
 # If you use `latest`, you will be automatically updated
 # to the next major version assuming the image you're using as your base container
-# builds with the tag (all uBlue images do this). 
+# builds with the tag (all uBlue images do this).
 fedora-version: 38
 
 # This description will be visible in the container metadata
-description: A starting point for further customization of uBlue images. Make your own! https://ublue.it/making-your-own/
+description: Astro's custom version of Fedora Silverblue
 
 # These scripts will be executed during the container build
 # Place scripts in scripts/ and put the corresponding filename here
@@ -51,6 +51,7 @@ flatpaks:
   - com.obsproject.Studio
   - com.spotify.Client
   - com.stremio.Stremio
+  - com.valvesoftware.Steam
   - im.riot.Riot
   - io.github.hakuneko.HakuNeko
   - io.gitlab.librewolf-community
@@ -67,6 +68,7 @@ flatpaks:
   - org.libreoffice.LibreOffice
   - org.qbittorrent.qBittorrent
   - org.signal.Signal
+  - org.standardnotes.standardnotes
   - org.telegram.desktop
   - org.videolan.VLC
   - org.yuzu_emu.yuzu
