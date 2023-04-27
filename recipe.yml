@@ -36,6 +36,7 @@ rpms:
   - neovim
   - tmux
   - virt-manager
+  - zsh
 
 # These Flatpaks (from flathub) will be available for install on boot
 # this is just an example selection.
@@ -55,6 +56,7 @@ flatpaks:
   - im.riot.Riot
   - io.github.hakuneko.HakuNeko
   - io.gitlab.librewolf-community
+  - io.mpv.Mpv
   - net.davidotek.pupgui2
   - net.lutris.Lutris
   - network.loki.Session
