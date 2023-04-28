@@ -35,6 +35,7 @@ rpms:
   - neofetch
   - neovim
   - tmux
+  - util-linux-user
   - virt-manager
   - zsh
 
