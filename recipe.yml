@@ -32,8 +32,10 @@ rpms:
   - firewall-config
   - gparted
   - kdeconnectd
+  - langpacks-en
   - neofetch
   - neovim
+  - sushi
   - tmux
   - util-linux-user
   - virt-manager
