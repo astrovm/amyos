@@ -2,7 +2,7 @@
 
 [![build-ublue](https://github.com/astrolince/amy-os/actions/workflows/build.yml/badge.svg)](https://github.com/astrolince/amy-os/actions/workflows/build.yml)
 
-This is a starting point Fedora Silverblue image designed to be customized to whatever you want, have GitHub build it for you, and then host it for you. You then just tell your computer to boot off of that image. GitHub keeps 90 days worth image backups for you, thanks Microsoft!
+This is a constantly updating template repository for creating [a native container image](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable) designed to be customized however you want. GitHub will build your image for you, and then host it for you on [ghcr.io](https://github.com/features/packages). You then just tell your computer to boot off of that image. GitHub keeps 90 days worth image backups for you, thanks Microsoft!
 
 For more info, check out the [uBlue homepage](https://ublue.it/) and the [main uBlue repo](https://github.com/ublue-os/main/)
 
@@ -78,7 +78,7 @@ This repository builds date tags as well, so if you want to rebase to a particul
 sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/astrolince/amy-os:20230403
 ```
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `release.yml`, so you won't get accidentally updated to the next major version.
+The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
 
 ## Just
 
