@@ -34,10 +34,12 @@ rpms:
   - python3-pip
   - libadwaita # libadwaita comes with silverblue, but not with other flavors
   # add your own below
+  - android-tools
   - code
   - firewall-config
   - gparted
   - kdeconnectd
+  - kitty
   - langpacks-en
   - neofetch
   - neovim
@@ -53,6 +55,7 @@ rpms:
 flatpaks:
   - com.bitwarden.desktop
   - com.brave.Browser
+  - com.calibre_ebook.calibre
   - com.discordapp.Discord
   - com.github.k4zmu2a.spacecadetpinball
   - com.github.micahflee.torbrowser-launcher
