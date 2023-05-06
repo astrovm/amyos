@@ -35,8 +35,10 @@ rpms:
   - libadwaita # libadwaita comes with silverblue, but not with other flavors
   # add your own below
   - android-tools
+  - aria2
   - clang
   - code
+  - exa
   - firewall-config
   - gcc
   - gcc-c++
@@ -44,12 +46,16 @@ rpms:
   - kdeconnectd
   - kitty
   - langpacks-en
+  - lm_sensors
   - neofetch
   - neovim
+  - p7zip
+  - p7zip-plugins
   - sushi
   - tmux
   - util-linux-user
   - virt-manager
+  - wireguard-tools
   - zsh
 
 # These Flatpaks (from flathub) will be available for install on boot
