@@ -35,8 +35,11 @@ rpms:
   - libadwaita # libadwaita comes with silverblue, but not with other flavors
   # add your own below
   - android-tools
+  - clang
   - code
   - firewall-config
+  - gcc
+  - gcc-c++
   - gparted
   - kdeconnectd
   - kitty
