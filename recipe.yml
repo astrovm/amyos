@@ -63,8 +63,6 @@ rpm:
     # if you ever download or compile any custom software on your machine.
     - libadwaita
     # Add your own below:
-    # Example:
-    # - tilix
     - android-tools
     - aria2
     - clang
@@ -141,7 +139,6 @@ firstboot:
     - org.gimp.GIMP
     - org.gnome.Extensions
     - org.kde.kdenlive
-    - org.kde.krita
     - org.kde.krita
     - org.libreoffice.LibreOffice
     - org.qbittorrent.qBittorrent
