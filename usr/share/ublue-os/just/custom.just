@@ -11,7 +11,6 @@ setup-gaming:
   echo 'Setting up gaming experience ... lock and load.'
   flatpak install -y --user \\
   com.discordapp.Discord \\
-  com.feaneron.Boatswain \\
   org.freedesktop.Platform.VulkanLayer.MangoHud//22.08 \\
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//22.08 \\
   org.freedesktop.Platform.VulkanLayer.vkBasalt//22.08 \\
