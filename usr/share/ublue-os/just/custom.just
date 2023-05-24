@@ -4,12 +4,12 @@ setup-flatpaks:
   flatpaks=$(yq -- '.firstboot.flatpaks[]' "/usr/share/ublue-os/recipe.yml")
   for pkg in $flatpaks; do \
       echo "Installing: ${pkg}" && \
-      flatpak install --user --noninteractive flathub $pkg; \
+      flatpak install --system --noninteractive flathub $pkg; \
   done
 
 setup-gaming:
   echo 'Setting up gaming experience ... lock and load.'
-  flatpak install -y --user \\
+  flatpak install -y --system \\
   com.discordapp.Discord \\
   org.freedesktop.Platform.VulkanLayer.MangoHud//22.08 \\
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//22.08 \\
