@@ -67,6 +67,7 @@ rpm:
     - aria2
     - clang
     - code
+    - emacs
     - exa
     - firewall-config
     - gcc
@@ -80,7 +81,6 @@ rpm:
     - neovim
     - p7zip
     - p7zip-plugins
-    - sushi
     - tmux
     - util-linux-user
     - virt-manager
