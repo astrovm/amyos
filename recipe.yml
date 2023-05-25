@@ -79,6 +79,7 @@ rpm:
     - lm_sensors
     - neofetch
     - neovim
+    - net-tools
     - p7zip
     - p7zip-plugins
     - tmux
