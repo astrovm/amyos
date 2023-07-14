@@ -76,6 +76,7 @@ rpm:
     - kdeconnectd
     - kitty
     - langpacks-en
+    - ld
     - lm_sensors
     - neofetch
     - neovim
