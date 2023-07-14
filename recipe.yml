@@ -76,6 +76,7 @@ rpm:
     - kdeconnectd
     - kitty
     - langpacks-en
+    - lld
     - lm_sensors
     - mold
     - neofetch
