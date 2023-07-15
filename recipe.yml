@@ -65,6 +65,7 @@ rpm:
     # Add your own below:
     - android-tools
     - aria2
+    - binutils
     - clang
     - code
     - emacs
