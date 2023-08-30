@@ -1,19 +1,19 @@
 # amy-os
 
-[![build-ublue](https://github.com/astrolince/amy-os/actions/workflows/build.yml/badge.svg)](https://github.com/astrolince/amy-os/actions/workflows/build.yml)
+[![build-ublue](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml/badge.svg)](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml)
 
 This is a constantly updating template repository for creating [a native container image](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable) designed to be customized however you want. GitHub will build your image for you, and then host it for you on [ghcr.io](https://github.com/features/packages). You then just tell your computer to boot off of that image. GitHub keeps 90 days worth image backups for you, thanks Microsoft!
 
-For more info, check out the [uBlue homepage](https://ublue.it/) and the [main uBlue repo](https://github.com/ublue-os/main/)
+For more info, check out the [uBlue homepage](https://universal-blue.org/) and the [main uBlue repo](https://github.com/ublue-os/main/)
 
 ## Getting started
 
-See the [Make Your Own -page in the documentation](https://ublue.it/making-your-own/) for quick setup instructions for setting up your own repository based on this template.
+See the [Make Your Own-page in the documentation](https://universal-blue.org/tinker/make-your-own/) for quick setup instructions for setting up your own repository based on this template.
 
 Don't worry, it only requires some basic knowledge about using the terminal and git.
 
 > **Note**
-> Everywhere in this repository, make sure to replace `astrolince/amy-os` with the details of your own repository. Unless you used [`create-ublue-image`](https://github.com/EinoHR/create-ublue-image), in which case the previous repo identifier should already be your repo's details.
+> Everywhere in this repository, make sure to replace `ublue-os/startingpoint` with the details of your own repository. Unless you used [`create-ublue-image`](https://github.com/EinoHR/create-ublue-image), in which case the previous repo identifier should already be your repo's details.
 
 > **Warning**
 > To start, you *must* create a branch called `live` which is exclusively for your customizations. That is the **only** branch the GitHub workflow will deploy to your container registry. Don't make any changes to the original "template" branch. It should remain untouched. By using this branch structure, you ensure a clear separation between your own "published image" branch, your development branches, and the original upstream "template" branch. Periodically sync and fast-forward the upstream "template" branch to the most recent revision. Then, simply rebase your `live` branch onto the updated template to effortlessly incorporate the latest improvements into your own repository, without the need for any messy, manual "merge commits".
@@ -22,7 +22,7 @@ Don't worry, it only requires some basic knowledge about using the terminal and 
 
 The easiest way to start customizing is by looking at and modifying `recipe.yml`. It's documented using comments and should be pretty easy to understand.
 
-For the base-image field, you can use any other native container image. You will get all the features of that image, plus the ones added here! Check out the [uBlue images list](https://ublue.it/images/) to decide what to use!
+For the base-image field, you can use any other native container image. You will get all the features of that image, plus the ones added here! Check out the [uBlue images list](https://universal-blue.org/images/) to decide what to use!
 
 If you want to add custom configuration files, you can just add them in the `usr/etc/` directory, which is the official OSTree "configuration template" directory. If you need to add other directories, you can look at the Containerfile to see how it's done. Writing to `/etc` or `/var` in Fedora's immutable OSTree-based distros *isn't supported* and will not work, as those are user-managed locations!
 
@@ -35,7 +35,7 @@ If you want to execute custom shell scripts or commands in the image build, you 
 
 Instead, you should create your own custom shell scripts in the `scripts/` directory (look at the `example.sh`). After creating your scripts, enable them in the `scripts:` section of your `recipe.yml`, within the specific "build stage" category where the scripts are intended to be executed. Alternatively, enable the `autorun.sh` helper script in your recipe to automatically execute your custom scripts.
 
-Read [the README in the `scripts/` directory](https://github.com/astrolince/amy-os/blob/main/scripts/README.md) for more information.
+Read [the README in the `scripts/` directory](https://github.com/ublue-os/startingpoint/blob/main/scripts/README.md) for more information.
 
 ### Custom package repositories
 
@@ -88,17 +88,43 @@ If you want to completely disable yafti, simply set the recipe's `firstboot.yaft
 
 To rebase an existing Silverblue/Kinoite installation to the latest build:
 
-```
-sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/astrolince/amy-os:latest
-```
+- First rebase to the image unsigned, to get the proper signing keys and policies installed:
+  ```
+  sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/startingpoint:latest
+  ```
+- Reboot to complete the rebase:
+  ```
+  systemctl reboot
+  ```
+- Then rebase to the signed image, like so:
+  ```
+  sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/startingpoint:latest
+  ```
+- Reboot again to complete the installation
+  ```
+  systemctl reboot
+  ```
+
 
 This repository builds date tags as well, so if you want to rebase to a particular day's build:
 
 ```
-sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/astrolince/amy-os:20230403
+sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ublue-os/startingpoint:20230403
 ```
 
+This repository by default also supports signing 
+
 The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
+
+## ISO
+
+This template includes a simple Github Action to build and release an ISO of your image. 
+
+To run the action, simply edit the `boot_menu.yml` by changing all the references to `ublue-os/startingpoint` to your repository. This should trigger the action automatically.
+
+The Action uses [isogenerator](https://github.com/ublue-os/isogenerator) and works in a similar manner to the official Universal Blue ISO. If you have any issues, you should first check [the documentation page on installation](https://universal-blue.org/installation/). The ISO is a netinstaller and should always pull the latest version of your image.
+
+Note that this release-iso action is not a replacement for a full-blown release automation like [release-please](https://github.com/googleapis/release-please).
 
 ## Just
 
@@ -131,10 +157,3 @@ After doing that, you'll be able to run the following commands:
 
 Check the [just website](https://just.systems) for tips on modifying and adding your own recipes.
 
-## Verification
-
-These images are signed with sisgstore's [cosign](https://docs.sigstore.dev/cosign/overview/). You can verify the signature by downloading the `cosign.pub` key from this repo and running the following command:
-
-    cosign verify --key cosign.pub ghcr.io/astrolince/amy-os
-
-If you're forking this repo, the uBlue website has [instructions](https://ublue.it/making-your-own/) for setting up signing properly.
