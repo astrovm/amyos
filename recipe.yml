@@ -1,7 +1,7 @@
 # This file can only be edited inside the uBlue image's git repository.
 
 # The image will be at "ghcr.io/yourusername/name".
-name: startingpoint
+name: amy-os
 
 # The native container image to build on top of.
 # Warning: Non-uBlue images might not work properly, due to missing components.
@@ -14,7 +14,7 @@ base-image: ghcr.io/ublue-os/silverblue-main
 fedora-version: 38
 
 # This description will be visible in the container metadata.
-description: A starting point for further customization of uBlue images. Make your own! https://universal-blue.org/tinker/make-your-own/
+description: Astro's custom version of Fedora Silverblue
 
 # These scripts will be executed during the container build.
 # Place scripts in the "scripts/" dir and put the corresponding filenames here.
@@ -48,6 +48,7 @@ rpm:
   repos:
     # Example (which also demonstrates version number expansion):
     # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%FEDORA_VERSION%/atim-starship-fedora-%FEDORA_VERSION%.repo
+    - https://raw.githubusercontent.com/astrolince/amy-os/live/repos/vscode.repo
 
   # These RPMs will be installed from your enabled repositories (Fedora's own
   # repos, extra "repos" you've added, etc). The installation is automatically
@@ -62,8 +63,27 @@ rpm:
     # if you ever download or compile any custom software on your machine.
     - libadwaita
     # Add your own below:
-    # Example:
-    # - tilix
+    - android-tools
+    - aria2
+    - code
+    - emacs
+    - exa
+    - firewall-config
+    - gparted
+    - kdeconnectd
+    - kitty
+    - langpacks-en
+    - lm_sensors
+    - neofetch
+    - neovim
+    - net-tools
+    - p7zip
+    - p7zip-plugins
+    - tmux
+    - util-linux-user
+    - virt-manager
+    - wireguard-tools
+    - zsh
 
   # These RPMs will be removed from the system image. This step happens during
   # image build, BEFORE installing custom RPMs (from the "rpm.install" category).
@@ -87,5 +107,52 @@ firstboot:
   # the "just setup-flatpaks" command from our "custom.just" template file.
   # This is just an example selection:
   flatpaks:
+    - com.bitwarden.desktop
+    - com.brave.Browser
+    - com.calibre_ebook.calibre
+    - com.discordapp.Discord
+    - com.github.k4zmu2a.spacecadetpinball
+    - com.github.micahflee.torbrowser-launcher
+    - com.github.tchx84.Flatseal
+    - com.github.wwmm.easyeffects
+    - com.microsoft.Edge
+    - com.obsproject.Studio
+    - com.obsproject.Studio.Plugin.GStreamerVaapi
+    - com.obsproject.Studio.Plugin.Gstreamer
+    - com.obsproject.Studio.Plugin.OBSVkCapture
+    - com.spotify.Client
+    - com.stremio.Stremio
+    - com.teamspeak.TeamSpeak
+    - com.valvesoftware.Steam
+    - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+    - com.valvesoftware.Steam.Utility.gamescope
+    - com.valvesoftware.Steam.Utility.steamtinkerlaunch
+    - de.shorsh.discord-screenaudio
+    - im.riot.Riot
     - io.github.celluloid_player.Celluloid
+    - io.github.hakuneko.HakuNeko
+    - io.gitlab.librewolf-community
+    - io.mpv.Mpv
+    - net._86box._86Box
+    - net.davidotek.pupgui2
+    - net.lutris.Lutris
+    - net.pcsx2.PCSX2
+    - network.loki.Session
+    - org.audacityteam.Audacity
+    - org.blender.Blender
+    - org.duckstation.DuckStation
+    - org.fedoraproject.MediaWriter
+    - org.freedesktop.Platform.VulkanLayer.MangoHud
+    - org.freedesktop.Platform.VulkanLayer.OBSVkCapture
+    - org.gimp.GIMP
+    - org.gnome.Extensions
+    - org.gnome.NautilusPreviewer
+    - org.kde.kdenlive
     - org.kde.krita
+    - org.libreoffice.LibreOffice
+    - org.qbittorrent.qBittorrent
+    - org.signal.Signal
+    - org.standardnotes.standardnotes
+    - org.telegram.desktop
+    - org.videolan.VLC
+    - org.yuzu_emu.yuzu

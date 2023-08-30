@@ -7,7 +7,7 @@ setup-flatpaks:
   flatpaks=$(yq -- '.firstboot.flatpaks[]' "/usr/share/ublue-os/recipe.yml")
   for pkg in $flatpaks; do \
       echo "Installing: ${pkg}" && \
-      flatpak install --user --noninteractive flathub $pkg; \
+      flatpak install --system --noninteractive flathub $pkg; \
   done
 
 # Include some of your custom scripts here!
