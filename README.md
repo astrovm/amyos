@@ -1,4 +1,4 @@
-# Starting point
+# amy-os
 
 [![build-ublue](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml/badge.svg)](https://github.com/ublue-os/startingpoint/actions/workflows/build.yml)
 
