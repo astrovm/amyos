@@ -1,5 +1,5 @@
 # image will be published to ghcr.io/<user>/<name>
-name: startingpoint
+name: amy-os
 # description will be included in the image's metadata
 description: A starting point for further customization of uBlue images. Make your own! https://ublue.it/making-your-own/
 
@@ -23,9 +23,31 @@ modules:
   - type: rpm-ostree
     repos:
       # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      - https://raw.githubusercontent.com/astrolince/amy-os/live/repos/vscode.repo
     install:
       # - micro
       # - starship
+      - android-tools
+      - aria2
+      - code
+      - emacs
+      - exa
+      - firewall-config
+      - gparted
+      - kdeconnectd
+      - kitty
+      - langpacks-en
+      - lm_sensors
+      - neofetch
+      - neovim
+      - net-tools
+      - p7zip
+      - p7zip-plugins
+      - tmux
+      - util-linux-user
+      - virt-manager
+      - wireguard-tools
+      - zsh
     remove:
       - firefox # default firefox removed in favor of flatpak
       - firefox-langpacks # langpacks needs to also be removed to prevent dependency problems
@@ -47,6 +69,55 @@ modules:
     custom-flatpaks: # this section is optional
       # - Celluloid: io.github.celluloid_player.Celluloid
       # - Krita: org.kde.krita
+      - com.bitwarden.desktop
+      - com.brave.Browser
+      - com.calibre_ebook.calibre
+      - com.discordapp.Discord
+      - com.github.k4zmu2a.spacecadetpinball
+      - com.github.micahflee.torbrowser-launcher
+      - com.github.tchx84.Flatseal
+      - com.github.wwmm.easyeffects
+      - com.microsoft.Edge
+      - com.obsproject.Studio
+      - com.obsproject.Studio.Plugin.GStreamerVaapi
+      - com.obsproject.Studio.Plugin.Gstreamer
+      - com.obsproject.Studio.Plugin.OBSVkCapture
+      - com.spotify.Client
+      - com.stremio.Stremio
+      - com.teamspeak.TeamSpeak
+      - com.valvesoftware.Steam
+      - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+      - com.valvesoftware.Steam.Utility.gamescope
+      - com.valvesoftware.Steam.Utility.steamtinkerlaunch
+      - de.shorsh.discord-screenaudio
+      - im.riot.Riot
+      - io.github.celluloid_player.Celluloid
+      - io.github.hakuneko.HakuNeko
+      - io.gitlab.librewolf-community
+      - io.mpv.Mpv
+      - net._86box._86Box
+      - net.davidotek.pupgui2
+      - net.lutris.Lutris
+      - net.pcsx2.PCSX2
+      - network.loki.Session
+      - org.audacityteam.Audacity
+      - org.blender.Blender
+      - org.duckstation.DuckStation
+      - org.fedoraproject.MediaWriter
+      - org.freedesktop.Platform.VulkanLayer.MangoHud
+      - org.freedesktop.Platform.VulkanLayer.OBSVkCapture
+      - org.gimp.GIMP
+      - org.gnome.Extensions
+      - org.gnome.NautilusPreviewer
+      - org.kde.kdenlive
+      - org.kde.krita
+      - org.libreoffice.LibreOffice
+      - org.qbittorrent.qBittorrent
+      - org.signal.Signal
+      - org.standardnotes.standardnotes
+      - org.telegram.desktop
+      - org.videolan.VLC
+      - org.yuzu_emu.yuzu
 
   - type: script
     scripts:
