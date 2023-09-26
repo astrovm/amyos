@@ -69,38 +69,36 @@ modules:
     custom-flatpaks: # this section is optional
       # - Celluloid: io.github.celluloid_player.Celluloid
       # - Krita: org.kde.krita
+      - 86Box: net._86box._86Box
+      - Audacity: org.audacityteam.Audacity
       - Bitwarden: com.bitwarden.desktop
-      - calibre: com.calibre_ebook.calibre
-      - Space Cadet Pinball: com.github.k4zmu2a.spacecadetpinball
-      - Tor Browser: com.github.micahflee.torbrowser-launcher
+      - Blender: org.blender.Blender
+      - Celluloid: io.github.celluloid_player.Celluloid
+      - DuckStation: org.duckstation.DuckStation
       - Easy Effects: com.github.wwmm.easyeffects
-      - OBS VkCapture Plugin: com.obsproject.Studio.Plugin.OBSVkCapture
+      - Element: im.riot.Riot
+      - Extensions: org.gnome.Extensions
+      - GIMP: org.gimp.GIMP
+      - HakuNeko: io.github.hakuneko.HakuNeko
+      - Kdenlive: org.kde.kdenlive
+      - Krita: org.kde.krita
+      - LibreWolf: io.gitlab.librewolf-community
+      - Lutris: net.lutris.Lutris
+      - PCSX2: net.pcsx2.PCSX2
+      - Proton-GE: com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+      - Session: network.loki.Session
+      - Signal: org.signal.Signal
+      - Space Cadet Pinball: com.github.k4zmu2a.spacecadetpinball
       - Spotify: com.spotify.Client
       - Stremio: com.stremio.Stremio
       - TeamSpeak: com.teamspeak.TeamSpeak
-      - Steam - Proton-GE: com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-      - discord-screenaudio: de.shorsh.discord-screenaudio
-      - Element: im.riot.Riot
-      - Celluloid: io.github.celluloid_player.Celluloid
-      - HakuNeko: io.github.hakuneko.HakuNeko
-      - LibreWolf: io.gitlab.librewolf-community
-      - mpv: io.mpv.Mpv
-      - 86Box: net._86box._86Box
-      - Lutris: net.lutris.Lutris
-      - PCSX2: net.pcsx2.PCSX2
-      - Session: network.loki.Session
-      - Audacity: org.audacityteam.Audacity
-      - Blender: org.blender.Blender
-      - DuckStation: org.duckstation.DuckStation
-      - OBS VkCapture tools: org.freedesktop.Platform.VulkanLayer.OBSVkCapture
-      - GIMP: org.gimp.GIMP
-      - Extensions: org.gnome.Extensions
-      - Kdenlive: org.kde.kdenlive
-      - Krita: org.kde.krita
-      - qBittorrent: org.qbittorrent.qBittorrent
-      - Signal: org.signal.Signal
       - Telegram: org.telegram.desktop
+      - Tor Browser: com.github.micahflee.torbrowser-launcher
       - VLC: org.videolan.VLC
+      - calibre: com.calibre_ebook.calibre
+      - discord-screenaudio: de.shorsh.discord-screenaudio
+      - mpv: io.mpv.Mpv
+      - qBittorrent: org.qbittorrent.qBittorrent
       - yuzu: org.yuzu_emu.yuzu
 
   - type: script
