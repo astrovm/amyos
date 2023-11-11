@@ -5,7 +5,7 @@ description: A starting point for further customization of uBlue images. Make yo
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 38 # latest is also supported if you want new updates ASAP
+image-version: 39 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -54,13 +54,18 @@ modules:
 
   - type: bling # configure what to pull in from ublue-os/bling
     install:
-      - justfiles # add "!include /usr/share/ublue-os/just/bling.just"
+      - justfiles # add "!include /usr/share/ublue-os/just/100-bling.just"
                   # in your custom.just (added by default) or local justfile
       - nix-installer # shell shortcuts for determinate system's nix installers
       - ublue-os-wallpapers
       # - ublue-update # https://github.com/ublue-os/ublue-update
+      # - 1password # install 1Password (stable) and `op` CLI tool
       # - dconf-update-service # a service unit that updates the dconf db on boot
       # - devpod # https://devpod.sh/ as an rpm
+      # - gnome-vrr # enables gnome-vrr for your image
+      # - container-tools # installs container-related tools onto /usr/bin: kind, kubectx, docker-compose and kubens
+      # - laptop # installs TLP and configures your system for laptop usage
+      # - flatpaksync # allows synchronization of user-installed flatpaks, see separate documentation section
 
 
   - type: yafti # if included, yafti and it's dependencies (pip & libadwaita)
