@@ -31,7 +31,6 @@ modules:
       - aria2
       - code
       - emacs
-      - exa
       - firewall-config
       - gparted
       - kdeconnectd
