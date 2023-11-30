@@ -1,5 +1,5 @@
 # This workflow builds every branch of the repository daily at 16:30 UTC, one hour after ublue-os/nvidia builds.
-# The images are also built after pushuing changes or pull requests.
+# The images are also built after pushing changes or pull requests.
 # The builds can also be triggered manually in the Actions tab thanks to workflow dispatch.
 # Only the branch called `live` is published.
 
@@ -54,8 +54,11 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
+      - name: Check just syntax
+        uses: ublue-os/just-action@v1
+
       - name: Add yq (for reading recipe.yml)
-        uses: mikefarah/yq@v4.35.1
+        uses: mikefarah/yq@v4.40.3
 
       - name: Gather image data from recipe
         run: |
@@ -180,7 +183,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.1.2
+      - uses: sigstore/cosign-installer@v3.2.0
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/live'
 
       - name: Sign container image
