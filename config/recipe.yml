@@ -77,7 +77,6 @@ modules:
       - Bitwarden: com.bitwarden.desktop
       - DuckStation: org.duckstation.DuckStation
       - Easy Effects: com.github.wwmm.easyeffects
-      - Element: im.riot.Riot
       - Extensions: org.gnome.Extensions
       - GIMP: org.gimp.GIMP
       - HakuNeko: io.github.hakuneko.HakuNeko
