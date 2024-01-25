@@ -42,7 +42,6 @@ modules:
       - net-tools
       - p7zip
       - p7zip-plugins
-      - snapd
       - tmux
       - util-linux-user
       - virt-manager
@@ -77,7 +76,6 @@ modules:
       - Bitwarden: com.bitwarden.desktop
       - DuckStation: org.duckstation.DuckStation
       - Easy Effects: com.github.wwmm.easyeffects
-      - Extensions: org.gnome.Extensions
       - GIMP: org.gimp.GIMP
       - HakuNeko: io.github.hakuneko.HakuNeko
       - Kdenlive: org.kde.kdenlive
@@ -86,7 +84,6 @@ modules:
       - PCSX2: net.pcsx2.PCSX2
       - Session: network.loki.Session
       - Space Cadet Pinball: com.github.k4zmu2a.spacecadetpinball
-      - Spotify: com.spotify.Client
       - Stremio: com.stremio.Stremio
       - Telegram: org.telegram.desktop
       - Tor Browser: com.github.micahflee.torbrowser-launcher
