@@ -29,6 +29,7 @@ modules:
       # - starship
       - android-tools
       - aria2
+      - binutils
       - code
       - emacs
       - firewall-config
