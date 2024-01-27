@@ -33,25 +33,36 @@ modules:
       - binutils-devel
       - code
       - diffstat
+      - doxygen
       - emacs
       - firewall-config
       - gcc
       - gcc-c++
+      - gettext
       - gparted
       - kdeconnectd
       - kitty
       - langpacks-en
+      - libvirt-daemon-config-network
+      - libvirt-daemon-kvm
+      - lld
       - lm_sensors
       - neofetch
       - neovim
       - net-tools
+      - openssl-devel
       - p7zip
       - p7zip-plugins
       - patch
       - patchutils
+      - qemu-kvm
+      - subversion
+      - systemtap
       - tmux
       - util-linux-user
+      - virt-install
       - virt-manager
+      - virt-viewer
       - wireguard-tools
       - zsh
     remove:
