@@ -32,8 +32,11 @@ modules:
       - binutils
       - binutils-devel
       - code
+      - diffstat
       - emacs
       - firewall-config
+      - gcc
+      - gcc-c++
       - gparted
       - kdeconnectd
       - kitty
@@ -44,6 +47,8 @@ modules:
       - net-tools
       - p7zip
       - p7zip-plugins
+      - patch
+      - patchutils
       - tmux
       - util-linux-user
       - virt-manager
