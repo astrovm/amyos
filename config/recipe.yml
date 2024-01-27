@@ -32,6 +32,7 @@ modules:
       - binutils
       - binutils-devel
       - code
+      - croc
       - diffstat
       - doxygen
       - emacs
