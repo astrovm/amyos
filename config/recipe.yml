@@ -83,6 +83,25 @@ modules:
       # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08).
       # Only normal flatpak applications are (like Floorp Lightning web browser in this example).
       # Multiple install of same flatpaks with different branches is not supported.
+      - org.audacityteam.Audacity
+      - com.bitwarden.desktop
+      - org.duckstation.DuckStation
+      - com.github.wwmm.easyeffects
+      - org.gimp.GIMP
+      - io.github.hakuneko.HakuNeko
+      - org.kde.kdenlive
+      - io.gitlab.librewolf-community
+      - net.lutris.Lutris
+      - net.pcsx2.PCSX2
+      - network.loki.Session
+      - com.github.k4zmu2a.spacecadetpinball
+      - com.stremio.Stremio
+      - org.telegram.desktop
+      - com.github.micahflee.torbrowser-launcher
+      - org.videolan.VLC
+      - com.calibre_ebook.calibre
+      - org.qbittorrent.qBittorrent
+      - org.yuzu_emu.yuzu
       remove:
       # - org.gnome.eog
       #
