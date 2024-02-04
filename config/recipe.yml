@@ -27,6 +27,7 @@ modules:
     install:
       # - micro
       # - starship
+      - alacritty
       - android-tools
       - aria2
       - binutils
