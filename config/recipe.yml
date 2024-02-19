@@ -70,11 +70,13 @@ modules:
         - com.github.micahflee.torbrowser-launcher
         - com.github.wwmm.easyeffects
         - com.stremio.Stremio
+        - com.ylsoftware.qmmp.Qmmp
         - io.github.hakuneko.HakuNeko
         - io.gitlab.librewolf-community
         - net.lutris.Lutris
         - net.pcsx2.PCSX2
         - network.loki.Session
+        - org.atheme.audacious
         - org.audacityteam.Audacity
         - org.duckstation.DuckStation
         - org.gimp.GIMP
@@ -83,10 +85,6 @@ modules:
         - org.telegram.desktop
         - org.videolan.VLC
         - org.yuzu_emu.yuzu
-      repo-url: oci+https://registry.fedoraproject.org
-      repo-name: fedora
-      install:
-        - com.ylsoftware.qmmp.Qmmp
 
   - type: script
     scripts:
