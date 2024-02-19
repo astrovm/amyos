@@ -85,6 +85,8 @@ modules:
         - org.yuzu_emu.yuzu
       repo-url: oci+https://registry.fedoraproject.org
       repo-name: fedora
+      install:
+        - com.ylsoftware.qmmp.Qmmp
 
   - type: script
     scripts:
