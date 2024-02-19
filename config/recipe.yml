@@ -1,32 +1,18 @@
-# image will be published to ghcr.io/<user>/<name>
 name: amyos
-# description will be included in the image's metadata
-description: A starting point for further customization of uBlue images. Make your own! https://ublue.it/making-your-own/
+description: https://ublue.it/making-your-own/
 
-# the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 39 # latest is also supported if you want new updates ASAP
+image-version: 39
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
-      - usr: /usr # copy static configurations
-                  #
-                  # copies config/files/usr into your image's /usr
-                  #
-                  # configuration you wish to end up in /etc/ on the booted system
-                  # should be added into /usr/etc/ as that is the proper "distro"
-                  # config directory on ostree. Read more in the files module's README
+      - usr: /usr
 
   - type: rpm-ostree
     repos:
-      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
       - https://raw.githubusercontent.com/astrovm/amyos/live/repos/vscode.repo
     install:
-      # - micro
-      # - starship
       - alacritty
       - android-tools
       - aria2
@@ -69,51 +55,37 @@ modules:
       - wireguard-tools
       - zsh
     remove:
-      - firefox # default firefox removed in favor of flatpak
-      - firefox-langpacks # langpacks needs to also be removed to prevent dependency problems
+      - firefox
+      - firefox-langpacks
 
   - type: default-flatpaks
-    notify: true   # Send notification after install/uninstall is finished (true/false)
+    notify: true
     system:
-      # If no repo information is specified, Flathub will be used by default
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
-      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
-      # - org.gnome.Loupe
-      # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
-      # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08).
-      # Only normal flatpak applications are (like Floorp Lightning web browser in this example).
-      # Multiple install of same flatpaks with different branches is not supported.
-      - com.bitwarden.desktop
-      - com.calibre_ebook.calibre
-      - com.github.k4zmu2a.spacecadetpinball
-      - com.github.micahflee.torbrowser-launcher
-      - com.github.wwmm.easyeffects
-      - com.stremio.Stremio
-      - io.github.hakuneko.HakuNeko
-      - io.gitlab.librewolf-community
-      - net.lutris.Lutris
-      - net.pcsx2.PCSX2
-      - network.loki.Session
-      - org.audacityteam.Audacity
-      - org.duckstation.DuckStation
-      - org.gimp.GIMP
-      - org.kde.kdenlive
-      - org.qbittorrent.qBittorrent
-      - org.telegram.desktop
-      - org.videolan.VLC
-      - org.yuzu_emu.yuzu
-      remove:
-      # - org.gnome.eog
-      #
-    # A flatpak repo can also be added without having to install flatpaks,
-    # as long as one of the repo- fields is present
-    user:
-      repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-      repo-name: flathub
+        - com.bitwarden.desktop
+        - com.calibre_ebook.calibre
+        - com.github.k4zmu2a.spacecadetpinball
+        - com.github.micahflee.torbrowser-launcher
+        - com.github.wwmm.easyeffects
+        - com.stremio.Stremio
+        - io.github.hakuneko.HakuNeko
+        - io.gitlab.librewolf-community
+        - net.lutris.Lutris
+        - net.pcsx2.PCSX2
+        - network.loki.Session
+        - org.audacityteam.Audacity
+        - org.duckstation.DuckStation
+        - org.gimp.GIMP
+        - org.kde.kdenlive
+        - org.qbittorrent.qBittorrent
+        - org.telegram.desktop
+        - org.videolan.VLC
+        - org.yuzu_emu.yuzu
+      repo-url: oci+https://registry.fedoraproject.org
+      repo-name: fedora
 
   - type: script
     scripts:
-      # this sets up the proper policy & signing files for signed images to work
       - signing.sh
