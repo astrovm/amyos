@@ -17,6 +17,9 @@ modules:
       - android-tools
       - aria2
       - audacious
+      - audacious-plugins-amidi
+      - audacious-plugins-exotic
+      - audacious-plugins-ffaudio
       - audacious-plugins-freeworld
       - binutils
       - binutils-devel
