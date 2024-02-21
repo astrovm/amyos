@@ -57,6 +57,7 @@ modules:
       - python3-pip
       - qemu-kvm
       - subversion
+      - sushi
       - systemtap
       - tmux
       - util-linux-user
