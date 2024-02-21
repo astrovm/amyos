@@ -13,22 +13,24 @@ modules:
     repos:
       - https://raw.githubusercontent.com/astrovm/amyos/live/repos/vscode.repo
     install:
-      - audacious
-      - audacious-plugins-freeworld
       - alacritty
       - android-tools
       - aria2
+      - audacious
+      - audacious-plugins-freeworld
       - binutils
       - binutils-devel
       - code
       - croc
       - diffstat
       - doxygen
+      - easyeffects
       - emacs
       - firewall-config
       - gcc
       - gcc-c++
       - gettext
+      - gnome-extensions-app
       - gparted
       - kdeconnectd
       - kitty
@@ -37,6 +39,7 @@ modules:
       - libvirt-daemon-kvm
       - lld
       - lm_sensors
+      - mpv
       - neofetch
       - neovim
       - net-tools
@@ -45,6 +48,7 @@ modules:
       - p7zip-plugins
       - patch
       - patchutils
+      - perl-Image-ExifTool
       - python3-pip
       - qemu-kvm
       - subversion
@@ -54,11 +58,9 @@ modules:
       - virt-install
       - virt-manager
       - virt-viewer
+      - vlc
       - wireguard-tools
       - zsh
-    remove:
-      - firefox
-      - firefox-langpacks
 
   - type: default-flatpaks
     notify: true
@@ -66,11 +68,9 @@ modules:
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
       install:
-        - com.bitwarden.desktop
         - com.calibre_ebook.calibre
         - com.github.k4zmu2a.spacecadetpinball
         - com.github.micahflee.torbrowser-launcher
-        - com.github.wwmm.easyeffects
         - com.stremio.Stremio
         - com.ylsoftware.qmmp.Qmmp
         - io.github.hakuneko.HakuNeko
@@ -84,7 +84,6 @@ modules:
         - org.kde.kdenlive
         - org.qbittorrent.qBittorrent
         - org.telegram.desktop
-        - org.videolan.VLC
         - org.yuzu_emu.yuzu
 
   - type: script
