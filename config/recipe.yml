@@ -13,6 +13,8 @@ modules:
     repos:
       - https://raw.githubusercontent.com/astrovm/amyos/live/repos/vscode.repo
     install:
+      - audacious
+      - audacious-plugins-freeworld
       - alacritty
       - android-tools
       - aria2
@@ -76,7 +78,6 @@ modules:
         - net.lutris.Lutris
         - net.pcsx2.PCSX2
         - network.loki.Session
-        - org.atheme.audacious
         - org.audacityteam.Audacity
         - org.duckstation.DuckStation
         - org.gimp.GIMP
