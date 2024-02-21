@@ -26,6 +26,8 @@ modules:
       - doxygen
       - easyeffects
       - emacs
+      - file-roller
+      - file-roller-nautilus
       - firewall-config
       - gcc
       - gcc-c++
@@ -69,12 +71,16 @@ modules:
       repo-name: flathub
       install:
         - com.calibre_ebook.calibre
+        - com.github.Matoking.protontricks
         - com.github.k4zmu2a.spacecadetpinball
         - com.github.micahflee.torbrowser-launcher
         - com.stremio.Stremio
+        - com.usebottles.bottles
         - com.ylsoftware.qmmp.Qmmp
         - io.github.hakuneko.HakuNeko
         - io.gitlab.librewolf-community
+        - it.mijorus.gearlever
+        - net.davidotek.pupgui2
         - net.lutris.Lutris
         - net.pcsx2.PCSX2
         - network.loki.Session
