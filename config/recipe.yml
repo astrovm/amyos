@@ -1,5 +1,5 @@
 name: amyos
-description: https://ublue.it/making-your-own/
+description: https://blue-build.org/
 
 base-image: ghcr.io/ublue-os/silverblue-main
 image-version: 39
@@ -71,8 +71,6 @@ modules:
   - type: default-flatpaks
     notify: true
     system:
-      repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-      repo-name: flathub
       install:
         - com.calibre_ebook.calibre
         - com.github.Matoking.protontricks
@@ -96,6 +94,4 @@ modules:
         - org.telegram.desktop
         - org.yuzu_emu.yuzu
 
-  - type: script
-    scripts:
-      - signing.sh
+  - type: signing
