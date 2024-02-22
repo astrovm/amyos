@@ -1,0 +1,7 @@
+[dangerzone]
+name = Dangerzone repository
+baseurl = https://packages.freedom.press/yum-tools-prod/dangerzone/f$releasever
+gpgkey = https://raw.githubusercontent.com/astrovm/amyos/live/repos/dangerzone.gpg
+gpgcheck = 1
+repo_gpgcheck = 0
+enabled=1

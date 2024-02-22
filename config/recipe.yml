@@ -12,6 +12,7 @@ modules:
   - type: rpm-ostree
     repos:
       - https://raw.githubusercontent.com/astrovm/amyos/live/repos/vscode.repo
+      - https://raw.githubusercontent.com/astrovm/amyos/live/repos/dangerzone.repo
     install:
       - alacritty
       - android-tools
@@ -25,6 +26,7 @@ modules:
       - binutils-devel
       - code
       - croc
+      - dangerzone
       - diffstat
       - doxygen
       - easyeffects
