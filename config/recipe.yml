@@ -24,6 +24,7 @@ modules:
       - doxygen
       - easyeffects
       - emacs
+      - fastfetch
       - file-roller
       - file-roller-nautilus
       - firewall-config
