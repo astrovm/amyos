@@ -1,5 +1,0 @@
-ublue_variants:
-  - label: astrovm/amyos
-    ks: /kickstart/ublue-os.ks
-    flavors:
-      - label: astrovm/amyos
