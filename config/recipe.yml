@@ -40,6 +40,7 @@ modules:
       - libvirt-daemon-kvm
       - lld
       - lm_sensors
+      - libxcrypt-compat
       - mpv
       - neofetch
       - neovim
