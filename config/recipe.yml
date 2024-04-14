@@ -1,7 +1,7 @@
 name: amyos
 description: https://blue-build.org/
 
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/bazzite
 image-version: 39
 
 modules:
@@ -25,17 +25,13 @@ modules:
       - easyeffects
       - emacs
       - fastfetch
-      - file-roller
-      - file-roller-nautilus
       - firewall-config
       - gcc
       - gcc-c++
       - gettext
-      - gnome-extensions-app
       - gparted
       - kdeconnectd
       - kitty
-      - langpacks-en
       - libvirt-daemon-config-network
       - libvirt-daemon-kvm
       - lld
@@ -54,7 +50,6 @@ modules:
       - python3-pip
       - qemu-kvm
       - subversion
-      - sushi
       - systemtap
       - tmux
       - util-linux-user
