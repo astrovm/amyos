@@ -2,7 +2,7 @@ name: amyos
 description: https://blue-build.org/
 
 base-image: ghcr.io/ublue-os/bazzite
-image-version: 39
+image-version: 40
 
 modules:
   - type: files
