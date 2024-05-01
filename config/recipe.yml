@@ -59,8 +59,6 @@ modules:
       - vlc
       - wireguard-tools
       - zsh
-      - postgresql-server
-      - postgresql-contrib
 
   - type: default-flatpaks
     notify: true
