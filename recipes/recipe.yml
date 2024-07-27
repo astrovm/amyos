@@ -1,7 +1,7 @@
 name: amyos
 description: https://blue-build.org/
 
-base-image: ghcr.io/ublue-os/bazzite
+base-image: ghcr.io/ublue-os/bluefin-dx
 image-version: 40
 
 modules:
