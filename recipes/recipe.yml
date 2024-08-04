@@ -1,7 +1,7 @@
 name: amyos
 description: This is my personal OS image.
 
-base-image: ghcr.io/ublue-os/bazzite-gnome
+base-image: ghcr.io/ublue-os/bluefin-dx
 image-version: 40
 
 modules:
@@ -13,13 +13,8 @@ modules:
   - type: rpm-ostree
     repos:
       - https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-40/bieszczaders-kernel-cachyos-fedora-40.repo
-      - https://raw.githubusercontent.com/ublue-os/bluefin/main/system_files/dx/etc/yum.repos.d/vscode.repo
-      - https://copr.fedorainfracloud.org/coprs/karmab/kcli/repo/fedora-40/karmab-kcli-fedora-40.repo
     install:
       - kernel-cachyos
-      - ubuntu-family-fonts
-      - yaru-theme
-      - code
     remove:
       - kernel
       - kernel-core
