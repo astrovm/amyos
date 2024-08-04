@@ -1,56 +1,50 @@
+# image will be published to ghcr.io/<user>/<name>
 name: amyos
-description: https://blue-build.org/
+# description will be included in the image's metadata
+description: This is my personal OS image.
 
+# the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/bluefin-dx
-image-version: 40
+image-version: stable # latest is also supported if you want new updates ASAP
 
+# module configuration, executed in order
+# you can include multiple instances of the same module
 modules:
   - type: files
     files:
-      - usr: /usr
+      - source: system
+        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+                       # put configuration files you want in /usr/etc/ inside the image
+                       # while putting files in /etc/ is done on booted system by system administrators.
+                       # read more about this in files module reference.
 
   - type: rpm-ostree
+    repos:
+      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
     install:
-      - android-tools
-      - aria2
-      - croc
-      - easyeffects
-      - gparted
-      - mpv
-      - neofetch
-      - neovim
-      - net-tools
-      - tmux
-      - util-linux-user
-      - virt-manager
-      - vlc
-      - wireguard-tools
-      - zsh
+      - steam
+    remove:
+      # example: removing firefox (in favor of the flatpak)
+      # "firefox" is the main package, "firefox-langpacks" is a dependency
+      # - firefox
+      # - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
 
   - type: default-flatpaks
-    notify: true
+    notify: true # Send notification after install/uninstall is finished (true/false)
     system:
+      # If no repo information is specified, Flathub will be used by default
+      # repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+      # repo-name: flathub
+      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
-        - com.calibre_ebook.calibre
-        - com.github.k4zmu2a.spacecadetpinball
-        - com.github.micahflee.torbrowser-launcher
-        - com.stremio.Stremio
-        - com.usebottles.bottles
-        - io.github.hakuneko.HakuNeko
-        - io.gitlab.librewolf-community
-        - it.mijorus.gearlever
-        - net.davidotek.pupgui2
-        - net.lutris.Lutris
-        - net.pcsx2.PCSX2
-        - network.loki.Session
-        - org.atheme.audacious
-        - org.audacityteam.Audacity
-        - org.duckstation.DuckStation
-        - org.gimp.GIMP
-        - org.kde.kdenlive
-        - org.qbittorrent.qBittorrent
-        - org.signal.Signal
-        - org.telegram.desktop
-        - org.yuzu_emu.yuzu
+        # - org.mozilla.firefox
+        # - org.gnome.Loupe
+        # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
+      # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
+      # only normal flatpak applications are (like Floorp Lightning web browser in this example).
+      # Installing different branches of the same Flatpak is not supported.
+      remove:
+      # - org.gnome.eog
 
-  - type: signing
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+
