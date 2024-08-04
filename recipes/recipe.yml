@@ -1,7 +1,7 @@
 name: amyos
 description: This is my personal OS image.
 
-base-image: ghcr.io/ublue-os/silverblue-main
+base-image: ghcr.io/ublue-os/bazzite-gnome
 image-version: 40
 
 modules:
@@ -15,7 +15,6 @@ modules:
       - https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-%OS_VERSION%/bieszczaders-kernel-cachyos-fedora-%OS_VERSION%.repo
     install:
       - kernel-cachyos
-      - lutris
     remove:
       - kernel
       - kernel-core
