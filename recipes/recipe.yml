@@ -13,14 +13,19 @@ modules:
   - type: rpm-ostree
     repos:
       - https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-%OS_VERSION%/bieszczaders-kernel-cachyos-fedora-%OS_VERSION%.repo
+      - https://raw.githubusercontent.com/ublue-os/bluefin/main/system_files/dx/etc/yum.repos.d/vscode.repo
     install:
       - kernel-cachyos
+      - ubuntu-family-fonts
+      - yaru-theme
+      - code
     remove:
       - kernel
       - kernel-core
       - kernel-modules
       - kernel-modules-core
       - kernel-modules-extra
+      - kernel-uki-virt
 
   - type: default-flatpaks
     notify: true
