@@ -12,16 +12,8 @@ set -ouex pipefail
 # Add Brave Browser Repository
 dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
-# Install Brave Browser
-dnf install -y brave-browser
+# Add VSCode Repository
+dnf config-manager --add-repo https://gist.github.com/astrovm/fb1a053d82c7c745fdb46c674b8c0002/raw/b93e2ef423a6432702a05566131f4c5431216be6/vscode.repo
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
-
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
+# Install apps
+dnf install -y brave-browser code
