@@ -1,31 +1,33 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# image will be published to ghcr.io/<user>/<name>
 name: amyos
+# description will be included in the image's metadata
 description: This is my personal OS image.
 
-base-image: ghcr.io/ublue-os/bluefin-dx
-image-version: 40
+# the base image to build on top of (FROM) and the version tag to use
+base-image: ghcr.io/ublue-os/bazzite
+image-version: 41 # latest is also supported if you want new updates ASAP
 
+# module configuration, executed in order
+# you can include multiple instances of the same module
 modules:
   - type: files
     files:
       - source: system
-        destination: /
+        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: rpm-ostree
     repos:
-      - https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos/repo/fedora-40/bieszczaders-kernel-cachyos-fedora-40.repo
+      - https://gist.github.com/astrovm/fb1a053d82c7c745fdb46c674b8c0002/raw/b93e2ef423a6432702a05566131f4c5431216be6/vscode.repo
     install:
-      - kernel-cachyos
-    remove:
-      - kernel
-      - kernel-core
-      - kernel-modules
-      - kernel-modules-core
-      - kernel-modules-extra
+      - code
 
   - type: default-flatpaks
-    notify: true
+    notify: true # Send notification after install/uninstall is finished (true/false)
     system:
+      # If no repo information is specified, Flathub will be used by default
       install:
-      remove:
+        - com.github.k4zmu2a.spacecadetpinball
 
-  - type: signing
+  - type: signing # this sets up the proper policy & signing files for signed images to work fully
