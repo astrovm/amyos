@@ -1,3 +1,2 @@
 cosign.key
-cosign.private
-/Containerfile
+_build_*
