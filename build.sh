@@ -62,7 +62,8 @@ dnf5 install -y \
     virt-manager \
     vlc \
     wireshark \
-    yt-dlp
+    yt-dlp \
+    protonvpn-cli
 
 # Move directories
 mv /var/opt/brave.com /usr/lib/brave.com

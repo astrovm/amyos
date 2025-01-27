@@ -12,50 +12,50 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
 ## Features
 
 - **Development Tools**
-  - Visual Studio Code
-  - Neovim
-  - Docker and Docker Compose
-  - Android development tools (adb, scrcpy)
+  - VS Code (Microsoft's code editor)
+  - Neovim (Modern Vim text editor)
+  - Docker & Docker Compose (Container platform)
+  - ADB & Scrcpy (Android development and screen mirroring tools)
 
 - **System Utilities**
-  - System monitoring (btop, htop)
-  - Disk management (GParted, Filelight)
-  - Disk writing (ISOImageWriter, GNOME Disks, Fedora Media Writer)
-  - Network tools (nmap, net-tools)
-  - Virtual machine management (virt-manager)
-  - BleachBit (system cleaner)
-  - John the Ripper (password security tool)
-  - Wireshark (network protocol analyzer)
-  - util-linux (collection of system utilities)
-  - KCalc (scientific calculator)
-  - CMatrix (terminal matrix effect)
+  - btop & htop (System monitoring tools)
+  - GParted (Partition editor)
+  - Filelight (Disk usage analyzer)
+  - ISOImageWriter, GNOME Disks, Fedora Media Writer (Disk writing utilities)
+  - nmap & net-tools (Network analysis utilities)
+  - virt-manager (Virtual machine management)
+  - BleachBit (System cleaner)
+  - John the Ripper (Password security tool)
+  - Wireshark (Network protocol analyzer)
+  - util-linux (Collection of system utilities)
+  - KCalc (Scientific calculator)
+  - CMatrix (Terminal matrix effect)
 
 - **Media Applications**
-  - Video players (VLC, MPV, Haruna)
-  - Audio players (Audacious)
-  - Audio editing (Audacity, EasyEffects)
-  - Image viewer (Gwenview)
-  - Document viewer (Okular)
+  - VLC, MPV, Haruna (Video players)
+  - Audacious (Audio player)
+  - Audacity & EasyEffects (Audio editing tools)
+  - Gwenview (Image viewer)
+  - Okular (Document viewer)
 
 - **Internet & Downloads**
-  - Brave Browser
-  - Firefox
-  - Cloudflare WARP
-  - qBittorrent
-  - aria2
-  - yt-dlp
-  - Tor, Tor Browser and Torsocks
+  - Firefox & Brave (Web browsers)
+  - Cloudflare WARP & ProtonVPN CLI (VPN & DNS services)
+  - qBittorrent (Torrent client)
+  - aria2 (Download utility)
+  - yt-dlp (Video downloader)
+  - Tor, Tor Browser & Torsocks (Anonymity network tools)
 
 - **Gaming**
-  - Protontricks (for managing Proton/Wine prefixes)
+  - Protontricks (Proton/Wine prefix manager)
 
 - **Hardware Control**
-  - CoolerControl
-  - Liquidctl
-  - LACT
+  - CoolerControl (Fan and pump controller)
+  - Liquidctl (Liquid cooling controller)
+  - LACT (GPU configuration and monitoring tool)
 
 - **Fonts**
-  - Ubuntu Font Family
+  - Ubuntu Family
 
 ## Acknowledgments
 
