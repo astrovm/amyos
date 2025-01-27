@@ -6,7 +6,6 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
 
 - Development tools including VS Code and Neovim
 - Docker and Docker Compose for containerization
-- Brave Browser for secure web browsing
 - Android development tools
 - Based on Fedora 41
 
