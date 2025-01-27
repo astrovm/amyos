@@ -27,6 +27,8 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - John the Ripper (password security tool)
   - Wireshark (network protocol analyzer)
   - util-linux (collection of system utilities)
+  - KCalc (scientific calculator)
+  - CMatrix (terminal matrix effect)
 
 - **Media Applications**
   - Video players (VLC, MPV, Haruna)
