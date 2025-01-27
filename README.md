@@ -19,6 +19,7 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
 - **System Utilities**
   - System monitoring (btop, htop)
   - Disk management (GParted, Filelight)
+  - Disk writing (ISOImageWriter, GNOME Disks, Fedora Media Writer)
   - Network tools (nmap, net-tools)
   - Virtual machine management (virt-manager)
 

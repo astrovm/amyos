@@ -39,6 +39,9 @@ dnf5 install -y \
     gwenview \
     haruna \
     htop \
+    isoimagewriter \
+    gnome-disk-utility \
+    mediawriter \
     john \
     kcalc \
     lact \
