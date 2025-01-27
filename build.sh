@@ -55,7 +55,7 @@ dnf5 install -y \
     util-linux \
     virt-manager \
     vlc \
-    wireshark-qt \
+    wireshark \
     yt-dlp
 
 # Move directories
