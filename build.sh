@@ -35,14 +35,12 @@ dnf5 install -y \
     easyeffects \
     filelight \
     firefox \
-    gimp \
     gparted \
     gwenview \
     haruna \
     htop \
     john \
     kcalc \
-    krita \
     lact \
     libreoffice \
     liquidctl \

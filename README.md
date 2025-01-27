@@ -26,7 +26,6 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - Video players (VLC, MPV, Haruna)
   - Audio players (Audacious)
   - Audio editing (Audacity, EasyEffects)
-  - Image editing (GIMP, Krita)
   - Image viewer (Gwenview)
   - Document viewer (Okular)
   - Office suite (LibreOffice)
