@@ -32,12 +32,14 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
 - **Internet & Downloads**
   - Brave Browser
   - Firefox
-  - Tor Browser
   - Cloudflare WARP
   - qBittorrent
   - aria2
   - yt-dlp
-  - Tor and Torsocks
+  - Tor, Tor Browser and Torsocks
+
+- **Gaming**
+  - Protontricks (for managing Proton/Wine prefixes)
 
 - **Hardware Control**
   - CoolerControl
