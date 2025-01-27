@@ -23,6 +23,10 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - Disk writing (ISOImageWriter, GNOME Disks, Fedora Media Writer)
   - Network tools (nmap, net-tools)
   - Virtual machine management (virt-manager)
+  - BleachBit (system cleaner)
+  - John the Ripper (password security tool)
+  - Wireshark (network protocol analyzer)
+  - util-linux (collection of system utilities)
 
 - **Media Applications**
   - Video players (VLC, MPV, Haruna)
