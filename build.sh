@@ -17,6 +17,8 @@ dnf5 copr enable -y atim/ubuntu-fonts
 dnf5 install -y \
     android-tools \
     aria2 \
+    audacious \
+    audacity \
     bleachbit \
     brave-browser \
     btop \
@@ -34,6 +36,7 @@ dnf5 install -y \
     gwenview \
     haruna \
     htop \
+    john \
     kcalc \
     lact \
     liquidctl \
@@ -43,6 +46,7 @@ dnf5 install -y \
     nmap \
     okular \
     protontricks \
+    qbittorrent \
     scrcpy \
     tmux \
     tor \
@@ -51,6 +55,7 @@ dnf5 install -y \
     util-linux \
     virt-manager \
     vlc \
+    wireshark-qt \
     yt-dlp
 
 # Move directories
