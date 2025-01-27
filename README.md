@@ -36,6 +36,7 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - Brave Browser
   - Firefox
   - Tor Browser
+  - Cloudflare WARP
   - qBittorrent
   - aria2
   - yt-dlp
