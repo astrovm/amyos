@@ -48,6 +48,9 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - Liquidctl
   - LACT
 
+- **Fonts**
+  - Ubuntu Font Family
+
 ## Acknowledgments
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template) and builds upon the excellent work of the Universal Blue community.
