@@ -24,30 +24,18 @@ dnf5 install -y \
     liquidctl \
     coolercontrol \
     aria2 \
-    audacious \
-    audacity \
     bleachbit \
-    blender \
     btop \
-    calibre \
     cmatrix \
     easyeffects \
-    gimp \
     gparted \
     htop \
-    libreoffice \
-    lutris \
     mpv \
     net-tools \
     nmap \
-    obs-studio \
-    obs-studio-plugin-vkcapture \
     protontricks \
-    qbittorrent \
-    scummvm \
     tmux \
     tor \
-    torbrowser-launcher \
     torsocks \
     util-linux \
     virt-manager \
