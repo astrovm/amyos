@@ -7,6 +7,7 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
 - Built on Fedora 41
 - Uses [Bazzite](https://bazzite.gg/) as the base image
 - Features KDE Plasma desktop environment
+- Optimized for AMD and Intel GPUs
 
 ## Features
 
