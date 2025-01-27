@@ -42,7 +42,6 @@ dnf5 install -y \
     john \
     kcalc \
     lact \
-    libreoffice \
     liquidctl \
     mpv \
     neovim \
@@ -52,7 +51,6 @@ dnf5 install -y \
     protontricks \
     qbittorrent \
     scrcpy \
-    tmux \
     tor \
     torbrowser-launcher \
     torsocks \

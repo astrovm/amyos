@@ -28,7 +28,6 @@ A custom Universal Blue image built on top of [Bazzite](https://bazzite.gg/), de
   - Audio editing (Audacity, EasyEffects)
   - Image viewer (Gwenview)
   - Document viewer (Okular)
-  - Office suite (LibreOffice)
 
 - **Internet & Downloads**
   - Brave Browser
