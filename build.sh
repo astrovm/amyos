@@ -7,6 +7,7 @@ dnf5 config-manager addrepo --from-repofile https://gist.github.com/astrovm/fb1a
 dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y codifryed/CoolerControl
+dnf5 copr enable -y atim/ubuntu-fonts
 
 # Install packages
 dnf5 install -y \
@@ -21,7 +22,38 @@ dnf5 install -y \
     docker-compose-plugin \
     lact \
     liquidctl \
-    coolercontrol
+    coolercontrol \
+    aria2 \
+    audacious \
+    audacity \
+    bleachbit \
+    blender \
+    btop \
+    calibre \
+    cmatrix \
+    easyeffects \
+    gimp \
+    gparted \
+    htop \
+    libreoffice \
+    lutris \
+    mpv \
+    net-tools \
+    nmap \
+    obs-studio \
+    obs-studio-plugin-vkcapture \
+    protontricks \
+    qbittorrent \
+    scummvm \
+    tmux \
+    tor \
+    torbrowser-launcher \
+    torsocks \
+    util-linux \
+    virt-manager \
+    vlc \
+    yt-dlp \
+    ubuntu-family-fonts
 
 # Enable services
 systemctl enable docker
