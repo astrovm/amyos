@@ -28,11 +28,16 @@ dnf5 install -y \
     btop \
     cmatrix \
     easyeffects \
+    filelight \
     gparted \
+    gwenview \
+    haruna \
     htop \
+    kcalc \
     mpv \
     net-tools \
     nmap \
+    okular \
     protontricks \
     tmux \
     tor \
