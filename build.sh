@@ -11,7 +11,7 @@ dnf5 config-manager addrepo --from-repofile https://gist.github.com/astrovm/fb1a
 dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 
 # Install packages
-rpm-ostree install -y \
+dnf5 install -y \
     code \
     neovim \
     android-tools \
@@ -21,6 +21,9 @@ rpm-ostree install -y \
     containerd.io \
     docker-buildx-plugin \
     docker-compose-plugin
+
+# Move files
+mv /var/opt/brave-browser-stable /usr/bin/brave-browser-stable
 
 # Enable services
 systemctl enable docker
