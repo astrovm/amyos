@@ -20,6 +20,7 @@ dnf5 install -y \
     audacious \
     audacity \
     bleachbit \
+    blender \
     brave-browser \
     btop \
     cmatrix \
@@ -32,13 +33,17 @@ dnf5 install -y \
     docker-compose-plugin \
     easyeffects \
     filelight \
+    firefox \
+    gimp \
     gparted \
     gwenview \
     haruna \
     htop \
     john \
     kcalc \
+    krita \
     lact \
+    libreoffice \
     liquidctl \
     mpv \
     neovim \
@@ -50,6 +55,7 @@ dnf5 install -y \
     scrcpy \
     tmux \
     tor \
+    torbrowser-launcher \
     torsocks \
     ubuntu-family-fonts \
     util-linux \
