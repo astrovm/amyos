@@ -21,7 +21,6 @@ dnf5 install -y \
     audacious \
     audacity \
     bleachbit \
-    blender \
     brave-browser \
     btop \
     cloudflare-warp \
