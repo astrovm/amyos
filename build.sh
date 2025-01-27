@@ -6,6 +6,7 @@ set -ouex pipefail
 dnf5 config-manager addrepo --from-repofile https://gist.github.com/astrovm/fb1a053d82c7c745fdb46c674b8c0002/raw/b93e2ef423a6432702a05566131f4c5431216be6/vscode.repo
 dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 dnf5 copr enable -y zeno/scrcpy
+dnf5 copr enable -y codifryed/CoolerControl
 
 # Install packages
 dnf5 install -y \
@@ -17,7 +18,10 @@ dnf5 install -y \
     docker-ce-cli \
     containerd.io \
     docker-buildx-plugin \
-    docker-compose-plugin
+    docker-compose-plugin \
+    lact \
+    liquidctl \
+    coolercontrol
 
 # Enable services
 systemctl enable docker
