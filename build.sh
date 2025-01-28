@@ -65,6 +65,9 @@ dnf5 install -y \
     yt-dlp \
     protonvpn-cli
 
+# Clean cache
+dnf5 clean all
+
 # Move directories
 mv /var/opt/brave.com /usr/lib/brave.com
 
