@@ -1,6 +1,6 @@
 # Amy OS
 
-A custom Universal Blue image, designed for gaming, development and daily use.
+A custom Universal Blue image designed for gaming, development and daily use.
 
 ## Base System
 
