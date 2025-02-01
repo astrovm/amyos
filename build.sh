@@ -54,6 +54,7 @@ dnf5 install -y \
     protontricks \
     qbittorrent \
     scrcpy \
+    solaar \
     tor \
     torbrowser-launcher \
     torsocks \
