@@ -36,6 +36,8 @@ dnf5 install -y \
     easyeffects \
     filelight \
     firefox \
+    flatseal \
+    gimp \
     gparted \
     gwenview \
     haruna \
@@ -45,6 +47,8 @@ dnf5 install -y \
     mediawriter \
     john \
     kcalc \
+    kdenlive \
+    krita \
     lact \
     liquidctl \
     mpv \
@@ -52,6 +56,7 @@ dnf5 install -y \
     net-tools \
     nmap \
     okular \
+    pinta \
     protontricks \
     protonvpn-cli \
     qbittorrent \
