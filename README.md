@@ -57,7 +57,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Liquidctl (Liquid cooling controller)
   - LACT (GPU configuration and monitoring tool)
   - Solaar (Logitech device manager)
-  - Oversteer (Logitech steering wheel configuration tool)
 
 - **Fonts**
   - Ubuntu Family

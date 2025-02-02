@@ -15,7 +15,6 @@ dnf5 config-manager addrepo --from-repofile https://repository.mullvad.net/rpm/s
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y codifryed/CoolerControl
 dnf5 copr enable -y atim/ubuntu-fonts
-dnf5 copr enable -y kylegospo/oversteer
 
 # Install packages
 dnf5 install -y \
@@ -56,7 +55,6 @@ dnf5 install -y \
     net-tools \
     nmap \
     okular \
-    oversteer \
     protontricks \
     qbittorrent \
     rclone \
