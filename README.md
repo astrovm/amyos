@@ -30,6 +30,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - util-linux (Collection of system utilities)
   - KCalc (Scientific calculator)
   - CMatrix (Terminal matrix effect)
+  - Syncthing (Continuous file synchronization)
 
 - **Media Applications**
   - VLC, MPV, Haruna (Video players)
@@ -40,7 +41,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 - **Internet & Downloads**
   - Firefox & Brave (Web browsers)
-  - Cloudflare WARP & ProtonVPN CLI (VPN & DNS services)
+  - Cloudflare WARP, Tailscale, Mullvad VPN & Proton VPN (VPN & DNS services)
   - qBittorrent (Torrent client)
   - aria2 (Download utility)
   - yt-dlp (Video downloader)
@@ -54,6 +55,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Liquidctl (Liquid cooling controller)
   - LACT (GPU configuration and monitoring tool)
   - Solaar (Logitech device manager)
+  - Oversteer (Logitech steering wheel configuration tool)
 
 - **Fonts**
   - Ubuntu Family

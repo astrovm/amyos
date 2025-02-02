@@ -7,12 +7,16 @@ mkdir -p /var/opt
 
 # Add repositories
 dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
+dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/protonvpn.repo
 dnf5 config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 dnf5 config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+dnf5 config-manager addrepo --from-repofile https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+dnf5 config-manager addrepo --from-repofile https://repository.mullvad.net/rpm/stable/mullvad.repo
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y codifryed/CoolerControl
 dnf5 copr enable -y atim/ubuntu-fonts
+dnf5 copr enable -y kylegospo/oversteer
 
 # Install packages
 dnf5 install -y \
@@ -47,14 +51,18 @@ dnf5 install -y \
     lact \
     liquidctl \
     mpv \
+    mullvad-vpn \
     neovim \
     net-tools \
     nmap \
     okular \
+    oversteer \
     protontricks \
     qbittorrent \
     scrcpy \
     solaar \
+    syncthing \
+    tailscale \
     tor \
     torbrowser-launcher \
     torsocks \
@@ -64,7 +72,7 @@ dnf5 install -y \
     vlc \
     wireshark \
     yt-dlp \
-    protonvpn-cli
+    proton-vpn-gnome-desktop
 
 # Clean cache
 dnf5 clean all
@@ -81,3 +89,4 @@ EOF
 # Enable services
 systemctl enable docker
 systemctl enable libvirtd
+systemctl enable tailscaled
