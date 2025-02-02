@@ -32,6 +32,7 @@ dnf5 install -y \
     code \
     containerd.io \
     coolercontrol \
+    croc \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
@@ -59,6 +60,7 @@ dnf5 install -y \
     oversteer \
     protontricks \
     qbittorrent \
+    rclone \
     scrcpy \
     solaar \
     syncthing \

@@ -31,6 +31,8 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - KCalc (Scientific calculator)
   - CMatrix (Terminal matrix effect)
   - Syncthing (Continuous file synchronization)
+  - Rclone (Cloud storage sync tool)
+  - Croc (Secure file transfer tool)
 
 - **Media Applications**
   - VLC, MPV, Haruna (Video players)
