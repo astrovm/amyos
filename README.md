@@ -43,7 +43,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 - **Internet & Downloads**
   - Firefox & Brave (Web browsers)
-  - Cloudflare WARP, Tailscale, Mullvad VPN & Proton VPN (VPN & DNS services)
+  - Cloudflare WARP, Mullvad VPN & Proton VPN (VPN & DNS services)
   - qBittorrent (Torrent client)
   - aria2 (Download utility)
   - yt-dlp (Video downloader)

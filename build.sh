@@ -11,7 +11,6 @@ dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw
 dnf5 config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 dnf5 config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
-dnf5 config-manager addrepo --from-repofile https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 dnf5 config-manager addrepo --from-repofile https://repository.mullvad.net/rpm/stable/mullvad.repo
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y codifryed/CoolerControl
@@ -64,7 +63,6 @@ dnf5 install -y \
     scrcpy \
     solaar \
     syncthing \
-    tailscale \
     tor \
     torbrowser-launcher \
     torsocks \
@@ -91,4 +89,3 @@ EOF
 # Enable services
 systemctl enable docker
 systemctl enable libvirtd
-systemctl enable tailscaled
