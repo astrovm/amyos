@@ -21,11 +21,9 @@ dnf5 install -y \
     bleachbit \
     brave-browser \
     cloudflare-warp \
-    cmatrix \
     code \
     containerd.io \
     coolercontrol \
-    croc \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \

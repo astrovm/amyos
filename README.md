@@ -12,46 +12,53 @@ A custom Universal Blue image designed for gaming, development and daily use.
 ## Features
 
 - **Development Tools**
-  - VS Code (Microsoft's code editor)
-  - Neovim (Modern Vim text editor)
-  - Docker & Docker Compose (Container platform)
-  - ADB & Scrcpy (Android development and screen mirroring tools)
+  - VS Code
+  - Neovim
+  - Docker
+  - Docker Compose
+  - ADB
+  - Scrcpy
 
 - **System Utilities**
-  - htop (System monitoring tool)
-  - GParted (Partition editor)
-  - ISOImageWriter, GNOME Disks, Fedora Media Writer (Disk writing utilities)
-  - nmap (Network analysis utility)
-  - virt-manager (Virtual machine management)
-  - BleachBit (System cleaner)
-  - John the Ripper (Password security tool)
-  - Wireshark (Network protocol analyzer)
-  - CMatrix (Terminal matrix effect)
-  - Syncthing (Continuous file synchronization)
-  - Rclone (Cloud storage sync tool)
-  - Croc (Secure file transfer tool)
+  - htop
+  - GParted
+  - ISOImageWriter
+  - GNOME Disks
+  - Fedora Media Writer
+  - nmap
+  - virt-manager
+  - BleachBit
+  - John the Ripper
+  - Wireshark
+  - Syncthing
+  - Rclone
 
 - **Media Applications**
-  - VLC, MPV (Video players)
-  - Audacious (Audio player)
-  - Audacity & EasyEffects (Audio editing tools)
-  - Kdenlive (Video editor)
-  - GIMP (Advanced image editor)
-  - Krita (Digital painting)
-  - Pinta (Simple image editor)
+  - VLC
+  - MPV
+  - Audacious
+  - Audacity
+  - EasyEffects
+  - Kdenlive
+  - GIMP
+  - Krita
+  - Pinta
 
 - **Internet & Downloads**
-  - Brave (Web browser)
-  - Cloudflare WARP & Proton VPN (VPN & DNS services)
-  - qBittorrent (Torrent client)
-  - aria2 (Download utility)
-  - yt-dlp (Video downloader)
-  - Tor, Tor Browser & Torsocks (Anonymity network tools)
+  - Brave
+  - Cloudflare WARP
+  - Proton VPN
+  - qBittorrent
+  - aria2
+  - yt-dlp
+  - Tor
+  - Tor Browser
+  - Torsocks
 
 - **Hardware Control**
-  - CoolerControl (Fan and pump controller)
-  - LACT (GPU configuration and monitoring tool)
-  - Solaar (Logitech device manager)
+  - CoolerControl
+  - LACT
+  - Solaar
 
 - **Fonts**
   - Ubuntu Family
@@ -59,53 +66,52 @@ A custom Universal Blue image designed for gaming, development and daily use.
 ## Additional Applications (Flatpak)
 
 - **Gaming & Emulation**
-  - Alpaca (Game launcher with AMD plugin)
-  - Bottles (Wine manager)
-  - Dolphin (GameCube/Wii emulator)
-  - DuckStation (PlayStation 1 emulator)
-  - Flycast (Dreamcast emulator)
-  - ProtonTricks (Wine configuration)
-  - ProtonUp-Qt (Proton version manager)
-  - RetroArch (Multi-system emulator)
-  - ScummVM (Classic adventure games)
+  - Alpaca
+  - Bottles
+  - Dolphin
+  - DuckStation
+  - Flycast
+  - ProtonTricks
+  - ProtonUp-Qt
+  - RetroArch
+  - ScummVM
   - Space Cadet Pinball
-  - Supermodel (SEGA Model 3 emulator)
-  - WineZGUI (Wine frontend)
+  - Supermodel
+  - WineZGUI
 
 - **Productivity & Utilities**
-  - Firefox (Web browser)
-  - LibreOffice (Office suite)
-  - Filelight (Disk usage analyzer)
-  - Flatseal (Flatpak permissions manager)
-  - GearLever (Container manager)
-  - Gwenview (Image viewer)
-  - Haruna (Video player)
-  - KCalc (Calculator)
-  - Mission Center (System monitor)
-  - Okular (Document viewer)
-  - Warehouse (Flatpak manager)
-  - BoxBuddy (Distrobox manager)
-  - Clapgrep (Log viewer)
-  - Warp (File transfer)
+  - Firefox
+  - LibreOffice
+  - Filelight
+  - Flatseal
+  - GearLever
+  - Gwenview
+  - Haruna
+  - KCalc
+  - Mission Center
+  - Okular
+  - Warehouse
+  - BoxBuddy
+  - Clapgrep
+  - Warp
 
 - **Creative**
-  - Blender (3D creation suite)
-  - OBS Studio (Streaming/recording)
-    - GStreamer plugins
-    - VA-API plugin (Hardware acceleration)
-    - Vulkan capture plugin
+  - Blender
+  - OBS Studio
 
 - **Communication & Media**
-  - LocalSend (Local file sharing)
-  - Signal (Secure messenger)
-  - Spotify (Music streaming)
-  - Stremio (Media streaming)
-  - Telegram (Messenger)
-  - Vesktop (Discord client)
+  - LocalSend
+  - Signal
+  - Spotify
+  - Stremio
+  - Telegram
+  - Vesktop
 
 ## Additional Applications (Homebrew)
 
-- magic-wormhole.rs (Secure file transfer)
+- wormhole-rs
+- croc
+- cmatrix
 
 ## Installation Commands
 
