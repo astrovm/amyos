@@ -7,13 +7,14 @@ mkdir -p /var/opt
 
 # Add repositories
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
-dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf config-manager addrepo --from-repofile https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
 dnf config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
 dnf config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
 dnf config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
 dnf copr enable -y zeno/scrcpy
 dnf copr enable -y atim/ubuntu-fonts
+dnf install -y terra-release
 
 # Install packages
 dnf install -y \
