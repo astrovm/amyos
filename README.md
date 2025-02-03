@@ -49,8 +49,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Cloudflare WARP
   - Proton VPN
   - qBittorrent
-  - aria2
-  - yt-dlp
   - Tor
   - Tor Browser
   - Torsocks
@@ -111,6 +109,8 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 - wormhole-rs
 - croc
+- aria2
+- yt-dlp
 - cmatrix
 
 ## Installation Commands

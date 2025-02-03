@@ -14,7 +14,6 @@ dnf5 install -y terra-release
 # Install packages
 dnf5 install -y \
     android-tools \
-    aria2 \
     audacious \
     audacious-plugins-freeworld \
     audacity-freeworld \
@@ -55,8 +54,7 @@ dnf5 install -y \
     ubuntu-family-fonts \
     virt-manager \
     vlc \
-    wireshark \
-    yt-dlp
+    wireshark
 
 # Clean cache
 dnf5 clean all
