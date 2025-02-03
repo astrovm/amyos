@@ -56,6 +56,67 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - **Fonts**
   - Ubuntu Family
 
+## Additional Applications (Flatpak)
+
+- **Gaming & Emulation**
+  - Alpaca (Game launcher with AMD plugin)
+  - Dolphin (GameCube/Wii emulator)
+  - DuckStation (PlayStation 1 emulator)
+  - Flycast (Dreamcast emulator)
+  - RetroArch (Multi-system emulator)
+  - ScummVM (Classic adventure games)
+  - Space Cadet Pinball
+  - Supermodel (SEGA Model 3 emulator)
+  - ProtonTricks & Bottles (Wine management)
+  - WineZGUI (Wine frontend)
+
+- **Productivity & Utilities**
+  - Firefox (Web browser)
+  - LibreOffice (Office suite)
+  - Filelight (Disk usage analyzer)
+  - Flatseal (Flatpak permissions manager)
+  - GearLever (Container manager)
+  - Gwenview (Image viewer)
+  - Haruna (Video player)
+  - KCalc (Calculator)
+  - Mission Center (System monitor)
+  - Okular (Document viewer)
+  - Warehouse (Flatpak manager)
+  - BoxBuddy (Distrobox manager)
+  - Clapgrep (Log viewer)
+  - Warp (File transfer)
+
+- **Creative**
+  - Blender (3D creation suite)
+  - OBS Studio (Streaming/recording)
+
+- **Communication & Media**
+  - LocalSend (Local file sharing)
+  - Signal (Secure messenger)
+  - Spotify (Music streaming)
+  - Stremio (Media streaming)
+  - Telegram (Messenger)
+  - Vesktop (Discord client)
+
+## Additional Applications (Homebrew)
+
+- magic-wormhole.rs (Secure file transfer)
+
+## Installation Commands
+
+The following `just` commands are available to install additional applications:
+
+```bash
+# Install all additional applications
+just install-amy
+
+# Install only Flatpak applications
+just install-amy-flatpaks
+
+# Install only Homebrew packages
+just install-amy-brews
+```
+
 ## Acknowledgments
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template) and builds upon the excellent work of the Universal Blue community.
