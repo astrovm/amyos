@@ -22,7 +22,6 @@ dnf5 install -y \
     aria2 \
     audacious \
     audacious-plugins-freeworld \
-    audacity \
     audacity-freeworld \
     bleachbit \
     brave-browser \
