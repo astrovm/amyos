@@ -116,6 +116,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - aria2
 - yt-dlp
 - cmatrix
+- rustup
 
 ## Installation Commands
 
