@@ -24,7 +24,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - GParted
   - ISOImageWriter
   - GNOME Disks
-  - Fedora Media Writer
   - nmap
   - virt-manager
   - BleachBit
@@ -37,20 +36,12 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - VLC
   - MPV
   - Audacious
-  - Audacity
-  - EasyEffects
-  - Kdenlive
-  - GIMP
-  - Krita
-  - Pinta
 
 - **Internet & Downloads**
   - Brave
   - Cloudflare WARP
   - Proton VPN
-  - qBittorrent
   - Tor
-  - Tor Browser
   - Torsocks
 
 - **Hardware Control**
@@ -92,10 +83,18 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - BoxBuddy
   - Clapgrep
   - Warp
+  - Fedora Media Writer
+  - qBittorrent
+  - EasyEffects
 
 - **Creative**
   - Blender
   - OBS Studio
+  - Audacity
+  - Kdenlive
+  - GIMP
+  - Krita
+  - Pinta
 
 - **Communication & Media**
   - LocalSend
@@ -104,6 +103,9 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Stremio
   - Telegram
   - Vesktop
+
+- **Security & Privacy**
+  - Tor Browser
 
 ## Additional Applications (Homebrew)
 

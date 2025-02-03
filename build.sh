@@ -16,7 +16,6 @@ dnf5 install -y \
     android-tools \
     audacious \
     audacious-plugins-freeworld \
-    audacity-freeworld \
     bleachbit \
     brave-browser \
     cloudflare-warp \
@@ -27,29 +26,21 @@ dnf5 install -y \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    easyeffects \
-    gimp \
     gparted \
     htop \
     isoimagewriter \
     gnome-disk-utility \
-    mediawriter \
     john \
-    kdenlive \
-    krita \
     lact \
     mpv \
     neovim \
     nmap \
-    pinta \
     protonvpn-cli \
-    qbittorrent \
     rclone \
     scrcpy \
     solaar \
     syncthing \
     tor \
-    torbrowser-launcher \
     torsocks \
     ubuntu-family-fonts \
     virt-manager \
