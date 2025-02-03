@@ -7,17 +7,17 @@ mkdir -p /var/opt
 
 # Add repositories
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
-dnf config-manager addrepo --from-repofile https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-dnf config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
-dnf config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
-dnf config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
-dnf copr enable -y zeno/scrcpy
-dnf copr enable -y atim/ubuntu-fonts
-dnf install -y terra-release
+dnf5 config-manager addrepo --from-repofile https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
+dnf5 config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
+dnf5 config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+dnf5 copr enable -y zeno/scrcpy
+dnf5 copr enable -y atim/ubuntu-fonts
+dnf5 install -y terra-release
 
 # Install packages
-dnf install -y \
+dnf5 install -y \
     android-tools \
     aria2 \
     audacious \
@@ -78,7 +78,7 @@ dnf install -y \
     yt-dlp
 
 # Clean cache
-dnf clean all
+dnf5 clean all
 
 # Move directories
 mv /var/opt/brave.com /usr/lib/brave.com
