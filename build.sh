@@ -25,7 +25,6 @@ dnf5 install -y \
     audacity-freeworld \
     bleachbit \
     brave-browser \
-    btop \
     cloudflare-warp \
     cmatrix \
     code \
@@ -37,7 +36,6 @@ dnf5 install -y \
     docker-ce-cli \
     docker-compose-plugin \
     easyeffects \
-    filelight \
     firefox \
     flatseal \
     gimp \
@@ -55,7 +53,6 @@ dnf5 install -y \
     lact \
     mpv \
     neovim \
-    net-tools \
     nmap \
     okular \
     pinta \
@@ -70,7 +67,6 @@ dnf5 install -y \
     torbrowser-launcher \
     torsocks \
     ubuntu-family-fonts \
-    util-linux \
     virt-manager \
     vlc \
     wireshark \

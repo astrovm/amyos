@@ -18,16 +18,14 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - ADB & Scrcpy (Android development and screen mirroring tools)
 
 - **System Utilities**
-  - btop & htop (System monitoring tools)
+  - htop (System monitoring tool)
   - GParted (Partition editor)
-  - Filelight (Disk usage analyzer)
   - ISOImageWriter, GNOME Disks, Fedora Media Writer (Disk writing utilities)
-  - nmap & net-tools (Network analysis utilities)
+  - nmap (Network analysis utility)
   - virt-manager (Virtual machine management)
   - BleachBit (System cleaner)
   - John the Ripper (Password security tool)
   - Wireshark (Network protocol analyzer)
-  - util-linux (Collection of system utilities)
   - KCalc (Scientific calculator)
   - CMatrix (Terminal matrix effect)
   - Syncthing (Continuous file synchronization)
