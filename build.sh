@@ -26,11 +26,13 @@ dnf5 install -y \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
+    ghostty \
     gparted \
     htop \
     isoimagewriter \
     gnome-disk-utility \
     john \
+    kitty \
     lact \
     mpv \
     neovim \

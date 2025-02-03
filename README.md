@@ -31,6 +31,8 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Wireshark
   - Syncthing
   - Rclone
+  - Kitty
+  - Ghostty
 
 - **Media Applications**
   - VLC
