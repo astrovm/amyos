@@ -48,9 +48,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - yt-dlp (Video downloader)
   - Tor, Tor Browser & Torsocks (Anonymity network tools)
 
-- **Gaming**
-  - Protontricks (Proton/Wine prefix manager)
-
 - **Hardware Control**
   - CoolerControl (Fan and pump controller)
   - LACT (GPU configuration and monitoring tool)

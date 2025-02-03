@@ -50,7 +50,6 @@ dnf5 install -y \
     neovim \
     nmap \
     pinta \
-    protontricks \
     protonvpn-cli \
     qbittorrent \
     rclone \
