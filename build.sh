@@ -5,13 +5,11 @@ set -ouex pipefail
 # Create directories
 mkdir -p /var/opt
 
+# Copy files
+cp -r /ctx/system_files/* /
+
 # Add repositories
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
-dnf5 config-manager addrepo --from-repofile https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
-dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
-dnf5 config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
-dnf5 config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y atim/ubuntu-fonts
 dnf5 install -y terra-release
@@ -71,12 +69,9 @@ dnf5 clean all
 # Move directories
 mv /var/opt/brave.com /usr/lib/brave.com
 
-# Register path symlink
-# We do this via tmpfiles.d so that it is created by the live system.
-cat >/usr/lib/tmpfiles.d/brave-browser.conf <<EOF
-L  /opt/brave.com -  -  -  -  /usr/lib/brave.com
-EOF
-
 # Enable services
 systemctl enable docker
 systemctl enable libvirtd
+
+# Add just
+echo "import \"/usr/share/amyos/just/apps.just\"" >> /usr/share/ublue-os/justfile
