@@ -26,26 +26,22 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - BleachBit (System cleaner)
   - John the Ripper (Password security tool)
   - Wireshark (Network protocol analyzer)
-  - KCalc (Scientific calculator)
   - CMatrix (Terminal matrix effect)
   - Syncthing (Continuous file synchronization)
   - Rclone (Cloud storage sync tool)
   - Croc (Secure file transfer tool)
-  - Flatseal (Flatpak permissions manager)
 
 - **Media Applications**
-  - VLC, MPV, Haruna (Video players)
+  - VLC, MPV (Video players)
   - Audacious (Audio player)
   - Audacity & EasyEffects (Audio editing tools)
-  - Gwenview (Image viewer)
-  - Okular (Document viewer)
   - Kdenlive (Video editor)
   - GIMP (Advanced image editor)
   - Krita (Digital painting)
   - Pinta (Simple image editor)
 
 - **Internet & Downloads**
-  - Firefox & Brave (Web browsers)
+  - Brave (Web browser)
   - Cloudflare WARP & Proton VPN (VPN & DNS services)
   - qBittorrent (Torrent client)
   - aria2 (Download utility)

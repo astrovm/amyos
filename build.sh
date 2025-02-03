@@ -36,25 +36,19 @@ dnf5 install -y \
     docker-ce-cli \
     docker-compose-plugin \
     easyeffects \
-    firefox \
-    flatseal \
     gimp \
     gparted \
-    gwenview \
-    haruna \
     htop \
     isoimagewriter \
     gnome-disk-utility \
     mediawriter \
     john \
-    kcalc \
     kdenlive \
     krita \
     lact \
     mpv \
     neovim \
     nmap \
-    okular \
     pinta \
     protontricks \
     protonvpn-cli \
