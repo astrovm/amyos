@@ -6,20 +6,23 @@ set -ouex pipefail
 mkdir -p /var/opt
 
 # Add repositories
-dnf5 config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
-dnf5 config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-dnf5 config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
-dnf5 config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
-dnf5 copr enable -y zeno/scrcpy
-dnf5 copr enable -y codifryed/CoolerControl
-dnf5 copr enable -y atim/ubuntu-fonts
+sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
+dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf config-manager addrepo --from-repofile https://github.com/astrovm/amyos/raw/refs/heads/main/repo_files/vscode.repo
+dnf config-manager addrepo --from-repofile https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
+dnf config-manager addrepo --from-repofile https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+dnf copr enable -y zeno/scrcpy
+dnf copr enable -y atim/ubuntu-fonts
 
 # Install packages
-dnf5 install -y \
+dnf install -y \
     android-tools \
     aria2 \
     audacious \
+    audacious-plugins-freeworld \
     audacity \
+    audacity-freeworld \
     bleachbit \
     brave-browser \
     btop \
@@ -50,7 +53,6 @@ dnf5 install -y \
     kdenlive \
     krita \
     lact \
-    liquidctl \
     mpv \
     neovim \
     net-tools \
@@ -75,7 +77,7 @@ dnf5 install -y \
     yt-dlp
 
 # Clean cache
-dnf5 clean all
+dnf clean all
 
 # Move directories
 mv /var/opt/brave.com /usr/lib/brave.com
