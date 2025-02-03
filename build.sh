@@ -5,9 +5,6 @@ set -ouex pipefail
 # Create directories
 mkdir -p /var/opt
 
-# Copy files
-cp -r /ctx/system_files/* /
-
 # Add repositories
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
 dnf5 copr enable -y zeno/scrcpy
