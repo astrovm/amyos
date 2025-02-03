@@ -1,45 +1,9 @@
-amy-flatpak:
-    flatpak --system -y install flathub \
-        com.jeffser.Alpaca \
-        com.jeffser.Alpaca.Plugins.AMD \
-        org.blender.Blender \
-        io.github.dvlv.boxbuddyrs \
-        de.leopoldluley.Clapgrep \
-        org.DolphinEmu.dolphin-emu \
-        org.duckstation.DuckStation \
-        org.kde.filelight \
-        org.mozilla.firefox \
-        com.github.tchx84.Flatseal \
-        org.flycast.Flycast \
-        it.mijorus.gearlever \
-        org.kde.gwenview \
-        org.kde.haruna \
-        org.kde.kcalc \
-        org.libreoffice.LibreOffice \
-        org.localsend.localsend_app \
-        io.missioncenter.MissionCenter \
-        com.obsproject.Studio \
-        com.obsproject.Studio.Plugin.GStreamerVaapi \
-        com.obsproject.Studio.Plugin.Gstreamer \
-        com.obsproject.Studio.Plugin.OBSVkCapture \
-        org.kde.okular \
-        com.github.Matoking.protontricks \
-        net.davidotek.pupgui2 \
-        org.libretro.RetroArch \
-        org.scummvm.ScummVM \
-        org.signal.Signal \
-        com.github.k4zmu2a.spacecadetpinball \
-        com.spotify.Client \
-        com.stremio.Stremio \
-        com.supermodel3.Supermodel \
-        org.telegram.desktop \
-        dev.vencord.Vesktop \
-        app.drey.Warp \
-        io.github.flattool.Warehouse \
-        io.github.fastrizwaan.WineZGUI
+install-amy-flatpaks:
+    FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
+    flatpak --system -y install --or-update ${FLATPAK_LIST}
 
-amy-brew:
-    brew install \
-        magic-wormhole.rs
+install-amy-brews:
+    BREW_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews | tr '\n' ' ')"
+    brew install ${BREW_LIST}
 
-amy-all: amy-flatpak amy-brew
+install-amy: install-amy-flatpaks install-amy-brews
