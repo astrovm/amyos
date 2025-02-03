@@ -60,14 +60,16 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 - **Gaming & Emulation**
   - Alpaca (Game launcher with AMD plugin)
+  - Bottles (Wine manager)
   - Dolphin (GameCube/Wii emulator)
   - DuckStation (PlayStation 1 emulator)
   - Flycast (Dreamcast emulator)
+  - ProtonTricks (Wine configuration)
+  - ProtonUp-Qt (Proton version manager)
   - RetroArch (Multi-system emulator)
   - ScummVM (Classic adventure games)
   - Space Cadet Pinball
   - Supermodel (SEGA Model 3 emulator)
-  - ProtonTricks & Bottles (Wine management)
   - WineZGUI (Wine frontend)
 
 - **Productivity & Utilities**
@@ -89,6 +91,9 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - **Creative**
   - Blender (3D creation suite)
   - OBS Studio (Streaming/recording)
+    - GStreamer plugins
+    - VA-API plugin (Hardware acceleration)
+    - Vulkan capture plugin
 
 - **Communication & Media**
   - LocalSend (Local file sharing)
