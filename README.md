@@ -8,6 +8,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - Uses [Bazzite](https://bazzite.gg/) as the base image
 - Features KDE Plasma desktop environment
 - Optimized for AMD and Intel GPUs
+- Includes [Starship](https://starship.rs/) shell prompt
 
 ## RPM packages
 
