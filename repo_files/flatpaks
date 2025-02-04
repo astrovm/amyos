@@ -41,7 +41,9 @@ com.stremio.Stremio
 com.supermodel3.Supermodel
 org.telegram.desktop
 org.torproject.torbrowser-launcher
+io.github.giantpinkrobots.varia
 dev.vencord.Vesktop
+org.videolan.VLC
 app.drey.Warp
 io.github.flattool.Warehouse
 io.github.fastrizwaan.WineZGUI

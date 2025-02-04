@@ -31,8 +31,6 @@ dnf5 install -y \
     htop \
     isoimagewriter \
     gnome-disk-utility \
-    john \
-    kitty \
     lact \
     mpv \
     neovim \
@@ -46,7 +44,6 @@ dnf5 install -y \
     torsocks \
     ubuntu-family-fonts \
     virt-manager \
-    vlc \
     wireshark
 
 # Clean cache

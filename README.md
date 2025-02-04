@@ -11,40 +11,35 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 ## Features
 
-- **Development Tools**
-  - VS Code
-  - Neovim
+- **Productivity & Utilities**
+  - ADB
+  - BleachBit
   - Docker
   - Docker Compose
-  - ADB
-  - Scrcpy
-
-- **System Utilities**
-  - htop
-  - GParted
-  - ISOImageWriter
-  - GNOME Disks
-  - nmap
-  - virt-manager
-  - BleachBit
-  - John the Ripper
-  - Wireshark
-  - Syncthing
-  - Rclone
-  - Kitty
   - Ghostty
+  - GParted
+  - GNOME Disks
+  - htop
+  - ISOImageWriter
+  - Neovim
+  - nmap
+  - Rclone
+  - Scrcpy
+  - Syncthing
+  - virt-manager
+  - VS Code
+  - Wireshark
 
-- **Media Applications**
-  - VLC
-  - MPV
-  - Audacious
-
-- **Internet & Downloads**
+- **Networking & Communication**
   - Brave
   - Cloudflare WARP
   - Proton VPN
   - Tor
   - Torsocks
+
+- **Media**
+  - Audacious
+  - MPV
 
 - **Hardware Control**
   - CoolerControl
@@ -71,52 +66,55 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - WineZGUI
 
 - **Productivity & Utilities**
-  - Firefox
-  - LibreOffice
+  - BoxBuddy
+  - Clapgrep
+  - Fedora Media Writer
   - Filelight
   - Flatseal
   - GearLever
-  - Gwenview
-  - Haruna
   - KCalc
+  - LibreOffice
   - Mission Center
   - Okular
   - Warehouse
-  - BoxBuddy
-  - Clapgrep
-  - Warp
-  - Fedora Media Writer
+
+- **Networking & Communication**
+  - Firefox
+  - LocalSend
   - qBittorrent
-  - EasyEffects
+  - Signal
+  - Telegram
+  - Tor Browser
+  - Varia
+  - Vesktop
+  - Warp
 
 - **Creative**
-  - Blender
-  - OBS Studio
   - Audacity
-  - Kdenlive
+  - Blender
   - GIMP
+  - Kdenlive
   - Krita
+  - OBS Studio
   - Pinta
 
-- **Communication & Media**
-  - LocalSend
-  - Signal
+- **Media**
+  - EasyEffects
+  - Gwenview
+  - Haruna
   - Spotify
   - Stremio
-  - Telegram
-  - Vesktop
-
-- **Security & Privacy**
-  - Tor Browser
+  - VLC
 
 ## Additional Applications (Homebrew)
 
-- wormhole-rs
-- croc
 - aria2
-- yt-dlp
 - cmatrix
+- croc
+- john-jumbo
 - rustup
+- wormhole-rs
+- yt-dlp
 
 ## Installation Commands
 
