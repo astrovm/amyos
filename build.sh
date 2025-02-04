@@ -61,11 +61,15 @@ systemctl enable docker
 systemctl enable libvirtd
 
 # Add just
-echo "import \"/usr/share/amyos/just/apps.just\"" >> /usr/share/ublue-os/justfile
+echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
 
 # Starship Shell Prompt
 curl --retry 3 -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
 tar -xzf /tmp/starship.tar.gz -C /tmp
 install -c -m 0755 /tmp/starship /usr/bin
-# shellcheck disable=SC2016
-echo 'eval "$(starship init bash)"' >> /etc/bashrc
+echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
+
+# Cursor CLI
+curl --retry 3 -Lo /tmp/cursor.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf /tmp/cursor.tar.gz -C /tmp
+install -c -m 0755 /tmp/cursor /usr/bin

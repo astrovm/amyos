@@ -110,7 +110,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Stremio
   - VLC
 
-## Homebrew packages
+## Homebrews
 
 - aria2
 - cmatrix
@@ -120,19 +120,26 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - wormhole-rs
 - yt-dlp
 
+## AppImages
+
+- Cursor
+
 ## Just commands
 
-The following `just` commands are available to install Flatpaks and Homebrew packages:
+The following `just` commands are available to install Flatpaks, Homebrews and AppImages:
 
 ```bash
-# Install Flatpaks and Homebrew packages
+# Install all apps
 just install-amy
 
 # Install only Flatpaks
 just install-amy-flatpaks
 
-# Install only Homebrew packages
+# Install only Homebrews
 just install-amy-brews
+
+# Install only AppImages
+just install-amy-appimages
 ```
 
 ## Acknowledgments
