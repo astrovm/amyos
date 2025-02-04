@@ -72,4 +72,5 @@ echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
 # Cursor CLI
 curl --retry 3 -Lo /tmp/cursor.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf /tmp/cursor.tar.gz -C /tmp
-install -c -m 0755 /tmp/cursor /usr/bin
+mv /tmp/cursor /tmp/cursor-cli
+install -c -m 0755 /tmp/cursor-cli /usr/bin

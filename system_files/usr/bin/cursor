@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+# Ensure we fail on errors
+set -e
+
+# Known CLI commands that should not launch GUI
+CLI_COMMANDS="tunnel ext status version serve-web update help"
+# Known CLI options that should not launch GUI
+CLI_OPTIONS="-h --help -V --version"
+
+# Function to check if argument is a CLI command
+is_cli_command() {
+    for cmd in $CLI_COMMANDS; do
+        [ "$1" = "$cmd" ] && return 0
+    done
+    return 1
+}
+
+# Function to check if argument is a CLI option
+is_cli_option() {
+    for opt in $CLI_OPTIONS; do
+        [ "$1" = "$opt" ] && return 0
+    done
+    return 1
+}
+
+# Check if we should run in CLI mode
+CURSOR_BIN="/usr/bin/cursor-cli"
+if [ $# -gt 0 ] && (is_cli_command "$1" || is_cli_option "$1"); then
+    # Has CLI command or option - run directly
+    "$CURSOR_BIN" "$@"
+else
+    # No arguments or first arg is not a CLI command - launch GUI
+    nohup "$CURSOR_BIN" "$@" >/dev/null 2>&1 &
+fi
