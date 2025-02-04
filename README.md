@@ -9,7 +9,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - Features KDE Plasma desktop environment
 - Optimized for AMD and Intel GPUs
 
-## Features
+## RPM packages
 
 - **Productivity & Utilities**
   - ADB
@@ -49,7 +49,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - **Fonts**
   - Ubuntu Family
 
-## Additional Applications (Flatpak)
+## Flatpaks
 
 - **Gaming & Emulation**
   - Alpaca
@@ -106,7 +106,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Stremio
   - VLC
 
-## Additional Applications (Homebrew)
+## Homebrew packages
 
 - aria2
 - cmatrix
@@ -116,15 +116,15 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - wormhole-rs
 - yt-dlp
 
-## Installation Commands
+## Just commands
 
-The following `just` commands are available to install additional applications:
+The following `just` commands are available to install Flatpaks and Homebrew packages:
 
 ```bash
-# Install all additional applications
+# Install Flatpaks and Homebrew packages
 just install-amy
 
-# Install only Flatpak applications
+# Install only Flatpaks
 just install-amy-flatpaks
 
 # Install only Homebrew packages
