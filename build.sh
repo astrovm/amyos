@@ -7,6 +7,7 @@ mkdir -p /var/opt
 
 # Add repositories
 sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
+sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
 dnf5 copr enable -y zeno/scrcpy
 dnf5 copr enable -y atim/ubuntu-fonts
 dnf5 install -y terra-release
@@ -27,7 +28,6 @@ dnf5 install -y \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
-    edk2-ovmf \
     ghostty \
     gparted \
     htop \
@@ -62,3 +62,10 @@ systemctl enable libvirtd
 
 # Add just
 echo "import \"/usr/share/amyos/just/apps.just\"" >> /usr/share/ublue-os/justfile
+
+# Starship Shell Prompt
+curl --retry 3 -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
+tar -xzf /tmp/starship.tar.gz -C /tmp
+install -c -m 0755 /tmp/starship /usr/bin
+# shellcheck disable=SC2016
+echo 'eval "$(starship init bash)"' >> /etc/bashrc
