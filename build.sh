@@ -22,19 +22,23 @@ dnf5 install -y \
     code \
     containerd.io \
     coolercontrol \
+    devpod \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin \
+    edk2-ovmf \
     ghostty \
     gparted \
     htop \
     isoimagewriter \
     gnome-disk-utility \
     lact \
+    libvirt-nss \
     mpv \
     neovim \
     nmap \
+    powerline-fonts \
     protonvpn-cli \
     rclone \
     scrcpy \

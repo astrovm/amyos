@@ -14,6 +14,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - **Productivity & Utilities**
   - ADB
   - BleachBit
+  - devpod
   - Docker
   - Docker Compose
   - Ghostty
@@ -47,6 +48,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - Solaar
 
 - **Fonts**
+  - Powerline
   - Ubuntu Family
 
 ## Flatpaks
@@ -76,6 +78,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - LibreOffice
   - Mission Center
   - Okular
+  - Podman Desktop
   - Warehouse
 
 - **Networking & Communication**

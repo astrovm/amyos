@@ -29,6 +29,7 @@ com.obsproject.Studio.Plugin.Gstreamer
 com.obsproject.Studio.Plugin.OBSVkCapture
 org.kde.okular
 com.github.PintaProject.Pinta
+io.podman_desktop.PodmanDesktop
 com.github.Matoking.protontricks
 net.davidotek.pupgui2
 org.qbittorrent.qBittorrent
