@@ -32,7 +32,7 @@ dnf5 -y install --enable-repo="*rpmfusion*" \
     audacious-plugins-freeworld
 
 # Install Terra packages
-dnf5 -y install --enable-repo="*terra*" \
+dnf5 -y install \
     coolercontrol \
     ghostty
 
