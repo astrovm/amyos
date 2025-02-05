@@ -77,12 +77,12 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y install lact
 dnf5 -y copr disable ilyaz/LACT
 
-# Move directories from /var/opt to /usr/lib and create symlinks
+# Move directories from /var/opt to /usr/lib/opt and create symlinks
 for dir in /var/opt/*/; do
     if [ -d "$dir" ]; then
         dirname=$(basename "$dir")
-        mv "$dir" "/usr/lib/$dirname"
-        echo "L  /opt/$dirname -  -  -  -  /usr/lib/$dirname" >> /usr/lib/tmpfiles.d/relocated-directories.conf
+        mv "$dir" "/usr/lib/opt/$dirname"
+        echo "L  /var/opt/$dirname -  -  -  -  /usr/lib/opt/$dirname" >> /usr/lib/tmpfiles.d/amyos-symlinks.conf
     fi
 done
 
