@@ -1,7 +1,5 @@
-#!/usr/bin/bash
-
-# Ensure we fail on errors
-set -e
+#!/bin/bash
+set -euo pipefail
 
 # Known CLI commands that should not launch GUI
 CLI_COMMANDS="tunnel ext status version serve-web update help"

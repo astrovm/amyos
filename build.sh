@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -ouex pipefail
 
 # Create directories
