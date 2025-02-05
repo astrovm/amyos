@@ -82,7 +82,7 @@ for dir in /var/opt/*/; do
     if [ -d "$dir" ]; then
         dirname=$(basename "$dir")
         mv "$dir" "/usr/lib/opt/$dirname"
-        echo "L  /var/opt/$dirname -  -  -  -  /usr/lib/opt/$dirname" >> /usr/lib/tmpfiles.d/amyos-symlinks.conf
+        echo "L /var/opt/$dirname - - - - /usr/lib/opt/$dirname" >> /usr/lib/tmpfiles.d/amyos.conf
     fi
 done
 
