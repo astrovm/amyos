@@ -1,30 +1,46 @@
 #!/bin/bash
 set -euo pipefail
 
-# Known CLI commands that should not launch GUI
-CLI_COMMANDS="tunnel ext status version serve-web update help"
-# Known CLI options that should not launch GUI
-CLI_OPTIONS="-h --help -V --version"
+# Define CLI commands and options as arrays
+CLI_COMMANDS=(tunnel ext status version serve-web update help)
+CLI_OPTIONS=(-h --help -V --version)
 
 # Function to check if argument is a CLI command
 is_cli_command() {
-    for cmd in $CLI_COMMANDS; do
-        [ "$1" = "$cmd" ] && return 0
+    for cmd in "${CLI_COMMANDS[@]}"; do
+        if [[ "$1" == "$cmd" ]]; then
+            return 0
+        fi
     done
     return 1
 }
 
 # Function to check if argument is a CLI option
 is_cli_option() {
-    for opt in $CLI_OPTIONS; do
-        [ "$1" = "$opt" ] && return 0
+    for opt in "${CLI_OPTIONS[@]}"; do
+        if [[ "$1" == "$opt" ]]; then
+            return 0
+        fi
     done
     return 1
 }
 
-# Check if we should run in CLI mode
 CURSOR_BIN="/usr/bin/cursor-cli"
-if [ $# -gt 0 ] && (is_cli_command "$1" || is_cli_option "$1"); then
+
+# Check if the CLI executable exists and is executable
+if [[ ! -x "$CURSOR_BIN" ]]; then
+    echo "Error: $CURSOR_BIN not found or not executable." >&2
+    exit 1
+fi
+
+# If input is coming from a pipe, force CLI mode
+if [[ ! -t 0 ]]; then
+    "$CURSOR_BIN" "$@"
+    exit $?
+fi
+
+# Check if we should run in CLI mode or launch the GUI
+if [[ $# -gt 0 ]] && (is_cli_command "$1" || is_cli_option "$1"); then
     # Has CLI command or option - run directly
     "$CURSOR_BIN" "$@"
 else
