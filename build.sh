@@ -33,7 +33,6 @@ dnf5 -y install --enable-repo="*rpmfusion*" \
 
 # Install Terra packages
 dnf5 -y install --enable-repo="terra" \
-dnf5 -y install \
     coolercontrol \
     ghostty
 
