@@ -4,35 +4,14 @@ set -ouex pipefail
 # Create directories
 mkdir -p /var/opt
 
-# Add repositories
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/rpmfusion-*.repo
-sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-staging.repo
-dnf5 copr enable -y zeno/scrcpy
-dnf5 copr enable -y atim/ubuntu-fonts
-dnf5 install -y terra-release
-
-# Install packages
-dnf5 install -y \
+# Install Fedora packages
+dnf5 -y install \
     android-tools \
-    audacious \
-    audacious-plugins-freeworld \
     bleachbit \
-    brave-browser \
-    cloudflare-warp \
-    code \
-    containerd.io \
-    coolercontrol \
-    devpod \
-    docker-buildx-plugin \
-    docker-ce \
-    docker-ce-cli \
-    docker-compose-plugin \
-    ghostty \
     gparted \
     htop \
     isoimagewriter \
     gnome-disk-utility \
-    lact \
     libvirt-nss \
     mpv \
     neovim \
@@ -40,36 +19,91 @@ dnf5 install -y \
     powerline-fonts \
     protonvpn-cli \
     rclone \
-    scrcpy \
     solaar \
     syncthing \
     tor \
     torsocks \
-    ubuntu-family-fonts \
     virt-manager \
     wireshark
 
-# Clean cache
-dnf5 clean all
+# Install RPM Fusion packages
+dnf5 -y install --enable-repo="*rpmfusion*" \
+    audacious \
+    audacious-plugins-freeworld
 
-# Move directories
-mv /var/opt/brave.com /usr/lib/brave.com
+# Install Terra packages
+dnf5 -y install --enable-repo="*terra*" \
+    coolercontrol \
+    ghostty
+
+# Install Docker
+dnf5 -y install --enable-repo="docker-ce-stable" \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin \
+    containerd.io
+
+# Install Brave Browser
+dnf5 -y install --enable-repo="brave-browser" \
+    brave-browser
+
+# Install Cloudflare Warp
+dnf5 -y install --enable-repo="cloudflare-warp" \
+    cloudflare-warp
+
+# Install VSCode
+dnf5 -y install --enable-repo="vscode" \
+    code
+
+# Install Ubuntu fonts
+dnf5 -y copr enable atim/ubuntu-fonts
+dnf5 -y install ubuntu-family-fonts
+dnf5 -y copr disable atim/ubuntu-fonts
+
+# Install Scrcpy
+dnf5 -y copr enable zeno/scrcpy
+dnf5 -y install scrcpy
+dnf5 -y copr disable zeno/scrcpy
+
+# Install DevPod
+dnf5 -y copr enable ublue-os/staging
+dnf5 -y install devpod
+dnf5 -y copr disable ublue-os/staging
+
+# Install Lact
+dnf5 -y copr enable ilyaz/LACT
+dnf5 -y install lact
+dnf5 -y copr disable ilyaz/LACT
+
+# Move directories from /var/opt to /usr/lib and create symlinks
+for dir in /var/opt/*/; do
+    if [ -d "$dir" ]; then
+        dirname=$(basename "$dir")
+        mv "$dir" "/usr/lib/$dirname"
+        echo "L  /opt/$dirname -  -  -  -  /usr/lib/$dirname" >> /usr/lib/tmpfiles.d/relocated-directories.conf
+    fi
+done
 
 # Enable services
-systemctl enable docker
 systemctl enable libvirtd
+systemctl enable docker
 
-# Add just
+# Import Amy OS justfile
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
 
-# Starship Shell Prompt
+# Add Starship Shell Prompt
 curl --retry 3 -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
 tar -xzf /tmp/starship.tar.gz -C /tmp
 install -c -m 0755 /tmp/starship /usr/bin
 echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
 
-# Cursor CLI
+# Add Cursor CLI
 curl --retry 3 -Lo /tmp/cursor.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf /tmp/cursor.tar.gz -C /tmp
 mv /tmp/cursor /tmp/cursor-cli
 install -c -m 0755 /tmp/cursor-cli /usr/bin
+
+# Clean cache
+dnf5 clean all
+rm -rf /tmp/* || true

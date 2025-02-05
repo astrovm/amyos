@@ -1,7 +1,7 @@
-[cloudflare-warp-stable]
-name=cloudflare-warp-stable
+[cloudflare-warp]
+name=Cloudflare WARP
 baseurl=https://pkg.cloudflareclient.com/rpm
-enabled=1
+enabled=0
 type=rpm
 gpgcheck=1
 gpgkey=https://pkg.cloudflareclient.com/pubkey.gpg
