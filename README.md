@@ -42,6 +42,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - **Media**
   - Audacious
   - MPV
+  - yt-dlp
 
 - **Hardware Control**
   - CoolerControl
@@ -118,7 +119,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - john-jumbo
 - rustup
 - wormhole-rs
-- yt-dlp
 
 ## AppImages
 

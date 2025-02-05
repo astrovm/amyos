@@ -24,7 +24,8 @@ dnf5 -y install \
     tor \
     torsocks \
     virt-manager \
-    wireshark
+    wireshark \
+    yt-dlp
 
 # Install RPM Fusion packages
 dnf5 -y install --enable-repo="*rpmfusion*" \
