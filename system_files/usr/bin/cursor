@@ -11,6 +11,17 @@ if [[ ! -x "$CLI_BIN" ]]; then
     exit 1
 fi
 
+# Check if AppImage from CLI exists and is executable
+APPIMAGE=$("$CLI_BIN" version show | grep "Installation path:" | cut -d' ' -f3 || echo "")
+if [[ -z "$APPIMAGE" ]]; then
+    echo "Error: No AppImage configured." >&2
+    exit 1
+fi
+if [[ ! -x "$APPIMAGE" ]]; then
+    echo "Error: $APPIMAGE not found or not executable." >&2
+    exit 1
+fi
+
 # Function to check if argument is a CLI option
 is_cli_option() {
     for opt in "${CLI_OPTIONS[@]}"; do
@@ -23,7 +34,7 @@ is_cli_option() {
 
 # Function to check if AppImage is running
 is_running() {
-    pgrep -f "cursor.appimage" >/dev/null
+    pgrep -f "$APPIMAGE" >/dev/null
 }
 
 # Check if we need to run in background
