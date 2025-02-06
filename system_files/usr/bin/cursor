@@ -1,32 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
-# Define Cursor CLI binary and arguments
+# Define Cursor CLI binary and options
 CLI_BIN="/usr/bin/cursor-cli"
-CLI_COMMANDS=(tunnel ext status version serve-web update help)
-CLI_OPTIONS=(-h --help -V --version)
+CLI_OPTIONS=(tunnel ext status version serve-web update help -h --help -V --version)
 
-# Check if the Cursor CLI binary exists and is executable
+# Check if CLI binary exists and is executable
 if [[ ! -x "$CLI_BIN" ]]; then
     echo "Error: $CLI_BIN not found or not executable." >&2
     exit 1
 fi
-
-# If input is coming from a pipe, force CLI mode
-if [[ ! -t 0 ]]; then
-    "$CLI_BIN" "$@"
-    exit $?
-fi
-
-# Function to check if argument is a CLI command
-is_cli_command() {
-    for cmd in "${CLI_COMMANDS[@]}"; do
-        if [[ "$1" == "$cmd" ]]; then
-            return 0
-        fi
-    done
-    return 1
-}
 
 # Function to check if argument is a CLI option
 is_cli_option() {
@@ -38,11 +21,16 @@ is_cli_option() {
     return 1
 }
 
-# Check if we should run in CLI mode or launch the GUI
-if [[ $# -gt 0 ]] && (is_cli_command "$1" || is_cli_option "$1"); then
-    # Has CLI command or option - run directly
-    "$CLI_BIN" "$@"
-else
-    # No arguments or first arg is not a CLI command - launch GUI
+# Function to check if AppImage is running
+is_running() {
+    pgrep -f "cursor.appimage" >/dev/null
+}
+
+# Check if we need to run in background
+if ! is_running || [[ $# -eq 0 ]] || ! is_cli_option "$1"; then
     "$CLI_BIN" "$@" &>/dev/null & disown
+    exit 0
 fi
+
+"$CLI_BIN" "$@"
+exit $?
