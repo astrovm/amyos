@@ -35,7 +35,8 @@ dnf5 -y install --enable-repo="*rpmfusion*" \
 # Install Terra packages
 dnf5 -y install --enable-repo="terra" \
     coolercontrol \
-    ghostty
+    ghostty \
+    starship
 
 # Install Docker
 dnf5 -y install --enable-repo="docker-ce-stable" \
@@ -93,10 +94,7 @@ systemctl enable docker
 # Import Amy OS justfile
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
 
-# Add Starship Shell Prompt
-curl --retry 3 -Lo /tmp/starship.tar.gz "https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz"
-tar -xzf /tmp/starship.tar.gz -C /tmp
-install -c -m 0755 /tmp/starship /usr/bin
+# Add Starship shell prompt
 echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
 
 # Add Cursor CLI
