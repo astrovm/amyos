@@ -19,7 +19,7 @@ install-amy-appimages:
     fi
     chmod +x $HOME/Applications/cursor.appimage
     flatpak run it.mijorus.gearlever --integrate $HOME/Applications/cursor.appimage
-    nohup cursor-cli version use stable --install-dir $HOME/Applications/cursor.appimage >/dev/null 2>&1 &
+    cursor-cli version use stable --install-dir $HOME/Applications/cursor.appimage &>/dev/null & disown
 
 # Install all Amy OS apps
 install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
