@@ -37,7 +37,7 @@ install-amy-appimages:
                     echo "Failed to download $APPIMAGE_NAME"
                     continue
                 }
-                echo "Integrating $APPIMAGE_NAME with Gearlever..."
+                echo "Integrating $APPIMAGE_NAME with Gear Lever..."
                 flatpak run it.mijorus.gearlever --integrate "$DOWNLOAD_PATH" || {
                     echo "Failed to integrate $APPIMAGE_NAME"
                     rm -f "$DOWNLOAD_PATH"
