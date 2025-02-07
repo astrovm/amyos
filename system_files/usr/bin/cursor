@@ -50,7 +50,7 @@ is_running() {
 }
 
 # Check if we need to run in background
-if ! is_running || [[ $# -eq 0 ]] || ! is_cli_option "$1"; then
+if ! is_running && { [[ $# -eq 0 ]] || ! is_cli_option "$1"; }; then
     "$CLI_BIN" "$@" &>/dev/null & disown
     exit 0
 fi
