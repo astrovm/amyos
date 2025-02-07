@@ -20,15 +20,14 @@
 
           <setting name="ResponseType">code</setting>
           <setting type="as" name="Scope">[
-            'https://www.googleapis.com/auth/userinfo.email',
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/calendar',
-            'https://www.googleapis.com/auth/tasks',
-            'https://www.googleapis.com/auth/drive'
-            ]</setting>
+              'https://www.googleapis.com/auth/userinfo.email',
+              'https://www.googleapis.com/auth/userinfo.profile',
+              'https://www.googleapis.com/auth/calendar',
+              'https://www.googleapis.com/auth/tasks',
+              'https://www.googleapis.com/auth/drive'
+          ]</setting>
           <setting type="as" name="AllowedSchemes">['https']</setting>
-          <setting name="ClientId">
-            44438659992-7kgjeitenc16ssihbtdjbgguch7ju55s.apps.googleusercontent.com</setting>
+          <setting name="ClientId">44438659992-7kgjeitenc16ssihbtdjbgguch7ju55s.apps.googleusercontent.com</setting>
           <setting name="ClientSecret">-gMLuQyDiI0XrQS_vx_mhuYF</setting>
           <setting type="b" name="ForceClientAuthViaRequestBody">true</setting>
         </group>
