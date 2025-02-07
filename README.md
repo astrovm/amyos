@@ -9,6 +9,32 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - Features KDE Plasma desktop environment
 - Optimized for AMD and Intel GPUs
 
+## Install
+
+From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
+
+```bash
+sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
+```
+
+## Just commands
+
+The following `just` commands are available to install Flatpaks, Homebrews and AppImages:
+
+```bash
+# Install all apps
+just install-amy
+
+# Install only Flatpaks
+just install-amy-flatpaks
+
+# Install only Homebrews
+just install-amy-brews
+
+# Install only AppImages
+just install-amy-appimages
+```
+
 ## RPM packages
 
 - **Productivity & Utilities**
@@ -124,24 +150,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
 ## AppImages
 
 - Cursor
-
-## Just commands
-
-The following `just` commands are available to install Flatpaks, Homebrews and AppImages:
-
-```bash
-# Install all apps
-just install-amy
-
-# Install only Flatpaks
-just install-amy-flatpaks
-
-# Install only Homebrews
-just install-amy-brews
-
-# Install only AppImages
-just install-amy-appimages
-```
 
 ## Acknowledgments
 
