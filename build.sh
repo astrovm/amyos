@@ -19,6 +19,7 @@ dnf5 -y install \
     powerline-fonts \
     protonvpn-cli \
     rclone \
+    source-foundry-hack-fonts \
     solaar \
     syncthing \
     tor \

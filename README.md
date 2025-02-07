@@ -51,7 +51,8 @@ A custom Universal Blue image designed for gaming, development and daily use.
 
 - **Fonts**
   - Powerline
-  - Ubuntu Family
+  - Ubuntu
+  - Hack
 
 ## Flatpaks
 
