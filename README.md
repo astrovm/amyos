@@ -140,9 +140,6 @@ just install-amy-brews
 
 # Install only AppImages
 just install-amy-appimages
-
-# Set AppImage in Cursor CLI
-just setup-cursor-cli
 ```
 
 ## Acknowledgments
