@@ -150,6 +150,7 @@ just install-amy-appimages
 ## AppImages
 
 - Cursor
+- OpenRGB
 
 ## Acknowledgments
 
