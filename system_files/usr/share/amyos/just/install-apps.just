@@ -3,7 +3,7 @@ install-amy-flatpaks:
     #!/bin/bash
     echo "Installing Flatpaks..."
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
-    flatpak --system -y install "${FLATPAK_LIST}"
+    flatpak --system -y install $FLATPAK_LIST
     echo "Flatpaks installation complete."
 
 # Install Amy OS Homebrews
@@ -11,7 +11,7 @@ install-amy-brews:
     #!/bin/bash
     echo "Installing Homebrews..."
     BREW_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews | tr '\n' ' ')"
-    brew install "${BREW_LIST}"
+    brew install $BREW_LIST
     echo "Homebrews installation complete."
 
 # Install Amy OS AppImages
@@ -28,7 +28,7 @@ install-amy-appimages:
     echo "$APPIMAGE_LIST" | while IFS=',' read -r name url; do
         if [ -n "$name" ] && [ -n "$url" ]; then
             APPIMAGE_NAME="${name}.appimage"
-            DOWNLOAD_PATH="/tmp/${APPIMAGE_NAME}"
+            DOWNLOAD_PATH="/tmp/$APPIMAGE_NAME"
             echo "Checking $APPIMAGE_NAME..."
             
             if ! flatpak run it.mijorus.gearlever --list-installed | grep -q "$APPIMAGE_NAME"; then
