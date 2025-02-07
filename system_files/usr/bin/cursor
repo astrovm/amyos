@@ -11,15 +11,27 @@ if [[ ! -x "$CLI_BIN" ]]; then
     exit 1
 fi
 
+# Function to get AppImage path from Gear Lever
+get_appimage_path() {
+    if ! command -v flatpak >/dev/null || ! flatpak list | grep -q "it.mijorus.gearlever"; then
+        return 1
+    fi
+    flatpak run it.mijorus.gearlever --list-installed | grep "cursor.appimage" | awk '{print $NF}'
+}
+
 # Check if AppImage from CLI exists and is executable
 APPIMAGE=$("$CLI_BIN" version show | grep "Installation path:" | cut -d' ' -f3 || echo "")
-if [[ -z "$APPIMAGE" ]]; then
-    echo "Error: No AppImage configured." >&2
-    exit 1
-fi
-if [[ ! -x "$APPIMAGE" ]]; then
-    echo "Error: $APPIMAGE not found or not executable." >&2
-    exit 1
+if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]]; then
+    # Try to get AppImage from Gear Lever
+    GEARLEVER_APPIMAGE=$(get_appimage_path)
+    if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
+        # Configure CLI to use the AppImage from Gear Lever
+        "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null & disown
+        APPIMAGE="$GEARLEVER_APPIMAGE"
+    else
+        echo "Error: No valid Cursor AppImage found. Run 'just install-amy'." >&2
+        exit 1
+    fi
 fi
 
 # Function to check if argument is a CLI option

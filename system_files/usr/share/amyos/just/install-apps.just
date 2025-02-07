@@ -52,29 +52,5 @@ install-amy-appimages:
     done
     echo "AppImages installation complete."
 
-# Set AppImage in Cursor CLI 
-setup-cursor-cli:
-    #!/bin/bash
-    echo "Setting up Cursor CLI..."
-    
-    if ! flatpak list | grep -q "it.mijorus.gearlever"; then
-        echo "Error: Gear Lever is not installed." >&2
-        exit 1
-    fi
-
-    APPIMAGE=$(flatpak run it.mijorus.gearlever --list-installed | grep "cursor.appimage" | awk '{print $NF}')
-    if [ -z "$APPIMAGE" ]; then
-        echo "Error: Cursor AppImage not found." >&2
-        exit 1
-    fi
-
-    if ! cursor-cli version show | grep -q "$APPIMAGE"; then
-        echo "Configuring Cursor CLI with AppImage: $APPIMAGE"
-        cursor-cli version use stable --install-dir "$APPIMAGE" &>/dev/null & disown
-        echo "Cursor CLI setup complete."
-    else
-        echo "Cursor CLI is already configured with the correct AppImage."
-    fi
-
 # Install all Amy OS apps
-install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages setup-cursor-cli
+install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
