@@ -8,7 +8,6 @@ A custom Universal Blue image designed for gaming, development and daily use.
 - Uses [Bazzite](https://bazzite.gg/) as the base image
 - Features KDE Plasma desktop environment
 - Optimized for AMD and Intel GPUs
-- Includes [Starship](https://starship.rs/) shell prompt
 
 ## RPM packages
 
@@ -27,6 +26,7 @@ A custom Universal Blue image designed for gaming, development and daily use.
   - nmap
   - Rclone
   - Scrcpy
+  - Starship
   - Syncthing
   - virt-manager
   - VS Code
@@ -140,6 +140,9 @@ just install-amy-brews
 
 # Install only AppImages
 just install-amy-appimages
+
+# Set AppImage in cursor-cli
+just setup-cursor-cli
 ```
 
 ## Acknowledgments

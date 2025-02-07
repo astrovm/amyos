@@ -1,25 +1,80 @@
 # Install Amy OS Flatpaks
 install-amy-flatpaks:
     #!/bin/bash
+    echo "Installing Flatpaks..."
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
-    flatpak --system -y install --or-update ${FLATPAK_LIST}
+    flatpak --system -y install "${FLATPAK_LIST}"
+    echo "Flatpaks installation complete."
 
 # Install Amy OS Homebrews
 install-amy-brews:
     #!/bin/bash
+    echo "Installing Homebrews..."
     BREW_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews | tr '\n' ' ')"
-    brew install ${BREW_LIST}
+    brew install "${BREW_LIST}"
+    echo "Homebrews installation complete."
 
 # Install Amy OS AppImages
 install-amy-appimages:
     #!/bin/bash
-    mkdir -p $HOME/Applications
-    if [ ! -f "$HOME/Applications/cursor.appimage" ]; then
-        wget https://downloader.cursor.sh/linux/appImage/x64 -O $HOME/Applications/cursor.appimage
+    echo "Installing AppImages..."
+    
+    if ! flatpak list | grep -q "it.mijorus.gearlever"; then
+        echo "Error: Gear Lever is not installed." >&2
+        exit 1
     fi
-    chmod +x $HOME/Applications/cursor.appimage
-    flatpak run it.mijorus.gearlever --integrate $HOME/Applications/cursor.appimage
-    cursor-cli version use stable --install-dir $HOME/Applications/cursor.appimage &>/dev/null & disown
+
+    APPIMAGE_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)"
+    echo "$APPIMAGE_LIST" | while IFS=',' read -r name url; do
+        if [ -n "$name" ] && [ -n "$url" ]; then
+            APPIMAGE_NAME="${name}.appimage"
+            DOWNLOAD_PATH="/tmp/${APPIMAGE_NAME}"
+            echo "Checking $APPIMAGE_NAME..."
+            
+            if ! flatpak run it.mijorus.gearlever --list-installed | grep -q "$APPIMAGE_NAME"; then
+                echo "Downloading $APPIMAGE_NAME..."
+                wget "$url" -O "$DOWNLOAD_PATH" || {
+                    echo "Failed to download $APPIMAGE_NAME"
+                    continue
+                }
+                echo "Integrating $APPIMAGE_NAME with Gearlever..."
+                flatpak run it.mijorus.gearlever --integrate "$DOWNLOAD_PATH" || {
+                    echo "Failed to integrate $APPIMAGE_NAME"
+                    rm -f "$DOWNLOAD_PATH"
+                    continue
+                }
+                rm -f "$DOWNLOAD_PATH"
+                echo "$APPIMAGE_NAME installed successfully"
+            else
+                echo "$APPIMAGE_NAME is already installed"
+            fi
+        fi
+    done
+    echo "AppImages installation complete."
+
+# Set AppImage in cursor-cli 
+setup-cursor-cli:
+    #!/bin/bash
+    echo "Setting up Cursor CLI..."
+    
+    if ! flatpak list | grep -q "it.mijorus.gearlever"; then
+        echo "Error: Gear Lever is not installed." >&2
+        exit 1
+    fi
+
+    APPIMAGE=$(flatpak run it.mijorus.gearlever --list-installed | grep "cursor.appimage" | awk '{print $NF}')
+    if [ -z "$APPIMAGE" ]; then
+        echo "Error: Cursor AppImage not found." >&2
+        exit 1
+    fi
+
+    if ! cursor-cli version show | grep -q "$APPIMAGE"; then
+        echo "Configuring Cursor CLI with AppImage at: $APPIMAGE"
+        cursor-cli version use stable --install-dir "$APPIMAGE" &>/dev/null & disown
+        echo "Cursor CLI setup complete."
+    else
+        echo "Cursor CLI is already configured with the correct AppImage."
+    fi
 
 # Install all Amy OS apps
-install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
+install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages setup-cursor-cli
