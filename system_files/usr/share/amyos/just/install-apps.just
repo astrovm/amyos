@@ -52,7 +52,7 @@ install-amy-appimages:
     done
     echo "AppImages installation complete."
 
-# Set AppImage in cursor-cli 
+# Set AppImage in Cursor CLI 
 setup-cursor-cli:
     #!/bin/bash
     echo "Setting up Cursor CLI..."
@@ -69,7 +69,7 @@ setup-cursor-cli:
     fi
 
     if ! cursor-cli version show | grep -q "$APPIMAGE"; then
-        echo "Configuring Cursor CLI with AppImage at: $APPIMAGE"
+        echo "Configuring Cursor CLI with AppImage: $APPIMAGE"
         cursor-cli version use stable --install-dir "$APPIMAGE" &>/dev/null & disown
         echo "Cursor CLI setup complete."
     else
