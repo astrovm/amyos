@@ -8,10 +8,10 @@ mkdir -p /var/opt
 dnf5 -y install \
     android-tools \
     bleachbit \
+    gnome-disk-utility \
     gparted \
     htop \
     isoimagewriter \
-    gnome-disk-utility \
     libvirt-nss \
     mpv \
     neovim \
@@ -19,8 +19,8 @@ dnf5 -y install \
     powerline-fonts \
     protonvpn-cli \
     rclone \
-    source-foundry-hack-fonts \
     solaar \
+    source-foundry-hack-fonts \
     syncthing \
     tor \
     torsocks \
@@ -41,11 +41,11 @@ dnf5 -y install --enable-repo="terra" \
 
 # Install Docker
 dnf5 -y install --enable-repo="docker-ce-stable" \
+    containerd.io \
     docker-buildx-plugin \
     docker-ce \
     docker-ce-cli \
-    docker-compose-plugin \
-    containerd.io
+    docker-compose-plugin
 
 # Install Brave Browser
 dnf5 -y install --enable-repo="brave-browser" \
@@ -89,8 +89,8 @@ for dir in /var/opt/*/; do
 done
 
 # Enable services
-systemctl enable libvirtd
 systemctl enable docker
+systemctl enable libvirtd
 
 # Import Amy OS justfile
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile

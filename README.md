@@ -44,8 +44,8 @@ just install-amy-appimages
   - Docker
   - Docker Compose
   - Ghostty
-  - GParted
   - GNOME Disks
+  - GParted
   - htop
   - ISOImageWriter
   - Neovim
@@ -76,9 +76,9 @@ just install-amy-appimages
   - Solaar
 
 - **Fonts**
+  - Hack
   - Powerline
   - Ubuntu
-  - Hack
 
 ## Flatpaks
 
