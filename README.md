@@ -1,6 +1,11 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/search?repo=amyos)
 
-<img src="system_files/usr/share/plymouth/themes/spinner/watermark.png" alt="Amy OS Logo" width="100">
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://i.imgur.com/CqD0yyd.png">
+    <img alt="Amy OS Logo" src="https://i.imgur.com/V6NLhnj.png" width="100">
+  </picture>
+</div>
 
 # Amy OS
 
