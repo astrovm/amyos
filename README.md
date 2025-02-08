@@ -26,6 +26,10 @@ From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
 sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
 ```
 
+If you want to install the image on a new system download and install Bazzite ISO first:
+
+<https://download.bazzite.gg/bazzite-stable-amd64.iso>
+
 ## Just commands
 
 The following `just` commands are available to install Flatpaks, Homebrews and AppImages:
