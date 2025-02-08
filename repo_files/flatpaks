@@ -30,7 +30,12 @@ org.DolphinEmu.dolphin-emu
 org.duckstation.DuckStation
 org.fedoraproject.MediaWriter
 org.flycast.Flycast
+org.freedesktop.Platform.VulkanLayer.MangoHud
+org.freedesktop.Platform.VulkanLayer.OBSVkCapture
+org.freedesktop.Platform.VulkanLayer.vkBasalt
 org.gimp.GIMP
+org.gtk.Gtk3theme.adw-gtk3
+org.gtk.Gtk3theme.adw-gtk3-dark
 org.kde.filelight
 org.kde.gwenview
 org.kde.haruna
