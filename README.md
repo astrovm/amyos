@@ -1,5 +1,7 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/search?repo=amyos)
 
+<img src="system_files/usr/share/plymouth/themes/spinner/watermark.png" alt="Amy OS Logo" width="100">
+
 # Amy OS
 
 A custom Fedora Atomic image designed for gaming, development and daily use.
