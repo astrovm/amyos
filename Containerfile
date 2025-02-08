@@ -14,8 +14,9 @@ FROM ghcr.io/ublue-os/bazzite:41
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY system_files /
-COPY build.sh /tmp/build.sh
+COPY build_files /tmp
 
-RUN mkdir -p /var/lib/alternatives && \
+RUN mkdir -p /var/lib/alternatives /var/opt && \
     /tmp/build.sh && \
+    /tmp/cleanup.sh && \
     ostree container commit

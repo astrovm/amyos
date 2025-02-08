@@ -1,9 +1,6 @@
 #!/bin/bash
 set -ouex pipefail
 
-# Create directories
-mkdir -p /var/opt
-
 # Install Fedora packages
 dnf5 -y install \
     android-tools \
@@ -79,15 +76,6 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y install lact
 dnf5 -y copr disable ilyaz/LACT
 
-# Move directories from /var/opt to /usr/lib/opt and create symlinks
-for dir in /var/opt/*/; do
-    if [ -d "$dir" ]; then
-        dirname=$(basename "$dir")
-        mv "$dir" "/usr/lib/opt/$dirname"
-        echo "L /var/opt/$dirname - - - - /usr/lib/opt/$dirname" >> /usr/lib/tmpfiles.d/amyos.conf
-    fi
-done
-
 # Enable services
 systemctl enable docker
 systemctl enable libvirtd
@@ -103,7 +91,3 @@ curl --retry 3 -Lo /tmp/cursor.tar.gz "https://api2.cursor.sh/updates/download-l
 tar -xzf /tmp/cursor.tar.gz -C /tmp
 mv /tmp/cursor /tmp/cursor-cli
 install -c -m 0755 /tmp/cursor-cli /usr/bin
-
-# Clean cache
-dnf5 clean all
-rm -rf /tmp/* || true
