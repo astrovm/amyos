@@ -1,3 +1,5 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/search?repo=amyos)
+
 # Amy OS
 
 A custom Universal Blue image designed for gaming, development and daily use.
