@@ -87,7 +87,7 @@ echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os
 echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
 
 # Add Cursor CLI
-curl --retry 3 -Lo /tmp/cursor.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf /tmp/cursor.tar.gz -C /tmp
+curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
 mv /tmp/cursor /tmp/cursor-cli
 install -c -m 0755 /tmp/cursor-cli /usr/bin
