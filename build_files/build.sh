@@ -11,7 +11,6 @@ dnf5 -y install \
     gnome-disk-utility \
     gparted \
     htop \
-    isoimagewriter \
     john \
     libvirt-nss \
     mpv \

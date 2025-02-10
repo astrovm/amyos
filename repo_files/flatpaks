@@ -9,7 +9,6 @@ com.jeffser.Alpaca.Plugins.AMD
 com.obsproject.Studio
 com.spotify.Client
 com.stremio.Stremio
-com.supermodel3.Supermodel
 com.usebottles.bottles
 de.leopoldluley.Clapgrep
 dev.vencord.Vesktop
@@ -31,6 +30,7 @@ org.gimp.GIMP
 org.kde.filelight
 org.kde.gwenview
 org.kde.haruna
+org.kde.isoimagewriter
 org.kde.kcalc
 org.kde.kdenlive
 org.kde.krita

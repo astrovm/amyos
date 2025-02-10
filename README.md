@@ -18,6 +18,18 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Features KDE Plasma desktop environment
 - Optimized for AMD and Intel GPUs
 
+## Features
+
+- `cursor` and `cursor-cli` commands
+- `fuck` alias
+- `rustup-init` command
+- adb, fastboot and scrcpy
+- Curated list of Flatpaks, Homebrews and AppImages
+- Hack, Powerline and Ubuntu fonts
+- Starship shell prompt
+- Virtual Machine Manager
+- VS Code, Docker and DevPod
+
 ## Install
 
 From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
@@ -48,48 +60,6 @@ just install-amy-brews
 just install-amy-appimages
 ```
 
-## Extra RPM packages
-
-- ADB
-- aria2
-- Audacious
-- BleachBit
-- Brave
-- Cloudflare WARP
-- cmatrix
-- CoolerControl
-- croc
-- DevPod
-- Docker
-- Docker Compose
-- Ghostty
-- GNOME Disks
-- GParted
-- Hack Fonts
-- htop
-- ISOImageWriter
-- john
-- LACT
-- MPV
-- Neovim
-- nmap
-- Powerline Fonts
-- Proton VPN
-- Rclone
-- rustup
-- Scrcpy
-- Solaar
-- Starship
-- Syncthing
-- The Fuck
-- Tor
-- Torsocks
-- Ubuntu Fonts
-- virt-manager
-- VS Code
-- Wireshark
-- yt-dlp
-
 ## Flatpaks
 
 - Alpaca
@@ -110,6 +80,7 @@ just install-amy-appimages
 - GIMP
 - Gwenview
 - Haruna
+- ISO Image Writer
 - KCalc
 - Kdenlive
 - Krita
@@ -129,7 +100,6 @@ just install-amy-appimages
 - Space Cadet Pinball
 - Spotify
 - Stremio
-- Supermodel
 - Telegram
 - Tor Browser
 - Varia
