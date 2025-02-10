@@ -51,12 +51,15 @@ just install-amy-appimages
 ## Additional RPM packages
 
 - ADB
+- aria2
 - Audacious
 - BleachBit
 - Brave
 - Cloudflare WARP
+- cmatrix
 - CoolerControl
-- devpod
+- croc
+- DevPod
 - Docker
 - Docker Compose
 - Ghostty
@@ -65,6 +68,7 @@ just install-amy-appimages
 - Hack Fonts
 - htop
 - ISOImageWriter
+- john
 - LACT
 - MPV
 - Neovim
@@ -72,6 +76,7 @@ just install-amy-appimages
 - Powerline Fonts
 - Proton VPN
 - Rclone
+- rustup
 - Scrcpy
 - Solaar
 - Starship
@@ -136,11 +141,6 @@ just install-amy-appimages
 
 ## Homebrews
 
-- aria2
-- cmatrix
-- croc
-- john-jumbo
-- rustup
 - wormhole-rs
 
 ## AppImages

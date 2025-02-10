@@ -4,11 +4,15 @@ set -ouex pipefail
 # Install Fedora packages
 dnf5 -y install \
     android-tools \
+    aria2 \
     bleachbit \
+    cmatrix \
+    croc \
     gnome-disk-utility \
     gparted \
     htop \
     isoimagewriter \
+    john \
     libvirt-nss \
     mpv \
     neovim \
@@ -16,6 +20,7 @@ dnf5 -y install \
     powerline-fonts \
     protonvpn-cli \
     rclone \
+    rustup \
     solaar \
     source-foundry-hack-fonts \
     syncthing \
@@ -90,11 +95,8 @@ systemctl enable libvirtd
 # Import Amy OS justfile
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
 
-# Add Starship shell prompt, fuck alias and bling
+# Add Starship shell prompt and fuck alias
 cat << 'EOF' >> /etc/bashrc
 eval "$(starship init bash)"
 eval "$(thefuck --alias)"
-export ATUIN_NOBIND="true"
-test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
-bind -x '"\C-r": __atuin_history'
 EOF
