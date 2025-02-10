@@ -10,6 +10,9 @@ for dir in /var/opt/*/; do
     fi
 done
 
+# Update font cache
+fc-cache -fs
+
 # Clean cache
 dnf5 clean all
 rm -rf /tmp/* || true
