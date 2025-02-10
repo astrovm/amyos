@@ -48,7 +48,7 @@ just install-amy-brews
 just install-amy-appimages
 ```
 
-## Additional RPM packages
+## Extra RPM packages
 
 - ADB
 - aria2

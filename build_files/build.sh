@@ -77,12 +77,12 @@ dnf5 -y copr enable ublue-os/staging
 dnf5 -y install devpod
 dnf5 -y copr disable ublue-os/staging
 
-# Install Lact
+# Install LACT
 dnf5 -y copr enable ilyaz/LACT
 dnf5 -y install lact
 dnf5 -y copr disable ilyaz/LACT
 
-# Add Cursor CLI
+# Install Cursor CLI
 curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
 mv /tmp/cursor /tmp/cursor-cli
