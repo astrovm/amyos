@@ -11,7 +11,7 @@ for dir in /var/opt/*/; do
 done
 
 # Update font cache
-fc-cache -fs
+fc-cache -rs
 
 # Clean cache
 dnf5 clean all
