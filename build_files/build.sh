@@ -19,6 +19,7 @@ dnf5 -y install \
     solaar \
     source-foundry-hack-fonts \
     syncthing \
+    thefuck \
     tor \
     torsocks \
     virt-manager \
@@ -76,6 +77,12 @@ dnf5 -y copr enable ilyaz/LACT
 dnf5 -y install lact
 dnf5 -y copr disable ilyaz/LACT
 
+# Add Cursor CLI
+curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
+mv /tmp/cursor /tmp/cursor-cli
+install -c -m 0755 /tmp/cursor-cli /usr/bin
+
 # Enable services
 systemctl enable docker
 systemctl enable libvirtd
@@ -83,11 +90,11 @@ systemctl enable libvirtd
 # Import Amy OS justfile
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
 
-# Add Starship shell prompt
-echo "eval \"\$(starship init bash)\"" >> /etc/bashrc
-
-# Add Cursor CLI
-curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
-mv /tmp/cursor /tmp/cursor-cli
-install -c -m 0755 /tmp/cursor-cli /usr/bin
+# Add Starship shell prompt, fuck alias and bling
+cat << 'EOF' >> /etc/bashrc
+eval "$(starship init bash)"
+eval "$(thefuck --alias)"
+export ATUIN_NOBIND="true"
+test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
+bind -x '"\C-r": __atuin_history'
+EOF

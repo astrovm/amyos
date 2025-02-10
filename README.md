@@ -48,108 +48,91 @@ just install-amy-brews
 just install-amy-appimages
 ```
 
-## RPM packages
+## Additional RPM packages
 
-- **Productivity & Utilities**
-  - ADB
-  - BleachBit
-  - devpod
-  - Docker
-  - Docker Compose
-  - Ghostty
-  - GNOME Disks
-  - GParted
-  - htop
-  - ISOImageWriter
-  - Neovim
-  - nmap
-  - Rclone
-  - Scrcpy
-  - Starship
-  - Syncthing
-  - virt-manager
-  - VS Code
-  - Wireshark
-
-- **Networking & Communication**
-  - Brave
-  - Cloudflare WARP
-  - Proton VPN
-  - Tor
-  - Torsocks
-
-- **Media**
-  - Audacious
-  - MPV
-  - yt-dlp
-
-- **Hardware Control**
-  - CoolerControl
-  - LACT
-  - Solaar
-
-- **Fonts**
-  - Hack
-  - Powerline
-  - Ubuntu
+- ADB
+- Audacious
+- BleachBit
+- Brave
+- Cloudflare WARP
+- CoolerControl
+- devpod
+- Docker
+- Docker Compose
+- Ghostty
+- GNOME Disks
+- GParted
+- Hack Fonts
+- htop
+- ISOImageWriter
+- LACT
+- MPV
+- Neovim
+- nmap
+- Powerline Fonts
+- Proton VPN
+- Rclone
+- Scrcpy
+- Solaar
+- Starship
+- Syncthing
+- The Fuck
+- Tor
+- Torsocks
+- Ubuntu Fonts
+- virt-manager
+- VS Code
+- Wireshark
+- yt-dlp
 
 ## Flatpaks
 
-- **Gaming & Emulation**
-  - Alpaca
-  - Bottles
-  - Dolphin
-  - DuckStation
-  - Flycast
-  - ProtonTricks
-  - ProtonUp-Qt
-  - RetroArch
-  - ScummVM
-  - Space Cadet Pinball
-  - Supermodel
-  - WineZGUI
-
-- **Productivity & Utilities**
-  - BoxBuddy
-  - Clapgrep
-  - Fedora Media Writer
-  - Filelight
-  - Flatseal
-  - GearLever
-  - KCalc
-  - LibreOffice
-  - Mission Center
-  - Okular
-  - Podman Desktop
-  - Warehouse
-
-- **Networking & Communication**
-  - Firefox
-  - LocalSend
-  - qBittorrent
-  - Signal
-  - Telegram
-  - Tor Browser
-  - Varia
-  - Vesktop
-  - Warp
-
-- **Creative**
-  - Audacity
-  - Blender
-  - GIMP
-  - Kdenlive
-  - Krita
-  - OBS Studio
-  - Pinta
-
-- **Media**
-  - EasyEffects
-  - Gwenview
-  - Haruna
-  - Spotify
-  - Stremio
-  - VLC
+- Alpaca
+- Audacity
+- Blender
+- Bottles
+- BoxBuddy
+- Clapgrep
+- Dolphin
+- DuckStation
+- EasyEffects
+- Fedora Media Writer
+- Filelight
+- Firefox
+- Flatseal
+- Flycast
+- GearLever
+- GIMP
+- Gwenview
+- Haruna
+- KCalc
+- Kdenlive
+- Krita
+- LibreOffice
+- LocalSend
+- Mission Center
+- OBS Studio
+- Okular
+- Pinta
+- Podman Desktop
+- ProtonTricks
+- ProtonUp-Qt
+- qBittorrent
+- RetroArch
+- ScummVM
+- Signal
+- Space Cadet Pinball
+- Spotify
+- Stremio
+- Supermodel
+- Telegram
+- Tor Browser
+- Varia
+- Vesktop
+- VLC
+- Warehouse
+- Warp
+- WineZGUI
 
 ## Homebrews
 
