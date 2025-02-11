@@ -1,31 +1,35 @@
 #!/bin/bash
-set -ouex pipefail
+set -oue pipefail
+echo_and_restore() {
+    echo "$*"; set -x;
+}
+shopt -s expand_aliases; alias log='{ set +x; } 2> /dev/null; echo_and_restore';
 
-echo "=== Starting Amy OS cleanup process ==="
-echo "$(date): Beginning cleanup operations"
+log "=== Starting Amy OS cleanup process ==="
+log "$(date): Beginning cleanup operations"
 
-echo "=== Moving directories from /var/opt to /usr/lib/opt ==="
+log "=== Moving directories from /var/opt to /usr/lib/opt ==="
 for dir in /var/opt/*/; do
     if [ -d "$dir" ]; then
         dirname=$(basename "$dir")
-        echo "Moving directory: $dir to /usr/lib/opt/$dirname"
+        log "Moving directory: $dir to /usr/lib/opt/$dirname"
         mv "$dir" "/usr/lib/opt/$dirname"
-        echo "Creating symlink in tmpfiles.d configuration"
+        log "Creating symlink in tmpfiles.d configuration"
         echo "L /var/opt/$dirname - - - - /usr/lib/opt/$dirname" >> /usr/lib/tmpfiles.d/amyos.conf
-        echo "✓ Processed $dirname successfully"
+        log "✓ Processed $dirname successfully"
     fi
 done
-echo "✓ Directory migration completed"
+log "✓ Directory migration completed"
 
-echo "=== Updating font cache ==="
+log "=== Updating font cache ==="
 fc-cache -rsv
-echo "✓ Font cache updated successfully"
+log "✓ Font cache updated successfully"
 
-echo "=== Cleaning DNF cache and temporary files ==="
+log "=== Cleaning DNF cache and temporary files ==="
 dnf5 clean all
-echo "Removing temporary files..."
+log "Removing temporary files..."
 rm -rf /tmp/* || true
-echo "✓ System cleanup completed"
+log "✓ System cleanup completed"
 
-echo "=== Cleanup process completed successfully ==="
-echo "$(date): Cleanup finished"
+log "=== Cleanup process completed successfully ==="
+log "$(date): Cleanup finished"
