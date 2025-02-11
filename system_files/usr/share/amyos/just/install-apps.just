@@ -1,3 +1,6 @@
+# Install all Amy OS apps
+install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
+
 # Install Amy OS Flatpaks
 install-amy-flatpaks:
   #!/usr/bin/env bash
@@ -54,6 +57,3 @@ install-amy-appimages:
     fi
   done
   echo "AppImages installation complete."
-
-# Install all Amy OS apps
-install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
