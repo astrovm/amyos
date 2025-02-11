@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Initialize DEBUG if not set
 : "${DEBUG:=}"
-if [ -n "$DEBUG" ] ; then
+if [ -n "$DEBUG" ]; then
   set -x
 fi
 
@@ -32,7 +32,8 @@ if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ ^/.*\.a
   GEARLEVER_APPIMAGE=$(get_appimage_path)
   if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
     # Configure CLI to use the AppImage from Gear Lever
-    "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null & disown
+    "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null &
+    disown
     APPIMAGE="$GEARLEVER_APPIMAGE"
   else
     echo "Error: No valid Cursor AppImage found. Run 'ujust install-amy'." >&2
@@ -57,7 +58,8 @@ is_running() {
 
 # Check if we need to run in background
 if ! is_running && { [[ $# -eq 0 ]] || ! is_cli_option "$1"; }; then
-  "$CLI_BIN" "$@" &>/dev/null & disown
+  "$CLI_BIN" "$@" &>/dev/null &
+  disown
   exit 0
 fi
 

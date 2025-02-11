@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+shopt -s expand_aliases
 echo_and_restore() {
-  echo "$*"; set -x
+  echo "$*"
+  set -x
 }
-shopt -s expand_aliases; alias log='{ set +x; } 2> /dev/null; echo_and_restore'
+alias log='{ set +x; } 2> /dev/null; echo_and_restore'
 
 log "=== Starting Amy OS build process ==="
 log "$(date): Beginning package installations"
@@ -27,6 +29,8 @@ dnf5 -y install \
   protonvpn-cli \
   rclone \
   rustup \
+  ShellCheck \
+  shfmt \
   solaar \
   source-foundry-hack-fonts \
   thefuck \
@@ -115,10 +119,10 @@ log "✓ Services enabled successfully"
 
 log "=== Configuring system files ==="
 log "Adding Amy OS justfile..."
-echo "import \"/usr/share/amyos/just/install-apps.just\"" >> /usr/share/ublue-os/justfile
+echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/justfile
 
 log "Configuring shell environment..."
-cat << 'EOF' >> /etc/bashrc
+cat <<'EOF' >>/etc/bashrc
 eval "$(starship init bash)"
 eval "$(thefuck --alias)"
 EOF
