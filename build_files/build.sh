@@ -22,7 +22,6 @@ dnf5 -y install \
     rustup \
     solaar \
     source-foundry-hack-fonts \
-    syncthing \
     thefuck \
     tor \
     torsocks \

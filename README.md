@@ -27,6 +27,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Brave Browser
 - Cloudflare WARP
 - Curated list of Flatpaks, Homebrews and AppImages
+- Fixed Google Drive native integration
 - Hack, Powerline and Ubuntu fonts
 - Starship shell prompt
 - Virtual Machine Manager
