@@ -36,7 +36,7 @@ if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ ^/.*\.a
     disown
     APPIMAGE="$GEARLEVER_APPIMAGE"
   else
-    echo "Error: No valid Cursor AppImage found. Run 'ujust install-amy'." >&2
+    echo "Error: No valid Cursor AppImage found." >&2
     exit 1
   fi
 fi
