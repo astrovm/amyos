@@ -73,13 +73,13 @@ just install-amy-appimages
 - Clapgrep
 - Dolphin
 - DuckStation
-- EasyEffects
+- Easy Effects
 - Fedora Media Writer
 - Filelight
 - Firefox
 - Flatseal
 - Flycast
-- GearLever
+- Gear Lever
 - GIMP
 - Gwenview
 - Haruna
