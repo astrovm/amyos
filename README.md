@@ -101,6 +101,7 @@ ujust install-amy-appimages
 ### AppImages
 
 - Cursor
+- EmuDeck
 - OpenRGB
 
 ## Acknowledgments
