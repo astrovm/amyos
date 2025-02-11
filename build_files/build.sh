@@ -43,6 +43,8 @@ dnf5 -y install \
 log "✓ Fedora packages installed successfully"
 
 log "=== Installing RPM Fusion packages ==="
+dnf5 -y swap --enable-repo="*rpmfusion*" ffmpeg-free ffmpeg --allowerasing
+dnf5 -y update --enable-repo="*rpmfusion*" @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 dnf5 -y install --enable-repo="*rpmfusion*" \
   audacious \
   audacious-plugins-freeworld
