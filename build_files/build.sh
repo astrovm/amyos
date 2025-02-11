@@ -25,6 +25,7 @@ dnf5 -y install \
   mpv \
   neovim \
   nmap \
+  openrgb \
   powerline-fonts \
   protonvpn-cli \
   rclone \
