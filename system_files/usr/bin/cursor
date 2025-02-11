@@ -21,7 +21,7 @@ get_appimage_path() {
 
 # Check if AppImage from CLI exists and is executable
 APPIMAGE=$("$CLI_BIN" version show | grep "Installation path:" | cut -d' ' -f3 || echo "")
-if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ \.appimage$ ]] || [[ ! "$APPIMAGE" =~ ^/ ]]; then
+if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ ^/.*\.appimage$ ]]; then
     # Try to get AppImage from Gear Lever
     GEARLEVER_APPIMAGE=$(get_appimage_path)
     if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
