@@ -45,22 +45,22 @@ If you want to install the image on a new system download and install Bazzite IS
 
 <https://download.bazzite.gg/bazzite-stable-amd64.iso>
 
-## Just commands
+## Curated list of apps
 
-The following `just` commands are available to install Flatpaks, Homebrews and AppImages:
+The following `ujust` commands are available to install Flatpaks, Homebrews and AppImages:
 
 ```bash
 # Install all apps
-just install-amy
+ujust install-amy
 
 # Install only Flatpaks
-just install-amy-flatpaks
+ujust install-amy-flatpaks
 
 # Install only Homebrews
-just install-amy-brews
+ujust install-amy-brews
 
 # Install only AppImages
-just install-amy-appimages
+ujust install-amy-appimages
 ```
 
 ### Flatpaks
@@ -69,33 +69,22 @@ just install-amy-appimages
 - Audacity
 - Blender
 - Bottles
-- BoxBuddy
-- Clapgrep
 - Dolphin
 - DuckStation
 - Easy Effects
 - Fedora Media Writer
-- Filelight
-- Firefox
-- Flatseal
 - Flycast
 - Gear Lever
 - GIMP
-- Gwenview
-- Haruna
 - ISO Image Writer
-- KCalc
 - Kdenlive
 - Krita
 - LibreOffice
 - LocalSend
 - Mission Center
 - OBS Studio
-- Okular
 - Pinta
 - Podman Desktop
-- ProtonTricks
-- ProtonUp-Qt
 - qBittorrent
 - RetroArch
 - ScummVM
@@ -108,9 +97,7 @@ just install-amy-appimages
 - Varia
 - Vesktop
 - VLC
-- Warehouse
 - Warp
-- WineZGUI
 
 ### Homebrews
 

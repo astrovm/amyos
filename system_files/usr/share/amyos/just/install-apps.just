@@ -2,6 +2,7 @@
 install-amy-flatpaks:
     #!/bin/bash
     echo "Installing Flatpaks..."
+    ujust _install-system-flatpaks
     FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
     flatpak --system -y install $FLATPAK_LIST
     echo "Flatpaks installation complete."

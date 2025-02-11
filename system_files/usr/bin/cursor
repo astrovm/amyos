@@ -29,7 +29,7 @@ if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]]; then
         "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null & disown
         APPIMAGE="$GEARLEVER_APPIMAGE"
     else
-        echo "Error: No valid Cursor AppImage found. Run 'just install-amy'." >&2
+        echo "Error: No valid Cursor AppImage found. Run 'ujust install-amy'." >&2
         exit 1
     fi
 fi
