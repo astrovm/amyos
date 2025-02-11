@@ -123,10 +123,12 @@ mkdir -p /usr/share/cursor
 cp -r ./squashfs-root/* /usr/share/cursor
 rm -rf ./squashfs-root
 chmod -R a+rX /usr/share/cursor
-log "Installing Cursor GUI in /usr/bin/cursor-gui..."
+log "Installing Cursor GUI in /usr/bin/cursor..."
 mkdir -p /usr/share/cursor/bin
 install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
-ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor-gui
+mv /usr/bin/cursor /usr/bin/cursor-appimage
+ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
+cp -r /usr/share/cursor/usr/share/icons/hicolor/* /usr/share/icons/hicolor
 log "✓ Cursor GUI installed successfully"
 
 log "=== Enabling system services ==="
