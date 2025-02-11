@@ -71,7 +71,6 @@ ujust install-amy-appimages
 - Bottles
 - Easy Effects
 - Fedora Media Writer
-- Gear Lever
 - GIMP
 - ISO Image Writer
 - Kdenlive

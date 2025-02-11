@@ -19,12 +19,9 @@ install-amy-brews:
 install-amy-appimages:
     #!/bin/bash
     echo "Installing AppImages..."
-    
     if ! flatpak list | grep -q "it.mijorus.gearlever"; then
-        echo "Error: Gear Lever is not installed." >&2
-        exit 1
+        flatpak --system -y install it.mijorus.gearlever
     fi
-
     APPIMAGE_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)"
     echo "$APPIMAGE_LIST" | while IFS=',' read -r name url; do
         if [ -n "$name" ] && [ -n "$url" ]; then
