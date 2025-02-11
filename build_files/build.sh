@@ -113,6 +113,18 @@ log "Installing Cursor CLI to /usr/bin..."
 install -c -m 0755 /tmp/cursor-cli /usr/bin
 log "✓ Cursor CLI installed successfully"
 
+log "=== Installing Cursor GUI ==="
+log "Downloading Cursor GUI..."
+curl --retry 3 -Lo /tmp/cursor-gui.appimage "https://downloader.cursor.sh/linux/appImage/x64"
+log "Extracting Cursor GUI..."
+chmod +x /tmp/cursor-gui.appimage
+/tmp/cursor-gui.appimage --appimage-extract
+log "Installing Cursor GUI..."
+mkdir -p /usr/share/cursor
+cp -r ./squashfs-root/* /usr/share/cursor
+rm -rf ./squashfs-root
+log "✓ Cursor GUI installed successfully"
+
 log "=== Enabling system services ==="
 systemctl enable docker
 systemctl enable libvirtd
