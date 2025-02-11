@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [ -n "$DEBUG" ] ; then
-	set -x
+  set -x
 fi
 
 # Define Cursor CLI binary and options
@@ -11,52 +11,52 @@ CLI_OPTIONS=(tunnel ext status version serve-web update help -h --help -V --vers
 
 # Check if CLI binary exists and is executable
 if [[ ! -x "$CLI_BIN" ]]; then
-	echo "Error: $CLI_BIN not found or not executable." >&2
-	exit 1
+  echo "Error: $CLI_BIN not found or not executable." >&2
+  exit 1
 fi
 
 # Function to get AppImage path from Gear Lever
 get_appimage_path() {
-	if ! command -v flatpak >/dev/null || ! flatpak list | grep -q "it.mijorus.gearlever"; then
-		return 1
-	fi
-	flatpak run it.mijorus.gearlever --list-installed | grep -i "cursor.appimage" | awk '{print $NF}'
+  if ! command -v flatpak >/dev/null || ! flatpak list | grep -q "it.mijorus.gearlever"; then
+    return 1
+  fi
+  flatpak run it.mijorus.gearlever --list-installed | grep -i "cursor.appimage" | awk '{print $NF}'
 }
 
 # Check if AppImage from CLI exists and is executable
 APPIMAGE=$("$CLI_BIN" version show | grep "Installation path:" | cut -d' ' -f3 || echo "")
 if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ ^/.*\.appimage$ ]]; then
-	# Try to get AppImage from Gear Lever
-	GEARLEVER_APPIMAGE=$(get_appimage_path)
-	if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
-		# Configure CLI to use the AppImage from Gear Lever
-		"$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null & disown
-		APPIMAGE="$GEARLEVER_APPIMAGE"
-	else
-		echo "Error: No valid Cursor AppImage found. Run 'ujust install-amy'." >&2
-		exit 1
-	fi
+  # Try to get AppImage from Gear Lever
+  GEARLEVER_APPIMAGE=$(get_appimage_path)
+  if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
+    # Configure CLI to use the AppImage from Gear Lever
+    "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null & disown
+    APPIMAGE="$GEARLEVER_APPIMAGE"
+  else
+    echo "Error: No valid Cursor AppImage found. Run 'ujust install-amy'." >&2
+    exit 1
+  fi
 fi
 
 # Function to check if argument is a CLI option
 is_cli_option() {
-	for opt in "${CLI_OPTIONS[@]}"; do
-		if [[ "$1" == "$opt" ]]; then
-			return 0
-		fi
-	done
-	return 1
+  for opt in "${CLI_OPTIONS[@]}"; do
+    if [[ "$1" == "$opt" ]]; then
+      return 0
+    fi
+  done
+  return 1
 }
 
 # Function to check if AppImage is running
 is_running() {
-	pgrep -f "$APPIMAGE" >/dev/null
+  pgrep -f "$APPIMAGE" >/dev/null
 }
 
 # Check if we need to run in background
 if ! is_running && { [[ $# -eq 0 ]] || ! is_cli_option "$1"; }; then
-	"$CLI_BIN" "$@" &>/dev/null & disown
-	exit 0
+  "$CLI_BIN" "$@" &>/dev/null & disown
+  exit 0
 fi
 
 "$CLI_BIN" "$@"

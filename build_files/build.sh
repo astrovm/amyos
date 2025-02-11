@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 echo_and_restore() {
-    echo "$*"; set -x
+  echo "$*"; set -x
 }
 shopt -s expand_aliases; alias log='{ set +x; } 2> /dev/null; echo_and_restore'
 
@@ -10,68 +10,68 @@ log "$(date): Beginning package installations"
 
 log "=== Installing Fedora packages ==="
 dnf5 -y install \
-    android-tools \
-    aria2 \
-    bleachbit \
-    cmatrix \
-    croc \
-    gnome-disk-utility \
-    gparted \
-    htop \
-    john \
-    libvirt-nss \
-    mpv \
-    neovim \
-    nmap \
-    powerline-fonts \
-    protonvpn-cli \
-    rclone \
-    rustup \
-    solaar \
-    source-foundry-hack-fonts \
-    thefuck \
-    tor \
-    torsocks \
-    virt-manager \
-    wireshark \
-    yt-dlp
+  android-tools \
+  aria2 \
+  bleachbit \
+  cmatrix \
+  croc \
+  gnome-disk-utility \
+  gparted \
+  htop \
+  john \
+  libvirt-nss \
+  mpv \
+  neovim \
+  nmap \
+  powerline-fonts \
+  protonvpn-cli \
+  rclone \
+  rustup \
+  solaar \
+  source-foundry-hack-fonts \
+  thefuck \
+  tor \
+  torsocks \
+  virt-manager \
+  wireshark \
+  yt-dlp
 log "✓ Fedora packages installed successfully"
 
 log "=== Installing RPM Fusion packages ==="
 dnf5 -y install --enable-repo="*rpmfusion*" \
-    audacious \
-    audacious-plugins-freeworld
+  audacious \
+  audacious-plugins-freeworld
 log "✓ RPM Fusion packages installed successfully"
 
 log "=== Installing Terra packages ==="
 dnf5 -y install --enable-repo="terra" \
-    coolercontrol \
-    ghostty \
-    starship
+  coolercontrol \
+  ghostty \
+  starship
 log "✓ Terra packages installed successfully"
 
 log "=== Installing Docker ==="
 dnf5 -y install --enable-repo="docker-ce-stable" \
-    containerd.io \
-    docker-buildx-plugin \
-    docker-ce \
-    docker-ce-cli \
-    docker-compose-plugin
+  containerd.io \
+  docker-buildx-plugin \
+  docker-ce \
+  docker-ce-cli \
+  docker-compose-plugin
 log "✓ Docker installed successfully"
 
 log "=== Installing Brave Browser ==="
 dnf5 -y install --enable-repo="brave-browser" \
-    brave-browser
+  brave-browser
 log "✓ Brave Browser installed successfully"
 
 log "=== Installing Cloudflare WARP ==="
 dnf5 -y install --enable-repo="cloudflare-warp" \
-    cloudflare-warp
+  cloudflare-warp
 log "✓ Cloudflare WARP installed successfully"
 
 log "=== Installing VSCode ==="
 dnf5 -y install --enable-repo="vscode" \
-    code
+  code
 log "✓ VSCode installed successfully"
 
 log "=== Installing Ubuntu fonts ==="
