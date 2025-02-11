@@ -2,10 +2,9 @@ export repo_organization := env("GITHUB_REPOSITORY_OWNER", "astrovm")
 export image_name := env("IMAGE_NAME", "amyos")
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
-
 export SUDO_DISPLAY := if `if [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then echo true; fi` == "true" { "true" } else { "false" }
-export SUDOIF := if `id -u` == "0" { "" } else { if SUDO_DISPLAY == "true" { "sudo --askpass" } else { "sudo" } }
-export PODMAN := if path_exists("/usr/bin/podman") == "true" { env("PODMAN", "/usr/bin/podman") } else { if path_exists("/usr/bin/docker") == "true" { env("PODMAN", "docker") } else { env("PODMAN", "exit 1 ; ") } }
+export SUDOIF := if `id -u` == "0" { "" } else if SUDO_DISPLAY == "true" { "sudo --askpass" } else { "sudo" }
+export PODMAN := if path_exists("/usr/bin/podman") == "true" { env("PODMAN", "/usr/bin/podman") } else if path_exists("/usr/bin/docker") == "true" { env("PODMAN", "docker") } else { env("PODMAN", "exit 1 ; ") }
 
 alias build-vm := build-qcow2
 alias rebuild-vm := rebuild-qcow2
@@ -18,7 +17,7 @@ default:
 # Check Just Syntax
 [group('Just')]
 check:
-  #!/usr/bin/bash
+  #!/usr/bin/env bash
   find . -type f -name "*.just" | while read -r file; do
     echo "Checking syntax: $file"
     just --unstable --fmt --check -f $file
@@ -29,7 +28,7 @@ check:
 # Fix Just Syntax
 [group('Just')]
 fix:
-  #!/usr/bin/bash
+  #!/usr/bin/env bash
   find . -type f -name "*.just" | while read -r file; do
     echo "Checking syntax: $file"
     just --unstable --fmt -f $file
@@ -40,8 +39,8 @@ fix:
 # Clean Repo
 [group('Utility')]
 clean:
-  #!/usr/bin/bash
-  set -eoux pipefail
+  #!/usr/bin/env bash
+  set -euxo pipefail
   touch _build
   find *_build* -exec rm -rf {} \;
   rm -f previous.manifest.json
@@ -74,8 +73,8 @@ build $target_image=image_name $tag=default_tag:
     .
 
 _rootful_load_image $target_image=image_name $tag=default_tag:
-  #!/usr/bin/bash
-  set -eoux pipefail
+  #!/usr/bin/env bash
+  set -euxo pipefail
 
   if [[ -n "${SUDO_USER:-}" || "${UID}" -eq "0" ]]; then
     echo "Already root or running under sudo, no need to load image from user ${PODMAN}."
@@ -157,8 +156,8 @@ rebuild-raw $target_image=("localhost/" + image_name) $tag=default_tag: && (_reb
 rebuild-iso $target_image=("localhost/" + image_name) $tag=default_tag: && (_rebuild-bib target_image tag "iso" "iso.toml")
 
 _run-vm $target_image $tag $type $config:
-  #!/usr/bin/bash
-  set -eoux pipefail
+  #!/usr/bin/env bash
+  set -euxo pipefail
 
   image_file="output/${type}/disk.${type}"
 

@@ -1,6 +1,6 @@
 # Install Amy OS Flatpaks
 install-amy-flatpaks:
-  #!/bin/bash
+  #!/usr/bin/env bash
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
   FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
@@ -9,7 +9,7 @@ install-amy-flatpaks:
 
 # Install Amy OS Homebrews
 install-amy-brews:
-  #!/bin/bash
+  #!/usr/bin/env bash
   echo "Installing Homebrews..."
   BREW_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews | tr '\n' ' ')"
   brew install $BREW_LIST
@@ -17,7 +17,7 @@ install-amy-brews:
 
 # Install Amy OS AppImages
 install-amy-appimages:
-  #!/bin/bash
+  #!/usr/bin/env bash
   echo "Installing AppImages..."
   if ! flatpak list | grep -q "it.mijorus.gearlever"; then
     flatpak --system -y install it.mijorus.gearlever
