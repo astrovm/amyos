@@ -108,9 +108,8 @@ log "Downloading Cursor CLI..."
 curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 log "Extracting Cursor CLI..."
 tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
-mv /tmp/cursor /tmp/cursor-cli
-log "Installing Cursor CLI to /usr/bin..."
-install -c -m 0755 /tmp/cursor-cli /usr/bin
+log "Installing Cursor CLI in /usr/bin/cursor-cli..."
+install -m 0755 /tmp/cursor /usr/bin/cursor-cli
 log "✓ Cursor CLI installed successfully"
 
 log "=== Installing Cursor GUI ==="
@@ -119,10 +118,13 @@ curl --retry 3 -Lo /tmp/cursor-gui.appimage "https://downloader.cursor.sh/linux/
 log "Extracting Cursor GUI..."
 chmod +x /tmp/cursor-gui.appimage
 /tmp/cursor-gui.appimage --appimage-extract
-log "Installing Cursor GUI..."
+log "Installing Cursor GUI files in /usr/share/cursor..."
 mkdir -p /usr/share/cursor
 cp -r ./squashfs-root/* /usr/share/cursor
 rm -rf ./squashfs-root
+chmod -R a+rX /usr/share/cursor
+log "Installing Cursor GUI in /usr/bin/cursor-gui..."
+install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/bin/cursor-gui
 log "✓ Cursor GUI installed successfully"
 
 log "=== Enabling system services ==="
