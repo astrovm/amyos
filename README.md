@@ -63,7 +63,7 @@ just install-amy-brews
 just install-amy-appimages
 ```
 
-## Flatpaks
+### Flatpaks
 
 - Alpaca
 - Audacity
@@ -112,11 +112,11 @@ just install-amy-appimages
 - Warp
 - WineZGUI
 
-## Homebrews
+### Homebrews
 
 - wormhole-rs
 
-## AppImages
+### AppImages
 
 - Cursor
 - OpenRGB
