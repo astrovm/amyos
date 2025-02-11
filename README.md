@@ -31,7 +31,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Hack, Powerline and Ubuntu fonts
 - Starship shell prompt
 - Virtual Machine Manager
-- VS Code, Neovim, Docker and DevPod
+- VSCode, Neovim, Docker and DevPod
 
 ## Install
 
