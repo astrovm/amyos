@@ -1,9 +1,9 @@
 #!/bin/bash
-set -oue pipefail
+set -euo pipefail
 echo_and_restore() {
-    echo "$*"; set -x;
+    echo "$*"; set -x
 }
-shopt -s expand_aliases; alias log='{ set +x; } 2> /dev/null; echo_and_restore';
+shopt -s expand_aliases; alias log='{ set +x; } 2> /dev/null; echo_and_restore'
 
 log "=== Starting Amy OS cleanup process ==="
 log "$(date): Beginning cleanup operations"
