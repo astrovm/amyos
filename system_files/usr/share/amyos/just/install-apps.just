@@ -34,7 +34,7 @@ install-amy-appimages:
                 APPIMAGE_DOWNLOAD_PATH="$HOME/$APPIMAGE_NAME"
             fi
             echo "Checking $APPIMAGE_NAME..."
-            if ! flatpak run it.mijorus.gearlever --list-installed | grep -q "$APPIMAGE_NAME"; then
+            if ! flatpak run it.mijorus.gearlever --list-installed | grep -qi "$APPIMAGE_NAME"; then
                 echo "Downloading $APPIMAGE_NAME..."
                 wget "$url" -O "$APPIMAGE_DOWNLOAD_PATH" || {
                     echo "Failed to download $APPIMAGE_NAME"

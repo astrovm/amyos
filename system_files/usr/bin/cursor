@@ -16,7 +16,7 @@ get_appimage_path() {
     if ! command -v flatpak >/dev/null || ! flatpak list | grep -q "it.mijorus.gearlever"; then
         return 1
     fi
-    flatpak run it.mijorus.gearlever --list-installed | grep "cursor.appimage" | awk '{print $NF}'
+    flatpak run it.mijorus.gearlever --list-installed | grep -i "cursor.appimage" | awk '{print $NF}'
 }
 
 # Check if AppImage from CLI exists and is executable
