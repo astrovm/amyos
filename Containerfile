@@ -18,5 +18,6 @@ COPY build_files /tmp
 
 RUN mkdir -p /var/lib/alternatives /var/opt && \
   /tmp/build.sh && \
+  /tmp/build-initramfs.sh && \
   /tmp/cleanup.sh && \
   ostree container commit
