@@ -59,7 +59,7 @@ install-amy-appimages:
   done < <(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
   echo "AppImages installation complete."
 
-# Setup Cursor and VSCode settings
+# Setup Amy OS recommended settings for Cursor and VSCode
 setup-editor-config:
   #!/usr/bin/env bash
   set -euo pipefail
