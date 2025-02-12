@@ -1,33 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
-shopt -s expand_aliases
-echo_and_restore() {
-  echo "$*"
-  set -x
+
+trap '[[ $BASH_COMMAND != echo\ \"===* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BASH_COMMAND"' DEBUG
+
+log() {
+  echo "=== $* ==="
 }
-alias log='{ set +x; } 2> /dev/null; echo_and_restore'
 
-log "=== Starting Amy OS cleanup process ==="
-log "$(date): Beginning cleanup operations"
+log "Starting system cleanup"
 
-log "=== Updating font cache ==="
+# Update font cache
 fc-cache -rs
-log "✓ Font cache updated successfully"
 
-log "=== Cleaning DNF cache and temporary files ==="
-log "Cleaning DNF cache..."
+# Clean package manager cache
 dnf5 clean all
-log "Removing temporary files..."
-rm -rf /tmp/* || true
-log "Cleaning /var directory..."
+
+# Clean temporary files
+rm -rf /tmp/*
+
+# Clean /var directory while preserving essential files
 mv /var/lib/alternatives /staged-alternatives
-find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
-find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
+find /var/* -maxdepth 0 -type d ! -name cache -exec rm -fr {} \;
+find /var/cache/* -maxdepth 0 -type d ! -name libdnf5 ! -name rpm-ostree -exec rm -fr {} \;
+
+# Restore and setup directories
 mkdir -p /var/lib
 mv /staged-alternatives /var/lib/alternatives
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
-log "✓ System cleanup completed"
 
-log "=== Cleanup process completed successfully ==="
-log "$(date): Cleanup finished"
+log "Cleanup completed"
