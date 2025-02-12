@@ -24,11 +24,13 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - `fuck` alias
 - `rustup-init` command
 - adb, fastboot and scrcpy
+- Audacious with Winamp skins
 - Brave Browser
 - Cloudflare WARP
 - Curated list of Flatpaks, Homebrews and AppImages
 - Fixed Google Drive native integration
 - Hack, Powerline and Ubuntu fonts
+- OpenRGB, CoolerControl, LACT and Solaar
 - Starship shell prompt
 - Virtual Machine Manager
 - VSCode, Cursor, Neovim, Docker and DevPod
