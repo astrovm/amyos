@@ -29,10 +29,11 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Brave Browser
 - Cloudflare WARP
 - Curated list of Flatpaks, Homebrews and AppImages
+- DNS over TLS enabled by default
 - Fixed Google Drive native integration
+- Ghostty terminal and Starship shell prompt
 - Hack, Powerline and Ubuntu fonts
 - OpenRGB, CoolerControl, LACT and Solaar
-- Starship shell prompt
 - Virtual Machine Manager
 - VSCode, Cursor, Neovim, Docker and DevPod
 
