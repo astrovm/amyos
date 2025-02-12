@@ -1,0 +1,8 @@
+[Text]
+Font=Arial
+Left=12
+Top=25
+Right=15
+Bottom=25
+Error=#E11919
+ErrorWidth=110
