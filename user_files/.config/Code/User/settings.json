@@ -1,0 +1,22 @@
+{
+  "diffEditor.codeLens": true,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.fontFamily": "Hack, Symbols Nerd Font Mono",
+  "editor.fontSize": 16,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.pasteAs.enabled": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.enableImages": true,
+  "terminal.integrated.gpuAcceleration": "on",
+  "terminal.integrated.middleClickBehavior": "paste",
+  "terminal.integrated.smoothScrolling": true,
+  "workbench.colorTheme": "Theme Darker"
+}
