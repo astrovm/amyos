@@ -24,5 +24,5 @@
   "terminal.integrated.smoothScrolling": true,
   "window.zoomLevel": 0,
   "workbench.colorTheme": "Theme Darker",
-  "workbench.list.smoothScrolling": true,
+  "workbench.list.smoothScrolling": true
 }
