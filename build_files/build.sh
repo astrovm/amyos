@@ -88,7 +88,7 @@ systemctl enable docker libvirtd
 # Configure system
 log "Configuring system"
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/justfile
-echo "eval \"$(starship init bash)\"" >>/etc/bashrc
-echo "eval \"$(thefuck --alias)\"" >>/etc/bashrc
+echo "eval \"\$(starship init bash)\"" >>/etc/bashrc
+echo "eval \"\$(thefuck --alias)\"" >>/etc/bashrc
 
 log "Build process completed"

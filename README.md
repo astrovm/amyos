@@ -20,6 +20,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 ## Features
 
+- [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - `cursor` and `cursor-cli` commands
 - `fuck` alias
 - `rustup-init` command
@@ -102,6 +103,7 @@ ujust install-amy-appimages
 ### AppImages
 
 - EmuDeck
+- Trezor Suite
 
 ## Acknowledgments
 
