@@ -6,73 +6,83 @@ install-amy-flatpaks:
   #!/usr/bin/env bash
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
-  FLATPAK_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks | tr '\n' ' ')"
-  flatpak --system -y install $FLATPAK_LIST
+  flatpak --system -y install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks)
   echo "Flatpaks installation complete."
 
 # Install Amy OS Homebrews
 install-amy-brews:
   #!/usr/bin/env bash
   echo "Installing Homebrews..."
-  BREW_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews | tr '\n' ' ')"
-  brew install $BREW_LIST
+  brew install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
   echo "Homebrews installation complete."
 
 # Install Amy OS AppImages
 install-amy-appimages:
   #!/usr/bin/env bash
+  # Ensure Gear Lever is installed
   if ! flatpak list | grep -q "it.mijorus.gearlever"; then
-    echo "Gear Lever not installed, installing..."
+    echo "Installing Gear Lever..."
     flatpak --system -y install it.mijorus.gearlever
   fi
 
-  echo "Installing AppImages..."
-  if [ -n "$XDG_DOWNLOAD_DIR" ]; then
-    APPIMAGE_DOWNLOAD_PATH="$XDG_DOWNLOAD_DIR"
-  elif [ -d "$HOME/Downloads" ]; then
-    APPIMAGE_DOWNLOAD_PATH="$HOME/Downloads"
-  else
-    APPIMAGE_DOWNLOAD_PATH="$HOME"
-  fi
+  # Set download path
+  APPIMAGE_DOWNLOAD_PATH="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
+  [ ! -d "$APPIMAGE_DOWNLOAD_PATH" ] && APPIMAGE_DOWNLOAD_PATH="$HOME"
   echo "Download path: $APPIMAGE_DOWNLOAD_PATH"
 
-  APPIMAGE_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)"
-  echo "$APPIMAGE_LIST" | while IFS=',' read -r name url; do
-    if [ -n "$name" ] && [ -n "$url" ]; then
-      APPIMAGE_NAME="${name}.appimage"
-      echo "Checking $APPIMAGE_NAME..."
-      if ! flatpak run it.mijorus.gearlever --list-installed | grep -qi "$APPIMAGE_NAME"; then
-        echo "Downloading $APPIMAGE_NAME..."
-        # Handle GitHub URLs with wildcards to find the latest release
-        if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/[^/]* ]] && [[ "$url" == *"*"* ]]; then
-          repo="${BASH_REMATCH[1]}"
-          response=$(curl -s "https://api.github.com/repos/$repo/releases/latest")
-          latest_url=$(echo "$response" | grep -o '"browser_download_url": ".*AppImage"' | head -n1 | cut -d'"' -f4)
-          if [ -n "$latest_url" ]; then
-            echo "Found latest release: $latest_url"
-            url="$latest_url"
-          else
-            echo "Failed to get latest release URL for $name"
-            continue
-          fi
-        fi
+  # Process each AppImage
+  process_github_release() {
+    local repo="$1" pattern="$2" name="$3"
+    local response latest_url version
 
-        wget "$url" -O "$APPIMAGE_DOWNLOAD_PATH/$APPIMAGE_NAME" || {
-          echo "Failed to download $APPIMAGE_NAME"
-          continue
-        }
+    # Get latest release and matching asset
+    response=$(curl -s "https://api.github.com/repos/$repo/releases" | jq -r '.[0]')
+    pattern="$(echo "$pattern" | sed 's/\./\\./g' | sed 's/\*/.*/g')"
+    latest_url=$(jq -r '.assets[].browser_download_url' <<<"$response" | grep -E "$pattern" | head -n1)
 
-        echo "Integrating $APPIMAGE_NAME with Gear Lever..."
-        flatpak run it.mijorus.gearlever --integrate "$APPIMAGE_DOWNLOAD_PATH/$APPIMAGE_NAME" -y || {
-          echo "Failed to integrate $APPIMAGE_NAME"
-          rm -f "$APPIMAGE_DOWNLOAD_PATH/$APPIMAGE_NAME"
-          continue
-        }
-        rm -f "$APPIMAGE_DOWNLOAD_PATH/$APPIMAGE_NAME"
-        echo "$APPIMAGE_NAME installed successfully"
-      else
-        echo "$APPIMAGE_NAME is already installed"
-      fi
+    # Return if no matching asset found
+    [ -z "$latest_url" ] && { echo "No matching asset found for $name"; return 1; }
+
+    # Show version and URL
+    version=$(jq -r .tag_name <<<"$response")
+    echo "Found version $version: $latest_url"
+    echo "$latest_url"
+  }
+
+  install_appimage() {
+    local name="$1" url="$2"
+    local appimage="$APPIMAGE_DOWNLOAD_PATH/${name}.appimage"
+
+    echo "Downloading ${name}.appimage..."
+    wget -q "$url" -O "$appimage" || { echo "Failed to download"; return 1; }
+
+    echo "Integrating with Gear Lever..."
+    if flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
+      echo "${name}.appimage installed successfully"
+    else
+      echo "Failed to integrate ${name}.appimage"
+      rm -f "$appimage"
+      return 1
     fi
-  done
+    rm -f "$appimage"
+  }
+
+  # Main loop
+  while IFS=, read -r name url; do
+    [ -z "$name" ] || [ -z "$url" ] && continue
+    echo "Processing $name..."
+
+    # Skip if already installed
+    if flatpak run it.mijorus.gearlever --list-installed | grep -qi "${name}.appimage"; then
+      echo "${name}.appimage is already installed"
+      continue
+    fi
+
+    # Handle GitHub releases with wildcards
+    if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/([^/]*) ]] && [[ "$url" == *"*"* ]]; then
+      url=$(process_github_release "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "$name") || continue
+    fi
+
+    install_appimage "$name" "$url" || continue
+  done < <(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
   echo "AppImages installation complete."
