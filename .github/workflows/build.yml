@@ -12,6 +12,7 @@ on:
     paths-ignore:
       - "**/README.md"
       - "repo_files/**"
+      - "user_files/**"
   workflow_dispatch:
 
 env:

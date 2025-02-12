@@ -8,6 +8,7 @@
   "editor.formatOnType": true,
   "editor.mouseWheelZoom": true,
   "editor.pasteAs.enabled": true,
+  "editor.smoothScrolling": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "files.insertFinalNewline": true,
@@ -22,5 +23,6 @@
   "terminal.integrated.mouseWheelZoom": true,
   "terminal.integrated.smoothScrolling": true,
   "window.zoomLevel": 0,
-  "workbench.colorTheme": "Theme Darker"
+  "workbench.colorTheme": "Theme Darker",
+  "workbench.list.smoothScrolling": true,
 }
