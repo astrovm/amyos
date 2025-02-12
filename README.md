@@ -72,7 +72,8 @@ ujust setup-editor-config
 
 ## Curated list of apps
 
-### Flatpaks
+```
+# Flatpaks
 
 - Alpaca
 - Audacity
@@ -102,14 +103,15 @@ ujust setup-editor-config
 - VLC
 - Warp
 
-### Homebrews
+# Homebrews
 
 - wormhole-rs
 
-### AppImages
+# AppImages
 
 - EmuDeck
 - Trezor Suite
+```
 
 ## Acknowledgments
 
