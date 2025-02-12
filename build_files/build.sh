@@ -62,11 +62,6 @@ done
 
 # Install Cursor
 log "Installing Cursor"
-# CLI version
-curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
-install -m 0755 /tmp/cursor /usr/bin/cursor-cli
-
 # GUI version
 curl --retry 3 -Lo /tmp/cursor-gui.appimage "https://downloader.cursor.sh/linux/appImage/x64"
 chmod +x /tmp/cursor-gui.appimage
@@ -77,9 +72,15 @@ rm -rf ./squashfs-root
 chmod -R a+rX /usr/share/cursor
 mkdir -p /usr/share/cursor/bin
 install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
+# Move Cursor AppImage wrapper script as fallback
 mv /usr/bin/cursor /usr/bin/cursor-appimage
 ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
 cp -r /usr/share/cursor/usr/share/icons/hicolor/* /usr/share/icons/hicolor
+# CLI version
+curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
+install -m 0755 /tmp/cursor /usr/share/cursor/bin/cursor-tunnel
+ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 
 # Enable services
 log "Enabling system services"
