@@ -39,22 +39,24 @@ install-amy-appimages:
   APPIMAGE_LIST="$(curl https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)"
   echo "$APPIMAGE_LIST" | while IFS=',' read -r name url; do
     if [ -n "$name" ] && [ -n "$url" ]; then
-      # Handle GitHub URLs with wildcards to find the latest release
-      if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/[^/]* ]] && [[ "$url" == *"*"* ]]; then
-        repo="${BASH_REMATCH[1]}"
-        latest_url=$(curl -s "https://api.github.com/repos/$repo/releases/latest" | grep -o "browser_download_url.*AppImage\"" | cut -d'"' -f4)
-        if [ -n "$latest_url" ]; then
-          url="$latest_url"
-        else
-          echo "Failed to get latest release URL for $name"
-          continue
-        fi
-      fi
-
       APPIMAGE_NAME="${name}.appimage"
       echo "Checking $APPIMAGE_NAME..."
       if ! flatpak run it.mijorus.gearlever --list-installed | grep -qi "$APPIMAGE_NAME"; then
         echo "Downloading $APPIMAGE_NAME..."
+        # Handle GitHub URLs with wildcards to find the latest release
+        if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/[^/]* ]] && [[ "$url" == *"*"* ]]; then
+          repo="${BASH_REMATCH[1]}"
+          response=$(curl -s "https://api.github.com/repos/$repo/releases/latest")
+          latest_url=$(echo "$response" | grep -o '"browser_download_url": ".*AppImage"' | head -n1 | cut -d'"' -f4)
+          if [ -n "$latest_url" ]; then
+            echo "Found latest release: $latest_url"
+            url="$latest_url"
+          else
+            echo "Failed to get latest release URL for $name"
+            continue
+          fi
+        fi
+
         wget "$url" -O "$APPIMAGE_DOWNLOAD_PATH/$APPIMAGE_NAME" || {
           echo "Failed to download $APPIMAGE_NAME"
           continue
