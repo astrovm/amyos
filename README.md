@@ -49,12 +49,12 @@ If you want to install the image on a new system download and install Bazzite IS
 
 <https://download.bazzite.gg/bazzite-stable-amd64.iso>
 
-## Curated list of apps
+## Custom commands
 
-The following `ujust` commands are available to install Flatpaks, Homebrews and AppImages:
+The following `ujust` commands are available:
 
 ```bash
-# Install all apps
+# Install all Amy OS curated apps
 ujust install-amy
 
 # Install only Flatpaks
@@ -65,7 +65,12 @@ ujust install-amy-brews
 
 # Install only AppImages
 ujust install-amy-appimages
+
+# Setup Amy OS recommended settings for Cursor and VSCode
+ujust setup-editor-config
 ```
+
+## Curated list of apps
 
 ### Flatpaks
 

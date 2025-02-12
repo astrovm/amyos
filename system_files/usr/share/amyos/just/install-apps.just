@@ -1,7 +1,7 @@
-# Install all Amy OS apps
+# Install all Amy OS curated apps
 install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
 
-# Install Amy OS Flatpaks
+# Install only Flatpaks
 install-amy-flatpaks:
   #!/usr/bin/env bash
   set -euo pipefail
@@ -11,7 +11,7 @@ install-amy-flatpaks:
   flatpak --system -y install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks)
   echo "Flatpaks installation complete."
 
-# Install Amy OS Homebrews
+# Install only Homebrews
 install-amy-brews:
   #!/usr/bin/env bash
   set -euo pipefail
@@ -20,7 +20,7 @@ install-amy-brews:
   brew install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
   echo "Homebrews installation complete."
 
-# Install Amy OS AppImages
+# Install only AppImages
 install-amy-appimages:
   #!/usr/bin/env bash
   set -euo pipefail
