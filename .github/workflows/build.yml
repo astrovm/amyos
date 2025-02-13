@@ -1,5 +1,5 @@
 ---
-name: Build Custom Image
+name: Build Amy OS
 on:
   pull_request:
     branches:
