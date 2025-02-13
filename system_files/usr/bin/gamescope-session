@@ -11,7 +11,7 @@ done
 
 # Run gamescope with display selection if multiple displays found
 if [ ${#displays[@]} -gt 1 ]; then
-  selected_display=$(zenity --list --title="Display selection" --text="Select display:" --column="Available displays" "${displays[@]}")
+  selected_display=$(/usr/bin/gamescope -- zenity --list --title="Display selection" --text="Select display:" --column="Available displays" "${displays[@]}")
   /usr/bin/gamescope --prefer-output "${selected_display}" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
 else
   /usr/bin/gamescope --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
