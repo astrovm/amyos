@@ -8,7 +8,7 @@ install-amy-flatpaks:
 
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
-  flatpak --system -y install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks)
+  flatpak --system -y install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks)
   echo "Flatpaks installation complete."
 
 # Install only Homebrews
@@ -17,7 +17,7 @@ install-amy-brews:
   set -euo pipefail
 
   echo "Installing Homebrews..."
-  brew install $(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
+  brew install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
   echo "Homebrews installation complete."
 
 # Install only AppImages
@@ -44,19 +44,19 @@ install-amy-appimages:
     # Handle GitHub wildcards
     if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/([^/]*) ]] && [[ "$url" == *"*"* ]]; then
       pattern="$(echo "${BASH_REMATCH[2]}" | sed 's/\./\\./g' | sed 's/\*/.*/g')"
-      url=$(curl -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[0].assets[].browser_download_url" | grep -E "$pattern" | head -n1)
+      url=$(curl --retry 3 -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[0].assets[].browser_download_url" | grep -E "$pattern" | head -n1)
       [ -z "$url" ] && { echo "No release found for $name"; continue; }
     fi
 
     # Download and install
     appimage="$DOWNLOAD_DIR/${name}.appimage"
-    if wget "$url" -O "$appimage" && chmod +x "$appimage" && flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
+    if curl --retry 3 -Lo "$appimage" "$url" && chmod +x "$appimage" && flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
       echo "$name installed successfully"
     else
       echo "Failed to install $name"
     fi
     rm -f "$appimage"
-  done < <(curl -s https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
+  done < <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
   echo "AppImages installation complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
@@ -68,12 +68,12 @@ setup-editor-config:
   CURSOR_CONFIG_DIR="${HOME}/.config/Cursor/User"
   mkdir -p "$CURSOR_CONFIG_DIR"
   rm -f "$CURSOR_CONFIG_DIR/settings.json"
-  curl https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Cursor/User/settings.json -o "$CURSOR_CONFIG_DIR/settings.json"
+  curl --retry 3 -Lo "$CURSOR_CONFIG_DIR/settings.json" https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Cursor/User/settings.json
   echo "Cursor configuration complete."
 
   echo "Setting up VSCode configuration..."
   VSCODE_CONFIG_DIR="${HOME}/.config/Code/User"
   mkdir -p "$VSCODE_CONFIG_DIR"
   rm -f "$VSCODE_CONFIG_DIR/settings.json"
-  curl https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Code/User/settings.json -o "$VSCODE_CONFIG_DIR/settings.json"
+  curl --retry 3 -Lo "$VSCODE_CONFIG_DIR/settings.json" https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Code/User/settings.json
   echo "VSCode configuration complete."
