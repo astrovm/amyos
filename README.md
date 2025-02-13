@@ -35,6 +35,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Ghostty terminal and Starship shell prompt
 - Hack, Powerline and Ubuntu fonts
 - OpenRGB, CoolerControl, LACT and Solaar
+- Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager
 - VSCode, Cursor, Neovim, Docker and DevPod
 
