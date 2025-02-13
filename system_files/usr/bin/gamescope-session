@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-set -euo pipefail
 
 # Get connected displays
 displays=()
