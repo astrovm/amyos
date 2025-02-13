@@ -1,13 +1,20 @@
 #!/usr/bin/bash
 
-# Source user configuration from ~/.config/environment.d
-set -a
-for i in "${HOME}"/.config/environment.d/*.conf; do
-  [[ -f "${i}" ]] && . "${i}"
+# Get connected displays
+displays=()
+for connector in /sys/class/drm/card*-*; do
+  if [ -f "${connector}/status" ] && [ "$(cat "${connector}/status")" = "connected" ]; then
+    displays+=("$(basename "${connector}" | sed 's/card[0-9]*-//')")
+  fi
 done
-set +a
 
-# Set preferred output connector
-: "${OUTPUT_CONNECTOR:=*,eDP-1}"
-
-/usr/bin/gamescope --prefer-output "$OUTPUT_CONNECTOR" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
+# Run gamescope with display selection if multiple displays found
+if [ ${#displays[@]} -gt 1 ]; then
+  echo "Multiple displays detected. Please select your preferred display:"
+  select display in "${displays[@]}"; do
+    [ -n "$display" ] && /usr/bin/gamescope --prefer-output "${display}" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
+    break
+  done
+else
+  /usr/bin/gamescope --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
+fi
