@@ -11,9 +11,11 @@
   "editor.smoothScrolling": true,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
+  "explorer.sortOrder": "type",
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
+  "git.autofetch": true,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.enableImages": true,
@@ -24,5 +26,6 @@
   "terminal.integrated.smoothScrolling": true,
   "window.zoomLevel": 0,
   "workbench.colorTheme": "Theme Darker",
+  "workbench.editor.highlightModifiedTabs": true,
   "workbench.list.smoothScrolling": true
 }
