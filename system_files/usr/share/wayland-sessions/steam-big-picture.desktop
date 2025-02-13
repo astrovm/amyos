@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=Steam Big Picture Mode
-Comment=Start Steam in Big Picture Mode
-Exec=/usr/bin/gamescope -e -- /usr/bin/bazzite-steam-bpm
-Type=Application
