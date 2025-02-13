@@ -1,3 +1,13 @@
 #!/usr/bin/bash
 
-gamescope --mangoapp -e -- steam -steamdeck -steamos3
+# Source user configuration from ~/.config/environment.d
+set -a
+for i in "${HOME}"/.config/environment.d/*.conf; do
+  [[ -f "${i}" ]] && . "${i}"
+done
+set +a
+
+# Set preferred output connector
+: "${OUTPUT_CONNECTOR:=*,eDP-1}"
+
+/usr/bin/gamescope --prefer-output "$OUTPUT_CONNECTOR" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
