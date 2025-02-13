@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+set -euo pipefail
 
 # Get connected displays
 displays=()
@@ -10,11 +11,8 @@ done
 
 # Run gamescope with display selection if multiple displays found
 if [ ${#displays[@]} -gt 1 ]; then
-  echo "Multiple displays detected. Please select your preferred display:"
-  select display in "${displays[@]}"; do
-    [ -n "$display" ] && /usr/bin/gamescope --prefer-output "${display}" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
-    break
-  done
+  selected_display=$(zenity --list --title="Display selection" --text="Select display:" --column="Available displays" "${displays[@]}")
+  /usr/bin/gamescope --prefer-output "${selected_display}" --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
 else
   /usr/bin/gamescope --mangoapp -e -- /usr/bin/steam -steamdeck -steamos3
 fi
