@@ -110,7 +110,7 @@ for repo in "${!PACKAGES[@]}"; do
       enable_opt=""
     fi
     read -ra pkg_array <<<"${PACKAGES[$repo]}"
-    dnf5 -y install "$enable_opt" "${pkg_array[@]}"
+    dnf5 -y install $enable_opt "${pkg_array[@]}"
   fi
 done
 
