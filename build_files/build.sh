@@ -9,74 +9,74 @@ log() {
 
 # Package lists
 declare -A PACKAGES=(
-  ["fedora"]="
-    android-tools
-    aria2
-    bleachbit
-    cmatrix
-    cockpit
-    cockpit-bridge
-    cockpit-machines
-    cockpit-networkmanager
-    cockpit-ostree
-    cockpit-podman
-    cockpit-selinux
-    cockpit-storaged
-    cockpit-system
-    croc
-    fish
-    gnome-disk-utility
-    gparted
-    htop
-    isoimagewriter
-    john
-    neovim
-    nmap
-    openrgb
-    powerline-fonts
-    qbittorrent
-    rclone
-    rustup
-    ShellCheck
-    shfmt
-    solaar
-    thefuck
-    tor
-    torbrowser-launcher
-    torsocks
-    virt-manager
-    virt-viewer
-    wireshark
-    yt-dlp
+  ["fedora"]="\
+    android-tools \
+    aria2 \
+    bleachbit \
+    cmatrix \
+    cockpit \
+    cockpit-bridge \
+    cockpit-machines \
+    cockpit-networkmanager \
+    cockpit-ostree \
+    cockpit-podman \
+    cockpit-selinux \
+    cockpit-storaged \
+    cockpit-system \
+    croc \
+    fish \
+    gnome-disk-utility \
+    gparted \
+    htop \
+    isoimagewriter \
+    john \
+    neovim \
+    nmap \
+    openrgb \
+    powerline-fonts \
+    qbittorrent \
+    rclone \
+    rustup \
+    ShellCheck \
+    shfmt \
+    solaar \
+    thefuck \
+    tor \
+    torbrowser-launcher \
+    torsocks \
+    virt-manager \
+    virt-viewer \
+    wireshark \
+    yt-dlp \
     zsh"
 
-  ["rpmfusion-free-updates"]="
-    audacious
-    audacious-plugins-freeworld
+  ["rpmfusion-free-updates"]="\
+    audacious \
+    audacious-plugins-freeworld \
     telegram-desktop"
 
-  ["fedora-multimedia"]="
-    HandBrake-cli
-    HandBrake-gui
-    mpv
+  ["fedora-multimedia"]="\
+    HandBrake-cli \
+    HandBrake-gui \
+    mpv \
     vlc"
 
-  ["terra"]="
-    audacity-freeworld
-    coolercontrol
-    ghostty
-    hack-nerd-fonts
-    starship
-    ubuntu-nerd-fonts
-    ubuntumono-nerd-fonts
-    WoeUSB-ng
+  ["terra"]="\
+    audacity-freeworld \
+    coolercontrol \
+    ghostty \
+    hack-nerd-fonts \
+    starship \
+    ubuntu-nerd-fonts \
+    ubuntumono-nerd-fonts \
+    WoeUSB-ng \
     youtube-music"
 
-  ["docker-ce"]="
-    containerd.io
-    docker-buildx-plugin
-    docker-ce
-    docker-ce-cli
+  ["docker-ce"]="\
+    containerd.io \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
     docker-compose-plugin"
 
   ["brave-browser"]="brave-browser"
@@ -84,8 +84,8 @@ declare -A PACKAGES=(
   ["signal-desktop"]="signal-desktop"
   ["vscode"]="code"
 
-  ["copr:gloriouseggroll/nobara-41"]="
-    lact
+  ["copr:gloriouseggroll/nobara-41"]="\
+    lact \
     scrcpy"
   ["copr:ublue-os/staging"]="devpod"
 )
@@ -126,8 +126,6 @@ rm -rf ./squashfs-root
 chmod -R a+rX /usr/share/cursor
 mkdir -p /usr/share/cursor/bin
 install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
-# Move Cursor AppImage wrapper script as fallback
-mv /usr/bin/cursor /usr/bin/cursor-appimage
 ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
 cp -r /usr/share/cursor/usr/share/icons/hicolor/* /usr/share/icons/hicolor
 # CLI version
