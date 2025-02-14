@@ -23,6 +23,7 @@ FEDORA_PACKAGES=(
   nmap
   openrgb
   powerline-fonts
+  qbittorrent
   rclone
   rustup
   ShellCheck
@@ -31,6 +32,7 @@ FEDORA_PACKAGES=(
   source-foundry-hack-fonts
   thefuck
   tor
+  torbrowser-launcher
   torsocks
   virt-manager
   wireshark
@@ -41,12 +43,14 @@ RPM_FUSION_PACKAGES=(
   audacious
   audacious-plugins-freeworld
   audacity-freeworld
+  telegram-desktop
 )
 
 NEGATIVO17_MULTIMEDIA_PACKAGES=(
   HandBrake-cli
   HandBrake-gui
   mpv
+  Signal-Desktop
   vlc
 )
 
