@@ -8,123 +8,110 @@ log() {
 }
 
 # Package lists
-FEDORA_PACKAGES=(
-  android-tools
-  aria2
-  bleachbit
-  cmatrix
-  cockpit
-  cockpit-bridge
-  cockpit-machines
-  cockpit-networkmanager
-  cockpit-ostree
-  cockpit-podman
-  cockpit-selinux
-  cockpit-storaged
-  cockpit-system
-  croc
-  fish
-  gnome-disk-utility
-  gparted
-  htop
-  isoimagewriter
-  john
-  neovim
-  nmap
-  openrgb
-  powerline-fonts
-  qbittorrent
-  rclone
-  rustup
-  ShellCheck
-  shfmt
-  solaar
-  thefuck
-  tor
-  torbrowser-launcher
-  torsocks
-  virt-manager
-  virt-viewer
-  wireshark
-  yt-dlp
-  zsh
-)
+declare -A PACKAGES=(
+  ["fedora"]="
+    android-tools
+    aria2
+    bleachbit
+    cmatrix
+    cockpit
+    cockpit-bridge
+    cockpit-machines
+    cockpit-networkmanager
+    cockpit-ostree
+    cockpit-podman
+    cockpit-selinux
+    cockpit-storaged
+    cockpit-system
+    croc
+    fish
+    gnome-disk-utility
+    gparted
+    htop
+    isoimagewriter
+    john
+    neovim
+    nmap
+    openrgb
+    powerline-fonts
+    qbittorrent
+    rclone
+    rustup
+    ShellCheck
+    shfmt
+    solaar
+    thefuck
+    tor
+    torbrowser-launcher
+    torsocks
+    virt-manager
+    virt-viewer
+    wireshark
+    yt-dlp
+    zsh"
 
-RPM_FUSION_PACKAGES=(
-  audacious
-  audacious-plugins-freeworld
-  telegram-desktop
-)
+  ["rpmfusion-free-updates"]="
+    audacious
+    audacious-plugins-freeworld
+    telegram-desktop"
 
-NEGATIVO17_MULTIMEDIA_PACKAGES=(
-  HandBrake-cli
-  HandBrake-gui
-  mpv
-  vlc
-)
+  ["fedora-multimedia"]="
+    HandBrake-cli
+    HandBrake-gui
+    mpv
+    vlc"
 
-TERRA_PACKAGES=(
-  audacity-freeworld
-  coolercontrol
-  ghostty
-  hack-nerd-fonts
-  starship
-  ubuntu-nerd-fonts
-  ubuntumono-nerd-fonts
-  WoeUSB-ng
-  youtube-music
-)
+  ["terra"]="
+    audacity-freeworld
+    coolercontrol
+    ghostty
+    hack-nerd-fonts
+    starship
+    ubuntu-nerd-fonts
+    ubuntumono-nerd-fonts
+    WoeUSB-ng
+    youtube-music"
 
-DOCKER_PACKAGES=(
-  containerd.io
-  docker-buildx-plugin
-  docker-ce
-  docker-ce-cli
-  docker-compose-plugin
-)
+  ["docker-ce"]="
+    containerd.io
+    docker-buildx-plugin
+    docker-ce
+    docker-ce-cli
+    docker-compose-plugin"
 
-declare -A COPR_PACKAGES=(
-  ["gloriouseggroll/nobara-41"]="lact scrcpy"
-  ["ublue-os/staging"]="devpod"
-)
-
-declare -A ADDITIONAL_PACKAGES=(
   ["brave-browser"]="brave-browser"
   ["cloudflare-warp"]="cloudflare-warp"
   ["signal-desktop"]="signal-desktop"
   ["vscode"]="code"
+
+  ["copr:gloriouseggroll/nobara-41"]="
+    lact
+    scrcpy"
+  ["copr:ublue-os/staging"]="devpod"
 )
 
 log "Starting Amy OS build process"
 
-# Install packages
-log "Installing Fedora packages"
-dnf5 -y install "${FEDORA_PACKAGES[@]}"
-
-log "Installing RPM Fusion packages"
-dnf5 -y install --enable-repo="rpmfusion-free-updates" "${RPM_FUSION_PACKAGES[@]}"
-
-log "Installing negativo17 Multimedia packages"
-dnf5 -y install --enable-repo="fedora-multimedia" "${NEGATIVO17_MULTIMEDIA_PACKAGES[@]}"
-
-log "Installing Terra packages"
-dnf5 -y install --enable-repo="terra" "${TERRA_PACKAGES[@]}"
-
-log "Installing Docker"
-dnf5 -y install --enable-repo="docker-ce" "${DOCKER_PACKAGES[@]}"
-
-# Install individual packages from their repos
-log "Installing additional packages"
-for repo_name in "${!ADDITIONAL_PACKAGES[@]}"; do
-  dnf5 -y install --enable-repo="$repo_name" "${ADDITIONAL_PACKAGES[$repo_name]}"
-done
-
-# Install packages from COPR repos
-log "Installing COPR packages"
-for repo_name in "${!COPR_PACKAGES[@]}"; do
-  dnf5 -y copr enable "$repo_name"
-  dnf5 -y install ${COPR_PACKAGES[$repo_name]}
-  dnf5 -y copr disable "$repo_name"
+# Install all packages
+log "Installing packages"
+for repo in "${!PACKAGES[@]}"; do
+  if [[ $repo == copr:* ]]; then
+    # Handle COPR packages
+    copr_repo=${repo#copr:}
+    dnf5 -y copr enable "$copr_repo"
+    read -ra pkg_array <<<"${PACKAGES[$repo]}"
+    dnf5 -y install "${pkg_array[@]}"
+    dnf5 -y copr disable "$copr_repo"
+  else
+    # Handle regular packages
+    if [ "$repo" != "fedora" ]; then
+      enable_opt="--enable-repo=$repo"
+    else
+      enable_opt=""
+    fi
+    read -ra pkg_array <<<"${PACKAGES[$repo]}"
+    dnf5 -y install "$enable_opt" "${pkg_array[@]}"
+  fi
 done
 
 # Install Cursor
