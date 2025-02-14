@@ -7,22 +7,13 @@ log() {
   echo "=== $* ==="
 }
 
-# Package lists
-declare -A PACKAGES=(
+# RPM packages list
+declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
     bleachbit \
     cmatrix \
-    cockpit \
-    cockpit-bridge \
-    cockpit-machines \
-    cockpit-networkmanager \
-    cockpit-ostree \
-    cockpit-podman \
-    cockpit-selinux \
-    cockpit-storaged \
-    cockpit-system \
     croc \
     fish \
     gnome-disk-utility \
@@ -92,25 +83,20 @@ declare -A PACKAGES=(
 
 log "Starting Amy OS build process"
 
-# Install all packages
-log "Installing packages"
-for repo in "${!PACKAGES[@]}"; do
+# Install RPM packages
+log "Installing RPM packages"
+for repo in "${!RPM_PACKAGES[@]}"; do
+  read -ra pkg_array <<<"${RPM_PACKAGES[$repo]}"
+
   if [[ $repo == copr:* ]]; then
     # Handle COPR packages
     copr_repo=${repo#copr:}
     dnf5 -y copr enable "$copr_repo"
-    read -ra pkg_array <<<"${PACKAGES[$repo]}"
     dnf5 -y install "${pkg_array[@]}"
     dnf5 -y copr disable "$copr_repo"
   else
     # Handle regular packages
-    if [ "$repo" != "fedora" ]; then
-      enable_opt="--enable-repo=$repo"
-    else
-      enable_opt=""
-    fi
-    read -ra pkg_array <<<"${PACKAGES[$repo]}"
-    dnf5 -y install $enable_opt "${pkg_array[@]}"
+    dnf5 -y install ${repo != "fedora" ? "--enable-repo=$repo" : ""} "${pkg_array[@]}"
   fi
 done
 

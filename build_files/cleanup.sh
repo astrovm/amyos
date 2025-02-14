@@ -20,8 +20,8 @@ rm -rf /tmp/*
 
 # Clean /var directory while preserving essential files
 mv /var/lib/alternatives /staged-alternatives
-find /var/* -maxdepth 0 -type d ! -name cache -exec rm -fr {} \;
-find /var/cache/* -maxdepth 0 -type d ! -name libdnf5 ! -name rpm-ostree -exec rm -fr {} \;
+find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
+find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
 
 # Restore and setup directories
 mkdir -p /var/lib
