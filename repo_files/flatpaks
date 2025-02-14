@@ -10,13 +10,11 @@ com.stremio.Stremio
 com.usebottles.bottles
 dev.vencord.Vesktop
 io.github.giantpinkrobots.varia
-io.missioncenter.MissionCenter
 io.podman_desktop.PodmanDesktop
 org.audacityteam.Audacity
 org.blender.Blender
 org.fedoraproject.MediaWriter
 org.gimp.GIMP
-org.kde.isoimagewriter
 org.kde.kdenlive
 org.kde.krita
 org.libreoffice.LibreOffice
@@ -25,4 +23,3 @@ org.qbittorrent.qBittorrent
 org.signal.Signal
 org.telegram.desktop
 org.torproject.torbrowser-launcher
-org.videolan.VLC

@@ -84,12 +84,10 @@ ujust setup-editor-config
 - Easy Effects
 - Fedora Media Writer
 - GIMP
-- ISO Image Writer
 - Kdenlive
 - Krita
 - LibreOffice
 - LocalSend
-- Mission Center
 - OBS Studio
 - Pinta
 - Podman Desktop
@@ -102,7 +100,6 @@ ujust setup-editor-config
 - Tor Browser
 - Varia
 - Vesktop
-- VLC
 - Warp
 
 # Homebrews

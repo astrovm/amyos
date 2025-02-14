@@ -9,22 +9,58 @@ log() {
 
 # Package lists
 FEDORA_PACKAGES=(
-  android-tools aria2 bleachbit cmatrix croc gnome-disk-utility gparted htop
-  john libvirt-nss mpv neovim nmap openrgb powerline-fonts protonvpn-cli
-  rclone rustup ShellCheck shfmt solaar source-foundry-hack-fonts thefuck
-  tor torsocks virt-manager wireshark yt-dlp
+  android-tools
+  aria2
+  bleachbit
+  cmatrix
+  croc
+  gnome-disk-utility
+  gparted
+  htop
+  isoimagewriter
+  john
+  neovim
+  nmap
+  openrgb
+  powerline-fonts
+  rclone
+  rustup
+  ShellCheck
+  shfmt
+  solaar
+  source-foundry-hack-fonts
+  thefuck
+  tor
+  torsocks
+  virt-manager
+  wireshark
+  yt-dlp
 )
 
 RPM_FUSION_PACKAGES=(
-  audacious audacious-plugins-freeworld
+  audacious
+  audacious-plugins-freeworld
+)
+
+NEGATIVO17_MULTIMEDIA_PACKAGES=(
+  HandBrake-cli
+  HandBrake-gui
+  mpv
+  vlc
 )
 
 TERRA_PACKAGES=(
-  coolercontrol ghostty starship
+  coolercontrol
+  ghostty
+  starship
 )
 
 DOCKER_PACKAGES=(
-  containerd.io docker-buildx-plugin docker-ce docker-ce-cli docker-compose-plugin
+  containerd.io
+  docker-buildx-plugin
+  docker-ce
+  docker-ce-cli
+  docker-compose-plugin
 )
 
 log "Starting Amy OS build process"
@@ -35,6 +71,9 @@ dnf5 -y install "${FEDORA_PACKAGES[@]}"
 
 log "Installing RPM Fusion packages"
 dnf5 -y install --enable-repo="*rpmfusion*" "${RPM_FUSION_PACKAGES[@]}"
+
+log "Installing negativo17 Multimedia packages"
+dnf5 -y install --enable-repo="fedora-multimedia" "${NEGATIVO17_MULTIMEDIA_PACKAGES[@]}"
 
 log "Installing Terra packages"
 dnf5 -y install --enable-repo="terra" "${TERRA_PACKAGES[@]}"
