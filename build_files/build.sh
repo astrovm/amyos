@@ -101,10 +101,9 @@ dnf5 -y install --enable-repo="vscode" code
 
 # Install packages from COPR repos
 log "Installing COPR packages"
-for repo in "atim/ubuntu-fonts:ubuntu-family-fonts" \
-  "zeno/scrcpy:scrcpy" \
-  "ublue-os/staging:devpod" \
-  "ilyaz/LACT:lact"; do
+for repo in \
+  "gloriouseggroll/nobara-41:lact scrcpy" \
+  "ublue-os/staging:devpod"; do
   IFS=: read -r repo_name pkg_name <<<"$repo"
   dnf5 -y copr enable "$repo_name"
   dnf5 -y install "$pkg_name"
