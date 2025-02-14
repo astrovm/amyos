@@ -59,9 +59,7 @@ declare -A RPM_PACKAGES=(
     hack-nerd-fonts \
     starship \
     ubuntu-nerd-fonts \
-    ubuntumono-nerd-fonts \
-    WoeUSB-ng \
-    youtube-music"
+    ubuntumono-nerd-fonts"
 
   ["docker-ce"]="\
     containerd.io \
@@ -78,7 +76,6 @@ declare -A RPM_PACKAGES=(
   ["copr:gloriouseggroll/nobara-41"]="\
     lact \
     scrcpy"
-  ["copr:ublue-os/staging"]="devpod"
 )
 
 log "Starting Amy OS build process"
