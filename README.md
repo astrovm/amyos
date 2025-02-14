@@ -97,6 +97,7 @@ ujust setup-editor-config
 - Spotify
 - Stremio
 - Varia
+- Vesktop
 - Warp
 
 # Homebrews

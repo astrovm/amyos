@@ -13,6 +13,15 @@ FEDORA_PACKAGES=(
   aria2
   bleachbit
   cmatrix
+  cockpit
+  cockpit-bridge
+  cockpit-machines
+  cockpit-networkmanager
+  cockpit-ostree
+  cockpit-podman
+  cockpit-selinux
+  cockpit-storaged
+  cockpit-system
   croc
   fish
   gnome-disk-utility
@@ -35,6 +44,7 @@ FEDORA_PACKAGES=(
   torbrowser-launcher
   torsocks
   virt-manager
+  virt-viewer
   wireshark
   yt-dlp
   zsh
@@ -61,7 +71,6 @@ TERRA_PACKAGES=(
   starship
   ubuntu-nerd-fonts
   ubuntumono-nerd-fonts
-  vencord-desktop
   WoeUSB-ng
   youtube-music
 )
