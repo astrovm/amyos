@@ -83,6 +83,18 @@ DOCKER_PACKAGES=(
   docker-compose-plugin
 )
 
+declare -A COPR_PACKAGES=(
+  ["gloriouseggroll/nobara-41"]="lact scrcpy"
+  ["ublue-os/staging"]="devpod"
+)
+
+declare -A ADDITIONAL_PACKAGES=(
+  ["brave-browser"]="brave-browser"
+  ["cloudflare-warp"]="cloudflare-warp"
+  ["signal-desktop"]="signal-desktop"
+  ["vscode"]="code"
+)
+
 log "Starting Amy OS build process"
 
 # Install packages
@@ -90,7 +102,7 @@ log "Installing Fedora packages"
 dnf5 -y install "${FEDORA_PACKAGES[@]}"
 
 log "Installing RPM Fusion packages"
-dnf5 -y install --enable-repo="*rpmfusion*" "${RPM_FUSION_PACKAGES[@]}"
+dnf5 -y install --enable-repo="rpmfusion-free-updates" "${RPM_FUSION_PACKAGES[@]}"
 
 log "Installing negativo17 Multimedia packages"
 dnf5 -y install --enable-repo="fedora-multimedia" "${NEGATIVO17_MULTIMEDIA_PACKAGES[@]}"
@@ -103,19 +115,15 @@ dnf5 -y install --enable-repo="docker-ce" "${DOCKER_PACKAGES[@]}"
 
 # Install individual packages from their repos
 log "Installing additional packages"
-dnf5 -y install --enable-repo="brave-browser" brave-browser
-dnf5 -y install --enable-repo="cloudflare-warp" cloudflare-warp
-dnf5 -y install --enable-repo="signal-desktop" signal-desktop
-dnf5 -y install --enable-repo="vscode" code
+for repo_name in "${!ADDITIONAL_PACKAGES[@]}"; do
+  dnf5 -y install --enable-repo="$repo_name" "${ADDITIONAL_PACKAGES[$repo_name]}"
+done
 
 # Install packages from COPR repos
 log "Installing COPR packages"
-for repo in \
-  "gloriouseggroll/nobara-41:lact scrcpy" \
-  "ublue-os/staging:devpod"; do
-  IFS=: read -r repo_name pkg_name <<<"$repo"
+for repo_name in "${!COPR_PACKAGES[@]}"; do
   dnf5 -y copr enable "$repo_name"
-  dnf5 -y install "$pkg_name"
+  dnf5 -y install ${COPR_PACKAGES[$repo_name]}
   dnf5 -y copr disable "$repo_name"
 done
 
