@@ -100,20 +100,22 @@ done
 # Install Cursor
 log "Installing Cursor"
 # GUI version
-curl --retry 3 -Lo /tmp/cursor.appimage "https://downloader.cursor.sh/linux/appImage/x64"
-chmod +x /tmp/cursor.appimage
-cd /tmp && ./cursor.appimage --appimage-extract
-chmod -R a+rX /tmp/squashfs-root
-mv /tmp/squashfs-root/usr/share/icons/hicolor/* /usr/share/icons/hicolor
+mkdir -p /tmp/cursor-gui
+curl --retry 3 -Lo /tmp/cursor-gui/cursor.appimage "https://downloader.cursor.sh/linux/appImage/x64"
+chmod +x /tmp/cursor-gui/cursor.appimage
+cd /tmp/cursor-gui && ./cursor.appimage --appimage-extract
+chmod -R a+rX /tmp/cursor-gui/squashfs-root
+cp -r /tmp/cursor-gui/squashfs-root/usr/share/icons/hicolor/* /usr/share/icons/hicolor
+rm -r /tmp/cursor-gui/squashfs-root/usr/share/icons/hicolor
 mkdir -p /usr/share/cursor/bin
-mv /tmp/squashfs-root/* /usr/share/cursor
-rm -rf /tmp/squashfs-root
+mv /tmp/cursor-gui/squashfs-root/* /usr/share/cursor
 install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
 ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
 # CLI version
-curl --retry 3 -Lo /tmp/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf /tmp/cursor-cli.tar.gz -C /tmp
-install -m 0755 /tmp/cursor /usr/share/cursor/bin/cursor-tunnel
+mkdir -p /tmp/cursor-cli
+curl --retry 3 -Lo /tmp/cursor-cli/cursor-cli.tar.gz "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+tar -xzf /tmp/cursor-cli/cursor-cli.tar.gz -C /tmp/cursor-cli
+install -m 0755 /tmp/cursor-cli/cursor /usr/share/cursor/bin/cursor-tunnel
 ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 
 # Enable services
