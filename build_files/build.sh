@@ -87,7 +87,6 @@ log "Starting Amy OS build process"
 log "Installing RPM packages"
 for repo in "${!RPM_PACKAGES[@]}"; do
   read -ra pkg_array <<<"${RPM_PACKAGES[$repo]}"
-
   if [[ $repo == copr:* ]]; then
     # Handle COPR packages
     copr_repo=${repo#copr:}
@@ -96,7 +95,8 @@ for repo in "${!RPM_PACKAGES[@]}"; do
     dnf5 -y copr disable "$copr_repo"
   else
     # Handle regular packages
-    dnf5 -y install ${repo != "fedora" ? "--enable-repo=$repo" : ""} "${pkg_array[@]}"
+    [[ $repo != "fedora" ]] && enable_opt="--enable-repo=$repo" || enable_opt=""
+    dnf5 -y install $enable_opt "${pkg_array[@]}"
   fi
 done
 
