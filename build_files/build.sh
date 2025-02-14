@@ -124,8 +124,8 @@ systemctl enable docker libvirtd
 
 # Disable autostart
 log "Disabling autostart"
-rm -f /etc/xdg/autostart/{solaar.desktop,com.cloudflare.WarpTaskbar.desktop}
-rm -f /etc/skel/.config/autostart/steam.desktop
+rm /etc/xdg/autostart/{solaar.desktop,com.cloudflare.WarpTaskbar.desktop}
+rm /etc/skel/.config/autostart/steam.desktop
 
 # Configure system
 log "Configuring system"
