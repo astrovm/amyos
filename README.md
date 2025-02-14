@@ -27,17 +27,20 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - `rustup-init` command
 - adb, fastboot and scrcpy
 - Audacious with Winamp skins
-- Brave Browser
+- Brave and Tor Browser
 - Cloudflare WARP
 - Curated list of Flatpaks, Homebrews and AppImages
 - DNS over TLS enabled by default
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
-- Hack, Powerline and Ubuntu fonts
+- Hack, Ubuntu and all Nerd fonts
 - OpenRGB, CoolerControl, LACT and Solaar
+- qBittorrent, yt-dlp and aria2
+- Signal and Telegram
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager
-- VSCode, Cursor, Neovim, Docker and DevPod
+- VLC, mpv, HandBrake and Audacity
+- VSCode, Cursor with Remote Tunnels, Neovim, Docker and DevPod
 
 ## Install
 

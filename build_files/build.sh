@@ -14,6 +14,7 @@ FEDORA_PACKAGES=(
   bleachbit
   cmatrix
   croc
+  fish
   gnome-disk-utility
   gparted
   htop
@@ -29,7 +30,6 @@ FEDORA_PACKAGES=(
   ShellCheck
   shfmt
   solaar
-  source-foundry-hack-fonts
   thefuck
   tor
   torbrowser-launcher
@@ -37,6 +37,7 @@ FEDORA_PACKAGES=(
   virt-manager
   wireshark
   yt-dlp
+  zsh
 )
 
 RPM_FUSION_PACKAGES=(
@@ -57,6 +58,7 @@ NEGATIVO17_MULTIMEDIA_PACKAGES=(
 TERRA_PACKAGES=(
   coolercontrol
   ghostty
+  nerd-fonts
   starship
 )
 
@@ -135,5 +137,7 @@ log "Configuring system"
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/justfile
 echo "eval \"\$(starship init bash)\"" >>/etc/bashrc
 echo "eval \"\$(thefuck --alias)\"" >>/etc/bashrc
+echo "starship init fish | source" >>/etc/fish/config.fish
+echo "thefuck --alias | source" >>/etc/fish/config.fish
 
 log "Build process completed"
