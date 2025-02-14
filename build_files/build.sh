@@ -89,7 +89,7 @@ log "Installing Terra packages"
 dnf5 -y install --enable-repo="terra" "${TERRA_PACKAGES[@]}"
 
 log "Installing Docker"
-dnf5 -y install --enable-repo="docker-ce-stable" "${DOCKER_PACKAGES[@]}"
+dnf5 -y install --enable-repo="docker-ce" "${DOCKER_PACKAGES[@]}"
 
 # Install individual packages from their repos
 log "Installing additional packages"
