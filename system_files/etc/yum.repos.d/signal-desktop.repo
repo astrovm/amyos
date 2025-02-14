@@ -1,0 +1,7 @@
+[signal-desktop]
+name=Signal Messenger
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/network:/im:/signal/Fedora_41/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/network:/im:/signal/Fedora_41/repodata/repomd.xml.key
+enabled=0

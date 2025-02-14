@@ -50,7 +50,6 @@ NEGATIVO17_MULTIMEDIA_PACKAGES=(
   HandBrake-cli
   HandBrake-gui
   mpv
-  Signal-Desktop
   vlc
 )
 
@@ -97,6 +96,7 @@ dnf5 -y install --enable-repo="docker-ce" "${DOCKER_PACKAGES[@]}"
 log "Installing additional packages"
 dnf5 -y install --enable-repo="brave-browser" brave-browser
 dnf5 -y install --enable-repo="cloudflare-warp" cloudflare-warp
+dnf5 -y install --enable-repo="signal-desktop" signal-desktop
 dnf5 -y install --enable-repo="vscode" code
 
 # Install packages from COPR repos
