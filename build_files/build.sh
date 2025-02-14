@@ -40,6 +40,7 @@ FEDORA_PACKAGES=(
 RPM_FUSION_PACKAGES=(
   audacious
   audacious-plugins-freeworld
+  audacity-freeworld
 )
 
 NEGATIVO17_MULTIMEDIA_PACKAGES=(

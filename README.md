@@ -78,7 +78,6 @@ ujust setup-editor-config
 # Flatpaks
 
 - Alpaca
-- Audacity
 - Blender
 - Bottles
 - Easy Effects
