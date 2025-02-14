@@ -43,7 +43,6 @@ FEDORA_PACKAGES=(
 RPM_FUSION_PACKAGES=(
   audacious
   audacious-plugins-freeworld
-  audacity-freeworld
   telegram-desktop
 )
 
@@ -56,10 +55,14 @@ NEGATIVO17_MULTIMEDIA_PACKAGES=(
 )
 
 TERRA_PACKAGES=(
+  audacity-freeworld
   coolercontrol
   ghostty
   nerd-fonts
   starship
+  vencord-desktop
+  WoeUSB-ng
+  youtube-music
 )
 
 DOCKER_PACKAGES=(
