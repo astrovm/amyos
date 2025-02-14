@@ -68,12 +68,12 @@ setup-editor-config:
   CURSOR_CONFIG_DIR="${HOME}/.config/Cursor/User"
   mkdir -p "$CURSOR_CONFIG_DIR"
   rm -f "$CURSOR_CONFIG_DIR/settings.json"
-  curl --retry 3 -Lo "$CURSOR_CONFIG_DIR/settings.json" https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Cursor/User/settings.json
+  cp /etc/skel/.config/Cursor/User/settings.json "$CURSOR_CONFIG_DIR/settings.json"
   echo "Cursor configuration complete."
 
   echo "Setting up VSCode configuration..."
   VSCODE_CONFIG_DIR="${HOME}/.config/Code/User"
   mkdir -p "$VSCODE_CONFIG_DIR"
   rm -f "$VSCODE_CONFIG_DIR/settings.json"
-  curl --retry 3 -Lo "$VSCODE_CONFIG_DIR/settings.json" https://raw.githubusercontent.com/astrovm/amyos/main/user_files/.config/Code/User/settings.json
+  cp /etc/skel/.config/Code/User/settings.json "$VSCODE_CONFIG_DIR/settings.json"
   echo "VSCode configuration complete."
