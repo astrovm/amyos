@@ -33,7 +33,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - DNS over TLS enabled by default
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
-- Hack, Ubuntu and all Nerd fonts
+- Hack and Ubuntu Nerd Fonts
 - OpenRGB, CoolerControl, LACT and Solaar
 - qBittorrent, yt-dlp and aria2
 - Signal and Telegram
@@ -97,7 +97,6 @@ ujust setup-editor-config
 - Spotify
 - Stremio
 - Varia
-- Vesktop
 - Warp
 
 # Homebrews

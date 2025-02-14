@@ -58,8 +58,10 @@ TERRA_PACKAGES=(
   audacity-freeworld
   coolercontrol
   ghostty
-  nerd-fonts
+  hack-nerd-fonts
   starship
+  ubuntu-nerd-fonts
+  ubuntumono-nerd-fonts
   vencord-desktop
   WoeUSB-ng
   youtube-music
@@ -134,6 +136,11 @@ ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 # Enable services
 log "Enabling system services"
 systemctl enable docker libvirtd
+
+# Disable autostart
+log "Disabling autostart"
+rm -f /etc/xdg/autostart/{solaar.desktop,com.cloudflare.WarpTaskbar.desktop}
+rm -f /etc/skel/.config/autostart/steam.desktop
 
 # Configure system
 log "Configuring system"

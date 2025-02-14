@@ -8,7 +8,6 @@ com.obsproject.Studio
 com.spotify.Client
 com.stremio.Stremio
 com.usebottles.bottles
-dev.vencord.Vesktop
 io.github.giantpinkrobots.varia
 io.podman_desktop.PodmanDesktop
 org.blender.Blender
