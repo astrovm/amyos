@@ -12,15 +12,23 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
+    audacity-freeworld \
     bleachbit \
     cmatrix \
+    coolercontrol \
     croc \
     fish \
+    ghostty \
     gnome-disk-utility \
     gparted \
+    hack-nerd-fonts \
+    HandBrake-cli \
+    HandBrake-gui \
     htop \
     isoimagewriter \
     john \
+    lact \
+    mpv \
     neovim \
     nmap \
     openrgb \
@@ -31,12 +39,16 @@ declare -A RPM_PACKAGES=(
     ShellCheck \
     shfmt \
     solaar \
+    starship \
     thefuck \
     tor \
     torbrowser-launcher \
     torsocks \
+    ubuntu-nerd-fonts \
+    ubuntumono-nerd-fonts \
     virt-manager \
     virt-viewer \
+    vlc \
     wireshark \
     yt-dlp \
     zsh-autosuggestions \
@@ -47,21 +59,6 @@ declare -A RPM_PACKAGES=(
     audacious-plugins-freeworld \
     telegram-desktop"
 
-  ["fedora-multimedia"]="\
-    HandBrake-cli \
-    HandBrake-gui \
-    mpv \
-    vlc"
-
-  ["terra"]="\
-    audacity-freeworld \
-    coolercontrol \
-    ghostty \
-    hack-nerd-fonts \
-    starship \
-    ubuntu-nerd-fonts \
-    ubuntumono-nerd-fonts"
-
   ["docker-ce"]="\
     containerd.io \
     docker-buildx-plugin \
@@ -71,12 +68,9 @@ declare -A RPM_PACKAGES=(
 
   ["brave-browser"]="brave-browser"
   ["cloudflare-warp"]="cloudflare-warp"
+  ["copr:gloriouseggroll/nobara-41"]="scrcpy"
   ["signal-desktop"]="signal-desktop"
   ["vscode"]="code"
-
-  ["copr:gloriouseggroll/nobara-41"]="\
-    lact \
-    scrcpy"
 )
 
 log "Starting Amy OS build process"
