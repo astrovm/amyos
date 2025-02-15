@@ -56,7 +56,7 @@ declare -A RPM_PACKAGES=(
     mpv \
     vlc"
 
-  ["rpmfusion-free-updates"]="\
+  ["rpmfusion-free,rpmfusion-free-updates"]="\
     audacious \
     audacious-plugins-freeworld \
     telegram-desktop"
