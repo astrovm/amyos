@@ -24,7 +24,6 @@ declare -A RPM_PACKAGES=(
     htop \
     isoimagewriter \
     john \
-    lact \
     neovim \
     nmap \
     openrgb \
@@ -49,15 +48,17 @@ declare -A RPM_PACKAGES=(
     zsh-autosuggestions \
     zsh"
 
+  ["fedora-multimedia"]="\
+    HandBrake-cli \
+    HandBrake-gui \
+    mpv \
+    vlc"
+
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacious \
     audacious-plugins-freeworld \
     audacity-freeworld \
-    HandBrake \
-    HandBrake-gui \
-    mpv \
-    telegram-desktop \
-    vlc"
+    telegram-desktop"
 
   ["docker-ce"]="\
     containerd.io \
@@ -66,9 +67,12 @@ declare -A RPM_PACKAGES=(
     docker-ce-cli \
     docker-compose-plugin"
 
+  ["copr:gloriouseggroll/nobara-41"]="\
+    lact \
+    scrcpy"
+
   ["brave-browser"]="brave-browser"
   ["cloudflare-warp"]="cloudflare-warp"
-  ["copr:gloriouseggroll/nobara-41"]="scrcpy"
   ["signal-desktop"]="signal-desktop"
   ["vscode"]="code"
 )
