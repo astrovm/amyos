@@ -12,6 +12,7 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
+    asciinema \
     bleachbit \
     cmatrix \
     coolercontrol \
