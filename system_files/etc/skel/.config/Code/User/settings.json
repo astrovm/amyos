@@ -2,7 +2,7 @@
   "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "diffEditor.codeLens": true,
   "diffEditor.ignoreTrimWhitespace": true,
-  "editor.fontFamily": "Hack, Symbols Nerd Font Mono",
+  "editor.fontFamily": "Hack Nerd Font",
   "editor.fontSize": 18,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
