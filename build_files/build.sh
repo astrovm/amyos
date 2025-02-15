@@ -131,12 +131,20 @@ rm /etc/skel/.config/autostart/steam.desktop
 # Configure system
 log "Configuring system"
 echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/justfile
-echo "eval \"\$(starship init bash)\"" >>/etc/bashrc
-echo "eval \"\$(thefuck --alias)\"" >>/etc/bashrc
-echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>/etc/zshrc
-echo "eval \"\$(starship init zsh)\"" >>/etc/zshrc
-echo "eval \"\$(thefuck --alias)\"" >>/etc/zshrc
-echo "starship init fish | source" >>/etc/fish/config.fish
-echo "thefuck --alias | source" >>/etc/fish/config.fish
+{
+  echo "eval \"\$(starship init bash)\""
+  echo "eval \"\$(thefuck --alias)\""
+} >>/etc/bashrc
+
+{
+  echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  echo "eval \"\$(starship init zsh)\""
+  echo "eval \"\$(thefuck --alias)\""
+} >>/etc/zshrc
+
+{
+  echo "starship init fish | source"
+  echo "thefuck --alias | source"
+} >>/etc/fish/config.fish
 
 log "Build process completed"
