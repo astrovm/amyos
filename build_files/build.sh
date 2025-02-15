@@ -12,7 +12,6 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
-    audacity-freeworld \
     bleachbit \
     cmatrix \
     coolercontrol \
@@ -50,16 +49,15 @@ declare -A RPM_PACKAGES=(
     zsh-autosuggestions \
     zsh"
 
-  ["fedora-multimedia"]="\
-    HandBrake-cli \
-    HandBrake-gui \
-    mpv \
-    vlc"
-
-  ["rpmfusion-free,rpmfusion-free-updates"]="\
+  ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacious \
     audacious-plugins-freeworld \
-    telegram-desktop"
+    audacity-freeworld \
+    HandBrake \
+    HandBrake-gui \
+    mpv \
+    telegram-desktop \
+    vlc"
 
   ["docker-ce"]="\
     containerd.io \
