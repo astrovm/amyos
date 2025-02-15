@@ -22,13 +22,10 @@ declare -A RPM_PACKAGES=(
     gnome-disk-utility \
     gparted \
     hack-nerd-fonts \
-    HandBrake-cli \
-    HandBrake-gui \
     htop \
     isoimagewriter \
     john \
     lact \
-    mpv \
     neovim \
     nmap \
     openrgb \
@@ -48,11 +45,16 @@ declare -A RPM_PACKAGES=(
     ubuntumono-nerd-fonts \
     virt-manager \
     virt-viewer \
-    vlc \
     wireshark \
     yt-dlp \
     zsh-autosuggestions \
     zsh"
+
+  ["fedora-multimedia"]="\
+    HandBrake-cli \
+    HandBrake-gui \
+    mpv \
+    vlc"
 
   ["rpmfusion-free-updates"]="\
     audacious \
