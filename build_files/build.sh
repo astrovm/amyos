@@ -130,16 +130,10 @@ echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/
   echo "eval \"\$(starship init bash)\""
   echo "eval \"\$(thefuck --alias)\""
 } >>/etc/bashrc
-
 {
   echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   echo "eval \"\$(starship init zsh)\""
   echo "eval \"\$(thefuck --alias)\""
 } >>/etc/zshrc
-
-{
-  echo "starship init fish | source"
-  echo "thefuck --alias | source"
-} >>/etc/fish/config.fish
 
 log "Build process completed"
