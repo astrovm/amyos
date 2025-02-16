@@ -28,7 +28,6 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
-    powerline-fonts \
     qbittorrent \
     rclone \
     rustup \
