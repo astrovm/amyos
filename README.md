@@ -77,6 +77,9 @@ ujust amy-setup-editors
 # Setup Git and GitHub SSH key
 ujust amy-setup-git
 
+# Setup Sonic Adventure DX mods
+ujust amy-setup-sadx
+
 # Restart Bluetooth to fix issues
 ujust amy-fix-bt
 

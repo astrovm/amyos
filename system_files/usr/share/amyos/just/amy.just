@@ -219,7 +219,7 @@ amy-setup-sadx:
   # Configure Steam directory access
   flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
 
-  echo "Please configure Steam first:"
+  echo -e "\nPlease configure Steam first:"
   echo "1. Right-click SADX → Properties"
   echo "2. Set Launch Options to: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
   echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
@@ -251,9 +251,10 @@ amy-setup-sadx:
   [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
 
   installer="${DOWNLOAD_DIR}/sadx_setup.exe"
+  echo "Downloading mod installer..."
   curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
 
-  echo "Launching SADX Mod Installer..."
+  echo -e "\nLaunching SADX Mod Installer..."
   echo "Use the path: $SADX_DIR"
   flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
   rm -f "$installer"
