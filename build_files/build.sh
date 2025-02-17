@@ -125,7 +125,7 @@ rm /etc/xdg/autostart/{solaar.desktop,com.cloudflare.WarpTaskbar.desktop}
 rm /etc/skel/.config/autostart/steam.desktop
 
 log "Configuring system"
-echo "import \"/usr/share/amyos/just/install-apps.just\"" >>/usr/share/ublue-os/justfile
+echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
 {
   echo "eval \"\$(starship init bash)\""
   echo "eval \"\$(thefuck --alias)\""

@@ -60,19 +60,22 @@ The following `ujust` commands are available:
 
 ```bash
 # Install all Amy OS curated apps
-ujust install-amy
+ujust amy-install
 
 # Install only Flatpaks
-ujust install-amy-flatpaks
+ujust amy-install-flatpaks
 
 # Install only Homebrews
-ujust install-amy-brews
+ujust amy-install-brews
 
 # Install only AppImages
-ujust install-amy-appimages
+ujust amy-install-appimages
 
 # Setup Amy OS recommended settings for Cursor and VSCode
-ujust setup-editor-config
+ujust amy-setup-editors
+
+# Restart Bluetooth to fix issues
+ujust amy-fix-bt
 ```
 
 ## Curated list of apps

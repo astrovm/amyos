@@ -1,8 +1,8 @@
 # Install all Amy OS curated apps
-install-amy: install-amy-flatpaks install-amy-brews install-amy-appimages
+amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages
 
 # Install only Flatpaks
-install-amy-flatpaks:
+amy-install-flatpaks:
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -12,7 +12,7 @@ install-amy-flatpaks:
   echo "Flatpaks installation complete."
 
 # Install only Homebrews
-install-amy-brews:
+amy-install-brews:
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -21,7 +21,7 @@ install-amy-brews:
   echo "Homebrews installation complete."
 
 # Install only AppImages
-install-amy-appimages:
+amy-install-appimages:
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -60,7 +60,7 @@ install-amy-appimages:
   echo "AppImages installation complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
-setup-editor-config:
+amy-setup-editors:
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -77,3 +77,14 @@ setup-editor-config:
   rm -f "$VSCODE_CONFIG_DIR/settings.json"
   cp /etc/skel/.config/Code/User/settings.json "$VSCODE_CONFIG_DIR/settings.json"
   echo "VSCode configuration complete."
+
+# Restart Bluetooth to fix issues
+amy-fix-bt:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Fixing Bluetooth..."
+  sudo rfkill unblock all
+  sudo rmmod btusb
+  sudo modprobe btusb
+  echo "Bluetooth fix complete."
