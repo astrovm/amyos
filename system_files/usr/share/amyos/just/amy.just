@@ -264,5 +264,5 @@ amy-setup-sadx:
   echo "Use this Windows-style path as the Destination Folder: ${WIN_PATH}"
   flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
 
-  echo -e "\nLaunch SADX with the Configure option."
+  echo -e "\nLaunch SADX and select the Configure option."
   echo "SADX mods installation complete."
