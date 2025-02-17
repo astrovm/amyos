@@ -216,15 +216,20 @@ amy-setup-sadx:
   # Install ProtonTricks if needed
   flatpak list | grep -q "com.github.Matoking.protontricks" || flatpak --system -y install com.github.Matoking.protontricks
 
+  # Install ProtonUp-Qt if needed
+  flatpak list | grep -q "net.davidotek.pupgui2" || flatpak --system -y install net.davidotek.pupgui2
+
   # Configure Steam directory access
   flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
 
   echo -e "\nPlease configure Steam first:"
-  echo "1. Right-click SADX → Properties"
-  echo "2. Set Launch Options to: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
-  echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
-  echo "4. Select 'Proton Experimental'"
-  echo "5. Launch the game once and exit"
+  echo "1. Install GE-Proton using ProtonUp-Qt (launching now...)"
+  flatpak run net.davidotek.pupgui2 &>/dev/null
+  echo "2. Go to your Steam library and right-click Sonic Adventure DX → Properties"
+  echo "3. Set Launch Options to: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
+  echo "4. Enable 'Force the use of a specific Steam Play compatibility tool'"
+  echo "5. Select the installed GE-Proton version"
+  echo "6. Launch the game once and exit"
   read -p "Press Enter when you've completed these steps..."
 
   # Find SADX installation path
