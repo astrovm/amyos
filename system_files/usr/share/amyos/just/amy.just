@@ -262,4 +262,4 @@ amy-setup-sadx:
   flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
 
   echo -e "\nLaunch SADX and update the Mod Manager when prompted."
-  echo "SADX Mods installation complete."
+  echo "SADX mods installation complete."
