@@ -5,6 +5,7 @@ amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages
 amy-install-flatpaks:
   #!/usr/bin/env bash
   set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
@@ -15,6 +16,7 @@ amy-install-flatpaks:
 amy-install-brews:
   #!/usr/bin/env bash
   set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Installing Homebrews..."
   brew install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
@@ -24,6 +26,7 @@ amy-install-brews:
 amy-install-appimages:
   #!/usr/bin/env bash
   set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
   [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
@@ -63,6 +66,7 @@ amy-install-appimages:
 amy-setup-editors:
   #!/usr/bin/env bash
   set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Setting up Cursor configuration..."
   CURSOR_CONFIG_DIR="${HOME}/.config/Cursor/User"
@@ -82,6 +86,7 @@ amy-setup-editors:
 amy-fix-bt:
   #!/usr/bin/env bash
   set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Fixing Bluetooth..."
   sudo rfkill unblock all
