@@ -5,7 +5,6 @@ amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages
 amy-install-flatpaks:
   #!/usr/bin/env bash
   set -euo pipefail
-  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
@@ -16,7 +15,6 @@ amy-install-flatpaks:
 amy-install-brews:
   #!/usr/bin/env bash
   set -euo pipefail
-  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   echo "Installing Homebrews..."
   brew install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
@@ -26,7 +24,6 @@ amy-install-brews:
 amy-install-appimages:
   #!/usr/bin/env bash
   set -euo pipefail
-  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
   DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
   [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
@@ -93,3 +90,30 @@ amy-fix-bt:
   sudo rmmod btusb
   sudo modprobe btusb
   echo "Bluetooth fix complete."
+
+# Setup Git and GitHub SSH configuration
+amy-setup-git:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up Git configuration..."
+
+  # Ask for Git username and email
+  read -p "Enter your Git username: " git_username
+  read -p "Enter your Git email: " git_email
+
+  # Configure Git
+  git config --global color.ui true
+  git config --global user.name "$git_username"
+  git config --global user.email "$git_email"
+
+  # Generate SSH key
+  echo "Generating SSH key..."
+  ssh-keygen -t ed25519 -C "$git_email"
+
+  # Display the public key
+  echo "Your SSH public key:"
+  cat ~/.ssh/id_ed25519.pub
+
+  echo "Git configuration complete."
+  echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
