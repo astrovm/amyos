@@ -222,15 +222,19 @@ amy-setup-sadx:
   # Configure Steam directory access
   flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
 
-  echo -e "\nPlease configure Steam first:"
-  echo "1. Install GE-Proton using ProtonUp-Qt (launching now...)"
+  echo -e "\n=== Steam Configuration Steps ==="
+  echo "1. ProtonUp-Qt will now launch. Please install GE-Proton."
   flatpak run net.davidotek.pupgui2 &>/dev/null
-  echo "2. Go to your Steam library and right-click Sonic Adventure DX → Properties"
-  echo "3. Set Launch Options to: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
-  echo "4. Enable 'Force the use of a specific Steam Play compatibility tool'"
-  echo "5. Select the installed GE-Proton version"
-  echo "6. Launch the game once and exit"
-  read -p "Press Enter when you've completed these steps..."
+
+  echo -e "\nIn Steam, configure Sonic Adventure DX:"
+  echo "1. Right-click the game → Properties"
+  echo "2. Add this to Launch Options:"
+  echo "   WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
+  echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
+  echo "4. Select the GE-Proton version you just installed"
+  echo "5. Launch the game once and exit"
+  echo -e "\nPress Enter once you've completed these steps..."
+  read -p ""
 
   # Find SADX installation path
   library_config="${HOME}/.steam/steam/steamapps/libraryfolders.vdf"
@@ -258,11 +262,17 @@ amy-setup-sadx:
   echo -e "\nInstalling .NET Desktop Runtime 8..."
   flatpak run com.github.Matoking.protontricks 71250 dotnetdesktop8 &>/dev/null
 
-  echo -e "\nLaunching SADX Mod Installer..."
   # Convert path to Windows format
   WIN_PATH="Z:${SADX_DIR//\//\\}"
-  echo "Use this Windows-style path as the Destination Folder: ${WIN_PATH}"
+
+  echo -e "\n=== Mod Installation ==="
+  echo "When the SADX Mod Installer launches, use this path as the Destination Folder:"
+  echo "${WIN_PATH}"
   flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
 
-  echo -e "\nLaunch SADX and select the Configure option."
-  echo "SADX mods installation complete."
+  echo -e "\n=== Final Configuration Steps ==="
+  echo "1. Launch SADX and select 'Configure'"
+  echo "2. Navigate to: Mods → Game Config → Graphics"
+  echo "3. Set your display and resolution settings"
+  echo "4. Click 'Save & Play' to start the game"
+  echo -e "\nSetup complete! Enjoy playing SADX with mods!"
