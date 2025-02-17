@@ -74,6 +74,9 @@ ujust amy-install-appimages
 # Setup Amy OS recommended settings for Cursor and VSCode
 ujust amy-setup-editors
 
+# Setup Git and GitHub SSH key
+ujust amy-setup-git
+
 # Restart Bluetooth to fix issues
 ujust amy-fix-bt
 ```

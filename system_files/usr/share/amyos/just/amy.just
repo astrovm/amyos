@@ -79,24 +79,13 @@ amy-setup-editors:
   cp /etc/skel/.config/Code/User/settings.json "$VSCODE_CONFIG_DIR/settings.json"
   echo "VSCode configuration complete."
 
-# Restart Bluetooth to fix issues
-amy-fix-bt:
-  #!/usr/bin/env bash
-  set -euo pipefail
-  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
-  echo "Fixing Bluetooth..."
-  sudo rfkill unblock all
-  sudo rmmod btusb
-  sudo modprobe btusb
-  echo "Bluetooth fix complete."
-
-# Setup Git and GitHub SSH configuration
+# Setup Git and GitHub SSH key
 amy-setup-git:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  echo "Setting up Git configuration..."
+  echo "Setting up Git SSH key..."
 
   # Ask for Git username and email
   read -p "Enter your Git username: " git_username
@@ -117,3 +106,15 @@ amy-setup-git:
 
   echo "Git configuration complete."
   echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
+
+# Restart Bluetooth to fix issues
+amy-fix-bt:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
+
+  echo "Fixing Bluetooth..."
+  sudo rfkill unblock all
+  sudo rmmod btusb
+  sudo modprobe btusb
+  echo "Bluetooth fix complete."
