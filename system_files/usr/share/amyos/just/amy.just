@@ -205,3 +205,41 @@ amy-ssd-crypto:
       echo "✓ All optimizations disabled"
       ;;
   esac
+
+# Setup Sonic Adventure DX mods
+amy-setup-sadx:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up SADX mods..."
+
+  # Install ProtonTricks if needed
+  if ! command -v protontricks >/dev/null; then
+    echo "Installing ProtonTricks..."
+    flatpak install -y com.github.Matoking.protontricks
+  fi
+
+  # Configure Steam directory access
+  echo "Configuring Protontricks Steam access..."
+  flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
+
+  echo "Please configure Steam first:"
+  echo "1. Right-click SADX → Properties"
+  echo "2. Set Launch Options to: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
+  echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
+  echo "4. Select 'Proton Experimental'"
+  echo "5. Launch the game once and exit"
+  read -p "Press Enter when you've completed these steps..."
+
+  # Download and run mod installer
+  DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
+  echo "Downloading SADX Mod Installer..."
+  curl -Lo "${DOWNLOAD_DIR}/sadx_setup.exe" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
+
+  echo "Launching SADX Mod Installer..."
+  flatpak run --command=protontricks-launch com.github.Matoking.protontricks --cwd-app --appid 71250 "${DOWNLOAD_DIR}/sadx_setup.exe"
+
+  echo "Complete the installation:"
+  echo "1. Complete the mod installation"
+  echo "2. Launch SADX and update the Mod Manager when prompted"
+  echo "3. The Game Directory should be automatically configured"
