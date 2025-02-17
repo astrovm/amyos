@@ -241,6 +241,8 @@ amy-setup-sadx:
         possible_path="${BASH_REMATCH[1]}/steamapps/common/Sonic Adventure DX"
         if [ -d "$possible_path" ]; then
           SADX_DIR="$possible_path"
+          # Add Flatpak override for the Steam library
+          flatpak override --user --filesystem="${BASH_REMATCH[1]}" com.github.Matoking.protontricks
           break
         fi
       fi
