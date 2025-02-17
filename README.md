@@ -80,7 +80,7 @@ ujust amy-setup-git
 # Restart Bluetooth to fix issues
 ujust amy-fix-bt
 
-# Manage SSD devices encryption performance settings
+# Manage SSD encryption optimizations (Workqueue and TRIM)
 ujust amy-ssd-crypto
 ```
 

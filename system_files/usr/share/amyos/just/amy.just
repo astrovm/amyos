@@ -119,113 +119,97 @@ amy-fix-bt:
   sudo modprobe btusb
   echo "Bluetooth fix complete."
 
-# Manage SSD devices encryption performance settings
+# Manage SSD encryption optimizations (Workqueue and TRIM)
 amy-ssd-crypto:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  # List LUKS2 devices and their current settings
-  list_devices() {
-    local luks_devices
-    luks_devices=$(sudo dmsetup ls --target crypt) || true
+  # Get LUKS2 devices
+  luks_devices=$(sudo dmsetup ls --target crypt) || { echo "No LUKS devices found."; exit 1; }
 
-    if [ -z "$luks_devices" ]; then
-      echo "No LUKS devices found."
-      return 1
-    fi
+  # Display devices and their settings
+  echo "LUKS2 Devices and Settings:"
+  echo "=========================="
 
-    echo "LUKS Devices:"
-    echo "=============================================="
+  while read -r name _; do
+    [ -z "$name" ] && continue
 
-    while read -r name _; do
-      [ -z "$name" ] && continue
+    status=$(sudo cryptsetup status "$name")
+    device=$(echo "$status" | grep "device:" | cut -d: -f2 | xargs)
 
-      local status
-      status=$(sudo cryptsetup status "$name")
-      local device=$(echo "$status" | grep "device:" | cut -d: -f2 | xargs)
-      local flags=$(echo "$status" | grep "flags:" | cut -d: -f2 | xargs)
+    # Skip if not LUKS2
+    sudo cryptsetup isLuks --type luks2 "$device" 2>/dev/null || continue
 
-      # Check if it's LUKS2
-      if ! sudo cryptsetup isLuks --type luks2 "$device" 2>/dev/null; then
-        continue
-      fi
+    flags=$(echo "$status" | grep "flags:" | cut -d: -f2 | xargs)
+    echo "Device: $name (${device})"
+    echo "- TRIM: $(echo "$flags" | grep -q "discards" && echo "enabled" || echo "disabled")"
+    echo "- No read workqueue: $(echo "$flags" | grep -q "no_read_workqueue" && echo "enabled" || echo "disabled")"
+    echo "- No write workqueue: $(echo "$flags" | grep -q "no_write_workqueue" && echo "enabled" || echo "disabled")"
+    echo "--------------------------"
+  done <<< "$luks_devices"
 
-      echo "Device: $name"
-      echo "Source: $device"
-      echo "Optimizations:"
-      echo "- TRIM: $(echo "$flags" | grep -q "discards" && echo "enabled" || echo "disabled")"
-      echo "- No read workqueue: $(echo "$flags" | grep -q "no_read_workqueue" && echo "enabled" || echo "disabled")"
-      echo "- No write workqueue: $(echo "$flags" | grep -q "no_write_workqueue" && echo "enabled" || echo "disabled")"
-      echo "----------------------------------------------"
-    done <<< "$luks_devices"
-  }
-
-  # Check if device supports TRIM
-  check_trim() {
-    local device="$1"
-    local disc_info
-    disc_info=$(sudo lsblk --pairs --discard "$device" | head -n1)
-    local disc_gran=$(echo "$disc_info" | grep -o 'DISC-GRAN="[^"]*"' | cut -d'"' -f2)
-    local disc_max=$(echo "$disc_info" | grep -o 'DISC-MAX="[^"]*"' | cut -d'"' -f2)
-
-    [[ "$disc_gran" != "0" ]] && [[ "$disc_max" != "0" ]]
-  }
-
-  # Main script
-  echo "SSD Encryption Performance Manager"
-  echo "=============================================="
-
-  # List current devices and settings
-  list_devices || exit 1
-
-  # Get device selection
-  echo
+  # Get and validate device selection
   read -p "Enter LUKS device name to optimize (or press Enter to exit): " device
   [ -z "$device" ] && exit 0
 
-  # Verify device exists and is LUKS2
   if ! sudo cryptsetup status "$device" &>/dev/null; then
     echo "Error: Device $device not found"
     exit 1
   fi
 
-  # Get source device
   source_dev=$(sudo cryptsetup status "$device" | grep "device:" | cut -d: -f2 | xargs)
-
-  # Verify it's LUKS2
   if ! sudo cryptsetup isLuks --type luks2 "$source_dev" 2>/dev/null; then
     echo "Error: Device $device is not a LUKS2 device"
     exit 1
   fi
 
-  echo
-  echo "Available optimizations:"
-  echo "1) Enable all optimizations (with TRIM if supported)"
-  echo "2) Enable optimizations without TRIM"
-  echo "3) Disable all optimizations"
-  echo
-  read -p "Select option (1-3): " choice
+  # Check TRIM support
+  supports_trim=$(sudo lsblk --pairs --discard "$source_dev" | head -n1 | grep -E 'DISC-GRAN="[1-9].*DISC-MAX="[1-9]')
 
+  # Show menu options
+  echo -e "\nSelect optimization option:"
+  if [[ -n "$supports_trim" ]]; then
+    options=(
+      "Enable workqueue optimizations with TRIM"
+      "Enable workqueue optimizations without TRIM"
+      "Disable all optimizations"
+    )
+  else
+    options=(
+      "Enable workqueue optimizations"
+      "Disable all optimizations"
+    )
+  fi
+
+  for i in "${!options[@]}"; do
+    echo "$((i+1))) ${options[i]}"
+  done
+
+  read -p "Select option (1-${#options[@]}): " choice
+  [[ ! "$choice" =~ ^[1-${#options[@]}]$ ]] && { echo "Invalid option"; exit 1; }
+
+  # Apply selected optimization
   case $choice in
     1)
-      if check_trim "$source_dev"; then
+      if [[ -n "$supports_trim" ]]; then
         sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh "$device"
-        echo "✓ All optimizations enabled with TRIM support"
+        echo "✓ Workqueue optimizations enabled with TRIM"
       else
-        echo "! TRIM not supported, enabling other optimizations only"
         sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh "$device"
+        echo "✓ Workqueue optimizations enabled"
       fi
       ;;
     2)
-      sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh "$device"
-      echo "✓ Optimizations enabled without TRIM"
+      if [[ -n "$supports_trim" ]]; then
+        sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh "$device"
+        echo "✓ Workqueue optimizations enabled without TRIM"
+      else
+        sudo cryptsetup --persistent refresh "$device"
+        echo "✓ All optimizations disabled"
+      fi
       ;;
     3)
       sudo cryptsetup --persistent refresh "$device"
       echo "✓ All optimizations disabled"
-      ;;
-    *)
-      echo "Invalid option"
-      exit 1
       ;;
   esac
