@@ -119,12 +119,12 @@ amy-fix-bt:
   sudo modprobe btusb
   echo "Bluetooth fix complete."
 
-# Manage NVMe device encryption performance settings
-amy-nvme-crypto:
+# Manage SSD devices encryption performance settings
+amy-ssd-crypto:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  # List LUKS devices and their current settings
+  # List LUKS2 devices and their current settings
   list_devices() {
     local luks_devices
     luks_devices=$(sudo dmsetup ls --target crypt) || true
@@ -144,6 +144,11 @@ amy-nvme-crypto:
       status=$(sudo cryptsetup status "$name")
       local device=$(echo "$status" | grep "device:" | cut -d: -f2 | xargs)
       local flags=$(echo "$status" | grep "flags:" | cut -d: -f2 | xargs)
+
+      # Check if it's LUKS2
+      if ! sudo cryptsetup isLuks --type luks2 "$device" 2>/dev/null; then
+        continue
+      fi
 
       echo "Device: $name"
       echo "Source: $device"
@@ -167,7 +172,7 @@ amy-nvme-crypto:
   }
 
   # Main script
-  echo "NVMe Encryption Performance Manager"
+  echo "SSD Encryption Performance Manager"
   echo "=============================================="
 
   # List current devices and settings
@@ -178,7 +183,7 @@ amy-nvme-crypto:
   read -p "Enter LUKS device name to optimize (or press Enter to exit): " device
   [ -z "$device" ] && exit 0
 
-  # Verify device exists
+  # Verify device exists and is LUKS2
   if ! sudo cryptsetup status "$device" &>/dev/null; then
     echo "Error: Device $device not found"
     exit 1
@@ -186,7 +191,12 @@ amy-nvme-crypto:
 
   # Get source device
   source_dev=$(sudo cryptsetup status "$device" | grep "device:" | cut -d: -f2 | xargs)
-  nvme_dev=$(echo "$source_dev" | sed -E 's/p[0-9]+$//')
+
+  # Verify it's LUKS2
+  if ! sudo cryptsetup isLuks --type luks2 "$source_dev" 2>/dev/null; then
+    echo "Error: Device $device is not a LUKS2 device"
+    exit 1
+  fi
 
   echo
   echo "Available optimizations:"
@@ -198,7 +208,7 @@ amy-nvme-crypto:
 
   case $choice in
     1)
-      if check_trim "$nvme_dev"; then
+      if check_trim "$source_dev"; then
         sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh "$device"
         echo "✓ All optimizations enabled with TRIM support"
       else
