@@ -243,19 +243,17 @@ amy-setup-sadx:
   fi
   [ -z "$SADX_DIR" ] && { echo "Error: Could not find SADX installation. Please launch the game first."; exit 1; }
 
-  echo -e "\nFound SADX installation at: $SADX_DIR"
-  echo -e "Please use this path when the installer asks for the installation directory.\n"
-
   # Download and run mod installer
   DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
   [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
-
   installer="${DOWNLOAD_DIR}/sadx_setup.exe"
-  echo "Downloading mod installer..."
+  echo -e "\nDownloading mod installer..."
   curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
 
   echo -e "\nLaunching SADX Mod Installer..."
-  echo "Use the path: $SADX_DIR"
+  # Convert path to Windows format
+  WIN_PATH="Z:${SADX_DIR//\//\\}"
+  echo "Use this Windows-style path as the Destination Folder: ${WIN_PATH}"
   flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
   rm -f "$installer"
 
