@@ -118,3 +118,104 @@ amy-fix-bt:
   sudo rmmod btusb
   sudo modprobe btusb
   echo "Bluetooth fix complete."
+
+# Manage NVMe device encryption performance settings
+amy-nvme-crypto:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  # List LUKS devices and their current settings
+  list_devices() {
+    local luks_devices
+    luks_devices=$(sudo dmsetup ls --target crypt) || true
+
+    if [ -z "$luks_devices" ]; then
+      echo "No LUKS devices found."
+      return 1
+    fi
+
+    echo "LUKS Devices:"
+    echo "=============================================="
+
+    while read -r name _; do
+      [ -z "$name" ] && continue
+
+      local status
+      status=$(sudo cryptsetup status "$name")
+      local device=$(echo "$status" | grep "device:" | cut -d: -f2 | xargs)
+      local flags=$(echo "$status" | grep "flags:" | cut -d: -f2 | xargs)
+
+      echo "Device: $name"
+      echo "Source: $device"
+      echo "Optimizations:"
+      echo "- TRIM: $(echo "$flags" | grep -q "discards" && echo "enabled" || echo "disabled")"
+      echo "- No read workqueue: $(echo "$flags" | grep -q "no_read_workqueue" && echo "enabled" || echo "disabled")"
+      echo "- No write workqueue: $(echo "$flags" | grep -q "no_write_workqueue" && echo "enabled" || echo "disabled")"
+      echo "----------------------------------------------"
+    done <<< "$luks_devices"
+  }
+
+  # Check if device supports TRIM
+  check_trim() {
+    local device="$1"
+    local disc_info
+    disc_info=$(sudo lsblk --pairs --discard "$device" | head -n1)
+    local disc_gran=$(echo "$disc_info" | grep -o 'DISC-GRAN="[^"]*"' | cut -d'"' -f2)
+    local disc_max=$(echo "$disc_info" | grep -o 'DISC-MAX="[^"]*"' | cut -d'"' -f2)
+
+    [[ "$disc_gran" != "0" ]] && [[ "$disc_max" != "0" ]]
+  }
+
+  # Main script
+  echo "NVMe Encryption Performance Manager"
+  echo "=============================================="
+
+  # List current devices and settings
+  list_devices || exit 1
+
+  # Get device selection
+  echo
+  read -p "Enter LUKS device name to optimize (or press Enter to exit): " device
+  [ -z "$device" ] && exit 0
+
+  # Verify device exists
+  if ! sudo cryptsetup status "$device" &>/dev/null; then
+    echo "Error: Device $device not found"
+    exit 1
+  fi
+
+  # Get source device
+  source_dev=$(sudo cryptsetup status "$device" | grep "device:" | cut -d: -f2 | xargs)
+  nvme_dev=$(echo "$source_dev" | sed -E 's/p[0-9]+$//')
+
+  echo
+  echo "Available optimizations:"
+  echo "1) Enable all optimizations (with TRIM if supported)"
+  echo "2) Enable optimizations without TRIM"
+  echo "3) Disable all optimizations"
+  echo
+  read -p "Select option (1-3): " choice
+
+  case $choice in
+    1)
+      if check_trim "$nvme_dev"; then
+        sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh "$device"
+        echo "✓ All optimizations enabled with TRIM support"
+      else
+        echo "! TRIM not supported, enabling other optimizations only"
+        sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh "$device"
+      fi
+      ;;
+    2)
+      sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh "$device"
+      echo "✓ Optimizations enabled without TRIM"
+      ;;
+    3)
+      sudo cryptsetup --persistent refresh "$device"
+      echo "✓ All optimizations disabled"
+      ;;
+    *)
+      echo "Invalid option"
+      exit 1
+      ;;
+  esac
