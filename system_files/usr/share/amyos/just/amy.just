@@ -253,7 +253,7 @@ amy-setup-sadx:
   # Download and run mod installer
   installer="${SADX_DIR}/sadx_setup.exe"
   echo -e "\nDownloading mod installer..."
-  curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
+  curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files_versions/Setup/sadx_setup.exe.v1736656352"
 
   echo -e "\nLaunching SADX Mod Installer..."
   # Convert path to Windows format
