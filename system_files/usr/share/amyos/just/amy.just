@@ -214,13 +214,9 @@ amy-setup-sadx:
   echo "Setting up SADX mods..."
 
   # Install ProtonTricks if needed
-  if ! command -v protontricks >/dev/null; then
-    echo "Installing ProtonTricks..."
-    flatpak install -y com.github.Matoking.protontricks
-  fi
+  flatpak list | grep -q "com.github.Matoking.protontricks" || flatpak --system -y install com.github.Matoking.protontricks
 
   # Configure Steam directory access
-  echo "Configuring Protontricks Steam access..."
   flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
 
   echo "Please configure Steam first:"
@@ -231,15 +227,34 @@ amy-setup-sadx:
   echo "5. Launch the game once and exit"
   read -p "Press Enter when you've completed these steps..."
 
-  # Download and run mod installer
-  DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
-  echo "Downloading SADX Mod Installer..."
-  curl -Lo "${DOWNLOAD_DIR}/sadx_setup.exe" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
+  # Find SADX installation path
+  library_config="${HOME}/.steam/steam/steamapps/libraryfolders.vdf"
+  SADX_DIR=""
 
-  echo "Launching SADX Mod Installer..."
-  flatpak run --command=protontricks-launch com.github.Matoking.protontricks --cwd-app --appid 71250 "${DOWNLOAD_DIR}/sadx_setup.exe"
+  if [ -f "$library_config" ]; then
+    while IFS= read -r line; do
+      if [[ $line =~ \"path\"[[:space:]]*\"([^\"]+)\" ]]; then
+        possible_path="${BASH_REMATCH[1]}/steamapps/common/Sonic Adventure DX"
+        if [ -d "$possible_path" ]; then
+          SADX_DIR="$possible_path"
+          break
+        fi
+      fi
+    done < "$library_config"
+  fi
+
+  [ -z "$SADX_DIR" ] && { echo "Error: Could not find SADX installation. Please launch the game first."; exit 1; }
+
+  # Download and run mod installer
+  DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
+  [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
+
+  installer="${DOWNLOAD_DIR}/sadx_setup.exe"
+  curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
+  flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer"
+  rm -f "$installer"
 
   echo "Complete the installation:"
-  echo "1. Complete the mod installation"
-  echo "2. Launch SADX and update the Mod Manager when prompted"
-  echo "3. The Game Directory should be automatically configured"
+  echo "1. Set installation directory to: $SADX_DIR"
+  echo "2. Complete the mod installation"
+  echo "3. Launch SADX and update the Mod Manager when prompted"
