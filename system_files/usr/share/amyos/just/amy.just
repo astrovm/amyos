@@ -8,7 +8,7 @@ amy-install-flatpaks:
 
   echo "Installing Flatpaks..."
   ujust _install-system-flatpaks
-  flatpak --system -y install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks)
+  xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks) flatpak --system -y install
   echo "Flatpaks installation complete."
 
 # Install only Homebrews
@@ -17,7 +17,7 @@ amy-install-brews:
   set -euo pipefail
 
   echo "Installing Homebrews..."
-  brew install $(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews)
+  xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews) brew install
   echo "Homebrews installation complete."
 
 # Install only AppImages
@@ -63,22 +63,14 @@ amy-install-appimages:
 amy-setup-editors:
   #!/usr/bin/env bash
   set -euo pipefail
-  trap '[[ $BASH_COMMAND != echo* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
-  echo "Setting up Cursor configuration..."
-  CURSOR_CONFIG_DIR="${HOME}/.config/Cursor/User"
-  mkdir -p "$CURSOR_CONFIG_DIR"
-  rm -f "$CURSOR_CONFIG_DIR/settings.json"
-  cp /etc/skel/.config/Cursor/User/settings.json "$CURSOR_CONFIG_DIR/settings.json"
-  echo "Cursor configuration complete."
-
-  echo "Setting up VSCode configuration..."
-  VSCODE_CONFIG_DIR="${HOME}/.config/Code/User"
-  mkdir -p "$VSCODE_CONFIG_DIR"
-  rm -f "$VSCODE_CONFIG_DIR/settings.json"
-  cp /etc/skel/.config/Code/User/settings.json "$VSCODE_CONFIG_DIR/settings.json"
-  echo "VSCode configuration complete."
-
+  for editor in "Cursor" "Code"; do
+    echo "Setting up $editor configuration..."
+    config_dir="${HOME}/.config/${editor}/User"
+    mkdir -p "$config_dir"
+    cp -f "/etc/skel/.config/${editor}/User/settings.json" "$config_dir/settings.json"
+    echo "$editor configuration complete."
+  done
 
 # Setup Git and GitHub SSH key
 amy-setup-git:
