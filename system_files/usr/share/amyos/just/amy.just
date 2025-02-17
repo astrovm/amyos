@@ -255,6 +255,9 @@ amy-setup-sadx:
   echo -e "\nDownloading mod installer..."
   curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files_versions/Setup/sadx_setup.exe.v1736656352"
 
+  echo -e "\nInstalling .NET Desktop Runtime 8..."
+  flatpak run com.github.Matoking.protontricks 71250 dotnetdesktop8 &>/dev/null
+
   echo -e "\nLaunching SADX Mod Installer..."
   # Convert path to Windows format
   WIN_PATH="Z:${SADX_DIR//\//\\}"
