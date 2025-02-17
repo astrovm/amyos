@@ -230,7 +230,6 @@ amy-setup-sadx:
   # Find SADX installation path
   library_config="${HOME}/.steam/steam/steamapps/libraryfolders.vdf"
   SADX_DIR=""
-
   if [ -f "$library_config" ]; then
     while IFS= read -r line; do
       if [[ $line =~ \"path\"[[:space:]]*\"([^\"]+)\" ]]; then
@@ -242,8 +241,10 @@ amy-setup-sadx:
       fi
     done < "$library_config"
   fi
-
   [ -z "$SADX_DIR" ] && { echo "Error: Could not find SADX installation. Please launch the game first."; exit 1; }
+
+  echo -e "\nFound SADX installation at: $SADX_DIR"
+  echo -e "Please use this path when the installer asks for the installation directory.\n"
 
   # Download and run mod installer
   DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
@@ -251,10 +252,11 @@ amy-setup-sadx:
 
   installer="${DOWNLOAD_DIR}/sadx_setup.exe"
   curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
-  flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer"
+
+  echo "Launching SADX Mod Installer..."
+  echo "Use the path: $SADX_DIR"
+  flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid 71250 "$installer" &>/dev/null
   rm -f "$installer"
 
-  echo "Complete the installation:"
-  echo "1. Set installation directory to: $SADX_DIR"
-  echo "2. Complete the mod installation"
-  echo "3. Launch SADX and update the Mod Manager when prompted"
+  echo -e "\nLaunch SADX and update the Mod Manager when prompted."
+  echo "SADX Mods installation complete."
