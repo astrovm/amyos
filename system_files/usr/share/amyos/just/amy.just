@@ -249,9 +249,7 @@ amy-setup-sadx:
   [ -z "$SADX_DIR" ] && { echo "Error: Could not find SADX installation. Please launch the game first."; exit 1; }
 
   # Download and run mod installer
-  DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
-  [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
-  installer="${DOWNLOAD_DIR}/sadx_setup.exe"
+  installer="${SADX_DIR}/sadx_setup.exe"
   echo -e "\nDownloading mod installer..."
   curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
 
