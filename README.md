@@ -72,7 +72,7 @@ ujust amy-install-brews
 # Install only AppImages
 ujust amy-install-appimages
 
-# Setup Amy OS recommended settings for Cursor and VSCode
+# Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
 
 # Setup Git and GitHub SSH key
