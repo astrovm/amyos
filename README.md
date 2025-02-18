@@ -3,8 +3,8 @@
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: light)" srcset="repo_files/amy-logo-black.png">
-    <img alt="Amy OS Logo" src="repo_files/amy-logo-white.png" width="100">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/astrovm/amyos/refs/heads/main/repo_files/amy-logo-black.png">
+    <img alt="Amy OS Logo" src="https://raw.githubusercontent.com/astrovm/amyos/refs/heads/main/repo_files/amy-logo-white.png" width="100">
   </picture>
 </div>
 
