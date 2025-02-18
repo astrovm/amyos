@@ -25,7 +25,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - `cursor` and `cursor-cli` commands
 - `fuck` alias
 - `rustup-init` command
-- adb, fastboot and scrcpy
+- adb and fastboot
 - Audacious with Winamp skins
 - Brave and Tor Browser
 - Cloudflare WARP
@@ -35,7 +35,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Ghostty terminal and Starship shell prompt
 - Hack and Ubuntu Nerd Fonts
 - MAC address randomization enabled
-- OpenRGB, CoolerControl, LACT and Solaar
+- OpenRGB and CoolerControl
 - qBittorrent, yt-dlp and aria2
 - Signal and Telegram
 - Switch to standalone SteamOS session from login screen

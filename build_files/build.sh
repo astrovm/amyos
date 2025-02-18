@@ -35,7 +35,6 @@ declare -A RPM_PACKAGES=(
     rustup \
     ShellCheck \
     shfmt \
-    solaar \
     starship \
     thefuck \
     tor \
@@ -68,10 +67,6 @@ declare -A RPM_PACKAGES=(
     docker-ce \
     docker-ce-cli \
     docker-compose-plugin"
-
-  ["copr:gloriouseggroll/nobara-41"]="\
-    lact \
-    scrcpy"
 
   ["brave-browser"]="brave-browser"
   ["cloudflare-warp"]="cloudflare-warp"
@@ -123,7 +118,7 @@ log "Enabling system services"
 systemctl enable docker libvirtd
 
 log "Disabling autostart"
-rm /etc/xdg/autostart/{solaar.desktop,com.cloudflare.WarpTaskbar.desktop}
+rm /etc/xdg/autostart/com.cloudflare.WarpTaskbar.desktop
 rm /etc/skel/.config/autostart/steam.desktop
 
 log "Configuring system"
