@@ -10,9 +10,11 @@ log() {
 # RPM packages list
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
+    AcetoneISO \
     android-tools \
     aria2 \
     asciinema \
+    bchunk \
     bleachbit \
     cmatrix \
     coolercontrol \
