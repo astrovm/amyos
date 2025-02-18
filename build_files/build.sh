@@ -117,12 +117,11 @@ ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 log "Enabling system services"
 systemctl enable docker libvirtd
 
-log "Disabling autostart"
+log "Removing autostart files"
 rm /etc/xdg/autostart/com.cloudflare.WarpTaskbar.desktop
 rm /etc/skel/.config/autostart/steam.desktop
 
-log "Configuring system"
-echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
+log "Configuring system shells"
 {
   echo "eval \"\$(starship init bash)\""
   echo "eval \"\$(thefuck --alias)\""
@@ -132,5 +131,17 @@ echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
   echo "eval \"\$(starship init zsh)\""
   echo "eval \"\$(thefuck --alias)\""
 } >>/etc/zshrc
+
+log "Adding Amy OS just recipes"
+echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
+
+log "Hide incompatible Bazzite just recipes"
+for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
+  if ! sed -n "s/^$recipe:/_$recipe:/p" /usr/share/ublue-os/just/82-bazzite-apps.just | grep -q .; then
+    echo "Error: Failed to replace $recipe"
+    exit 1
+  fi
+  sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/82-bazzite-apps.just
+done
 
 log "Build process completed"
