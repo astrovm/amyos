@@ -118,7 +118,6 @@ ujust amy-ssd-crypto
 
 # AppImages
 
-- EmuDeck
 - Trezor Suite
 ```
 
