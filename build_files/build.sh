@@ -147,6 +147,6 @@ done
 log "Installing nix"
 curl --retry 3 -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
 chmod +x /tmp/nix-installer
-/tmp/nix-installer install --no-confirm -- --no-start-daemon
+/tmp/nix-installer install ostree --no-confirm
 
 log "Build process completed"
