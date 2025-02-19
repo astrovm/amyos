@@ -24,7 +24,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - `cursor` and `cursor-cli` commands
 - `fuck` alias
-- `rustup-init` command
 - adb and fastboot
 - Audacious with Winamp skins
 - Brave and Tor Browser

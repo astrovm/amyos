@@ -16,9 +16,11 @@ declare -A RPM_PACKAGES=(
     asciinema \
     bchunk \
     bleachbit \
+    cargo \
     cmatrix \
     coolercontrol \
     croc \
+    eza \
     fish \
     ghostty \
     gnome-disk-utility \
@@ -32,6 +34,7 @@ declare -A RPM_PACKAGES=(
     openrgb \
     qbittorrent \
     rclone \
+    rust \
     rustup \
     ShellCheck \
     shfmt \
@@ -42,6 +45,7 @@ declare -A RPM_PACKAGES=(
     torsocks \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
+    ugrep \
     virt-manager \
     virt-viewer \
     wireshark \
