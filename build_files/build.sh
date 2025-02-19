@@ -29,6 +29,7 @@ declare -A RPM_PACKAGES=(
     john \
     neovim \
     nmap \
+    ollama \
     openrgb \
     qbittorrent \
     rclone \
@@ -145,6 +146,6 @@ for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
 done
 
 log "Installing nix"
-/tmp/nix-installer.sh install --no-confirm
+/tmp/nix-installer.sh install --no-confirm --no-start-daemon
 
 log "Build process completed"
