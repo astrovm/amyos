@@ -92,6 +92,25 @@ for repo in "${!RPM_PACKAGES[@]}"; do
   fi
 done
 
+log "Enabling system services"
+systemctl enable docker libvirtd
+
+log "Configuring system shells"
+{
+  echo "eval \"\$(starship init bash)\""
+  echo "eval \"\$(thefuck --alias)\""
+} >>/etc/bashrc
+{
+  echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  echo "eval \"\$(starship init zsh)\""
+  echo "eval \"\$(thefuck --alias)\""
+} >>/etc/zshrc
+
+log "Installing nix"
+curl --retry 3 -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
+chmod +x /tmp/nix-installer
+/tmp/nix-installer install /tmp/nix-installer.json --no-confirm
+
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
@@ -114,23 +133,9 @@ tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
 ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 
-log "Enabling system services"
-systemctl enable docker libvirtd
-
 log "Removing autostart files"
 rm /etc/xdg/autostart/com.cloudflare.WarpTaskbar.desktop
 rm /etc/skel/.config/autostart/steam.desktop
-
-log "Configuring system shells"
-{
-  echo "eval \"\$(starship init bash)\""
-  echo "eval \"\$(thefuck --alias)\""
-} >>/etc/bashrc
-{
-  echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  echo "eval \"\$(starship init zsh)\""
-  echo "eval \"\$(thefuck --alias)\""
-} >>/etc/zshrc
 
 log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
@@ -143,10 +148,5 @@ for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
   fi
   sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/82-bazzite-apps.just
 done
-
-log "Installing nix"
-curl --retry 3 -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
-chmod +x /tmp/nix-installer
-/tmp/nix-installer install ostree --no-confirm
 
 log "Build process completed"
