@@ -26,7 +26,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - `fuck` alias
 - adb and fastboot
 - Audacious with Winamp skins
-- Brave and Tor Browser
+- Brave Browser
 - Cloudflare WARP
 - Curated list of Flatpaks and AppImages
 - DNS over TLS enabled
@@ -105,6 +105,7 @@ ujust amy-ssd-crypto
 - Space Cadet Pinball
 - Spotify
 - Stremio
+- Tor Browser
 - Varia
 - Vesktop
 - Warp

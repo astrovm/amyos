@@ -16,7 +16,6 @@ declare -A RPM_PACKAGES=(
     asciinema \
     bchunk \
     bleachbit \
-    cargo \
     cmatrix \
     coolercontrol \
     croc \
@@ -34,13 +33,11 @@ declare -A RPM_PACKAGES=(
     openrgb \
     qbittorrent \
     rclone \
-    rust \
     ShellCheck \
     shfmt \
     starship \
     thefuck \
     tor \
-    torbrowser-launcher \
     torsocks \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
