@@ -145,6 +145,8 @@ for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
 done
 
 log "Installing nix"
-/tmp/nix-installer.sh install --no-confirm --no-start-daemon
+curl --retry 3 -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
+chmod +x /tmp/nix-installer
+/tmp/nix-installer install --no-confirm --no-start-daemon
 
 log "Build process completed"
