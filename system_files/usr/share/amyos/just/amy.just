@@ -1,5 +1,5 @@
 # Install all Amy OS curated apps
-amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages
+amy-install: amy-install-flatpaks amy-install-appimages
 
 # Install only Flatpaks
 amy-install-flatpaks:
@@ -10,15 +10,6 @@ amy-install-flatpaks:
   ujust _install-system-flatpaks
   xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks) flatpak --system -y install
   echo "Flatpaks installation complete."
-
-# Install only Homebrews
-amy-install-brews:
-  #!/usr/bin/env bash
-  set -euo pipefail
-
-  echo "Installing Homebrews..."
-  xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/brews) brew install
-  echo "Homebrews installation complete."
 
 # Install only AppImages
 amy-install-appimages:

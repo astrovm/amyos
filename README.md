@@ -29,7 +29,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Audacious with Winamp skins
 - Brave and Tor Browser
 - Cloudflare WARP
-- Curated list of Flatpaks, Homebrews and AppImages
+- Curated list of Flatpaks and AppImages
 - DNS over TLS enabled
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
@@ -65,9 +65,6 @@ ujust amy-install
 
 # Install only Flatpaks
 ujust amy-install-flatpaks
-
-# Install only Homebrews
-ujust amy-install-brews
 
 # Install only AppImages
 ujust amy-install-appimages
@@ -112,10 +109,6 @@ ujust amy-ssd-crypto
 - Varia
 - Vesktop
 - Warp
-
-# Homebrews
-
-- wormhole-rs
 
 # AppImages
 
