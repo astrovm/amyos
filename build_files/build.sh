@@ -144,4 +144,7 @@ for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
   sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/82-bazzite-apps.just
 done
 
+log "Installing nix"
+/tmp/nix-installer.sh install --no-confirm
+
 log "Build process completed"
