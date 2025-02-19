@@ -106,11 +106,6 @@ log "Configuring system shells"
   echo "eval \"\$(thefuck --alias)\""
 } >>/etc/zshrc
 
-log "Installing nix"
-curl --retry 3 -Lo /tmp/nix-installer https://install.determinate.systems/nix/nix-installer-x86_64-linux
-chmod +x /tmp/nix-installer
-/tmp/nix-installer install /tmp/nix-installer.json --no-confirm
-
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
