@@ -35,7 +35,6 @@ declare -A RPM_PACKAGES=(
     qbittorrent \
     rclone \
     rust \
-    rustup \
     ShellCheck \
     shfmt \
     starship \
