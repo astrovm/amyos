@@ -29,7 +29,6 @@ declare -A RPM_PACKAGES=(
     john \
     neovim \
     nmap \
-    ollama \
     openrgb \
     qbittorrent \
     rclone \
