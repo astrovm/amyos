@@ -1,5 +1,5 @@
 # Install all Amy OS curated apps
-amy-install: amy-install-flatpaks amy-install-appimages
+amy-install: amy-install-flatpaks amy-install-appimages amy-install-nixpkgs
 
 # Install only Flatpaks
 amy-install-flatpaks:
@@ -19,7 +19,7 @@ amy-install-appimages:
   DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/Downloads}"
   [ ! -d "$DOWNLOAD_DIR" ] && DOWNLOAD_DIR="$HOME"
 
-  # Install Gear Lever if needed
+  # Install Gear Lever if not installed
   flatpak list | grep -q "it.mijorus.gearlever" || flatpak --system -y install it.mijorus.gearlever
 
   while IFS=, read -r name url; do
@@ -55,14 +55,21 @@ amy-install-nixpkgs:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  if ! command -v nix &>/dev/null; then
-    echo "Error: Nix is not installed. Please run 'ujust amy-setup-nix' first."
-    exit 1
-  fi
+  # Install Nix if not installed
+  command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix packages..."
   xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs) nix profile install
   echo "Nix packages installation complete."
+
+# Setup Nix package manager
+amy-setup-nix:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up Nix package manager..."
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+  echo "Nix setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
 amy-setup-editors:
@@ -103,15 +110,6 @@ amy-setup-git:
 
   echo "Git configuration complete."
   echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
-
-# Setup Nix package manager
-amy-setup-nix:
-  #!/usr/bin/env bash
-  set -euo pipefail
-
-  echo "Setting up Nix package manager..."
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-  echo "Nix setup complete."
 
 # Restart Bluetooth to fix issues
 amy-fix-bt:
@@ -227,10 +225,10 @@ amy-setup-sadx:
 
   echo "Setting up SADX mods..."
 
-  # Install ProtonTricks if needed
+  # Install ProtonTricks if not installed
   flatpak list | grep -q "com.github.Matoking.protontricks" || flatpak --system -y install com.github.Matoking.protontricks
 
-  # Install ProtonUp-Qt if needed
+  # Install ProtonUp-Qt if not installed
   flatpak list | grep -q "net.davidotek.pupgui2" || flatpak --system -y install net.davidotek.pupgui2
 
   # Configure Steam directory access
