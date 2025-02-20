@@ -1,0 +1,11 @@
+[Unit]
+Description=Enable mount points in / for ostree
+ConditionPathExists=!/nix
+DefaultDependencies=no
+Requires=local-fs-pre.target
+After=local-fs-pre.target
+[Service]
+Type=oneshot
+ExecStartPre=chattr -i /
+ExecStart=mkdir -p /nix
+ExecStopPost=chattr +i /

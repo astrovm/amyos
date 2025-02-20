@@ -1,0 +1,14 @@
+[Unit]
+Description=Ensure Nix related units which are symlinked resolve
+After=nix.mount
+Requires=nix.mount
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/systemctl daemon-reload
+ExecStart=/usr/bin/systemctl restart --no-block nix-daemon.socket
+
+[Install]
+WantedBy=sysinit.target

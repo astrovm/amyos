@@ -1,0 +1,18 @@
+[Unit]
+Description=Setup Nix
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=!/etc/.nix
+ConditionPathExists=!/var/home/nix
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mkdir -p /tmp/nix
+ExecStart=/usr/bin/tar --zstd -xvf /usr/share/nix.tar.zst -C /tmp/nix
+ExecStart=/usr/bin/cp -R -n /tmp/nix/nix /var/home/nix
+ExecStart=/usr/bin/chown -R root:root /var/home/nix
+ExecStart=/usr/bin/rm -rf /tmp/nix
+ExecStart=/usr/bin/touch /etc/.nix
+
+[Install]
+WantedBy=default.target multi-user.target
