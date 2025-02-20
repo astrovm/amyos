@@ -2,8 +2,8 @@
 Description=Enable mount points in / for ostree
 ConditionPathExists=!/nix
 DefaultDependencies=no
-Requires=local-fs-pre.target
-After=local-fs-pre.target
+Requires=local-fs-pre.target nix-setup.service
+After=local-fs-pre.target nix-setup.service
 [Service]
 Type=oneshot
 ExecStartPre=chattr -i /
