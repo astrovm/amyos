@@ -56,6 +56,7 @@ amy-install-nixpkgs:
   set -euo pipefail
 
   # Install Nix if not installed
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix packages..."
