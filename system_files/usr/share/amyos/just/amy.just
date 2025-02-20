@@ -56,7 +56,7 @@ amy-install-nixpkgs:
   set -euo pipefail
 
   if ! command -v nix &>/dev/null; then
-    echo "Error: Nix is not installed. Please run 'just amy-setup-nix' first."
+    echo "Error: Nix is not installed. Please run 'ujust amy-setup-nix' first."
     exit 1
   fi
 
