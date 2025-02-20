@@ -7,6 +7,9 @@ log() {
   echo "=== $* ==="
 }
 
+log "Listing all files in /var"
+ls -laR /var
+
 log "Starting system cleanup"
 
 # Update font cache
@@ -30,6 +33,3 @@ mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
 log "Cleanup completed"
-
-log "Listing all files in /var"
-ls -laR /var
