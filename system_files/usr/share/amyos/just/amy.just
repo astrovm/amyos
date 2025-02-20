@@ -50,6 +50,20 @@ amy-install-appimages:
   done < <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
   echo "AppImages installation complete."
 
+# Install only Nix packages
+amy-install-nixpkgs:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  if ! command -v nix &>/dev/null; then
+    echo "Error: Nix is not installed. Please run 'just amy-setup-nix' first."
+    exit 1
+  fi
+
+  echo "Installing Nix packages..."
+  xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs) nix profile install
+  echo "Nix packages installation complete."
+
 # Setup Amy OS recommended settings for Cursor and VSCode
 amy-setup-editors:
   #!/usr/bin/env bash

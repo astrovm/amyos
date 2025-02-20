@@ -19,8 +19,6 @@ declare -A RPM_PACKAGES=(
     cmatrix \
     coolercontrol \
     croc \
-    eza \
-    fish \
     ghostty \
     gnome-disk-utility \
     gparted \
@@ -33,21 +31,16 @@ declare -A RPM_PACKAGES=(
     openrgb \
     qbittorrent \
     rclone \
-    ShellCheck \
-    shfmt \
     starship \
     thefuck \
     tor \
     torsocks \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
-    ugrep \
     virt-manager \
     virt-viewer \
     wireshark \
-    yt-dlp \
-    zsh-autosuggestions \
-    zsh"
+    yt-dlp"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
@@ -58,8 +51,7 @@ declare -A RPM_PACKAGES=(
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacious \
     audacious-plugins-freeworld \
-    audacity-freeworld \
-    telegram-desktop"
+    audacity-freeworld"
 
   ["docker-ce"]="\
     containerd.io \
@@ -70,7 +62,6 @@ declare -A RPM_PACKAGES=(
 
   ["brave-browser"]="brave-browser"
   ["cloudflare-warp"]="cloudflare-warp"
-  ["signal-desktop"]="signal-desktop"
   ["vscode"]="code"
 )
 
@@ -95,16 +86,11 @@ done
 log "Enabling system services"
 systemctl enable docker libvirtd
 
-log "Configuring system shells"
+log "Configuring Bash shell"
 {
   echo "eval \"\$(starship init bash)\""
   echo "eval \"\$(thefuck --alias)\""
 } >>/etc/bashrc
-{
-  echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  echo "eval \"\$(starship init zsh)\""
-  echo "eval \"\$(thefuck --alias)\""
-} >>/etc/zshrc
 
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"

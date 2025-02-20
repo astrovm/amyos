@@ -36,7 +36,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - MAC address randomization enabled
 - OpenRGB and CoolerControl
 - qBittorrent, yt-dlp and aria2
-- Signal and Telegram
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager
 - VLC, mpv, HandBrake and Audacity
@@ -67,6 +66,9 @@ ujust amy-install-flatpaks
 
 # Install only AppImages
 ujust amy-install-appimages
+
+# Install only Nix packages
+ujust amy-install-nixpkgs
 
 # Setup Nix package manager
 ujust amy-setup-nix
@@ -105,9 +107,11 @@ ujust amy-ssd-crypto
 - OBS Studio
 - Pinta
 - Podman Desktop
+- Signal
 - Space Cadet Pinball
 - Spotify
 - Stremio
+- Telegram
 - Tor Browser
 - Varia
 - Vesktop
@@ -116,6 +120,13 @@ ujust amy-ssd-crypto
 # AppImages
 
 - Trezor Suite
+
+# Nix packages
+
+- magic-wormhole-rs
+- shellcheck
+- shfmt
+
 ```
 
 ## Acknowledgments

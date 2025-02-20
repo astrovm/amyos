@@ -1,0 +1,3 @@
+nixpkgs#magic-wormhole-rs
+nixpkgs#shellcheck
+nixpkgs#shfmt
