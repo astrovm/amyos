@@ -56,7 +56,7 @@ amy-install-nixpkgs:
   set -euo pipefail
 
   # Install Nix if not installed
-  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix packages..."
@@ -70,7 +70,7 @@ amy-setup-nix:
 
   echo "Setting up Nix package manager..."
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   echo "Nix setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
