@@ -125,9 +125,9 @@ ujust amy-ssd-crypto
 
 - aria2
 - asciinema
+- bchunk
 - cmatrix
 - croc
-- john
 - magic-wormhole-rs
 - shellcheck
 - shfmt

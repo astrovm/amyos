@@ -10,9 +10,7 @@ log() {
 # RPM packages list
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
-    AcetoneISO \
     android-tools \
-    bchunk \
     bleachbit \
     coolercontrol \
     ghostty \
@@ -23,12 +21,8 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
-    qbittorrent \
-    rclone \
     starship \
     thefuck \
-    tor \
-    torsocks \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     virt-manager \
