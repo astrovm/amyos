@@ -68,6 +68,9 @@ ujust amy-install-flatpaks
 # Install only AppImages
 ujust amy-install-appimages
 
+# Setup Nix package manager
+ujust amy-setup-nix
+
 # Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
 

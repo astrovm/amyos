@@ -90,6 +90,15 @@ amy-setup-git:
   echo "Git configuration complete."
   echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
 
+# Setup Nix package manager
+amy-setup-nix:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up Nix package manager..."
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+  echo "Nix setup complete."
+
 # Restart Bluetooth to fix issues
 amy-fix-bt:
   #!/usr/bin/env bash
