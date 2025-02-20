@@ -12,9 +12,6 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 tar --zstd -cvf /usr/share/nix.tar.zst /nix
 
 log "Enabling system services"
-systemctl enable nix-setup.service
-systemctl enable nix-directory.service
-systemctl enable nix.mount
-systemctl enable ensure-symlinked-units-resolve.service
+systemctl enable nix-setup.service nix-directory.service nix.mount ensure-symlinked-units-resolve.service nix-daemon.socket
 
 log "Nix install completed"

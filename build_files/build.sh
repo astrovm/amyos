@@ -71,7 +71,7 @@ for repo in "${!RPM_PACKAGES[@]}"; do
 done
 
 log "Enabling system services"
-systemctl enable docker libvirtd
+systemctl enable docker.socket libvirtd.service
 
 log "Configuring Bash shell"
 {
