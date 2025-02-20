@@ -1,3 +1,9 @@
+nixpkgs#aria2
+nixpkgs#asciinema
+nixpkgs#cmatrix
+nixpkgs#croc
+nixpkgs#john
 nixpkgs#magic-wormhole-rs
 nixpkgs#shellcheck
 nixpkgs#shfmt
+nixpkgs#yt-dlp

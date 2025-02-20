@@ -12,20 +12,14 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     AcetoneISO \
     android-tools \
-    aria2 \
-    asciinema \
     bchunk \
     bleachbit \
-    cmatrix \
     coolercontrol \
-    croc \
     ghostty \
     gnome-disk-utility \
     gparted \
     hack-nerd-fonts \
-    htop \
     isoimagewriter \
-    john \
     neovim \
     nmap \
     openrgb \
@@ -39,8 +33,7 @@ declare -A RPM_PACKAGES=(
     ubuntumono-nerd-fonts \
     virt-manager \
     virt-viewer \
-    wireshark \
-    yt-dlp"
+    wireshark"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \

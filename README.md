@@ -35,7 +35,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Hack and Ubuntu Nerd Fonts
 - MAC address randomization enabled
 - OpenRGB and CoolerControl
-- qBittorrent, yt-dlp and aria2
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager
 - VLC, mpv, HandBrake and Audacity
@@ -107,6 +106,7 @@ ujust amy-ssd-crypto
 - OBS Studio
 - Pinta
 - Podman Desktop
+- qBittorrent
 - Signal
 - Space Cadet Pinball
 - Spotify
@@ -123,9 +123,15 @@ ujust amy-ssd-crypto
 
 # Nix packages
 
+- aria2
+- asciinema
+- cmatrix
+- croc
+- john
 - magic-wormhole-rs
 - shellcheck
 - shfmt
+- yt-dlp
 ```
 
 ## Acknowledgments

@@ -18,6 +18,7 @@ org.kde.kdenlive
 org.kde.krita
 org.libreoffice.LibreOffice
 org.localsend.localsend_app
+org.qbittorrent.qBittorrent
 org.signal.Signal
 org.telegram.desktop
 org.torproject.torbrowser-launcher
