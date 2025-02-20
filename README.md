@@ -91,7 +91,7 @@ ujust amy-ssd-crypto
 
 ## Curated list of apps
 
-```
+```text
 # Flatpaks
 
 - Alpaca
@@ -126,7 +126,6 @@ ujust amy-ssd-crypto
 - magic-wormhole-rs
 - shellcheck
 - shfmt
-
 ```
 
 ## Acknowledgments
