@@ -16,7 +16,7 @@ FROM ghcr.io/ublue-os/bazzite:41
 COPY system_files /
 COPY build_files /tmp
 
-RUN mkdir -p /var/lib/alternatives /var/opt && \
+RUN mkdir -p /var/lib/alternatives /var/opt /var/roothome && \
   /tmp/build.sh && \
   /tmp/install-nix.sh && \
   /tmp/fix-opt.sh && \
