@@ -1,12 +1,6 @@
 #!/usr/bin/bash
 set -euo pipefail
 
-# Initialize DEBUG if not set
-: "${DEBUG:=}"
-if [ -n "$DEBUG" ]; then
-  set -x
-fi
-
 # Define Cursor CLI binary and options
 CLI_BIN="/usr/bin/cursor-cli"
 CLI_OPTIONS=(tunnel ext status version serve-web update help -h --help -V --version)
@@ -19,22 +13,20 @@ fi
 
 # Function to get AppImage path from Gear Lever
 get_appimage_path() {
-  if ! command -v flatpak >/dev/null || ! flatpak list | grep -q "it.mijorus.gearlever"; then
-    return 1
-  fi
-  flatpak run it.mijorus.gearlever --list-installed | grep -i "cursor.appimage" | awk '{print $NF}'
+  command -v flatpak >/dev/null &&
+    flatpak list | grep -q "it.mijorus.gearlever" &&
+    flatpak run it.mijorus.gearlever --list-installed | grep -i "cursor.appimage" | awk '{print $NF}'
 }
 
 # Check if AppImage from CLI exists and is executable
 APPIMAGE=$("$CLI_BIN" version show | grep "Installation path:" | cut -d' ' -f3 || echo "")
 if [[ -z "$APPIMAGE" ]] || [[ ! -x "$APPIMAGE" ]] || [[ ! "$APPIMAGE" =~ ^/.*\.appimage$ ]]; then
   # Try to get AppImage from Gear Lever
-  GEARLEVER_APPIMAGE=$(get_appimage_path)
-  if [[ -n "$GEARLEVER_APPIMAGE" ]] && [[ -x "$GEARLEVER_APPIMAGE" ]]; then
+  APPIMAGE=$(get_appimage_path)
+  if [[ -n "$APPIMAGE" ]] && [[ -x "$APPIMAGE" ]]; then
     # Configure CLI to use the AppImage from Gear Lever
-    "$CLI_BIN" version use stable --install-dir "$GEARLEVER_APPIMAGE" &>/dev/null &
+    "$CLI_BIN" version use stable --install-dir "$APPIMAGE" &>/dev/null &
     disown
-    APPIMAGE="$GEARLEVER_APPIMAGE"
   else
     echo "Error: No valid Cursor AppImage found." >&2
     exit 1
@@ -43,6 +35,7 @@ fi
 
 # Function to check if argument is a CLI option
 is_cli_option() {
+  local opt
   for opt in "${CLI_OPTIONS[@]}"; do
     if [[ "$1" == "$opt" ]]; then
       return 0
@@ -64,4 +57,3 @@ if ! is_running && { [[ $# -eq 0 ]] || ! is_cli_option "$1"; }; then
 fi
 
 "$CLI_BIN" "$@"
-exit $?
