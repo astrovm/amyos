@@ -63,7 +63,7 @@ amy-install-nixpkgs:
   sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd
   printf "L /run/opengl-driver/lib - - - - /nix/var/nix/profiles/default/lib\nL /run/opengl-driver/share - - - - /nix/var/nix/profiles/default/share\n" | sudo tee /nix/var/nix/profiles/default/lib/tmpfiles.d/nix-opengl-driver.conf > /dev/null
   sudo ln -sf /nix/var/nix/profiles/default/lib/tmpfiles.d/nix-opengl-driver.conf /etc/tmpfiles.d/nix-opengl-driver.conf
-  sudo systemd-tmpfiles --create
+  sudo systemd-tmpfiles --create /etc/tmpfiles.d/nix-opengl-driver.conf
   xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs) nix profile install
   echo "Nix packages installation complete."
 
