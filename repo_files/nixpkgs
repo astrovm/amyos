@@ -3,6 +3,7 @@ nixpkgs#asciinema
 nixpkgs#bchunk
 nixpkgs#cmatrix
 nixpkgs#croc
+nixpkgs#john
 nixpkgs#magic-wormhole-rs
 nixpkgs#shellcheck
 nixpkgs#shfmt

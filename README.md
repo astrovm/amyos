@@ -128,6 +128,7 @@ ujust amy-ssd-crypto
 - bchunk
 - cmatrix
 - croc
+- john
 - magic-wormhole-rs
 - shellcheck
 - shfmt
