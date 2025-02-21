@@ -20,8 +20,6 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
-    starship \
-    thefuck \
     virt-manager \
     virt-viewer \
     wireshark"
@@ -68,12 +66,6 @@ done
 log "Enabling system services"
 systemctl enable docker.socket libvirtd.service
 
-log "Configuring Bash shell"
-{
-  echo "eval \"\$(starship init bash)\""
-  echo "eval \"\$(thefuck --alias)\""
-} >>/etc/bashrc
-
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
@@ -104,12 +96,12 @@ log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
 
 log "Hide incompatible Bazzite just recipes"
-for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
-  if ! sed -n "s/^$recipe:/_$recipe:/p" /usr/share/ublue-os/just/82-bazzite-apps.just | grep -q .; then
-    echo "Error: Failed to replace $recipe"
+for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb" "install-docker"; do
+  if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
+    echo "Error: Recipe $recipe not found in any just file"
     exit 1
   fi
-  sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/82-bazzite-apps.just
+  sed -i "s/^$recipe:/_$recipe:/" /usr/share/ublue-os/just/*.just
 done
 
 log "Build process completed"

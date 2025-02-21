@@ -71,6 +71,9 @@ ujust amy-install-nixpkgs
 # Setup Nix package manager
 ujust amy-setup-nix
 
+# Setup Amy OS terminal config
+ujust amy-setup-cli
+
 # Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
 
@@ -126,9 +129,17 @@ ujust amy-ssd-crypto
 
 - aria2
 - asciinema
+- atuin
+- bat
 - bchunk
 - cmatrix
 - croc
+- devenv
+- direnv
+- eza
+- fd
+- gh
+- glab
 - john
 - libglvnd
 - magic-wormhole-rs
@@ -137,9 +148,17 @@ ujust amy-ssd-crypto
 - nerd-fonts.ubuntu
 - nerd-fonts.ubuntu-mono
 - nerd-fonts.ubuntu-sans
+- ripgrep
 - shellcheck
 - shfmt
+- starship
+- tealdeer
+- thefuck
+- trash-cli
+- ugrep
+- yq
 - yt-dlp
+- zoxide
 ```
 
 ## Acknowledgments

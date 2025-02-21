@@ -68,7 +68,7 @@ amy-install-nixpkgs:
   sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd nixpkgs#nerd-fonts.hack nixpkgs#nerd-fonts.ubuntu nixpkgs#nerd-fonts.ubuntu-sans nixpkgs#nerd-fonts.ubuntu-mono
 
   # Configure OpenGL driver symlinks
-  printf "L /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
+  printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
     sudo tee "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" > /dev/null
   sudo ln -sf "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" "$TMPFILES_DIR/$OPENGL_CONF"
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
@@ -306,3 +306,19 @@ amy-setup-sadx:
   echo "3. Set your display and resolution settings"
   echo "4. Click 'Save & Play' to start the game"
   echo -e "\nSetup complete! Enjoy playing SADX with mods!"
+
+# Setup Amy OS terminal config
+amy-setup-cli:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up Ghostty configuration..."
+  GHOSTTY_CONFIG_DIR="${HOME}/.config/ghostty"
+  mkdir -p "${HOME}/.config/ghostty"
+  cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
+  echo "Ghostty configuration complete."
+
+  echo "Adding bling to your Bash..."
+  mkdir -p "${HOME}/.bashrc.d"
+  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.bashrc.d/bling.bashrc"
+  echo "Bling added to your Bash."
