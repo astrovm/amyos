@@ -65,7 +65,7 @@ amy-install-nixpkgs:
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix packages..."
-  sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd
+  sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd nixpkgs#nerd-fonts.hack nixpkgs#nerd-fonts.ubuntu nixpkgs#nerd-fonts.ubuntu-sans nixpkgs#nerd-fonts.ubuntu-mono
 
   # Configure OpenGL driver symlinks
   printf "L /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
