@@ -77,7 +77,7 @@ amy-setup-nix:
   EXPORT_LINE='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.nix-profile/lib'
   if ! grep -q "LD_LIBRARY_PATH.*nix-profile/lib" "$PROFILE_FILE" 2>/dev/null; then
     echo "$EXPORT_LINE" >> "$PROFILE_FILE"
-    echo "Added Nix library path to bash profile"
+    echo "Added Nix libraries to LD_LIBRARY_PATH to fix GPU issues"
   fi
 
   echo "Nix setup complete."
