@@ -3,9 +3,7 @@ nixpkgs#asciinema
 nixpkgs#bchunk
 nixpkgs#cmatrix
 nixpkgs#croc
-nixpkgs#libglvnd
 nixpkgs#magic-wormhole-rs
-nixpkgs#mesa.drivers
 nixpkgs#shellcheck
 nixpkgs#shfmt
 nixpkgs#yt-dlp
