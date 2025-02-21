@@ -55,15 +55,24 @@ amy-install-nixpkgs:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  # Install Nix if not installed
-  [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  NIX_PROFILE="/nix/var/nix/profiles/default"
+  NIX_DAEMON_SCRIPT="$NIX_PROFILE/etc/profile.d/nix-daemon.sh"
+  OPENGL_CONF="nix-opengl-driver.conf"
+  TMPFILES_DIR="/etc/tmpfiles.d"
+
+  # Source Nix daemon if available
+  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix packages..."
   sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd
-  printf "L /run/opengl-driver/lib - - - - /nix/var/nix/profiles/default/lib\nL /run/opengl-driver/share - - - - /nix/var/nix/profiles/default/share\n" | sudo tee /nix/var/nix/profiles/default/lib/tmpfiles.d/nix-opengl-driver.conf > /dev/null
-  sudo ln -sf /nix/var/nix/profiles/default/lib/tmpfiles.d/nix-opengl-driver.conf /etc/tmpfiles.d/nix-opengl-driver.conf
-  sudo systemd-tmpfiles --create /etc/tmpfiles.d/nix-opengl-driver.conf
+
+  # Configure OpenGL driver symlinks
+  printf "L /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
+    sudo tee "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" > /dev/null
+  sudo ln -sf "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" "$TMPFILES_DIR/$OPENGL_CONF"
+  sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
+
   xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs) nix profile install
   echo "Nix packages installation complete."
 
@@ -72,9 +81,12 @@ amy-setup-nix:
   #!/usr/bin/env bash
   set -euo pipefail
 
+  NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+  NIX_INSTALLER="https://install.determinate.systems/nix"
+
   echo "Setting up Nix package manager..."
-  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-  [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  curl --proto '=https' --tlsv1.2 -sSf -L "$NIX_INSTALLER" | sh -s -- install --no-confirm
+  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   echo "Nix setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
