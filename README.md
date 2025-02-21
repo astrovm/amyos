@@ -32,7 +32,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - DNS over TLS enabled
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
-- Hack and Ubuntu Nerd Fonts
 - MAC address randomization enabled
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
@@ -129,7 +128,13 @@ ujust amy-ssd-crypto
 - cmatrix
 - croc
 - john
+- libglvnd
 - magic-wormhole-rs
+- mesa.drivers
+- nerd-fonts.hack
+- nerd-fonts.ubuntu
+- nerd-fonts.ubuntu-mono
+- nerd-fonts.ubuntu-sans
 - shellcheck
 - shfmt
 - yt-dlp

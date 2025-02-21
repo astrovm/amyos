@@ -16,15 +16,12 @@ declare -A RPM_PACKAGES=(
     ghostty \
     gnome-disk-utility \
     gparted \
-    hack-nerd-fonts \
     isoimagewriter \
     neovim \
     nmap \
     openrgb \
     starship \
     thefuck \
-    ubuntu-nerd-fonts \
-    ubuntumono-nerd-fonts \
     virt-manager \
     virt-viewer \
     wireshark"

@@ -1,4 +1,5 @@
 {
+  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "diffEditor.codeLens": true,
   "diffEditor.ignoreTrimWhitespace": true,
@@ -28,14 +29,12 @@
   "terminal.integrated.gpuAcceleration": "on",
   "terminal.integrated.middleClickBehavior": "paste",
   "terminal.integrated.mouseWheelZoom": true,
-  "terminal.integrated.profiles.linux": {
-    "bash": { "path": "/usr/bin/bash", "icon": "terminal-bash" }
-  },
   "terminal.integrated.shellIntegration.enabled": false,
   "terminal.integrated.smoothScrolling": true,
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 0,
+  "workbench.activityBar.location": "top",
   "workbench.colorTheme": "Theme Darker",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.list.smoothScrolling": true
