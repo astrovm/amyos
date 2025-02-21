@@ -33,10 +33,10 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
 - MAC address randomization enabled
+- mpv and HandBrake
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager
-- VLC, mpv, HandBrake and Audacity
 - VSCode, Cursor with Remote Tunnels, Neovim and Docker
 
 ## Install
@@ -93,6 +93,7 @@ ujust amy-ssd-crypto
 # Flatpaks
 
 - Alpaca
+- Audacity
 - Blender
 - Bottles
 - Easy Effects
@@ -114,6 +115,7 @@ ujust amy-ssd-crypto
 - Tor Browser
 - Varia
 - Vesktop
+- VLC
 - Warp
 
 # AppImages

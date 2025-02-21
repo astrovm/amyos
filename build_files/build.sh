@@ -29,13 +29,11 @@ declare -A RPM_PACKAGES=(
   ["fedora-multimedia"]="\
     HandBrake-cli \
     HandBrake-gui \
-    mpv \
-    vlc"
+    mpv"
 
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacious \
-    audacious-plugins-freeworld \
-    audacity-freeworld"
+    audacious-plugins-freeworld"
 
   ["docker-ce"]="\
     containerd.io \
