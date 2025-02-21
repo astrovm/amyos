@@ -72,7 +72,7 @@ amy-setup-nix:
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
   [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ] && . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
-  # Add LD_LIBRARY_PATH to bash profile if not already present
+  # Add Nix libraries to LD_LIBRARY_PATH to fix GPU issues
   PROFILE_FILE="${HOME}/.bash_profile"
   EXPORT_LINE='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.nix-profile/lib'
   if ! grep -q "LD_LIBRARY_PATH.*nix-profile/lib" "$PROFILE_FILE" 2>/dev/null; then
