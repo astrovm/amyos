@@ -28,11 +28,11 @@
     "nixpkgs#zoxide"
   ],
   "system": [
-    "nixpkgs#mesa.drivers",
     "nixpkgs#libglvnd",
+    "nixpkgs#mesa.drivers",
     "nixpkgs#nerd-fonts.hack",
-    "nixpkgs#nerd-fonts.ubuntu",
+    "nixpkgs#nerd-fonts.ubuntu-mono",
     "nixpkgs#nerd-fonts.ubuntu-sans",
-    "nixpkgs#nerd-fonts.ubuntu-mono"
+    "nixpkgs#nerd-fonts.ubuntu"
   ]
 }
