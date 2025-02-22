@@ -58,13 +58,14 @@ amy-install-nixpkgs:
   NIX_DAEMON_SCRIPT="$NIX_PROFILE/etc/profile.d/nix-daemon.sh"
   OPENGL_CONF="nix-opengl-driver.conf"
   TMPFILES_DIR="/etc/tmpfiles.d"
+  nixpkgs=$(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json)
 
   # Source Nix daemon if available
   [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix system packages..."
-  curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json | jq -r '.system[]' | sudo -i xargs nix profile install
+  echo "$nixpkgs" | jq -r '.system[]' | sudo -i xargs nix profile install
 
   # Configure OpenGL driver symlinks
   printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
@@ -73,9 +74,9 @@ amy-install-nixpkgs:
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
 
   echo "Installing Nix user packages..."
-  curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json | jq -r '.user[]' | xargs nix profile install
+  echo "$nixpkgs" | jq -r '.user[]' | xargs nix profile install
 
- echo "Nix packages installation complete."
+  echo "Nix packages installation complete."
 
 # Setup Nix package manager
 amy-setup-nix:
