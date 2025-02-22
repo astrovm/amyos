@@ -1,0 +1,107 @@
+{
+  "rpm": {
+    "fedora": [
+      "android-tools",
+      "bleachbit",
+      "coolercontrol",
+      "ghostty",
+      "gnome-disk-utility",
+      "gparted",
+      "isoimagewriter",
+      "neovim",
+      "nmap",
+      "openrgb",
+      "virt-manager",
+      "virt-viewer",
+      "wireshark"
+    ],
+    "fedora-multimedia": ["HandBrake-cli", "HandBrake-gui", "mpv", "vlc"],
+    "rpmfusion": [
+      "audacious",
+      "audacious-plugins-freeworld",
+      "audacity-freeworld"
+    ],
+    "docker-ce": [
+      "containerd.io",
+      "docker-buildx-plugin",
+      "docker-ce",
+      "docker-ce-cli",
+      "docker-compose-plugin"
+    ],
+    "brave-browser": ["brave-browser"],
+    "cloudflare-warp": ["cloudflare-warp"],
+    "vscode": ["code"]
+  },
+  "flatpak": {
+    "system": [
+      "app.drey.Warp",
+      "com.github.k4zmu2a.spacecadetpinball",
+      "com.github.PintaProject.Pinta",
+      "com.github.wwmm.easyeffects",
+      "com.jeffser.Alpaca",
+      "com.jeffser.Alpaca.Plugins.AMD",
+      "com.obsproject.Studio",
+      "com.spotify.Client",
+      "com.stremio.Stremio",
+      "com.usebottles.bottles",
+      "dev.vencord.Vesktop",
+      "io.github.giantpinkrobots.varia",
+      "io.podman_desktop.PodmanDesktop",
+      "org.blender.Blender",
+      "org.fedoraproject.MediaWriter",
+      "org.gimp.GIMP",
+      "org.kde.kdenlive",
+      "org.kde.krita",
+      "org.libreoffice.LibreOffice",
+      "org.localsend.localsend_app",
+      "org.qbittorrent.qBittorrent",
+      "org.signal.Signal",
+      "org.telegram.desktop",
+      "org.torproject.torbrowser-launcher"
+    ]
+  },
+  "appimage": [
+    {
+      "name": "trezor_suite",
+      "url": "https://github.com/trezor/trezor-suite/releases/download/*/Trezor-Suite-*-linux-x86_64.AppImage"
+    }
+  ],
+  "nixpkgs": {
+    "user": [
+      "nixpkgs#aria2",
+      "nixpkgs#asciinema",
+      "nixpkgs#atuin",
+      "nixpkgs#bat",
+      "nixpkgs#bchunk",
+      "nixpkgs#cmatrix",
+      "nixpkgs#croc",
+      "nixpkgs#devenv",
+      "nixpkgs#direnv",
+      "nixpkgs#eza",
+      "nixpkgs#fd",
+      "nixpkgs#gh",
+      "nixpkgs#glab",
+      "nixpkgs#john",
+      "nixpkgs#magic-wormhole-rs",
+      "nixpkgs#ripgrep",
+      "nixpkgs#shellcheck",
+      "nixpkgs#shfmt",
+      "nixpkgs#starship",
+      "nixpkgs#tealdeer",
+      "nixpkgs#thefuck",
+      "nixpkgs#trash-cli",
+      "nixpkgs#ugrep",
+      "nixpkgs#yq",
+      "nixpkgs#yt-dlp",
+      "nixpkgs#zoxide"
+    ],
+    "system": [
+      "nixpkgs#mesa.drivers",
+      "nixpkgs#libglvnd",
+      "nixpkgs#nerd-fonts.hack",
+      "nixpkgs#nerd-fonts.ubuntu",
+      "nixpkgs#nerd-fonts.ubuntu-sans",
+      "nixpkgs#nerd-fonts.ubuntu-mono"
+    ]
+  }
+}
