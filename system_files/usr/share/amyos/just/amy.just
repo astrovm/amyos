@@ -7,7 +7,6 @@ amy-install-flatpaks:
   set -euo pipefail
 
   echo "Installing Flatpaks..."
-  ujust _install-system-flatpaks
   xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/flatpaks) flatpak --system -y install
   echo "Flatpaks installation complete."
 
@@ -64,8 +63,8 @@ amy-install-nixpkgs:
   [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   command -v nix &>/dev/null || ujust amy-setup-nix
 
-  echo "Installing Nix packages..."
-  sudo -i nix profile install nixpkgs#mesa.drivers nixpkgs#libglvnd nixpkgs#nerd-fonts.hack nixpkgs#nerd-fonts.ubuntu nixpkgs#nerd-fonts.ubuntu-sans nixpkgs#nerd-fonts.ubuntu-mono
+  echo "Installing Nix system packages..."
+  curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json | jq -r '.system[]' | sudo -i xargs nix profile install
 
   # Configure OpenGL driver symlinks
   printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
@@ -73,8 +72,10 @@ amy-install-nixpkgs:
   sudo ln -sf "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" "$TMPFILES_DIR/$OPENGL_CONF"
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
 
-  xargs -a <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs) nix profile install
-  echo "Nix packages installation complete."
+  echo "Installing Nix user packages..."
+  curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json | jq -r '.user[]' | xargs nix profile install
+
+ echo "Nix packages installation complete."
 
 # Setup Nix package manager
 amy-setup-nix:

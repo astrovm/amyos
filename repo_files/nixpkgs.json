@@ -1,0 +1,38 @@
+{
+  "user": [
+    "nixpkgs#aria2",
+    "nixpkgs#asciinema",
+    "nixpkgs#atuin",
+    "nixpkgs#bat",
+    "nixpkgs#bchunk",
+    "nixpkgs#cmatrix",
+    "nixpkgs#croc",
+    "nixpkgs#devenv",
+    "nixpkgs#direnv",
+    "nixpkgs#eza",
+    "nixpkgs#fd",
+    "nixpkgs#gh",
+    "nixpkgs#glab",
+    "nixpkgs#john",
+    "nixpkgs#magic-wormhole-rs",
+    "nixpkgs#ripgrep",
+    "nixpkgs#shellcheck",
+    "nixpkgs#shfmt",
+    "nixpkgs#starship",
+    "nixpkgs#tealdeer",
+    "nixpkgs#thefuck",
+    "nixpkgs#trash-cli",
+    "nixpkgs#ugrep",
+    "nixpkgs#yq",
+    "nixpkgs#yt-dlp",
+    "nixpkgs#zoxide"
+  ],
+  "system": [
+    "nixpkgs#mesa.drivers",
+    "nixpkgs#libglvnd",
+    "nixpkgs#nerd-fonts.hack",
+    "nixpkgs#nerd-fonts.ubuntu",
+    "nixpkgs#nerd-fonts.ubuntu-sans",
+    "nixpkgs#nerd-fonts.ubuntu-mono"
+  ]
+}
