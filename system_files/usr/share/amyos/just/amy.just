@@ -313,7 +313,6 @@ amy-setup-cli:
   set -euo pipefail
 
   echo "Setting up Ghostty configuration..."
-  GHOSTTY_CONFIG_DIR="${HOME}/.config/ghostty"
   mkdir -p "${HOME}/.config/ghostty"
   cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
   echo "Ghostty configuration complete."
