@@ -1,4 +1,4 @@
-# Install all Amy OS curated apps
+# Install all Amy OS apps
 amy-install: amy-install-flatpaks amy-install-appimages amy-install-nixpkgs
 
 # Install only Flatpaks
@@ -323,3 +323,25 @@ amy-setup-cli:
   mkdir -p "${HOME}/.bashrc.d"
   echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.bashrc.d/bling.bashrc"
   echo "Bling added to your Bash."
+
+# Clean up old packages and Docker/Podman images and volumes
+amy-clean:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Cleaning up system..."
+  docker image prune -af
+  docker volume prune -f
+  podman image prune -af
+  podman volume prune -f
+  flatpak uninstall --unused
+  rpm-ostree cleanup -bm
+  nix-collect-garbage -d
+  sudo docker image prune -af
+  sudo docker volume prune -f
+  sudo podman image prune -af
+  sudo podman volume prune -f
+  sudo -i nix-collect-garbage -d
+
+# Runs amy-install, amy-setup-cli, amy-setup-editors and amy-clean
+amy-init: amy-install amy-setup-cli amy-setup-editors amy-clean
