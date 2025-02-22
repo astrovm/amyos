@@ -68,9 +68,6 @@ ujust amy-install-appimages
 # Install only Nix packages
 ujust amy-install-nixpkgs
 
-# Setup Nix package manager
-ujust amy-setup-nix
-
 # Setup Amy OS terminal config
 ujust amy-setup-cli
 
@@ -79,6 +76,9 @@ ujust amy-setup-editors
 
 # Setup Git and GitHub SSH key
 ujust amy-setup-git
+
+# Setup Nix package manager
+ujust amy-setup-nix
 
 # Setup Sonic Adventure DX mods
 ujust amy-setup-sadx
