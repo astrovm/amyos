@@ -54,17 +54,17 @@ amy-install-nixpkgs:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  # Source Nix daemon if available
-  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-  command -v nix &>/dev/null || ujust amy-setup-nix
-
   NIX_PROFILE="/nix/var/nix/profiles/default"
   NIX_DAEMON_SCRIPT="$NIX_PROFILE/etc/profile.d/nix-daemon.sh"
   OPENGL_CONF="nix-opengl-driver.conf"
   TMPFILES_DIR="/etc/tmpfiles.d"
-  NIXPKGS=$(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json)
+
+  # Source Nix daemon if available
+  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
+  command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix system packages..."
+  NIXPKGS=$(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json)
   echo "$NIXPKGS" | jq -r '.system[]' | sudo -i xargs nix profile install
 
   # Configure OpenGL driver symlinks
