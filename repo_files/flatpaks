@@ -11,7 +11,6 @@ com.usebottles.bottles
 dev.vencord.Vesktop
 io.github.giantpinkrobots.varia
 io.podman_desktop.PodmanDesktop
-org.audacityteam.Audacity
 org.blender.Blender
 org.fedoraproject.MediaWriter
 org.gimp.GIMP
@@ -23,4 +22,3 @@ org.qbittorrent.qBittorrent
 org.signal.Signal
 org.telegram.desktop
 org.torproject.torbrowser-launcher
-org.videolan.VLC

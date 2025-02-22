@@ -16,7 +16,7 @@ FROM ghcr.io/ublue-os/bazzite:41
 COPY system_files /
 COPY build_files /tmp
 
-RUN mkdir -p /var/lib/alternatives /var/opt && \
+RUN mkdir -p /var/opt && \
   /tmp/build.sh && \
   /tmp/fix-opt.sh && \
   /tmp/build-initramfs.sh && \
