@@ -28,7 +28,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Audacious with Winamp skins
 - Brave Browser
 - Cloudflare WARP
-- Curated list of Flatpaks, AppImages and Nix packages
+- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages) and [Nix packages](https://github.com/astrovm/amyos/blob/main/repo_files/nixpkgs.json)
 - DNS over TLS enabled
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
