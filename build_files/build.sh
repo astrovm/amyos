@@ -17,6 +17,7 @@ declare -A RPM_PACKAGES=(
     gnome-disk-utility \
     gparted \
     isoimagewriter \
+    ksystemlog \
     neovim \
     nmap \
     openrgb \
