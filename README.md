@@ -107,7 +107,7 @@ GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flath
 
 CLI and GUI apps are available from [Nix](https://search.nixos.org/packages) using `nix profile install nixpkgs#...`.
 
-Homebrew is also available for installing CLI apps with `brew install ...`.
+[Homebrew](https://formulae.brew.sh/) is also available for installing CLI apps with `brew install ...`.
 
 ## Acknowledgments
 
