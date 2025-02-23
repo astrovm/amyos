@@ -18,13 +18,15 @@ declare -A RPM_PACKAGES=(
     gparted \
     isoimagewriter \
     ksystemlog \
+    kvantum \
     neovim \
     nmap \
     openrgb \
     qemu-kvm \
     virt-manager \
     virt-viewer \
-    wireshark"
+    wireshark \
+    yakuake"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
