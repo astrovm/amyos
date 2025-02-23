@@ -21,6 +21,7 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
+    qemu-kvm \
     virt-manager \
     virt-viewer \
     wireshark"

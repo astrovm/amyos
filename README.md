@@ -29,13 +29,12 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Brave Browser
 - Cloudflare WARP
 - Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages) and [Nix packages](https://github.com/astrovm/amyos/blob/main/repo_files/nixpkgs.json)
-- DNS over TLS enabled
+- DNS over TLS, DNSSEC and MAC address randomization enabled
 - Fixed Google Drive native integration
 - Ghostty terminal and Starship shell prompt
-- MAC address randomization enabled
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
-- Virtual Machine Manager
+- Virtual Machine Manager, libvirt and QEMU
 - VLC, mpv, HandBrake and Audacity
 - VSCode, Cursor with Remote Tunnels, Neovim and Docker
 
