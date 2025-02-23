@@ -16,27 +16,27 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - Built on Fedora 41
 - Uses [Bazzite](https://bazzite.gg/) as the base image
-- Features KDE Plasma desktop environment
+- KDE Plasma 6.3 with Valve's themes from SteamOS
 - Optimized for AMD and Intel GPUs
 
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - `cursor` and `cursor-cli` commands
-- `fuck` alias
-- adb and fastboot
+- ADB, Fastboot and Waydroid
 - Audacious with Winamp skins
 - Brave Browser
 - Cloudflare WARP
 - Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages) and [Nix packages](https://github.com/astrovm/amyos/blob/main/repo_files/nixpkgs.json)
 - DNS over TLS, DNSSEC and MAC address randomization enabled
-- Fixed Google Drive native integration
-- Ghostty terminal and Starship shell prompt
+- Docker, Podman, Distrobox and Toolbx
+- Fixed Plasma integration with Google Drive
+- Ghostty terminal, Starship shell prompt, `fuck` alias and Atuin history search (Ctrl+R)
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager, libvirt and QEMU
 - VLC, mpv, HandBrake and Audacity
-- VSCode, Cursor with Remote Tunnels, Neovim and Docker
+- VSCode, Cursor with Remote Tunnels fixed, Neovim
 
 ## Install
 
@@ -100,6 +100,14 @@ ujust amy-fix-bt
 # Manage SSD encryption optimizations (Workqueue and TRIM)
 ujust amy-ssd-crypto
 ```
+
+## Package management
+
+GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flathub.org/) and installed with `flatpak install ...`.
+
+CLI and GUI apps are available from [Nix](https://search.nixos.org/packages) using `nix profile install nixpkgs#...`.
+
+Homebrew is also available for installing CLI apps with `brew install ...`.
 
 ## Acknowledgments
 
