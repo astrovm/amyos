@@ -94,10 +94,6 @@ tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
 ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
 
-log "Removing autostart files"
-rm /etc/xdg/autostart/com.cloudflare.WarpTaskbar.desktop
-rm /etc/skel/.config/autostart/steam.desktop
-
 log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
 
