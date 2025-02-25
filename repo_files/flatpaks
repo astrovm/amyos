@@ -22,10 +22,6 @@ net.davidotek.pupgui2
 org.blender.Blender
 org.fedoraproject.MediaWriter
 org.gimp.GIMP
-org.kde.filelight
-org.kde.gwenview
-org.kde.haruna
-org.kde.kcalc
 org.kde.kdenlive
 org.kde.krita
 org.kde.okular

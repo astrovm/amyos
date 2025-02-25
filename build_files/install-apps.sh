@@ -12,18 +12,22 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
+    audacity-freeworld \
     bat \
     bleachbit \
     coolercontrol \
     direnv \
     eza \
     fd-find \
+    filelight \
     fuse-btfs \
     fzf \
     ghostty \
     gnome-disk-utility \
     gparted \
+    gwenview \
     isoimagewriter \
+    kcalc \
     ksystemlog \
     kvantum \
     libmicrodns \
@@ -51,6 +55,7 @@ declare -A RPM_PACKAGES=(
   ["fedora-multimedia"]="\
     HandBrake-cli \
     HandBrake-gui \
+    haruna \
     mpv \
     vlc-plugin-bittorrent \
     vlc-plugin-ffmpeg \
@@ -62,8 +67,7 @@ declare -A RPM_PACKAGES=(
 
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacious \
-    audacious-plugins-freeworld \
-    audacity-freeworld"
+    audacious-plugins-freeworld"
 
   ["docker-ce"]="\
     containerd.io \
