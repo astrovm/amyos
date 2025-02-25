@@ -317,12 +317,42 @@ amy-setup-cli:
   echo "Setting up Ghostty configuration..."
   mkdir -p "${HOME}/.config/ghostty"
   cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
-  echo "Ghostty configuration complete."
 
-  echo "Adding bling to your Bash..."
-  mkdir -p "${HOME}/.bashrc.d"
+  # Create config directories
+  mkdir -p "${HOME}/.bashrc.d" "${HOME}/.zshrc.d"
+
+  echo "Adding bling to shells..."
   echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.bashrc.d/bling.bashrc"
-  echo "Bling added to your Bash."
+  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.zshrc.d/bling.zshrc"
+
+  # Configure shell rc files
+  add_to_rc() {
+    local rc_file="$1"
+    local rc_dir="$2"
+    local snippet="# User specific aliases and functions
+if [ -d ~/${rc_dir} ]; then
+  for rc in ~/${rc_dir}/*; do
+    if [ -f \"\$rc\" ]; then
+      . \"\$rc\"
+    fi
+  done
+fi
+unset rc"
+
+    if [ -f "$rc_file" ]; then
+      if ! grep -q "${rc_dir}/\*" "$rc_file"; then
+        echo -e "\n${snippet}" >> "$rc_file"
+      fi
+    else
+      echo "${snippet}" > "$rc_file"
+    fi
+  }
+
+  # Apply configurations
+  add_to_rc "${HOME}/.bashrc" ".bashrc.d"
+  add_to_rc "${HOME}/.zshrc" ".zshrc.d"
+
+  echo "Shell configurations complete."
 
 # Clean up old packages and Docker/Podman images and volumes
 amy-clean:
