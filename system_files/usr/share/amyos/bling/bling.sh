@@ -26,13 +26,13 @@ fi
 # Atuin allows these flags: "--disable-up-arrow" and/or "--disable-ctrl-r"
 ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
 
-if [ "$(basename "$SHELL")" = "bash" ]; then
+if [ "$(basename "$0")" = "bash" ]; then
   [ -f "/usr/share/bash-prexec" ] && . "/usr/share/bash-prexec"
   [ "$(command -v starship)" ] && eval "$(starship init bash)"
   [ "$(command -v atuin)" ] && eval "$(atuin init bash ${ATUIN_INIT_FLAGS})"
   [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
   [ "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
-elif [ "$(basename "$SHELL")" = "zsh" ]; then
+elif [ "$(basename "$0")" = "zsh" ]; then
   [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   [ "$(command -v starship)" ] && eval "$(starship init zsh)"
   [ "$(command -v atuin)" ] && eval "$(atuin init zsh ${ATUIN_INIT_FLAGS})"
