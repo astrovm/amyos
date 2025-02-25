@@ -330,14 +330,14 @@ amy-setup-cli:
     local rc_file="$1"
     local rc_dir="$2"
     local snippet="# User specific aliases and functions
-if [ -d ~/${rc_dir} ]; then
-  for rc in ~/${rc_dir}/*; do
-    if [ -f \"\$rc\" ]; then
-      . \"\$rc\"
-    fi
-  done
-fi
-unset rc"
+  if [ -d ~/${rc_dir} ]; then
+    for rc in ~/${rc_dir}/*; do
+      if [ -f \"\$rc\" ]; then
+        . \"\$rc\"
+      fi
+    done
+  fi
+  unset rc"
 
     if [ -f "$rc_file" ]; then
       if ! grep -q "${rc_dir}/\*" "$rc_file"; then
