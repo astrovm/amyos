@@ -1,8 +1,16 @@
 #!/usr/bin/env sh
 
-# Check if bling has already been sourced so that we dont break atuin. https://github.com/atuinsh/atuin/issues/380#issuecomment-1594014644
-[ "${BLING_SOURCED:-0}" -eq 1 ] && return
-BLING_SOURCED=1
+# Get current shell name
+CURRENT_SHELL="$(basename "$0")"
+
+# Check if bling has already been sourced in the current shell
+if [ "$CURRENT_SHELL" = "bash" ]; then
+  [ "${BASH_BLING_SOURCED:-0}" -eq 1 ] && return
+  BASH_BLING_SOURCED=1
+elif [ "$CURRENT_SHELL" = "zsh" ]; then
+  [ "${ZSH_BLING_SOURCED:-0}" -eq 1 ] && return
+  ZSH_BLING_SOURCED=1
+fi
 
 # ls aliases
 if [ "$(command -v eza)" ]; then
@@ -26,13 +34,13 @@ fi
 # Atuin allows these flags: "--disable-up-arrow" and/or "--disable-ctrl-r"
 ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
 
-if [ "$(basename "$0")" = "bash" ]; then
+if [ "$CURRENT_SHELL" = "bash" ]; then
   [ -f "/usr/share/bash-prexec" ] && . "/usr/share/bash-prexec"
   [ "$(command -v starship)" ] && eval "$(starship init bash)"
   [ "$(command -v atuin)" ] && eval "$(atuin init bash ${ATUIN_INIT_FLAGS})"
   [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
   [ "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
-elif [ "$(basename "$0")" = "zsh" ]; then
+elif [ "$CURRENT_SHELL" = "zsh" ]; then
   [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   [ "$(command -v starship)" ] && eval "$(starship init zsh)"
   [ "$(command -v atuin)" ] && eval "$(atuin init zsh ${ATUIN_INIT_FLAGS})"
