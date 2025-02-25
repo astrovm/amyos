@@ -34,6 +34,8 @@ declare -A RPM_PACKAGES=(
     HandBrake-gui \
     mpv \
     vlc-plugin-bittorrent \
+    vlc-plugin-ffmpeg \
+    vlc-plugin-pause-click \
     vlc"
 
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
