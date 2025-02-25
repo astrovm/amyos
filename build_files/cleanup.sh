@@ -24,4 +24,8 @@ mkdir -p /var/lib
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
+# Commit and lint container
+ostree container commit
+bootc container lint || true
+
 log "Cleanup completed"

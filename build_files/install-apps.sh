@@ -80,6 +80,7 @@ declare -A RPM_PACKAGES=(
 log "Starting Amy OS build process"
 
 log "Installing RPM packages"
+mkdir -p /var/opt
 for repo in "${!RPM_PACKAGES[@]}"; do
   read -ra pkg_array <<<"${RPM_PACKAGES[$repo]}"
   if [[ $repo == copr:* ]]; then
