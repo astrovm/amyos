@@ -1,8 +1,6 @@
 {
   "user": [
-    "nixpkgs#asciinema",
     "nixpkgs#atuin",
-    "nixpkgs#bchunk",
     "nixpkgs#cmatrix",
     "nixpkgs#croc",
     "nixpkgs#devenv",

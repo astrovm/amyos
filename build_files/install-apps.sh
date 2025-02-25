@@ -12,8 +12,10 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
+    asciinema \
     audacity-freeworld \
     bat \
+    bchunk \
     bleachbit \
     coolercontrol \
     direnv \
@@ -50,6 +52,7 @@ declare -A RPM_PACKAGES=(
     yq \
     yt-dlp \
     zoxide \
+    zsh-autosuggestions \
     zsh"
 
   ["fedora-multimedia"]="\
