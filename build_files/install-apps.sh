@@ -15,9 +15,11 @@ declare -A RPM_PACKAGES=(
     bat \
     bleachbit \
     coolercontrol \
+    direnv \
     eza \
     fd-find \
     fuse-btfs \
+    fzf \
     ghostty \
     gnome-disk-utility \
     gparted \
@@ -41,8 +43,10 @@ declare -A RPM_PACKAGES=(
     virt-viewer \
     wireshark \
     yakuake \
+    yq \
     yt-dlp \
-    zoxide"
+    zoxide \
+    zsh"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \

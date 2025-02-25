@@ -6,14 +6,12 @@
     "nixpkgs#cmatrix",
     "nixpkgs#croc",
     "nixpkgs#devenv",
-    "nixpkgs#direnv",
     "nixpkgs#gh",
     "nixpkgs#glab",
     "nixpkgs#john",
     "nixpkgs#magic-wormhole-rs",
     "nixpkgs#shellcheck",
-    "nixpkgs#shfmt",
-    "nixpkgs#yq"
+    "nixpkgs#shfmt"
   ],
   "system": [
     "nixpkgs#libglvnd",
