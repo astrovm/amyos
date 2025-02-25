@@ -33,6 +33,7 @@ if [ "$(basename "$SHELL")" = "bash" ]; then
   [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
   [ "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
 elif [ "$(basename "$SHELL")" = "zsh" ]; then
+  [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   [ "$(command -v starship)" ] && eval "$(starship init zsh)"
   [ "$(command -v atuin)" ] && eval "$(atuin init zsh ${ATUIN_INIT_FLAGS})"
   [ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
