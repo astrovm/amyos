@@ -13,6 +13,7 @@ declare -A RPM_PACKAGES=(
     android-tools \
     bleachbit \
     coolercontrol \
+    fuse-btfs \
     ghostty \
     gnome-disk-utility \
     gparted \
@@ -32,6 +33,7 @@ declare -A RPM_PACKAGES=(
     HandBrake-cli \
     HandBrake-gui \
     mpv \
+    vlc-plugin-bittorrent \
     vlc"
 
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
