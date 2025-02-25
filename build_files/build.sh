@@ -11,8 +11,12 @@ log() {
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
+    aria2 \
+    bat \
     bleachbit \
     coolercontrol \
+    eza \
+    fd-find \
     fuse-btfs \
     ghostty \
     gnome-disk-utility \
@@ -26,10 +30,19 @@ declare -A RPM_PACKAGES=(
     openrgb \
     protobuf \
     qemu-kvm \
+    rclone \
+    ripgrep \
+    starship \
+    tealdeer \
+    thefuck \
+    trash-cli \
+    ugrep \
     virt-manager \
     virt-viewer \
     wireshark \
-    yakuake"
+    yakuake \
+    yt-dlp \
+    zoxide"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
