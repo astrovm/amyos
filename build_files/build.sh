@@ -20,9 +20,11 @@ declare -A RPM_PACKAGES=(
     isoimagewriter \
     ksystemlog \
     kvantum \
+    libmicrodns \
     neovim \
     nmap \
     openrgb \
+    protobuf \
     qemu-kvm \
     virt-manager \
     virt-viewer \
@@ -35,7 +37,10 @@ declare -A RPM_PACKAGES=(
     mpv \
     vlc-plugin-bittorrent \
     vlc-plugin-ffmpeg \
+    vlc-plugin-gstreamer \
+    vlc-plugin-kde \
     vlc-plugin-pause-click \
+    vlc-plugin-pipewire \
     vlc"
 
   ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
