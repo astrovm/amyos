@@ -43,8 +43,11 @@ ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
 for tool in starship atuin zoxide thefuck; do
   command -v "$tool" >/dev/null && {
     case "$tool" in
-    starship | atuin | zoxide)
-      eval "$($tool init $shell ${tool}_INIT_FLAGS:-)"
+    atuin)
+      eval "$($tool init $shell $ATUIN_INIT_FLAGS)"
+      ;;
+    starship | zoxide)
+      eval "$($tool init $shell)"
       ;;
     thefuck)
       eval "$(thefuck --alias)"
