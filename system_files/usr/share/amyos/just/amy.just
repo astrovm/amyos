@@ -35,7 +35,10 @@ amy-install-appimages:
     if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/([^/]*) ]] && [[ "$url" == *"*"* ]]; then
       pattern="$(echo "${BASH_REMATCH[2]}" | sed 's/\./\\./g' | sed 's/\*/.*/g')"
       url=$(curl --retry 3 -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[0].assets[].browser_download_url" | grep -E "$pattern" | head -n1)
-      [ -z "$url" ] && { echo "No release found for $name"; continue; }
+      [ -z "$url" ] && {
+        echo "No release found for $name"
+        continue
+      }
     fi
 
     # Download and install
@@ -68,8 +71,7 @@ amy-install-nixpkgs:
   echo "$NIXPKGS" | jq -r '.system[]' | sudo -i xargs nix profile install
 
   # Configure OpenGL driver symlinks
-  printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | \
-    sudo tee "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" > /dev/null
+  printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | sudo tee "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" >/dev/null
   sudo ln -sf "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" "$TMPFILES_DIR/$OPENGL_CONF"
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
 
@@ -149,7 +151,10 @@ amy-ssd-crypto:
   set -euo pipefail
 
   # Get LUKS2 devices
-  luks_devices=$(sudo dmsetup ls --target crypt) || { echo "No LUKS devices found."; exit 1; }
+  luks_devices=$(sudo dmsetup ls --target crypt) || {
+    echo "No LUKS devices found."
+    exit 1
+  }
 
   # Display devices and their settings
   echo "LUKS2 Devices and Settings:"
@@ -170,7 +175,7 @@ amy-ssd-crypto:
     echo "- No read workqueue: $(echo "$flags" | grep -q "no_read_workqueue" && echo "enabled" || echo "disabled")"
     echo "- No write workqueue: $(echo "$flags" | grep -q "no_write_workqueue" && echo "enabled" || echo "disabled")"
     echo "--------------------------"
-  done <<< "$luks_devices"
+  done <<<"$luks_devices"
 
   # Get and validate device selection
   read -p "Enter LUKS device name to optimize (or press Enter to exit): " device
@@ -206,11 +211,14 @@ amy-ssd-crypto:
   fi
 
   for i in "${!options[@]}"; do
-    echo "$((i+1))) ${options[i]}"
+    echo "$((i + 1))) ${options[i]}"
   done
 
   read -p "Select option (1-${#options[@]}): " choice
-  [[ ! "$choice" =~ ^[1-${#options[@]}]$ ]] && { echo "Invalid option"; exit 1; }
+  [[ ! "$choice" =~ ^[1-${#options[@]}]$ ]] && {
+    echo "Invalid option"
+    exit 1
+  }
 
   # Apply selected optimization
   case $choice in
@@ -282,9 +290,12 @@ amy-setup-sadx:
           break
         fi
       fi
-    done < "$library_config"
+    done <"$library_config"
   fi
-  [ -z "$SADX_DIR" ] && { echo "Error: Could not find SADX installation. Please launch the game first."; exit 1; }
+  [ -z "$SADX_DIR" ] && {
+    echo "Error: Could not find SADX installation. Please launch the game first."
+    exit 1
+  }
 
   # Download and run mod installer
   installer="${SADX_DIR}/sadx_setup.exe"
@@ -323,7 +334,7 @@ amy-setup-cli:
   echo "Adding bling to shells..."
   echo '[ -f "/usr/share/amyos/bling/bling.sh" ] && . "/usr/share/amyos/bling/bling.sh"' | tee \
     "${HOME}/.bashrc.d/bling.bashrc" \
-    "${HOME}/.zshrc.d/bling.zshrc" > /dev/null
+    "${HOME}/.zshrc.d/bling.zshrc" >/dev/null
 
   # Configure shell rc files
   for shell in bash zsh; do
@@ -331,21 +342,21 @@ amy-setup-cli:
     rc_dir=".${shell}rc.d"
 
     snippet="# User specific aliases and functions
-if [ -d ~/${rc_dir} ]; then
-  for rc in ~/${rc_dir}/*; do
-    if [ -f \"\$rc\" ]; then
-      . \"\$rc\"
-    fi
-  done
-fi
-unset rc"
+  if [ -d ~/${rc_dir} ]; then
+    for rc in ~/${rc_dir}/*; do
+      if [ -f \"\$rc\" ]; then
+        . \"\$rc\"
+      fi
+    done
+  fi
+  unset rc"
 
     if [ -f "$rc_file" ]; then
       if ! grep -q "${rc_dir}/\*" "$rc_file"; then
-        echo -e "\n${snippet}" >> "$rc_file"
+        echo -e "\n${snippet}" >>"$rc_file"
       fi
     else
-      echo "${snippet}" > "$rc_file"
+      echo "${snippet}" >"$rc_file"
     fi
   done
 
