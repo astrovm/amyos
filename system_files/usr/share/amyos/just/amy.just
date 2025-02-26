@@ -309,35 +309,36 @@ amy-setup-sadx:
   echo "4. Click 'Save & Play' to start the game"
   echo -e "\nSetup complete! Enjoy playing SADX with mods!"
 
-# Setup Amy OS terminal config
+# Setup Amy OS terminal configs
 amy-setup-cli:
   #!/usr/bin/env bash
   set -euo pipefail
 
-  echo "Setting up Ghostty configuration..."
-  mkdir -p "${HOME}/.config/ghostty"
+  # Create config directories
+  mkdir -p "${HOME}/.config/ghostty" "${HOME}/.bashrc.d" "${HOME}/.zshrc.d"
+
+  echo "Setting up Ghostty..."
   cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
 
-  # Create config directories
-  mkdir -p "${HOME}/.bashrc.d" "${HOME}/.zshrc.d"
-
   echo "Adding bling to shells..."
-  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.bashrc.d/bling.bashrc"
-  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" > "${HOME}/.zshrc.d/bling.zshrc"
+  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" | tee \
+    "${HOME}/.bashrc.d/bling.bashrc" \
+    "${HOME}/.zshrc.d/bling.zshrc" > /dev/null
 
   # Configure shell rc files
-  add_to_rc() {
-    local rc_file="$1"
-    local rc_dir="$2"
-    local snippet="# User specific aliases and functions
-  if [ -d ~/${rc_dir} ]; then
-    for rc in ~/${rc_dir}/*; do
-      if [ -f \"\$rc\" ]; then
-        . \"\$rc\"
-      fi
-    done
-  fi
-  unset rc"
+  for shell in bash zsh; do
+    rc_file="${HOME}/.${shell}rc"
+    rc_dir=".${shell}rc.d"
+
+    snippet="# User specific aliases and functions
+if [ -d ~/${rc_dir} ]; then
+  for rc in ~/${rc_dir}/*; do
+    if [ -f \"\$rc\" ]; then
+      . \"\$rc\"
+    fi
+  done
+fi
+unset rc"
 
     if [ -f "$rc_file" ]; then
       if ! grep -q "${rc_dir}/\*" "$rc_file"; then
@@ -346,13 +347,9 @@ amy-setup-cli:
     else
       echo "${snippet}" > "$rc_file"
     fi
-  }
+  done
 
-  # Apply configurations
-  add_to_rc "${HOME}/.bashrc" ".bashrc.d"
-  add_to_rc "${HOME}/.zshrc" ".zshrc.d"
-
-  echo "Shell configurations complete."
+  echo "Terminal configurations complete."
 
 # Clean up old packages and Docker/Podman images and volumes
 amy-clean:

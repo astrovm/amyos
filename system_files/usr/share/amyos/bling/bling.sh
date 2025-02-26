@@ -6,21 +6,26 @@ shell="sh"
 [ -n "$ZSH_VERSION" ] && shell="zsh" && [ "${ZSH_BLING_SOURCED:-0}" -eq 1 ] && return || ZSH_BLING_SOURCED=1
 
 # Set up aliases if commands exist
-command -v eza >/dev/null && {
-  alias ls='eza'
-  alias ll='eza -l --icons=auto --group-directories-first'
-  alias l.='eza -d .*'
-  alias l1='eza -1'
-}
-
-command -v ug >/dev/null && {
-  alias grep='ug'
-  alias egrep='ug -E'
-  alias fgrep='ug -F'
-  alias xzgrep='ug -z'
-  alias xzegrep='ug -zE'
-  alias xzfgrep='ug -zF'
-}
+for cmd in eza ug; do
+  command -v "$cmd" >/dev/null && {
+    case "$cmd" in
+    eza)
+      alias ls='eza'
+      alias ll='eza -l --icons=auto --group-directories-first'
+      alias l.='eza -d .*'
+      alias l1='eza -1'
+      ;;
+    ug)
+      alias grep='ug'
+      alias egrep='ug -E'
+      alias fgrep='ug -F'
+      alias xzgrep='ug -z'
+      alias xzegrep='ug -zE'
+      alias xzfgrep='ug -zF'
+      ;;
+    esac
+  }
+done
 
 # Shell-specific configurations
 case "$shell" in
@@ -38,8 +43,12 @@ ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
 for tool in starship atuin zoxide thefuck; do
   command -v "$tool" >/dev/null && {
     case "$tool" in
-    starship | atuin | zoxide) eval "$($tool init $shell ${tool}_INIT_FLAGS:-)" ;;
-    thefuck) eval "$(thefuck --alias)" ;;
+    starship | atuin | zoxide)
+      eval "$($tool init $shell ${tool}_INIT_FLAGS:-)"
+      ;;
+    thefuck)
+      eval "$(thefuck --alias)"
+      ;;
     esac
   }
 done

@@ -79,7 +79,7 @@ ujust amy-install-appimages
 # Install only Nix packages
 ujust amy-install-nixpkgs
 
-# Setup Amy OS terminal config
+# Setup Amy OS terminal configs
 ujust amy-setup-cli
 
 # Setup Amy OS settings for Cursor and VSCode
