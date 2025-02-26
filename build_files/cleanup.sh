@@ -20,7 +20,6 @@ find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
 find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
 
 # Restore and setup directories
-mkdir -p /var/lib
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
