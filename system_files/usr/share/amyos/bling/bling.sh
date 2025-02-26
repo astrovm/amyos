@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Determine shell and prevent double-sourcing
-shell="sh"
+[ -z "$BASH_VERSION" ] && [ -z "$ZSH_VERSION" ] && return
 [ -n "$BASH_VERSION" ] && shell="bash" && [ "${BASH_BLING_SOURCED:-0}" -eq 1 ] && return || BASH_BLING_SOURCED=1
 [ -n "$ZSH_VERSION" ] && shell="zsh" && [ "${ZSH_BLING_SOURCED:-0}" -eq 1 ] && return || ZSH_BLING_SOURCED=1
 
