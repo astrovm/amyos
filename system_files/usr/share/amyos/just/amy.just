@@ -321,7 +321,7 @@ amy-setup-cli:
   cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
 
   echo "Adding bling to shells..."
-  echo "test -f /usr/share/amyos/bling/bling.sh && source /usr/share/amyos/bling/bling.sh" | tee \
+  echo '[ -f "/usr/share/amyos/bling/bling.sh" ] && . "/usr/share/amyos/bling/bling.sh"' | tee \
     "${HOME}/.bashrc.d/bling.bashrc" \
     "${HOME}/.zshrc.d/bling.zshrc" > /dev/null
 
