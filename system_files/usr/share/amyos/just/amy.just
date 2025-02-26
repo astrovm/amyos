@@ -101,7 +101,7 @@ amy-setup-editors:
     config_dir="${HOME}/.config/${editor}/User"
     mkdir -p "$config_dir"
     cp -f "/etc/skel/.config/${editor}/User/settings.json" "$config_dir/settings.json"
-    echo "$editor configuration complete."
+    echo "$editor setup complete."
   done
 
 # Setup Git and GitHub SSH key
@@ -128,7 +128,7 @@ amy-setup-git:
   echo "Your SSH public key:"
   cat ~/.ssh/id_ed25519.pub
 
-  echo "Git configuration complete."
+  echo "Git setup complete."
   echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
 
 # Restart Bluetooth to fix issues
@@ -349,7 +349,7 @@ unset rc"
     fi
   done
 
-  echo "Terminal configurations complete."
+  echo "Terminal setup complete."
 
 # Clean up old packages and Docker/Podman images and volumes
 amy-clean:
