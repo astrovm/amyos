@@ -1,45 +1,47 @@
 #!/usr/bin/env sh
 
-# Check if bling has already been sourced in the current shell
-if [ -n "$BASH_VERSION" ]; then
-  [ "${BASH_BLING_SOURCED:-0}" -eq 1 ] && return
-  BASH_BLING_SOURCED=1
-elif [ -n "$ZSH_VERSION" ]; then
-  [ "${ZSH_BLING_SOURCED:-0}" -eq 1 ] && return
-  ZSH_BLING_SOURCED=1
-fi
+# Determine shell and prevent double-sourcing
+shell="sh"
+[ -n "$BASH_VERSION" ] && shell="bash" && [ "${BASH_BLING_SOURCED:-0}" -eq 1 ] && return || BASH_BLING_SOURCED=1
+[ -n "$ZSH_VERSION" ] && shell="zsh" && [ "${ZSH_BLING_SOURCED:-0}" -eq 1 ] && return || ZSH_BLING_SOURCED=1
 
-# ls aliases
-if [ "$(command -v eza)" ]; then
+# Set up aliases if commands exist
+command -v eza >/dev/null && {
+  alias ls='eza'
   alias ll='eza -l --icons=auto --group-directories-first'
   alias l.='eza -d .*'
-  alias ls='eza'
   alias l1='eza -1'
-fi
+}
 
-# ugrep for grep
-if [ "$(command -v ug)" ]; then
+command -v ug >/dev/null && {
   alias grep='ug'
   alias egrep='ug -E'
   alias fgrep='ug -F'
   alias xzgrep='ug -z'
   alias xzegrep='ug -zE'
   alias xzfgrep='ug -zF'
-fi
+}
 
-# Atuin allows these flags: "--disable-up-arrow" and/or "--disable-ctrl-r"
+# Initialize shell tools
 ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
 
-if [ -n "$BASH_VERSION" ]; then
+# Common tool initialization
+for tool in starship atuin zoxide thefuck; do
+  command -v "$tool" >/dev/null && {
+    case "$tool" in
+    starship | atuin | zoxide) eval "$($tool init $shell ${tool}_INIT_FLAGS:-)" ;;
+    thefuck) eval "$(thefuck --alias)" ;;
+    esac
+  }
+done
+
+# Shell-specific configurations
+case "$shell" in
+bash)
   [ -f "/usr/share/bash-prexec" ] && . "/usr/share/bash-prexec"
-  [ "$(command -v starship)" ] && eval "$(starship init bash)"
-  [ "$(command -v atuin)" ] && eval "$(atuin init bash ${ATUIN_INIT_FLAGS})"
-  [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
-  [ "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
-elif [ -n "$ZSH_VERSION" ]; then
-  [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  [ "$(command -v starship)" ] && eval "$(starship init zsh)"
-  [ "$(command -v atuin)" ] && eval "$(atuin init zsh ${ATUIN_INIT_FLAGS})"
-  [ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
-  [ "$(command -v thefuck)" ] && eval "$(thefuck --alias)"
-fi
+  ;;
+zsh)
+  [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] &&
+    . "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  ;;
+esac
