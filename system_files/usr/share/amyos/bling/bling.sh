@@ -22,19 +22,6 @@ command -v ug >/dev/null && {
   alias xzfgrep='ug -zF'
 }
 
-# Initialize shell tools
-ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
-
-# Common tool initialization
-for tool in starship atuin zoxide thefuck; do
-  command -v "$tool" >/dev/null && {
-    case "$tool" in
-    starship | atuin | zoxide) eval "$($tool init $shell ${tool}_INIT_FLAGS:-)" ;;
-    thefuck) eval "$(thefuck --alias)" ;;
-    esac
-  }
-done
-
 # Shell-specific configurations
 case "$shell" in
 bash)
@@ -45,3 +32,14 @@ zsh)
     . "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   ;;
 esac
+
+# Common tool initialization
+ATUIN_INIT_FLAGS=${ATUIN_INIT_FLAGS:-"--disable-up-arrow"}
+for tool in starship atuin zoxide thefuck; do
+  command -v "$tool" >/dev/null && {
+    case "$tool" in
+    starship | atuin | zoxide) eval "$($tool init $shell ${tool}_INIT_FLAGS:-)" ;;
+    thefuck) eval "$(thefuck --alias)" ;;
+    esac
+  }
+done
