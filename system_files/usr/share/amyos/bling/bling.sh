@@ -33,8 +33,7 @@ bash)
   [ -f "/usr/share/bash-prexec" ] && . "/usr/share/bash-prexec"
   ;;
 zsh)
-  [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] &&
-    . "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && . "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   ;;
 esac
 
