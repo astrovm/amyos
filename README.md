@@ -73,6 +73,9 @@ ujust amy-install-nixpkgs
 # Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
 
+# Setup Nix Home Manager with Amy OS config
+ujust amy-setup-home
+
 # Setup Nix package manager
 ujust amy-setup-nix
 

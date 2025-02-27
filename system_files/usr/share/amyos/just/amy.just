@@ -91,7 +91,7 @@ amy-setup-nix:
   echo "Nix setup complete."
 
 # Setup Nix Home Manager with Amy OS config
-amy-setup-hm:
+amy-setup-home:
   #!/usr/bin/env bash
   set -euo pipefail
 
