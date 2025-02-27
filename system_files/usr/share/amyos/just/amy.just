@@ -67,8 +67,13 @@ amy-install-nixpkgs:
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix system packages..."
-  NIXPKGS=$(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/nixpkgs.json)
-  echo "$NIXPKGS" | jq -r '.system[]' | sudo -i xargs nix profile install
+  sudo -i nix profile install \
+    nixpkgs#libglvnd \
+    nixpkgs#mesa.drivers \
+    nixpkgs#nerd-fonts.hack \
+    nixpkgs#nerd-fonts.ubuntu \
+    nixpkgs#nerd-fonts.ubuntu-mono \
+    nixpkgs#nerd-fonts.ubuntu-sans
 
   # Configure OpenGL driver symlinks
   printf "L+ /run/opengl-driver/lib - - - - $NIX_PROFILE/lib\nL+ /run/opengl-driver/share - - - - $NIX_PROFILE/share\n" | sudo tee "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" >/dev/null
