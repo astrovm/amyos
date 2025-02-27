@@ -90,6 +90,20 @@ amy-setup-nix:
   [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   echo "Nix setup complete."
 
+# Setup Nix Home Manager with Amy OS config
+amy-setup-hm:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  # Source Nix daemon if available
+  NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
+  command -v nix &>/dev/null || ujust amy-setup-nix
+
+  echo "Setting up Nix Home Manager..."
+  nix run home-manager/release-24.11 -- init --switch
+  echo "Nix Home Manager setup complete."
+
 # Setup Amy OS recommended settings for Cursor and VSCode
 amy-setup-editors:
   #!/usr/bin/env bash
