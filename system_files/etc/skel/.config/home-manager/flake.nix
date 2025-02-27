@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of astro";
+  description = "Amy OS Home Manager configuration";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -15,9 +15,10 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      user = import ./user.nix;
     in
     {
-      homeConfigurations."astro" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${user.userName} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
@@ -26,6 +27,9 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        extraSpecialArgs = {
+          inherit user;
+        };
       };
     };
 }

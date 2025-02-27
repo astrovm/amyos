@@ -1,9 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  user,
+  ...
+}:
 
 {
   home = {
-    username = "astro";
-    homeDirectory = "/home/astro";
+    username = user.userName;
+    homeDirectory = user.homeDirectory;
     stateVersion = "24.11";
     packages = with pkgs; [
       cmatrix
@@ -38,8 +43,8 @@
   programs = {
     git = {
       enable = true;
-      userName = "astrovm";
-      userEmail = "~@4st.li";
+      userName = user.gitConfig.userName;
+      userEmail = user.gitConfig.userEmail;
     };
 
     zsh = {
