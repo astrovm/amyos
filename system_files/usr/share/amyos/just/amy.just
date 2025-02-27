@@ -333,7 +333,7 @@ amy-setup-sadx:
   # Download and run mod installer
   installer="${SADX_DIR}/sadx_setup.exe"
   echo -e "\nDownloading mod installer..."
-  curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files_versions/Setup/sadx_setup.exe.v1736656352"
+  curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"
 
   echo -e "\nInstalling .NET Desktop Runtime 8..."
   flatpak run com.github.Matoking.protontricks 71250 dotnetdesktop8 &>/dev/null
