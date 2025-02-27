@@ -61,7 +61,7 @@ ujust amy-init
 The following `ujust` commands are available:
 
 ```bash
-# Runs amy-install, amy-setup-cli, amy-setup-editors and amy-clean
+# Runs amy-install, amy-setup-editors and amy-clean
 ujust amy-init
 
 # Clean up old packages and Docker/Podman images and volumes
@@ -79,14 +79,8 @@ ujust amy-install-appimages
 # Install only Nix packages
 ujust amy-install-nixpkgs
 
-# Setup Amy OS terminal configs
-ujust amy-setup-cli
-
 # Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
-
-# Setup Git and GitHub SSH key
-ujust amy-setup-git
 
 # Setup Nix package manager
 ujust amy-setup-nix

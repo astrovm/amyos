@@ -1,16 +1,4 @@
 {
-  "user": [
-    "nixpkgs#atuin",
-    "nixpkgs#cmatrix",
-    "nixpkgs#croc",
-    "nixpkgs#devenv",
-    "nixpkgs#gh",
-    "nixpkgs#glab",
-    "nixpkgs#john",
-    "nixpkgs#magic-wormhole-rs",
-    "nixpkgs#shellcheck",
-    "nixpkgs#shfmt"
-  ],
   "system": [
     "nixpkgs#libglvnd",
     "nixpkgs#mesa.drivers",

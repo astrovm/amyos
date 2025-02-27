@@ -75,9 +75,6 @@ amy-install-nixpkgs:
   sudo ln -sf "$NIX_PROFILE/lib/tmpfiles.d/$OPENGL_CONF" "$TMPFILES_DIR/$OPENGL_CONF"
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
 
-  echo "Installing Nix user packages..."
-  echo "$NIXPKGS" | jq -r '.user[]' | xargs nix profile install
-
   echo "Nix packages installation complete."
 
 # Setup Nix package manager
@@ -105,33 +102,6 @@ amy-setup-editors:
     cp -f "/etc/skel/.config/${editor}/User/settings.json" "$config_dir/settings.json"
     echo "$editor setup complete."
   done
-
-# Setup Git and GitHub SSH key
-amy-setup-git:
-  #!/usr/bin/env bash
-  set -euo pipefail
-
-  echo "Setting up Git SSH key..."
-
-  # Ask for Git username and email
-  read -p "Enter your Git username: " git_username
-  read -p "Enter your Git email: " git_email
-
-  # Configure Git
-  git config --global color.ui true
-  git config --global user.name "$git_username"
-  git config --global user.email "$git_email"
-
-  # Generate SSH key
-  echo "Generating SSH key..."
-  ssh-keygen -t ed25519 -C "$git_email"
-
-  # Display the public key
-  echo "Your SSH public key:"
-  cat ~/.ssh/id_ed25519.pub
-
-  echo "Git setup complete."
-  echo "Add the above SSH key to your GitHub account at: https://github.com/settings/ssh"
 
 # Restart Bluetooth to fix issues
 amy-fix-bt:
@@ -320,48 +290,6 @@ amy-setup-sadx:
   echo "4. Click 'Save & Play' to start the game"
   echo -e "\nSetup complete! Enjoy playing SADX with mods!"
 
-# Setup Amy OS terminal configs
-amy-setup-cli:
-  #!/usr/bin/env bash
-  set -euo pipefail
-
-  # Create config directories
-  mkdir -p "${HOME}/.config/ghostty" "${HOME}/.bashrc.d" "${HOME}/.zshrc.d"
-
-  echo "Setting up Ghostty..."
-  cp -f "/etc/skel/.config/ghostty/config" "${HOME}/.config/ghostty/config"
-
-  echo "Adding bling to shells..."
-  echo '[ -f "/usr/share/amyos/bling/bling.sh" ] && . "/usr/share/amyos/bling/bling.sh"' | tee \
-    "${HOME}/.bashrc.d/bling.bashrc" \
-    "${HOME}/.zshrc.d/bling.zshrc" >/dev/null
-
-  # Configure shell rc files
-  for shell in bash zsh; do
-    rc_file="${HOME}/.${shell}rc"
-    rc_dir=".${shell}rc.d"
-
-    snippet="# User specific aliases and functions
-  if [ -d ~/${rc_dir} ]; then
-    for rc in ~/${rc_dir}/*; do
-      if [ -f \"\$rc\" ]; then
-        . \"\$rc\"
-      fi
-    done
-  fi
-  unset rc"
-
-    if [ -f "$rc_file" ]; then
-      if ! grep -q "${rc_dir}/\*" "$rc_file"; then
-        echo -e "\n${snippet}" >>"$rc_file"
-      fi
-    else
-      echo "${snippet}" >"$rc_file"
-    fi
-  done
-
-  echo "Terminal setup complete."
-
 # Clean up old packages and Docker/Podman images and volumes
 amy-clean:
   #!/usr/bin/env bash
@@ -381,5 +309,5 @@ amy-clean:
   sudo podman volume prune -f
   sudo -i nix-collect-garbage -d
 
-# Runs amy-install, amy-setup-cli, amy-setup-editors and amy-clean
-amy-init: amy-install amy-setup-cli amy-setup-editors amy-clean
+# Runs amy-install, amy-setup-editors and amy-clean
+amy-init: amy-install amy-setup-editors amy-clean
