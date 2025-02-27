@@ -101,7 +101,51 @@ amy-setup-hm:
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Setting up Nix Home Manager..."
-  nix run home-manager/release-24.11 -- init --switch
+
+  # Resolve real home path in case it's a symlink
+  REAL_HOME=$(readlink -f "$HOME")
+  HM_CONFIG_DIR="${REAL_HOME}/.config/home-manager"
+  SKEL_CONFIG_DIR="/etc/skel/.config/home-manager"
+  CONFIG_FILES=("user.nix" "home.nix" "flake.nix")
+
+  # Create config directory if it doesn't exist
+  mkdir -p "$HM_CONFIG_DIR"
+
+  # Function to check if files are identical
+  files_identical() {
+    cmp -s "$1" "$2"
+  }
+
+  # Check and handle each config file
+  for file in "${CONFIG_FILES[@]}"; do
+    user_file="${HM_CONFIG_DIR}/${file}"
+    skel_file="${SKEL_CONFIG_DIR}/${file}"
+
+    if [ ! -f "$user_file" ]; then
+      echo "Copying $file from skeleton..."
+      cp "$skel_file" "$user_file"
+    else
+      if ! files_identical "$user_file" "$skel_file"; then
+        echo "Warning: $file exists and differs from skeleton file."
+        echo "Please manually merge your changes or backup and remove the file to use defaults."
+        exit 1
+      fi
+    fi
+  done
+
+  # Configure user.nix
+  echo "Configuring user settings..."
+  sed -i "s/userName = \"\"/userName = \"$USER\"/" "$HM_CONFIG_DIR/user.nix"
+  sed -i "s|homeDirectory = \"\"|homeDirectory = \"$REAL_HOME\"|" "$HM_CONFIG_DIR/user.nix"
+
+  # Prompt for Git configuration
+  read -p "Enter your Git user name: " git_name
+  read -p "Enter your Git email: " git_email
+  sed -i "s/userName = \"\"/userName = \"$git_name\"/" "$HM_CONFIG_DIR/user.nix"
+  sed -i "s/userEmail = \"\"/userEmail = \"$git_email\"/" "$HM_CONFIG_DIR/user.nix"
+
+  # Initialize and switch to the new configuration
+  nix run home-manager/master -- init --switch "$HM_CONFIG_DIR"
   echo "Nix Home Manager setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
