@@ -68,7 +68,7 @@ amy-install-nixpkgs:
 
   echo "Installing Nix system packages..."
   sudo -i nix profile install \
-    nixpkgs#libglvnd \
+    nixpkgs#libGL \
     nixpkgs#mesa.drivers \
     nixpkgs#nerd-fonts.hack \
     nixpkgs#nerd-fonts.ubuntu \
