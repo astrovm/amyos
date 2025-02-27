@@ -50,20 +50,11 @@ If you want to install the image on a new system download and install Bazzite IS
 
 <https://download.bazzite.gg/bazzite-stable-amd64.iso>
 
-Once switched reboot and run:
-
-```bash
-ujust amy-init
-```
-
 ## Custom commands
 
 The following `ujust` commands are available:
 
 ```bash
-# Runs amy-install, amy-setup-editors and amy-clean
-ujust amy-init
-
 # Clean up old packages and Docker/Podman images and volumes
 ujust amy-clean
 

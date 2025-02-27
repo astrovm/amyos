@@ -322,6 +322,3 @@ amy-clean:
   sudo podman image prune -af
   sudo podman volume prune -f
   sudo -i nix-collect-garbage -d
-
-# Runs amy-install, amy-setup-editors and amy-clean
-amy-init: amy-install amy-setup-editors amy-clean
