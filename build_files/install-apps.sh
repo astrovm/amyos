@@ -19,7 +19,6 @@ declare -A RPM_PACKAGES=(
     bleachbit \
     coolercontrol \
     direnv \
-    eza \
     fd-find \
     filelight \
     fuse-btfs \
@@ -40,9 +39,7 @@ declare -A RPM_PACKAGES=(
     qemu-kvm \
     rclone \
     ripgrep \
-    starship \
     tealdeer \
-    thefuck \
     trash-cli \
     ugrep \
     virt-manager \
@@ -50,10 +47,7 @@ declare -A RPM_PACKAGES=(
     wireshark \
     yakuake \
     yq \
-    yt-dlp \
-    zoxide \
-    zsh-autosuggestions \
-    zsh"
+    yt-dlp"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
