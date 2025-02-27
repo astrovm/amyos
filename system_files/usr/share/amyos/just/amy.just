@@ -76,10 +76,14 @@ amy-install-nixpkgs:
     nixpkgs#nerd-fonts.ubuntu-sans
 
   echo "Installing Nix system drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE" nixpkgs#mesa.drivers
+  sudo -i nix profile install --profile "$OPENGL_PROFILE" \
+    nixpkgs#amdvlk \
+    nixpkgs#mesa.drivers
 
   echo "Installing Nix system 32-bit drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#pkgsi686Linux.mesa.drivers
+  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" \
+    nixpkgs#driversi686Linux.amdvlk \
+    nixpkgs#driversi686Linux.mesa.drivers
 
   echo "Setting up drivers symlink..."
   printf "L+ /run/opengl-driver - - - - $OPENGL_PROFILE\nL+ /run/opengl-driver-32 - - - - $OPENGL_PROFILE_32\n" | sudo tee "$TMPFILES_DIR/$OPENGL_CONF" >/dev/null
