@@ -94,7 +94,7 @@ ujust amy-ssd-crypto
 
 GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flathub.org/) and installed with `flatpak install ...`.
 
-CLI and GUI apps are available from [Nix](https://search.nixos.org/packages) using `nix profile install nixpkgs#...`.
+CLI apps are available from [Nix](https://search.nixos.org/packages) using `nix profile install nixpkgs#...` or setting up Home Manager with `ujust amy-setup-home` and changing `~/.config/home-manager/home.nix` packages list. GUI apps usually work fine too.
 
 [Homebrew](https://formulae.brew.sh/) is also available for installing CLI apps with `brew install ...`.
 
