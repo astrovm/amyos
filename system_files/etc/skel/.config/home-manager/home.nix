@@ -18,6 +18,7 @@
       glab
       john
       magic-wormhole-rs
+      nerd-fonts.hack
       nixfmt-rfc-style
       shellcheck
       shfmt
