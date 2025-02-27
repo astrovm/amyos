@@ -27,11 +27,12 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Audacious with Winamp skins
 - Brave Browser
 - Cloudflare WARP
-- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages) and [Nix packages](https://github.com/astrovm/amyos/blob/main/repo_files/nixpkgs.json)
+- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks) and [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages)
 - DNS over TLS, DNSSEC and MAC address randomization enabled
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
-- Ghostty terminal, Starship shell prompt, `fuck` alias and Atuin history search (Ctrl+R)
+- Ghostty terminal, Starship prompt, Zsh, `fuck` alias and Atuin history search (Ctrl+R)
+- Nix with GPU drivers symlink and Home Manager custom config
 - OpenRGB and CoolerControl
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager, libvirt and QEMU
