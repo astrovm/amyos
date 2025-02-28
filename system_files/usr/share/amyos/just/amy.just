@@ -69,24 +69,17 @@ amy-install-nixpkgs:
   command -v nix &>/dev/null || ujust amy-setup-nix
 
   echo "Installing Nix system fonts..."
-  sudo -i nix profile install \
-    nixpkgs#nerd-fonts.hack \
-    nixpkgs#nerd-fonts.ubuntu \
-    nixpkgs#nerd-fonts.ubuntu-mono \
-    nixpkgs#nerd-fonts.ubuntu-sans
+  sudo -i nix profile install nixpkgs#nerd-fonts.{hack,ubuntu,ubuntu-mono,ubuntu-sans}
 
   echo "Installing Nix system drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE" \
-    nixpkgs#amdvlk \
-    nixpkgs#mesa.drivers
+  sudo -i nix profile install --profile "$OPENGL_PROFILE" nixpkgs#{amdvlk,mesa.drivers}
 
   echo "Installing Nix system 32-bit drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" \
-    nixpkgs#driversi686Linux.amdvlk \
-    nixpkgs#driversi686Linux.mesa.drivers
+  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#driversi686Linux.{amdvlk,mesa.drivers}
 
   echo "Setting up drivers symlink..."
-  printf "L+ /run/opengl-driver - - - - $OPENGL_PROFILE\nL+ /run/opengl-driver-32 - - - - $OPENGL_PROFILE_32\n" | sudo tee "$TMPFILES_DIR/$OPENGL_CONF" >/dev/null
+  sudo rm -f "$TMPFILES_DIR/$OPENGL_CONF"
+  printf "L+ /run/opengl-driver - - - - %s\nL+ /run/opengl-driver-32 - - - - %s\n" "$OPENGL_PROFILE" "$OPENGL_PROFILE_32" | sudo tee "$TMPFILES_DIR/$OPENGL_CONF"
   sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
 
   echo "Nix packages installation complete."
