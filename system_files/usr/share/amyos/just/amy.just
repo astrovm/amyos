@@ -125,11 +125,6 @@ amy-setup-home:
   # Create config directory if it doesn't exist
   mkdir -p "$HM_CONFIG_DIR"
 
-  # Function to check if files are identical
-  files_identical() {
-    cmp -s "$1" "$2"
-  }
-
   # Check and handle each config file
   for file in "${CONFIG_FILES[@]}"; do
     user_file="${HM_CONFIG_DIR}/${file}"
@@ -138,12 +133,10 @@ amy-setup-home:
     if [ ! -f "$user_file" ]; then
       echo "Copying $file from skeleton..."
       cp "$skel_file" "$user_file"
-    else
-      if ! files_identical "$user_file" "$skel_file"; then
-        echo "Warning: $file exists and differs from skeleton file."
-        echo "Please manually merge your changes or backup and remove the file to use defaults."
-        exit 1
-      fi
+    elif ! cmp -s "$user_file" "$skel_file"; then
+      echo "Warning: $file exists and differs from skeleton file."
+      echo "Please manually merge your changes or backup and remove the file to use defaults."
+      exit 1
     fi
   done
 
@@ -155,7 +148,7 @@ amy-setup-home:
   # Prompt for Git configuration
   read -p "Enter your Git user name: " git_name
   read -p "Enter your Git email: " git_email
-  sed -i "/gitConfig = {/,/};/c\  gitConfig = {\n    userName = \"$git_name\";\n    userEmail = \"$git_email\";\n  };" "$HM_CONFIG_DIR/user.nix"
+  sed -i "/gitConfig = {/,/};/c\\  gitConfig = {\n    userName = \"$git_name\";\n    userEmail = \"$git_email\";\n  };" "$HM_CONFIG_DIR/user.nix"
 
   # Initialize and switch to the new configuration
   nix run home-manager/release-24.11 -- init --switch "$HM_CONFIG_DIR"
