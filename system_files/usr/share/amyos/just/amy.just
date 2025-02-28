@@ -61,8 +61,7 @@ amy-install-nixpkgs:
   NIX_DAEMON_SCRIPT="$NIX_PROFILE/etc/profile.d/nix-daemon.sh"
   OPENGL_PROFILE="/nix/var/nix/profiles/opengl-driver"
   OPENGL_PROFILE_32="/nix/var/nix/profiles/opengl-driver-32"
-  OPENGL_CONF="nix-opengl-driver.conf"
-  TMPFILES_DIR="/etc/tmpfiles.d"
+  OPENGL_SYMLINK_CONF="/etc/tmpfiles.d/nix-opengl-driver.conf"
 
   # Source Nix daemon if available
   [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
@@ -78,9 +77,9 @@ amy-install-nixpkgs:
   sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#driversi686Linux.{amdvlk,mesa.drivers}
 
   echo "Setting up drivers symlink..."
-  sudo rm -f "$TMPFILES_DIR/$OPENGL_CONF"
-  printf "L+ /run/opengl-driver - - - - %s\nL+ /run/opengl-driver-32 - - - - %s\n" "$OPENGL_PROFILE" "$OPENGL_PROFILE_32" | sudo tee "$TMPFILES_DIR/$OPENGL_CONF"
-  sudo systemd-tmpfiles --create "$TMPFILES_DIR/$OPENGL_CONF"
+  sudo rm -f "$OPENGL_SYMLINK_CONF"
+  printf "L+ /run/opengl-driver - - - - %s\nL+ /run/opengl-driver-32 - - - - %s\n" "$OPENGL_PROFILE" "$OPENGL_PROFILE_32" | sudo tee "$OPENGL_SYMLINK_CONF"
+  sudo systemd-tmpfiles --create "$OPENGL_SYMLINK_CONF"
 
   echo "Nix packages installation complete."
 
