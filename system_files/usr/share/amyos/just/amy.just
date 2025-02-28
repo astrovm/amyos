@@ -149,14 +149,13 @@ amy-setup-home:
 
   # Configure user.nix
   echo "Configuring user settings..."
-  sed -i "s/userName = \"\"/userName = \"$USER\"/" "$HM_CONFIG_DIR/user.nix"
+  sed -i "0,/userName = \"\"/s//userName = \"$USER\"/" "$HM_CONFIG_DIR/user.nix"
   sed -i "s|homeDirectory = \"\"|homeDirectory = \"$REAL_HOME\"|" "$HM_CONFIG_DIR/user.nix"
 
   # Prompt for Git configuration
   read -p "Enter your Git user name: " git_name
   read -p "Enter your Git email: " git_email
-  sed -i "s/userName = \"\"/userName = \"$git_name\"/" "$HM_CONFIG_DIR/user.nix"
-  sed -i "s/userEmail = \"\"/userEmail = \"$git_email\"/" "$HM_CONFIG_DIR/user.nix"
+  sed -i "/gitConfig = {/,/};/c\  gitConfig = {\n    userName = \"$git_name\";\n    userEmail = \"$git_email\";\n  };" "$HM_CONFIG_DIR/user.nix"
 
   # Initialize and switch to the new configuration
   nix run home-manager/release-24.11 -- init --switch "$HM_CONFIG_DIR"
