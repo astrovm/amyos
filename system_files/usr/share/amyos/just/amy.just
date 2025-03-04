@@ -524,7 +524,7 @@ amy-setup-samods:
       fi
 
       # Extract directly to the mods directory
-      7z x "${temp_mod_file}" -o"${MODS_DIR}" -y &>/dev/null
+      7z x "${temp_mod_file}" -o"${MODS_DIR}" -y
       if [ $? -ne 0 ]; then
         echo "  ⚠️ Failed to extract ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
@@ -532,7 +532,7 @@ amy-setup-samods:
       fi
 
       echo "  ✓ ${mod_name} installed successfully."
-      let success_count+=1
+      success_count+=1
     done
 
     echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
