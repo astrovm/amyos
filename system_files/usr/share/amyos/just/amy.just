@@ -509,7 +509,7 @@ amy-setup-samods:
     for mod_name in "${!MODS[@]}"; do
       echo "- Installing ${mod_name}..."
       local mod_id="${MODS[${mod_name}]}"
-      local temp_mod_dir="${TEMP_DIR}/${mod_name}"
+      local temp_mod_dir="${TEMP_DIR}/${mod_name// /_}"
       local download_url="https://gamebanana.com/mmdl/${mod_id}"
 
       mkdir -p "${temp_mod_dir}"
@@ -543,7 +543,7 @@ amy-setup-samods:
 
       if $extract_success; then
         echo "  ✓ ${mod_name} installed successfully."
-        success_count+=1
+        success_count=$((success_count + 1))
       else
         echo "  ⚠️ Failed to extract ${downloaded_file}. Skipping."
         failed_mods+="${mod_name}, "
