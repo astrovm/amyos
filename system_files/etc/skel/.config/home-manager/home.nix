@@ -16,7 +16,6 @@
       cmatrix
       croc
       devenv
-      direnv
       fd
       gh
       glab
@@ -121,6 +120,12 @@
       enable = true;
       enableZshIntegration = true;
       icons = "auto";
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
     };
 
     home-manager.enable = true;
