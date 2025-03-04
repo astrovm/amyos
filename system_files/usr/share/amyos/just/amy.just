@@ -346,6 +346,92 @@ amy-setup-sadx:
   echo "4. Click 'Save & Play' to start the game"
   echo -e "\nSetup complete! Enjoy playing SADX with mods!"
 
+# Setup Sonic Adventure 2 mods
+amy-setup-sa2:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up SA2 mods..."
+
+  # Install ProtonTricks if not installed
+  flatpak list | grep -q "com.github.Matoking.protontricks" || flatpak --system -y install com.github.Matoking.protontricks
+
+  # Install ProtonUp-Qt if not installed
+  flatpak list | grep -q "net.davidotek.pupgui2" || flatpak --system -y install net.davidotek.pupgui2
+
+  # Configure Steam directory access
+  flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
+
+  echo -e "\n=== Steam Configuration Steps ==="
+  echo "1. ProtonUp-Qt will now launch. Please install GE-Proton."
+  flatpak run net.davidotek.pupgui2 &>/dev/null
+
+  echo -e "\nIn Steam, configure Sonic Adventure 2:"
+  echo "1. Right-click the game → Properties"
+  echo "2. Enable 'Force the use of a specific Steam Play compatibility tool'"
+  echo "3. Select the GE-Proton version you just installed"
+  echo "4. Launch the game once and exit"
+  echo -e "\nPress Enter once you've completed these steps..."
+  read -p ""
+
+  # Find SA2 installation path
+  library_config="${HOME}/.steam/steam/steamapps/libraryfolders.vdf"
+  SA2_DIR=""
+  if [ -f "$library_config" ]; then
+    while IFS= read -r line; do
+      if [[ $line =~ \"path\"[[:space:]]*\"([^\"]+)\" ]]; then
+        possible_path="${BASH_REMATCH[1]}/steamapps/common/Sonic Adventure 2"
+        if [ -d "$possible_path" ]; then
+          SA2_DIR="$possible_path"
+          # Add Flatpak override for the Steam library
+          flatpak override --user --filesystem="${BASH_REMATCH[1]}" com.github.Matoking.protontricks
+          break
+        fi
+      fi
+    done <"$library_config"
+  fi
+  [ -z "$SA2_DIR" ] && {
+    echo "Error: Could not find SA2 installation. Please launch the game first."
+    exit 1
+  }
+
+  # Create temp directory for downloads
+  TEMP_DIR=$(mktemp -d)
+  trap 'rm -rf "$TEMP_DIR"' EXIT
+
+  # Download SA Mod Manager
+  echo -e "\nDownloading SA Mod Manager..."
+  MOD_MANAGER_ZIP="$TEMP_DIR/SAModManager.zip"
+  MOD_MANAGER_DIR="$TEMP_DIR/SAModManager"
+  mkdir -p "$MOD_MANAGER_DIR"
+
+  # Get the latest release URL
+  LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/X-Hax/SA-Mod-Manager/releases/latest |
+                      grep "browser_download_url.*release_x64.zip" |
+                      cut -d '"' -f 4)
+
+  curl --retry 3 -Lo "$MOD_MANAGER_ZIP" "$LATEST_RELEASE_URL"
+
+  # Extract the mod manager
+  unzip -q "$MOD_MANAGER_ZIP" -d "$MOD_MANAGER_DIR"
+
+  # Copy mod manager to game directory
+  echo "Installing SA Mod Manager to game directory..."
+  cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"
+  mv "$SA2_DIR"/Launcher.exe "$SA2_DIR"/Launcher.exe.bak
+  cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
+
+  # Install .NET Desktop Runtime 8 for the mod manager
+  echo -e "\nInstalling .NET Desktop Runtime 8..."
+  flatpak run com.github.Matoking.protontricks 213610 dotnetdesktop8 &>/dev/null
+
+  echo -e "\n=== Final Configuration Steps ==="
+  echo "1. Launch SA2"
+  echo "2. The SA Mod Manager should start automatically"
+  echo "3. Configure your desired mods in the manager"
+  echo "4. Click 'Save and Play' to start the game with mods"
+  echo -e "\nSetup complete! Enjoy playing SA2 with mods!"
+
 # Clean up old packages and Docker/Podman images and volumes
 amy-clean:
   #!/usr/bin/env bash
