@@ -282,177 +282,134 @@ amy-setup-samods:
   STEAM_CONFIG="${HOME}/.steam/steam/steamapps/libraryfolders.vdf"
   SADX_APPID="71250"
   SA2_APPID="213610"
-  MOD_MANAGER_ZIP="$TEMP_DIR/SAModManager.zip"
 
   # Cleanup function
-  cleanup() {
-    echo "Cleaning up temporary files..."
-    rm -rf "$TEMP_DIR"
-  }
-  trap cleanup EXIT
+  trap 'rm -rf "$TEMP_DIR"' EXIT
 
-  # Function to show a spinner during long operations
-  spinner() {
-    local pid=$1
-    local delay=0.1
-    local spinstr='|/-\'
-    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-      local temp=${spinstr#?}
-      printf " [%c]  " "$spinstr"
-      local spinstr=$temp${spinstr%"$temp"}
-      sleep $delay
-      printf "\b\b\b\b\b\b"
-    done
-    printf "    \b\b\b\b"
+  # Install required tools
+  install_dependencies() {
+    echo "Installing required tools..."
+    flatpak list | grep -q "com.github.Matoking.protontricks" ||
+      flatpak --system -y install com.github.Matoking.protontricks
+    flatpak list | grep -q "net.davidotek.pupgui2" ||
+      flatpak --system -y install net.davidotek.pupgui2
+    flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
   }
 
-  # Function to check if a command exists
-  check_command() {
-    command -v "$1" &>/dev/null
-  }
-
-  # Display game selection menu
-  echo "===== Sonic Adventure Mod Setup ====="
-  echo "Select which game(s) to set up:"
-  echo "1) Sonic Adventure DX only"
-  echo "2) Sonic Adventure 2 only"
-  echo "3) Both games"
-  echo ""
-
-  # Get user selection with input validation
-  while true; do
-    read -p "Enter your choice (1-3): " choice
-    case "$choice" in
-      1) game="sadx"; break ;;
-      2) game="sa2"; break ;;
-      3) game="both"; break ;;
-      *) echo "Invalid choice. Please enter 1, 2, or 3." ;;
-    esac
-  done
-
-  # Function to find game installation path
+  # Find game installation path
   find_game_dir() {
     local game_path="$1"
-    local game_dir=""
 
     if [ -f "$STEAM_CONFIG" ]; then
       while IFS= read -r line; do
         if [[ $line =~ \"path\"[[:space:]]*\"([^\"]+)\" ]]; then
           possible_path="${BASH_REMATCH[1]}/steamapps/common/$game_path"
           if [ -d "$possible_path" ]; then
-            game_dir="$possible_path"
-            # Add Flatpak override for the Steam library
             flatpak override --user --filesystem="${BASH_REMATCH[1]}" com.github.Matoking.protontricks
-            break
+            echo "$possible_path"
+            return 0
           fi
         fi
       done < "$STEAM_CONFIG"
     fi
-
-    echo "$game_dir"
+    echo ""
   }
 
-  # Function to install required tools
-  install_dependencies() {
-    echo "Checking and installing required tools..."
+  # Handle game setup
+  setup_game() {
+    local game_type="$1"
+    local game_name="Sonic Adventure ${game_type^^}"
+    local game_path="Sonic Adventure ${game_type^^}"
+    local appid="${game_type^^}_APPID"
 
-    local dependencies_needed=false
+    echo -e "\n===== $game_name Setup ====="
 
-    if ! flatpak list | grep -q "com.github.Matoking.protontricks"; then
-      echo "- Protontricks needs to be installed"
-      dependencies_needed=true
-    fi
+    # Find game installation
+    echo "Looking for $game_name installation..."
+    GAME_DIR=$(find_game_dir "$game_path")
 
-    if ! flatpak list | grep -q "net.davidotek.pupgui2"; then
-      echo "- ProtonUp-Qt needs to be installed"
-      dependencies_needed=true
-    fi
-
-    if [ "$dependencies_needed" = true ]; then
-      echo "Installing required tools..."
-      flatpak --system -y install com.github.Matoking.protontricks net.davidotek.pupgui2
-    else
-      echo "All required tools are already installed."
-    fi
-
-    # Configure Steam directory access
-    flatpak override --user --filesystem="${HOME}/.local/share/Steam" com.github.Matoking.protontricks
-  }
-
-  # Function to setup SADX
-  setup_sadx() {
-    echo -e "\n===== Sonic Adventure DX Setup ====="
-
-    # Find SADX installation path
-    echo "Looking for SADX installation..."
-    SADX_DIR=$(find_game_dir "Sonic Adventure DX")
-    if [ -z "$SADX_DIR" ]; then
-      echo "⚠️  Could not find SADX installation."
-      echo "Please make sure you've installed the game through Steam and launched it at least once."
-      echo "Would you like to continue with the setup anyway? (y/n)"
+    if [ -z "$GAME_DIR" ]; then
+      echo "⚠️ Could not find $game_name installation."
+      echo "Would you like to enter the path manually? (y/n)"
       read -r response
       if [[ ! "$response" =~ ^[Yy]$ ]]; then
-        echo "Skipping SADX setup."
+        echo "Skipping $game_name setup."
         return 1
       fi
 
-      echo "Please enter the full path to your SADX installation:"
-      read -r SADX_DIR
-      if [ ! -d "$SADX_DIR" ]; then
-        echo "❌ Invalid directory. Skipping SADX setup."
+      echo "Enter the full path to your $game_name installation:"
+      read -r GAME_DIR
+      if [ ! -d "$GAME_DIR" ]; then
+        echo "❌ Invalid directory. Skipping setup."
         return 1
       fi
     fi
 
-    echo "✓ Found SADX at: $SADX_DIR"
+    echo "✓ Found $game_name at: $GAME_DIR"
 
-    # Steam configuration instruction
+    # Steam configuration steps
     echo -e "\n[Steam Configuration]"
-    echo "1. Right-click Sonic Adventure DX in Steam → Properties"
-    echo "2. Add to Launch Options: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
-    echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
-    echo "4. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
+    if [ "$game_type" = "dx" ]; then
+      echo "1. Right-click $game_name in Steam → Properties"
+      echo "2. Add to Launch Options: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
+      echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
+      echo "4. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
+    else  # SA2
+      echo "1. Right-click $game_name in Steam → Properties"
+      echo "2. Enable 'Force the use of a specific Steam Play compatibility tool'"
+      echo "3. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
+    fi
     echo "5. Launch the game once and exit"
 
     # Offer to launch ProtonUp-Qt
     echo -e "\nDo you want to launch ProtonUp-Qt to install GE-Proton? (y/n)"
     read -r launch_protonup
     if [[ "$launch_protonup" =~ ^[Yy]$ ]]; then
-      echo "Launching ProtonUp-Qt..."
       flatpak run net.davidotek.pupgui2
     fi
 
     echo -e "\nHave you completed the Steam configuration steps? (y/n)"
     read -r config_done
     if [[ ! "$config_done" =~ ^[Yy]$ ]]; then
-      echo "Please complete Steam configuration before continuing."
       echo "You can run this command again later to continue setup."
       return 1
     fi
 
-    # Download and run mod installer
-    echo -e "\nDownloading SADX mod installer..."
-    installer="${SADX_DIR}/sadx_setup.exe"
-    curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe" || {
-      echo "❌ Failed to download mod installer. Please check your internet connection."
-      return 1
-    }
-    echo "✓ Downloaded mod installer"
-
     # Install .NET Runtime
     echo "Installing .NET Desktop Runtime 8..."
-    flatpak run com.github.Matoking.protontricks $SADX_APPID dotnetdesktop8 &>/dev/null
+    flatpak run com.github.Matoking.protontricks ${!appid} dotnetdesktop8 &>/dev/null
     echo "✓ .NET Runtime installed"
 
+    # Game-specific setup
+    if [ "$game_type" = "dx" ]; then
+      setup_sadx "$GAME_DIR"
+    else
+      setup_sa2 "$GAME_DIR"
+    fi
+
+    return 0
+  }
+
+  # SADX-specific setup
+  setup_sadx() {
+    local SADX_DIR="$1"
+
+    # Download mod installer
+    echo -e "\nDownloading SADX mod installer..."
+    local installer="${SADX_DIR}/sadx_setup.exe"
+    if ! curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"; then
+      echo "❌ Failed to download mod installer. Check your internet connection."
+      return 1
+    fi
+    echo "✓ Downloaded mod installer"
+
     # Convert path to Windows format
-    WIN_PATH="Z:${SADX_DIR//\//\\}"
+    local WIN_PATH="Z:${SADX_DIR//\//\\}"
 
     echo -e "\n[Mod Installation]"
     echo "When the SADX Mod Installer launches:"
     echo "1. Use this path as the Destination Folder: ${WIN_PATH}"
     echo "2. Select the mods you want to install (recommended: all)"
-    echo "3. Complete the installation"
-    echo -e "\nLaunching mod installer..."
 
     flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid $SADX_APPID "$installer" &>/dev/null
 
@@ -460,193 +417,54 @@ amy-setup-samods:
     echo "1. Launch SADX and select 'Configure'"
     echo "2. Navigate to: Mods → Game Config → Graphics"
     echo "3. Set your display and resolution settings"
-    echo "4. Click 'Save & Play' to start the game"
 
     echo -e "\n✅ SADX setup complete! Enjoy playing with mods!"
   }
 
-  # Function to setup SA2
+  # SA2-specific setup
   setup_sa2() {
-    echo -e "\n===== Sonic Adventure 2 Setup ====="
-
-    # Find SA2 installation path
-    echo "Looking for SA2 installation..."
-    SA2_DIR=$(find_game_dir "Sonic Adventure 2")
-    if [ -z "$SA2_DIR" ]; then
-      echo "⚠️  Could not find SA2 installation."
-      echo "Please make sure you've installed the game through Steam and launched it at least once."
-      echo "Would you like to continue with the setup anyway? (y/n)"
-      read -r response
-      if [[ ! "$response" =~ ^[Yy]$ ]]; then
-        echo "Skipping SA2 setup."
-        return 1
-      fi
-
-      echo "Please enter the full path to your SA2 installation:"
-      read -r SA2_DIR
-      if [ ! -d "$SA2_DIR" ]; then
-        echo "❌ Invalid directory. Skipping SA2 setup."
-        return 1
-      fi
-    fi
-
-    echo "✓ Found SA2 at: $SA2_DIR"
-
-    # Steam configuration instruction
-    echo -e "\n[Steam Configuration]"
-    echo "1. Right-click Sonic Adventure 2 in Steam → Properties"
-    echo "2. Enable 'Force the use of a specific Steam Play compatibility tool'"
-    echo "3. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
-    echo "4. Launch the game once and exit"
-
-    # Offer to launch ProtonUp-Qt
-    echo -e "\nDo you want to launch ProtonUp-Qt to install GE-Proton? (y/n)"
-    read -r launch_protonup
-    if [[ "$launch_protonup" =~ ^[Yy]$ ]]; then
-      echo "Launching ProtonUp-Qt..."
-      flatpak run net.davidotek.pupgui2
-    fi
-
-    echo -e "\nHave you completed the Steam configuration steps? (y/n)"
-    read -r config_done
-    if [[ ! "$config_done" =~ ^[Yy]$ ]]; then
-      echo "Please complete Steam configuration before continuing."
-      echo "You can run this command again later to continue setup."
-      return 1
-    fi
+    local SA2_DIR="$1"
 
     # Create mods directory
-    MODS_DIR="${SA2_DIR}/mods"
+    local MODS_DIR="${SA2_DIR}/mods"
     mkdir -p "$MODS_DIR"
 
     # Download SA Mod Manager
     echo -e "\nDownloading SA Mod Manager..."
-    MOD_MANAGER_DIR="$TEMP_DIR/SAModManager"
+    local MOD_MANAGER_DIR="$TEMP_DIR/SAModManager"
     mkdir -p "$MOD_MANAGER_DIR"
 
     # Get the latest release URL
-    LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/X-Hax/SA-Mod-Manager/releases/latest |
+    local LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/X-Hax/SA-Mod-Manager/releases/latest |
                         grep "browser_download_url.*release_x64.zip" |
                         cut -d '"' -f 4)
 
-    curl --retry 3 -Lo "$MOD_MANAGER_ZIP" "$LATEST_RELEASE_URL" || {
-      echo "❌ Failed to download SA Mod Manager. Please check your internet connection."
+    local MOD_MANAGER_ZIP="$TEMP_DIR/SAModManager.zip"
+    if ! curl --retry 3 -Lo "$MOD_MANAGER_ZIP" "$LATEST_RELEASE_URL"; then
+      echo "❌ Failed to download SA Mod Manager. Check your internet connection."
       return 1
-    }
+    fi
 
-    # Extract the mod manager
+    # Extract and install mod manager
     echo "Installing SA Mod Manager..."
-    unzip -q "$MOD_MANAGER_ZIP" -d "$MOD_MANAGER_DIR" || {
-      echo "❌ Failed to extract SA Mod Manager."
+    if ! unzip -q "$MOD_MANAGER_ZIP" -d "$MOD_MANAGER_DIR" ||
+       ! cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"; then
+      echo "❌ Failed to install SA Mod Manager."
       return 1
-    }
-
-    # Copy mod manager to game directory
-    cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR" || {
-      echo "❌ Failed to copy SA Mod Manager to game directory."
-      return 1
-    }
+    fi
 
     # Backup original launcher and replace with mod manager
     if [ -f "$SA2_DIR"/Launcher.exe ]; then
       mv "$SA2_DIR"/Launcher.exe "$SA2_DIR"/Launcher.exe.bak
     fi
     cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
-
     echo "✓ SA Mod Manager installed"
-
-    # Install .NET Runtime
-    echo "Installing .NET Desktop Runtime 8..."
-    flatpak run com.github.Matoking.protontricks $SA2_APPID dotnetdesktop8 &>/dev/null
-    echo "✓ .NET Runtime installed"
 
     # Ask if user wants to install recommended mods
     echo -e "\nWould you like to install recommended mods? (y/n)"
     read -r install_mods
     if [[ "$install_mods" =~ ^[Yy]$ ]]; then
-      # Define mods to install with their GameBanana IDs
-      declare -A MODS=(
-        ["SA2 Render Fix"]="452445"
-        ["Cutscene Revamp"]="48872"
-        ["Retranslated Story -COMPLETE-"]="437858"
-        ["HD GUI: SA2 Edition"]="33171"
-        ["IMPRESSive"]="469542"
-        ["Stage Atmosphere Tweaks"]="407838"
-        ["SA2 Volume Controls"]="381193"
-        ["Mech Sound Improvement"]="412706"
-        ["SA2 Input Controls"]="515637"
-        ["Better Radar"]="313161"
-        ["HedgePanel - Sonic + Shadow Tweaks"]="48950"
-        ["Sonic: New Tricks"]="48941"
-        ["Retranslated Hints"]="350607"
-      )
-
-      echo -e "\nDownloading and installing recommended mods..."
-      echo "This may take a while, depending on your internet connection."
-
-      # Function to download and install a mod
-      download_mod() {
-        local mod_name="$1"
-        local mod_id="$2"
-        local mod_dir="${MODS_DIR}/${mod_name}"
-        local temp_mod_dir="${TEMP_DIR}/${mod_name}"
-        local temp_mod_file="${temp_mod_dir}/mod_file"
-        local download_page="https://gamebanana.com/mods/download/${mod_id}"
-
-        echo "- Installing ${mod_name}..."
-        mkdir -p "${temp_mod_dir}"
-        mkdir -p "${mod_dir}"
-
-        # Get the download page
-        wget --timeout=30 --tries=3 -q --save-cookies="${temp_mod_dir}/cookies.txt" \
-             --keep-session-cookies -O "${temp_mod_dir}/download_page.html" "${download_page}" || {
-          echo "  ⚠️ Failed to access download page for ${mod_name}. Skipping."
-          return 1
-        }
-
-        # Extract the download link
-        download_link=$(grep -o 'href="https://gamebanana.com/dl/[^"]*' "${temp_mod_dir}/download_page.html" | head -1 | cut -d'"' -f2)
-
-        if [ -z "$download_link" ]; then
-          echo "  ⚠️ Failed to find download link for ${mod_name}. Skipping."
-          return 1
-        }
-
-        # Download the mod file
-        wget --timeout=30 --tries=3 -q --load-cookies="${temp_mod_dir}/cookies.txt" \
-             --keep-session-cookies -O "${temp_mod_file}" "${download_link}" || {
-          echo "  ⚠️ Failed to download ${mod_name}. Skipping."
-          return 1
-        }
-
-        # Extract the mod
-        7z x "${temp_mod_file}" -o"${mod_dir}" -y &>/dev/null || {
-          echo "  ⚠️ Failed to extract ${mod_name}. Skipping."
-          return 1
-        }
-
-        echo "  ✓ ${mod_name} installed successfully."
-        return 0
-      }
-
-      # Install each mod
-      success_count=0
-      failed_mods=""
-
-      for mod_name in "${!MODS[@]}"; do
-        if download_mod "${mod_name}" "${MODS[${mod_name}]}"; then
-          ((success_count++))
-        else
-          failed_mods+="${mod_name}, "
-        fi
-      done
-
-      echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
-
-      if [ -n "$failed_mods" ]; then
-        echo "⚠️ Failed to install: ${failed_mods%, }"
-        echo "You can manually download these mods from GameBanana."
-      fi
+      install_sa2_mods "$MODS_DIR"
     else
       echo "Skipping mod installation."
     fi
@@ -657,33 +475,118 @@ amy-setup-samods:
     echo "3. For SA2 Input Controls, set deadzone to 5%"
     echo "4. For Retranslated Story, set audio to Japanese in the game's menu"
     echo "5. Place 'Stage Atmosphere Tweaks' at the bottom of your mod list"
-    echo "6. Click 'Save and Play' to start the game with mods"
 
     echo -e "\n✅ SA2 setup complete! Enjoy playing with mods!"
   }
 
-  # Main script execution - this will use the selected game from the menu
+  # Install recommended SA2 mods
+  install_sa2_mods() {
+    local MODS_DIR="$1"
+
+    # Define mods to install with their GameBanana IDs
+    declare -A MODS=(
+      ["SA2 Render Fix"]="452445"
+      ["Cutscene Revamp"]="48872"
+      ["Retranslated Story -COMPLETE-"]="437858"
+      ["HD GUI: SA2 Edition"]="33171"
+      ["IMPRESSive"]="469542"
+      ["Stage Atmosphere Tweaks"]="407838"
+      ["SA2 Volume Controls"]="381193"
+      ["Mech Sound Improvement"]="412706"
+      ["SA2 Input Controls"]="515637"
+      ["Better Radar"]="313161"
+      ["HedgePanel - Sonic + Shadow Tweaks"]="48950"
+      ["Sonic: New Tricks"]="48941"
+      ["Retranslated Hints"]="350607"
+    )
+
+    echo -e "\nDownloading and installing recommended mods..."
+    echo "This may take a while, depending on your internet connection."
+
+    local success_count=0
+    local failed_mods=""
+
+    for mod_name in "${!MODS[@]}"; do
+      echo "- Installing ${mod_name}..."
+      local mod_id="${MODS[${mod_name}]}"
+      local mod_dir="${MODS_DIR}/${mod_name}"
+      local temp_mod_dir="${TEMP_DIR}/${mod_name}"
+      local temp_mod_file="${temp_mod_dir}/mod_file"
+      local download_page="https://gamebanana.com/mods/download/${mod_id}"
+
+      mkdir -p "${temp_mod_dir}" "${mod_dir}"
+
+      # Get the download page and extract download link
+      if ! wget --timeout=30 --tries=3 -q --save-cookies="${temp_mod_dir}/cookies.txt" \
+           --keep-session-cookies -O "${temp_mod_dir}/download_page.html" "${download_page}" ||
+         ! download_link=$(grep -o 'href="https://gamebanana.com/dl/[^"]*' "${temp_mod_dir}/download_page.html" |
+                          head -1 | cut -d'"' -f2) ||
+         [ -z "$download_link" ]; then
+        echo "  ⚠️ Failed to find download for ${mod_name}. Skipping."
+        failed_mods+="${mod_name}, "
+        continue
+      fi
+
+      # Download and extract the mod
+      if ! wget --timeout=30 --tries=3 -q --load-cookies="${temp_mod_dir}/cookies.txt" \
+           --keep-session-cookies -O "${temp_mod_file}" "${download_link}" ||
+         ! 7z x "${temp_mod_file}" -o"${mod_dir}" -y &>/dev/null; then
+        echo "  ⚠️ Failed to install ${mod_name}. Skipping."
+        failed_mods+="${mod_name}, "
+        continue
+      fi
+
+      echo "  ✓ ${mod_name} installed successfully."
+      ((success_count++))
+    done
+
+    echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
+
+    if [ -n "$failed_mods" ]; then
+      echo "⚠️ Failed to install: ${failed_mods%, }"
+      echo "You can manually download these mods from GameBanana."
+    fi
+  }
+
+  # Display game selection menu
+  echo "===== Sonic Adventure Mod Setup ====="
+  echo "Select which game(s) to set up:"
+  echo "1) Sonic Adventure DX only"
+  echo "2) Sonic Adventure 2 only"
+  echo "3) Both games"
+
+  # Get user selection
+  select_game() {
+    local valid=false
+    local choice
+
+    until $valid; do
+      read -p "Enter your choice (1-3): " choice
+      case "$choice" in
+        1) echo "sadx"; valid=true ;;
+        2) echo "sa2"; valid=true ;;
+        3) echo "both"; valid=true ;;
+        *) echo "Invalid choice. Please enter 1, 2, or 3." >&2 ;;
+      esac
+    done
+  }
+
+  game=$(select_game)
+
+  # Install dependencies
+  install_dependencies
+
+  # Process game selection
   case "$game" in
-    "sadx"|"dx"|"1")
-      echo "Setting up Sonic Adventure DX mods..."
-      install_dependencies
-      setup_sadx
+    "sadx")
+      setup_game "dx"
       ;;
-    "sa2"|"2")
-      echo "Setting up Sonic Adventure 2 mods..."
-      install_dependencies
-      setup_sa2
+    "sa2")
+      setup_game "sa2"
       ;;
-    "both"|"all")
-      echo "Setting up mods for both Sonic Adventure DX and Sonic Adventure 2..."
-      install_dependencies
-      setup_sadx
-      setup_sa2
-      ;;
-    *)
-      echo "❌ Invalid game selection: $game"
-      echo "Valid options: sadx, sa2, both"
-      exit 1
+    "both")
+      setup_game "dx"
+      setup_game "sa2"
       ;;
   esac
 
