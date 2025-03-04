@@ -554,9 +554,9 @@ amy-setup-samods:
   # Display game selection menu
   echo "===== Sonic Adventure Mod Setup ====="
   echo "Select which game(s) to set up:"
-  echo "1) Sonic Adventure DX only"
-  echo "2) Sonic Adventure 2 only"
-  echo "3) Both games"
+  echo "1. Sonic Adventure DX only"
+  echo "2. Sonic Adventure 2 only"
+  echo "3. Both games"
 
   # Get user selection
   select_game() {
