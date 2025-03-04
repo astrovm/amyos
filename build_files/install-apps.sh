@@ -12,17 +12,12 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
-    asciinema \
     audacity-freeworld \
-    bat \
     bchunk \
     bleachbit \
     coolercontrol \
-    direnv \
-    fd-find \
     filelight \
     fuse-btfs \
-    fzf \
     ghostty \
     gnome-disk-utility \
     gparted \
@@ -38,15 +33,10 @@ declare -A RPM_PACKAGES=(
     protobuf \
     qemu-kvm \
     rclone \
-    ripgrep \
-    tealdeer \
-    trash-cli \
-    ugrep \
     virt-manager \
     virt-viewer \
     wireshark \
     yakuake \
-    yq \
     yt-dlp"
 
   ["fedora-multimedia"]="\

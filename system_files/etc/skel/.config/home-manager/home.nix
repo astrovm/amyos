@@ -11,16 +11,25 @@
     homeDirectory = user.homeDirectory;
     stateVersion = "24.11";
     packages = with pkgs; [
+      asciinema
+      bat
       cmatrix
       croc
       devenv
+      direnv
+      fd
       gh
       glab
       john
       magic-wormhole-rs
       nixfmt-rfc-style
+      ripgrep
       shellcheck
       shfmt
+      tealdeer
+      trash-cli
+      ugrep
+      yq
     ];
     sessionVariables = {
       SHELL = "${pkgs.zsh}/bin/zsh";
@@ -91,6 +100,11 @@
       enable = true;
       enableZshIntegration = true;
       flags = [ "--disable-up-arrow" ];
+    };
+
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     zoxide = {
