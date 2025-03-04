@@ -365,7 +365,7 @@ amy-setup-samods:
     echo -e "\nDo you want to launch ProtonUp-Qt to install GE-Proton? (y/n)"
     read -r launch_protonup
     if [[ "$launch_protonup" =~ ^[Yy]$ ]]; then
-      flatpak run net.davidotek.pupgui2
+      flatpak run net.davidotek.pupgui2 &>/dev/null
     fi
 
     echo -e "\nHave you completed the Steam configuration steps? (y/n)"
@@ -447,7 +447,7 @@ amy-setup-samods:
 
     # Extract and install mod manager
     echo "Installing SA Mod Manager..."
-    if ! unzip -q "$MOD_MANAGER_ZIP" -d "$MOD_MANAGER_DIR" ||
+    if ! 7z x "$MOD_MANAGER_ZIP" -o"$MOD_MANAGER_DIR" -y &>/dev/null ||
        ! cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"; then
       echo "❌ Failed to install SA Mod Manager."
       return 1
