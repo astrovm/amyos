@@ -43,7 +43,7 @@ amy-install-appimages:
 
     # Download and install
     appimage="$DOWNLOAD_DIR/${name}.appimage"
-    if curl --retry 3 -Lo "$appimage" "$url" && chmod +x "$appimage" && flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
+    if aria2c --dir="$(dirname "$appimage")" --out="$(basename "$appimage")" --max-tries=3 --connect-timeout=30 "$url" && chmod +x "$appimage" && flatpak run it.mijorus.gearlever --integrate "$appimage" -y; then
       echo "$name installed successfully"
     else
       echo "Failed to install $name"
