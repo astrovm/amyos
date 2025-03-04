@@ -457,7 +457,7 @@ amy-setup-samods:
     if [ -f "$SA2_DIR"/Launcher.exe ]; then
       mv "$SA2_DIR"/Launcher.exe "$SA2_DIR"/Launcher.exe.bak
     fi
-    mv "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
+    mv "$SA2_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
     echo "✓ SA Mod Manager installed"
 
     # Ask if user wants to install recommended mods
@@ -508,23 +508,31 @@ amy-setup-samods:
 
     for mod_name in "${!MODS[@]}"; do
       echo "- Installing ${mod_name}..."
-      local mod_dir="${MODS_DIR}/${mod_name}"
+      local mod_id="${MODS[${mod_name}]}"
       local temp_mod_dir="${TEMP_DIR}/${mod_name}"
       local temp_mod_file="${temp_mod_dir}/mod_file"
-      local download_url="https://gamebanana.com/mmdl/${MODS[${mod_name}]}"
+      local download_url="https://gamebanana.com/mmdl/${mod_id}"
 
-      mkdir -p "${temp_mod_dir}" "${mod_dir}"
+      mkdir -p "${temp_mod_dir}"
 
-      # Download and extract the mod
-      if ! wget --timeout=30 --tries=3 -q -O "${temp_mod_file}" "${download_url}" ||
-         ! 7z x "${temp_mod_file}" -o"${mod_dir}" -y &>/dev/null; then
-        echo "  ⚠️ Failed to install ${mod_name}. Skipping."
+      # Download the mod
+      wget --timeout=30 --tries=3 -q -O "${temp_mod_file}" "${download_url}"
+      if [ $? -ne 0 ]; then
+        echo "  ⚠️ Failed to download ${mod_name}. Skipping."
+        failed_mods+="${mod_name}, "
+        continue
+      fi
+
+      # Extract directly to the mods directory
+      7z x "${temp_mod_file}" -o"${MODS_DIR}" -y &>/dev/null
+      if [ $? -ne 0 ]; then
+        echo "  ⚠️ Failed to extract ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
         continue
       fi
 
       echo "  ✓ ${mod_name} installed successfully."
-      ((success_count++))
+      let success_count+=1
     done
 
     echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
