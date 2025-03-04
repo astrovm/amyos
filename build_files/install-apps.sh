@@ -83,7 +83,10 @@ for repo in "${!RPM_PACKAGES[@]}"; do
   else
     # Handle regular packages
     [[ $repo != "fedora" ]] && enable_opt="--enable-repo=$repo" || enable_opt=""
-    dnf5 -y install $enable_opt "${pkg_array[@]}"
+    cmd=(dnf5 -y install)
+    [[ -n "$enable_opt" ]] && cmd+=("$enable_opt")
+    cmd+=("${pkg_array[@]}")
+    "${cmd[@]}"
   fi
 done
 
