@@ -510,29 +510,52 @@ amy-setup-samods:
       echo "- Installing ${mod_name}..."
       local mod_id="${MODS[${mod_name}]}"
       local temp_mod_dir="${TEMP_DIR}/${mod_name}"
-      local temp_mod_file="${temp_mod_dir}/mod_file"
       local download_url="https://gamebanana.com/mmdl/${mod_id}"
 
       mkdir -p "${temp_mod_dir}"
+      cd "${temp_mod_dir}" || continue
 
-      # Download the mod
-      wget --timeout=30 --tries=3 -q -O "${temp_mod_file}" "${download_url}"
-      if [ $? -ne 0 ]; then
+      # Download the mod with original filename using wget's --content-disposition flag
+      if ! wget --timeout=30 --tries=3 -q --content-disposition "${download_url}"; then
         echo "  ⚠️ Failed to download ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
+        cd - > /dev/null
         continue
       fi
 
-      # Extract directly to the mods directory
-      7z x "${temp_mod_file}" -o"${MODS_DIR}" -y
-      if [ $? -ne 0 ]; then
-        echo "  ⚠️ Failed to extract ${mod_name}. Skipping."
+      # Find the downloaded file (should be only one in the directory)
+      local downloaded_file=$(ls -1 | head -n 1)
+      if [ -z "$downloaded_file" ]; then
+        echo "  ⚠️ Failed to locate downloaded file for ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
+        cd - > /dev/null
         continue
       fi
 
-      echo "  ✓ ${mod_name} installed successfully."
-      success_count+=1
+      echo "  Downloaded as: ${downloaded_file}"
+
+      # Check if RAR file and handle accordingly
+      if [[ "$downloaded_file" == *.rar ]]; then
+        # For RAR files, try unrar if available
+        if command -v unrar &>/dev/null && unrar x -y "${downloaded_file}" "${MODS_DIR}" >/dev/null 2>&1; then
+          echo "  ✓ ${mod_name} installed successfully (using unrar)."
+          ((success_count++))
+        else
+          echo "  ⚠️ Failed to extract RAR file ${downloaded_file}. Install unrar for better RAR support."
+          failed_mods+="${mod_name}, "
+        fi
+      else
+        # For non-RAR files, use 7z
+        if 7z x "${downloaded_file}" -o"${MODS_DIR}" -y >/dev/null 2>&1; then
+          echo "  ✓ ${mod_name} installed successfully."
+          ((success_count++))
+        else
+          echo "  ⚠️ Failed to extract ${downloaded_file}. Skipping."
+          failed_mods+="${mod_name}, "
+        fi
+      fi
+
+      cd - > /dev/null
     done
 
     echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
@@ -541,6 +564,9 @@ amy-setup-samods:
       echo "⚠️ Failed to install: ${failed_mods%, }"
       echo "You can manually download these mods from GameBanana."
     fi
+
+    # Always return 0 to prevent script failure
+    return 0
   }
 
   # Display game selection menu
