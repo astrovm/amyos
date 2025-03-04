@@ -31,6 +31,8 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
+    p7zip-gui \
+    p7zip-plugins \
     protobuf \
     qemu-kvm \
     rclone \
@@ -97,12 +99,12 @@ systemctl enable docker.socket libvirtd.service
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
-curl --retry 3 -Lo "$GUI_DIR/cursor.appimage" "https://downloader.cursor.sh/linux/appImage/x64"
+aria2c --dir="$GUI_DIR" --out="cursor.appimage" --max-tries=3 --connect-timeout=30 "https://downloader.cursor.sh/linux/appImage/x64"
 chmod +x "$GUI_DIR/cursor.appimage"
 (cd "$GUI_DIR" && ./cursor.appimage --appimage-extract)
 chmod -R a+rX "$GUI_DIR/squashfs-root"
-cp -r "$GUI_DIR/squashfs-root/usr/share/icons/hicolor/"* /usr/share/icons/hicolor
-rm -r "$GUI_DIR/squashfs-root/usr/share/icons/hicolor"
+cp -r "$GUI_DIR/squashfs-root/usr/share/icons/"* /usr/share/icons
+rm -r "$GUI_DIR/squashfs-root/usr/share/icons"
 mkdir -p /usr/share/cursor/bin
 mv "$GUI_DIR/squashfs-root/"* /usr/share/cursor
 install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
@@ -111,7 +113,7 @@ ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
 log "Installing Cursor CLI"
 CLI_DIR="/tmp/cursor-cli"
 mkdir -p "$CLI_DIR"
-curl --retry 3 -Lo "$CLI_DIR/cursor-cli.tar.gz" "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
+aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
 ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
