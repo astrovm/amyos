@@ -24,6 +24,7 @@ declare -A RPM_PACKAGES=(
     gwenview \
     isoimagewriter \
     kcalc \
+    kgpg \
     ksystemlog \
     kvantum \
     libmicrodns \
