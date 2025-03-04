@@ -330,19 +330,8 @@ amy-setup-samods:
 
     if [ -z "$GAME_DIR" ]; then
       echo "⚠️ Could not find $game_name installation."
-      echo "Would you like to enter the path manually? (y/n)"
-      read -r response
-      if [[ ! "$response" =~ ^[Yy]$ ]]; then
-        echo "Skipping $game_name setup."
-        return 1
-      fi
-
-      echo "Enter the full path to your $game_name installation:"
-      read -r GAME_DIR
-      if [ ! -d "$GAME_DIR" ]; then
-        echo "❌ Invalid directory. Skipping setup."
-        return 1
-      fi
+      echo "Skipping $game_name setup."
+      return 1
     fi
 
     echo "✓ Found $game_name at: $GAME_DIR"
