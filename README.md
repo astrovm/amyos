@@ -32,12 +32,13 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
 - Ghostty terminal, Starship prompt, Zsh, `fuck` alias and Atuin history search (Ctrl+R)
-- Nix with GPU drivers symlink and Home Manager custom config
+- Nix package manager with GPU drivers symlink and custom Home Manager config
 - OpenRGB and CoolerControl
+- Sonic Adventure mods (SADX and SA2) setup script
 - Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager, libvirt and QEMU
 - VLC, mpv, HandBrake and Audacity
-- VSCode, Cursor with Remote Tunnels fixed, Neovim
+- VSCode, Cursor (with Remote Tunnels fixed), Neovim
 
 ## Install
 
