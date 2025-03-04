@@ -320,7 +320,7 @@ amy-setup-samods:
     local game_type="$1"
     local game_name="Sonic Adventure ${game_type^^}"
     local game_path="Sonic Adventure ${game_type^^}"
-    local appid="${game_type^^}_APPID"
+    local appid="SA${game_type^^}_APPID"
 
     echo -e "\n===== $game_name Setup ====="
 
@@ -582,11 +582,11 @@ amy-setup-samods:
       setup_game "dx"
       ;;
     "sa2")
-      setup_game "sa2"
+      setup_game "2"
       ;;
     "both")
       setup_game "dx"
-      setup_game "sa2"
+      setup_game "2"
       ;;
   esac
 
