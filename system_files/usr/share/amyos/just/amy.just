@@ -443,7 +443,7 @@ amy-setup-samods:
     fi
 
     # Backup original launcher and replace with mod manager
-    if [ -f "$SA2_DIR"/Launcher.exe ]; then
+    if [ -f "$SA2_DIR"/Launcher.exe ] && [ ! -f "$SA2_DIR"/Launcher.exe.bak ]; then
       mv "$SA2_DIR"/Launcher.exe "$SA2_DIR"/Launcher.exe.bak
     fi
     mv "$SA2_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
