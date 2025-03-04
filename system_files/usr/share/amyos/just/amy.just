@@ -483,21 +483,21 @@ amy-setup-samods:
   install_sa2_mods() {
     local MODS_DIR="$1"
 
-    # Define mods to install with their GameBanana IDs
+    # Define mods to install with their GameBanana file IDs
     declare -A MODS=(
-      ["SA2 Render Fix"]="452445"
-      ["Cutscene Revamp"]="48872"
-      ["Retranslated Story -COMPLETE-"]="437858"
-      ["HD GUI: SA2 Edition"]="33171"
-      ["IMPRESSive"]="469542"
-      ["Stage Atmosphere Tweaks"]="407838"
-      ["SA2 Volume Controls"]="381193"
-      ["Mech Sound Improvement"]="412706"
-      ["SA2 Input Controls"]="515637"
-      ["Better Radar"]="313161"
-      ["HedgePanel - Sonic + Shadow Tweaks"]="48950"
-      ["Sonic: New Tricks"]="48941"
-      ["Retranslated Hints"]="350607"
+      ["SA2 Render Fix"]="1388911"
+      ["Cutscene Revamp"]="440737"
+      ["Retranslated Story -COMPLETE-"]="1388469"
+      ["HD GUI: SA2 Edition"]="409120"
+      ["IMPRESSive"]="1213103"
+      ["Stage Atmosphere Tweaks"]="884395"
+      ["SA2 Volume Controls"]="835829"
+      ["Mech Sound Improvement"]="893090"
+      ["SA2 Input Controls"]="1255952"
+      ["Better Radar"]="860716"
+      ["HedgePanel - Sonic + Shadow Tweaks"]="454296"
+      ["Sonic: New Tricks"]="915082"
+      ["Retranslated Hints"]="1388468"
     )
 
     echo -e "\nDownloading and installing recommended mods..."
@@ -508,28 +508,15 @@ amy-setup-samods:
 
     for mod_name in "${!MODS[@]}"; do
       echo "- Installing ${mod_name}..."
-      local mod_id="${MODS[${mod_name}]}"
       local mod_dir="${MODS_DIR}/${mod_name}"
       local temp_mod_dir="${TEMP_DIR}/${mod_name}"
       local temp_mod_file="${temp_mod_dir}/mod_file"
-      local download_page="https://gamebanana.com/mods/download/${mod_id}"
+      local download_url="https://gamebanana.com/mmdl/${MODS[${mod_name}]}"
 
       mkdir -p "${temp_mod_dir}" "${mod_dir}"
 
-      # Get the download page and extract download link
-      if ! wget --timeout=30 --tries=3 -q --save-cookies="${temp_mod_dir}/cookies.txt" \
-           --keep-session-cookies -O "${temp_mod_dir}/download_page.html" "${download_page}" ||
-         ! download_link=$(grep -o 'href="https://gamebanana.com/dl/[^"]*' "${temp_mod_dir}/download_page.html" |
-                          head -1 | cut -d'"' -f2) ||
-         [ -z "$download_link" ]; then
-        echo "  ⚠️ Failed to find download for ${mod_name}. Skipping."
-        failed_mods+="${mod_name}, "
-        continue
-      fi
-
       # Download and extract the mod
-      if ! wget --timeout=30 --tries=3 -q --load-cookies="${temp_mod_dir}/cookies.txt" \
-           --keep-session-cookies -O "${temp_mod_file}" "${download_link}" ||
+      if ! wget --timeout=30 --tries=3 -q -O "${temp_mod_file}" "${download_url}" ||
          ! 7z x "${temp_mod_file}" -o"${mod_dir}" -y &>/dev/null; then
         echo "  ⚠️ Failed to install ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
