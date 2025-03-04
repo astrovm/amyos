@@ -425,11 +425,91 @@ amy-setup-sa2:
   echo -e "\nInstalling .NET Desktop Runtime 8..."
   flatpak run com.github.Matoking.protontricks 213610 dotnetdesktop8 &>/dev/null
 
+  # Create mods directory if it doesn't exist
+  MODS_DIR="${SA2_DIR}/mods"
+  mkdir -p "$MODS_DIR"
+
+  # Define mods to install with their GameBanana IDs and names
+  echo -e "\nDownloading and installing recommended mods..."
+  declare -A MODS=(
+    ["SA2 Render Fix"]="452445"
+    ["Cutscene Revamp"]="48872"
+    ["Retranslated Story -COMPLETE-"]="437858"
+    ["HD GUI: SA2 Edition"]="33171"
+    ["IMPRESSive"]="469542"
+    ["Stage Atmosphere Tweaks"]="407838"
+    ["SA2 Volume Controls"]="381193"
+    ["Mech Sound Improvement"]="412706"
+    ["SA2 Input Controls"]="515637"
+    ["Better Radar"]="313161"
+    ["HedgePanel - Sonic + Shadow Tweaks"]="48950"
+    ["Sonic: New Tricks"]="48941"
+    ["Retranslated Hints"]="350607"
+  )
+
+  # Function to download and install a mod
+  download_and_install_mod() {
+    local mod_name="$1"
+    local mod_id="$2"
+    local mod_dir="${MODS_DIR}/${mod_name}"
+    local temp_mod_dir="${TEMP_DIR}/${mod_name}"
+    local download_page="https://gamebanana.com/mods/download/${mod_id}"
+
+    echo "- Installing ${mod_name}..."
+    mkdir -p "${temp_mod_dir}"
+    mkdir -p "${mod_dir}"
+
+    # Use wget with automatic cookie management to handle redirects and download the file
+    echo "  Downloading from GameBanana..."
+
+    # First, get the download page
+    wget --timeout=30 --tries=3 -q --save-cookies="${temp_mod_dir}/cookies.txt" \
+         --keep-session-cookies -O "${temp_mod_dir}/download_page.html" "${download_page}" || {
+      echo "  Failed to access download page for ${mod_name}. Skipping."
+      return
+    }
+
+    # Extract the actual download link - look for the main download button link
+    download_link=$(grep -o 'href="https://gamebanana.com/dl/[^"]*' "${temp_mod_dir}/download_page.html" | head -1 | cut -d'"' -f2)
+
+    if [ -z "$download_link" ]; then
+      echo "  Failed to find download link for ${mod_name}. Skipping."
+      return
+    fi
+
+    # Download the actual file
+    echo "  Downloading mod file..."
+    temp_mod_file="${temp_mod_dir}/mod_file"
+    wget --timeout=30 --tries=3 -q --load-cookies="${temp_mod_dir}/cookies.txt" \
+         --keep-session-cookies -O "${temp_mod_file}" "${download_link}" || {
+      echo "  Failed to download ${mod_name}. Skipping."
+      return
+    }
+
+    # Extract using 7z
+    echo "  Extracting mod files..."
+    7z x "${temp_mod_file}" -o"${mod_dir}" -y > /dev/null || {
+      echo "  Failed to extract ${mod_name}. Skipping."
+      return
+    }
+
+    echo "  ✓ ${mod_name} installed successfully."
+  }
+
+  # Install each mod
+  for mod_name in "${!MODS[@]}"; do
+    download_and_install_mod "${mod_name}" "${MODS[${mod_name}]}"
+  done
+
   echo -e "\n=== Final Configuration Steps ==="
   echo "1. Launch SA2"
   echo "2. The SA Mod Manager should start automatically"
-  echo "3. Configure your desired mods in the manager"
-  echo "4. Click 'Save and Play' to start the game with mods"
+  echo "3. Enable the installed mods in the manager"
+  echo "4. Configure SA2 Input Controls (set deadzone to 5%)"
+  echo "5. Click 'Save and Play' to start the game with mods"
+  echo -e "\nMod Installation Notes:"
+  echo "- Place 'Stage Atmosphere Tweaks' at the bottom of your mod list"
+  echo "- For Retranslated Story, set audio to Japanese in the game's menu"
   echo -e "\nSetup complete! Enjoy playing SA2 with mods!"
 
 # Clean up old packages and Docker/Podman images and volumes
