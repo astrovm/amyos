@@ -377,7 +377,7 @@ amy-setup-samods:
 
     # Install .NET Runtime
     echo "Installing .NET Desktop Runtime 8..."
-    flatpak run com.github.Matoking.protontricks ${!appid} dotnetdesktop8 &>/dev/null
+    flatpak run com.github.Matoking.protontricks ${!appid} --unattended dotnetdesktop8 &>/dev/null
     echo "✓ .NET Runtime installed"
 
     # Game-specific setup
@@ -457,7 +457,7 @@ amy-setup-samods:
     if [ -f "$SA2_DIR"/Launcher.exe ]; then
       mv "$SA2_DIR"/Launcher.exe "$SA2_DIR"/Launcher.exe.bak
     fi
-    cp "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
+    mv "$MOD_MANAGER_DIR"/SAModManager.exe "$SA2_DIR"/Launcher.exe
     echo "✓ SA Mod Manager installed"
 
     # Ask if user wants to install recommended mods
