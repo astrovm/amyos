@@ -272,7 +272,7 @@ amy-ssd-crypto:
       ;;
   esac
 
-# Setup Sonic Adventure mods (DX or SA2)
+# Setup Sonic Adventure mods (SADX and SA2)
 amy-setup-samods:
   #!/usr/bin/env bash
   set -euo pipefail

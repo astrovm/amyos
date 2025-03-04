@@ -80,7 +80,7 @@ ujust amy-setup-home
 # Setup Nix package manager
 ujust amy-setup-nix
 
-# Setup Sonic Adventure mods (DX or SA2)
+# Setup Sonic Adventure mods (SADX and SA2)
 ujust amy-setup-samods
 
 # Restart Bluetooth to fix issues
