@@ -343,12 +343,13 @@ amy-setup-samods:
       echo "2. Add to Launch Options: WINEDLLOVERRIDES=\"d3d8=n,b\" %command%"
       echo "3. Enable 'Force the use of a specific Steam Play compatibility tool'"
       echo "4. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
+      echo "5. Launch the game once and exit"
     else  # SA2
       echo "1. Right-click $game_name in Steam → Properties"
       echo "2. Enable 'Force the use of a specific Steam Play compatibility tool'"
       echo "3. Select GE-Proton (install it first via ProtonUp-Qt if needed)"
+      echo "4. Launch the game once and exit"
     fi
-    echo "5. Launch the game once and exit"
 
     # Offer to launch ProtonUp-Qt
     echo -e "\nDo you want to launch ProtonUp-Qt to install GE-Proton? (y/n)"
