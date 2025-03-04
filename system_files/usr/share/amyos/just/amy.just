@@ -515,15 +515,15 @@ amy-setup-samods:
       mkdir -p "${temp_mod_dir}"
       cd "${temp_mod_dir}" || continue
 
-      # Download the mod with original filename using wget's --content-disposition flag
-      if ! wget --timeout=30 --tries=3 -q --content-disposition "${download_url}"; then
+      # Download the mod
+      if ! aria2c --allow-overwrite=true --max-tries=3 --connect-timeout=30 --quiet "${download_url}"; then
         echo "  ⚠️ Failed to download ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
         cd - > /dev/null
         continue
       fi
 
-      # Find the downloaded file (should be only one in the directory)
+      # Find the downloaded file
       local downloaded_file=$(ls -1 | head -n 1)
       if [ -z "$downloaded_file" ]; then
         echo "  ⚠️ Failed to locate downloaded file for ${mod_name}. Skipping."
@@ -534,25 +534,20 @@ amy-setup-samods:
 
       echo "  Downloaded as: ${downloaded_file}"
 
-      # Check if RAR file and handle accordingly
+      # Extract file based on extension
+      local extract_success=false
       if [[ "$downloaded_file" == *.rar ]]; then
-        # For RAR files, try unrar if available
-        if command -v unrar &>/dev/null && unrar x -y "${downloaded_file}" "${MODS_DIR}" >/dev/null 2>&1; then
-          echo "  ✓ ${mod_name} installed successfully (using unrar)."
-          ((success_count++))
-        else
-          echo "  ⚠️ Failed to extract RAR file ${downloaded_file}. Install unrar for better RAR support."
-          failed_mods+="${mod_name}, "
-        fi
+        unrar x -y "${downloaded_file}" "${MODS_DIR}" >/dev/null 2>&1 && extract_success=true
       else
-        # For non-RAR files, use 7z
-        if 7z x "${downloaded_file}" -o"${MODS_DIR}" -y >/dev/null 2>&1; then
-          echo "  ✓ ${mod_name} installed successfully."
-          ((success_count++))
-        else
-          echo "  ⚠️ Failed to extract ${downloaded_file}. Skipping."
-          failed_mods+="${mod_name}, "
-        fi
+        7z x "${downloaded_file}" -o"${MODS_DIR}" -y >/dev/null 2>&1 && extract_success=true
+      fi
+
+      if $extract_success; then
+        echo "  ✓ ${mod_name} installed successfully."
+        ((success_count++))
+      else
+        echo "  ⚠️ Failed to extract ${downloaded_file}. Skipping."
+        failed_mods+="${mod_name}, "
       fi
 
       cd - > /dev/null
@@ -565,7 +560,7 @@ amy-setup-samods:
       echo "You can manually download these mods from GameBanana."
     fi
 
-    # Always return 0 to prevent script failure
+    # Always return success
     return 0
   }
 
