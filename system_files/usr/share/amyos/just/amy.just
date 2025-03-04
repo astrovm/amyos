@@ -513,44 +513,41 @@ amy-setup-samods:
       local download_url="https://gamebanana.com/mmdl/${mod_id}"
 
       mkdir -p "${temp_mod_dir}"
-      cd "${temp_mod_dir}" || continue
 
-      # Download the mod
-      if ! aria2c --allow-overwrite=true --max-tries=3 --connect-timeout=30 --quiet "${download_url}"; then
+      # Download the mod directly to the temp directory
+      if ! aria2c --dir="${temp_mod_dir}" --allow-overwrite=true --max-tries=3 --connect-timeout=30 "${download_url}"; then
         echo "  ⚠️ Failed to download ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
-        cd - > /dev/null
         continue
       fi
 
       # Find the downloaded file
-      local downloaded_file=$(ls -1 | head -n 1)
+      local downloaded_file=$(ls -1 "${temp_mod_dir}" | head -n 1)
       if [ -z "$downloaded_file" ]; then
         echo "  ⚠️ Failed to locate downloaded file for ${mod_name}. Skipping."
         failed_mods+="${mod_name}, "
-        cd - > /dev/null
         continue
       fi
 
+      # Full path to downloaded file
+      local full_path="${temp_mod_dir}/${downloaded_file}"
       echo "  Downloaded as: ${downloaded_file}"
 
       # Extract file based on extension
       local extract_success=false
       if [[ "$downloaded_file" == *.rar ]]; then
-        unrar x -y "${downloaded_file}" "${MODS_DIR}" >/dev/null 2>&1 && extract_success=true
+        unrar x -y "${full_path}" "${MODS_DIR}" >/dev/null 2>&1 && extract_success=true
       else
-        7z x "${downloaded_file}" -o"${MODS_DIR}" -y >/dev/null 2>&1 && extract_success=true
+        7z x "${full_path}" -o"${MODS_DIR}" -y >/dev/null 2>&1 && extract_success=true
       fi
 
       if $extract_success; then
         echo "  ✓ ${mod_name} installed successfully."
-        ((success_count++))
+        success_count+=1
       else
         echo "  ⚠️ Failed to extract ${downloaded_file}. Skipping."
         failed_mods+="${mod_name}, "
       fi
-
-      cd - > /dev/null
     done
 
     echo -e "\n✓ Successfully installed ${success_count} mods out of ${#MODS[@]}."
