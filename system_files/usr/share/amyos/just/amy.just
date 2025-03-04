@@ -397,7 +397,7 @@ amy-setup-samods:
     # Download mod installer
     echo -e "\nDownloading SADX mod installer..."
     local installer="${SADX_DIR}/sadx_setup.exe"
-    if ! curl --retry 3 -Lo "$installer" "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"; then
+    if ! aria2c --dir="$(dirname "$installer")" --out="$(basename "$installer")" --max-tries=3 --connect-timeout=30 "https://dcmods.unreliable.network/owncloud/data/PiKeyAr/files/Setup/sadx_setup.exe"; then
       echo "❌ Failed to download mod installer. Check your internet connection."
       return 1
     fi
@@ -440,7 +440,7 @@ amy-setup-samods:
                         cut -d '"' -f 4)
 
     local MOD_MANAGER_ZIP="$TEMP_DIR/SAModManager.zip"
-    if ! curl --retry 3 -Lo "$MOD_MANAGER_ZIP" "$LATEST_RELEASE_URL"; then
+    if ! aria2c --dir="$(dirname "$MOD_MANAGER_ZIP")" --out="$(basename "$MOD_MANAGER_ZIP")" --max-tries=3 --connect-timeout=30 "$LATEST_RELEASE_URL"; then
       echo "❌ Failed to download SA Mod Manager. Check your internet connection."
       return 1
     fi
