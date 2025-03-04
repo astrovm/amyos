@@ -398,7 +398,7 @@ amy-setup-samods:
     echo -e "\n[Mod Installation]"
     echo "When the SADX Mod Installer launches:"
     echo "1. Use this path as the Destination Folder: ${WIN_PATH}"
-    echo "2. Select the mods you want to install (recommended: all)"
+    echo "2. Select the mods you want to install"
 
     flatpak run --command=protontricks-launch com.github.Matoking.protontricks --appid $SADX_APPID "$installer" &>/dev/null
 
