@@ -22,6 +22,9 @@
       john
       magic-wormhole-rs
       nerd-fonts.hack
+      nerd-fonts.ubuntu
+      nerd-fonts.ubuntu-mono
+      nerd-fonts.ubuntu-sans
       nixfmt-rfc-style
       p7zip-rar
       ripgrep
@@ -35,6 +38,14 @@
     sessionVariables = {
       SHELL = "${pkgs.zsh}/bin/zsh";
       EDITOR = "/usr/bin/nvim";
+    };
+
+    path = {
+      enable = true;
+      prepend = [
+        "$HOME/.nix-profile/bin"
+        "/nix/var/nix/profiles/default/bin"
+      ];
     };
   };
 

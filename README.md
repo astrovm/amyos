@@ -97,8 +97,6 @@ GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flath
 
 CLI apps are available from [Nix](https://search.nixos.org/packages) using `nix profile install nixpkgs#...` or setting up Home Manager with `ujust amy-setup-home` and changing `~/.config/home-manager/home.nix` packages list. GUI apps usually work fine too.
 
-[Homebrew](https://formulae.brew.sh/) is also available for installing CLI apps with `brew install ...`.
-
 ## Acknowledgments
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template) and builds upon the excellent work of the Universal Blue community.
