@@ -30,8 +30,6 @@ declare -A RPM_PACKAGES=(
     neovim \
     nmap \
     openrgb \
-    p7zip-gui \
-    p7zip-plugins \
     protobuf \
     qemu-kvm \
     rclone \

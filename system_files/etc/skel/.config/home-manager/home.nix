@@ -23,6 +23,7 @@
       magic-wormhole-rs
       nerd-fonts.hack
       nixfmt-rfc-style
+      p7zip-rar
       ripgrep
       shellcheck
       shfmt
@@ -136,5 +137,6 @@
     home-manager.enable = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
   targets.genericLinux.enable = true;
 }
