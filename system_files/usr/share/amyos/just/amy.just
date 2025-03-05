@@ -488,6 +488,12 @@ amy-setup-samods:
     echo -e "\nDownloading and installing recommended mods..."
     echo "This may take a while, depending on your internet connection."
 
+    # Check 7z RAR support
+    local seven_z_rar_support=false
+    if 7z i | grep -q "rar"; then
+      seven_z_rar_support=true
+    fi
+
     local success_count=0
     local failed_mods=""
 
@@ -518,9 +524,10 @@ amy-setup-samods:
       local full_path="${temp_mod_dir}/${downloaded_file}"
       echo "  Downloaded as: ${downloaded_file}"
 
-      # Extract file based on extension
+      # Extract file based on extension and 7z RAR support
       local extract_success=false
-      if [[ "$downloaded_file" == *.rar ]]; then
+      if [[ "$downloaded_file" == *.rar ]] && ! $seven_z_rar_support; then
+        # Use unrar for RAR files when 7z doesn't support RAR
         unrar x -y "${full_path}" "${MODS_DIR}" >/dev/null 2>&1 && extract_success=true
       else
         7z x "${full_path}" -o"${MODS_DIR}" -y >/dev/null 2>&1 && extract_success=true
