@@ -143,7 +143,7 @@ amy-setup-home:
   sed -i "/gitConfig = {/,/};/c\\  gitConfig = {\n    userName = \"$git_name\";\n    userEmail = \"$git_email\";\n  };" "$HM_CONFIG_DIR/user.nix"
 
   # Initialize and switch to the new configuration
-  nix run home-manager/release-24.11 -- init --switch "$HM_CONFIG_DIR"
+  nix run home-manager/master -- init --switch "$HM_CONFIG_DIR"
   echo "Nix Home Manager setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode

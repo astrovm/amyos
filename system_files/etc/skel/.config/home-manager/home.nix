@@ -21,6 +21,7 @@
       glab
       john
       magic-wormhole-rs
+      nerd-fonts.hack
       nixfmt-rfc-style
       ripgrep
       shellcheck
@@ -36,23 +37,27 @@
     };
   };
 
-  xdg.configFile = {
-    "ghostty/config".text = ''
-      background-opacity = "0.9"
-      command = "${pkgs.zsh}/bin/zsh"
-      font-family = "Hack Nerd Font"
-      font-size = "13"
-      theme = "Dark Pastel"
-      window-height = "32"
-      window-width = "100"
-    '';
-  };
-
   programs = {
     git = {
       enable = true;
       userName = user.gitConfig.userName;
       userEmail = user.gitConfig.userEmail;
+    };
+
+    ghostty = {
+      enable = true;
+      enableZshIntegration = true;
+      installBatSyntax = true;
+      installVimSyntax = true;
+      settings = {
+        background-opacity = "0.9";
+        command = "${pkgs.zsh}/bin/zsh";
+        font-family = "Hack Nerd Font";
+        font-size = "13";
+        theme = "Dark Pastel";
+        window-height = "32";
+        window-width = "100";
+      };
     };
 
     zsh = {

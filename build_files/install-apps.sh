@@ -18,7 +18,6 @@ declare -A RPM_PACKAGES=(
     coolercontrol \
     filelight \
     fuse-btfs \
-    ghostty \
     gnome-disk-utility \
     gparted \
     gwenview \
