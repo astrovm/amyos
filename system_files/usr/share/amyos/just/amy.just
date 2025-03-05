@@ -424,13 +424,8 @@ amy-setup-samods:
     local MOD_MANAGER_DIR="$TEMP_DIR/SAModManager"
     mkdir -p "$MOD_MANAGER_DIR"
 
-    # Get the latest release URL
-    local LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/X-Hax/SA-Mod-Manager/releases/latest |
-                        grep "browser_download_url.*release_x64.zip" |
-                        cut -d '"' -f 4)
-
     local MOD_MANAGER_ZIP="$TEMP_DIR/SAModManager.zip"
-    if ! aria2c --dir="$(dirname "$MOD_MANAGER_ZIP")" --out="$(basename "$MOD_MANAGER_ZIP")" --max-tries=3 --connect-timeout=30 "$LATEST_RELEASE_URL"; then
+    if ! aria2c --dir="$(dirname "$MOD_MANAGER_ZIP")" --out="$(basename "$MOD_MANAGER_ZIP")" --max-tries=3 --connect-timeout=30 "https://github.com/X-Hax/SA-Mod-Manager/releases/latest/download/release_x64.zip"; then
       echo "❌ Failed to download SA Mod Manager. Check your internet connection."
       return 1
     fi
