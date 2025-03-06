@@ -12,6 +12,8 @@
     stateVersion = "24.11";
     packages = with pkgs; [
       asciinema
+      audacious
+      audacious-plugins
       bat
       cmatrix
       croc

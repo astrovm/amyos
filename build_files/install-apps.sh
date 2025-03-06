@@ -52,10 +52,6 @@ declare -A RPM_PACKAGES=(
     vlc-plugin-pipewire \
     vlc"
 
-  ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
-    audacious \
-    audacious-plugins-freeworld"
-
   ["docker-ce"]="\
     containerd.io \
     docker-buildx-plugin \
