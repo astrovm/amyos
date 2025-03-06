@@ -1,8 +1,0 @@
-[Text]
-Normal=#93AFB9
-Current=#C8C8C8
-NormalBG=#08090A
-SelectedBG=#313540
-Font=Arial
-mbFG=#A2C1CC
-mbBG=#323637

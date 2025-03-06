@@ -15,6 +15,7 @@
       audacious
       audacious-plugins
       bat
+      cargo
       cmatrix
       croc
       devenv
@@ -30,6 +31,7 @@
       nixfmt-rfc-style
       p7zip-rar
       ripgrep
+      rustc
       shellcheck
       shfmt
       tealdeer
