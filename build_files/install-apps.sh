@@ -11,6 +11,7 @@ log() {
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
+    archivemount \
     aria2 \
     audacity-freeworld \
     bchunk \
@@ -18,6 +19,9 @@ declare -A RPM_PACKAGES=(
     coolercontrol \
     filelight \
     fuse-btfs \
+    fuse3 \
+    fuse3-devel \
+    fuse3-libs \
     gnome-disk-utility \
     gparted \
     gwenview \
