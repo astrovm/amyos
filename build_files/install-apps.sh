@@ -11,48 +11,10 @@ log() {
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
-    aria2 \
-    audacity-freeworld \
-    bchunk \
-    bleachbit \
-    coolercontrol \
-    filelight \
-    fuse-btfs \
-    fuse-devel \
-    fuse3-devel \
-    gnome-disk-utility \
-    gparted \
-    gwenview \
-    isoimagewriter \
-    kcalc \
-    kgpg \
-    ksystemlog \
-    kvantum \
-    libmicrodns \
-    neovim \
-    nmap \
     openrgb \
-    protobuf \
     qemu-kvm \
-    rclone \
-    virt-manager \
-    virt-viewer \
-    wireshark \
-    yakuake \
-    yt-dlp"
-
-  ["fedora-multimedia"]="\
-    HandBrake-cli \
-    HandBrake-gui \
-    haruna \
-    mpv \
-    vlc-plugin-bittorrent \
-    vlc-plugin-ffmpeg \
-    vlc-plugin-gstreamer \
-    vlc-plugin-kde \
-    vlc-plugin-pause-click \
-    vlc-plugin-pipewire \
-    vlc"
+    restic \
+    rclone"
 
   ["docker-ce"]="\
     containerd.io \
@@ -61,8 +23,6 @@ declare -A RPM_PACKAGES=(
     docker-ce-cli \
     docker-compose-plugin"
 
-  ["brave-browser"]="brave-browser"
-  ["cloudflare-warp"]="cloudflare-warp"
   ["vscode"]="code"
 )
 
@@ -89,35 +49,10 @@ for repo in "${!RPM_PACKAGES[@]}"; do
 done
 
 log "Enabling system services"
-systemctl enable docker.socket libvirtd.service
-
-log "Installing Cursor GUI"
-GUI_DIR="/tmp/cursor-gui"
-mkdir -p "$GUI_DIR"
-aria2c --dir="$GUI_DIR" --out="cursor.appimage" --max-tries=3 --connect-timeout=30 "https://downloader.cursor.sh/linux/appImage/x64"
-chmod +x "$GUI_DIR/cursor.appimage"
-(cd "$GUI_DIR" && ./cursor.appimage --appimage-extract)
-chmod -R a+rX "$GUI_DIR/squashfs-root"
-cp -r "$GUI_DIR/squashfs-root/usr/share/icons/"* /usr/share/icons
-rm -r "$GUI_DIR/squashfs-root/usr/share/icons"
-mkdir -p /usr/share/cursor/bin
-mv "$GUI_DIR/squashfs-root/"* /usr/share/cursor
-install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
-ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
-
-log "Installing Cursor CLI"
-CLI_DIR="/tmp/cursor-cli"
-mkdir -p "$CLI_DIR"
-aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
-tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
-install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
-ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
-
-log "Adding Amy OS just recipes"
-echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
+systemctl enable docker.socket
 
 log "Hide incompatible Bazzite just recipes"
-for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb" "install-docker"; do
+for recipe in "install-coolercontrol" "install-openrgb" "install-docker"; do
   if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
     echo "Error: Recipe $recipe not found in any just file"
     exit 1
