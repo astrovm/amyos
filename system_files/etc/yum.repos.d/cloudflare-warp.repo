@@ -1,7 +1,0 @@
-[cloudflare-warp]
-name=Cloudflare WARP
-baseurl=https://pkg.cloudflareclient.com/rpm
-enabled=0
-type=rpm
-gpgcheck=1
-gpgkey=https://pkg.cloudflareclient.com/pubkey.gpg
