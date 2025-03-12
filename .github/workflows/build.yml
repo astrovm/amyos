@@ -1,5 +1,5 @@
 ---
-name: Build Amy OS
+name: Build Bazzite DX
 on:
   pull_request:
     branches:
