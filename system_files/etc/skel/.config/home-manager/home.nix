@@ -58,6 +58,9 @@
       enable = true;
       userName = user.gitConfig.userName;
       userEmail = user.gitConfig.userEmail;
+      extraConfig = {
+        pull.rebase = true;
+      };
     };
 
     ghostty = {
