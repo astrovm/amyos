@@ -603,15 +603,11 @@ amy-clean:
   set -euo pipefail
 
   echo "Cleaning up system..."
-  docker image prune -af
-  docker volume prune -f
-  podman image prune -af
-  podman volume prune -f
+  docker system prune -af
+  podman system prune -af
   flatpak uninstall --unused
   rpm-ostree cleanup -bm
   nix-collect-garbage -d
-  sudo docker image prune -af
-  sudo docker volume prune -f
-  sudo podman image prune -af
-  sudo podman volume prune -f
+  sudo docker system prune -af
+  sudo podman system prune -af
   sudo -i nix-collect-garbage -d
