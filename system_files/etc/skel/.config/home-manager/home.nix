@@ -37,7 +37,6 @@
       tealdeer
       trash-cli
       ugrep
-      uutils-coreutils-noprefix
       yq
     ];
     sessionVariables = {
