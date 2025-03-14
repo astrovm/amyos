@@ -37,6 +37,7 @@
       tealdeer
       trash-cli
       ugrep
+      uutils-coreutils-noprefix
       yq
     ];
     sessionVariables = {
@@ -133,6 +134,9 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
     };
 
     thefuck = {
