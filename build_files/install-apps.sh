@@ -27,7 +27,6 @@ declare -A RPM_PACKAGES=(
     kcalc \
     kgpg \
     ksystemlog \
-    kvantum \
     libmicrodns \
     neovim \
     nmap \
