@@ -16,7 +16,6 @@ declare -A RPM_PACKAGES=(
     bchunk \
     bleachbit \
     coolercontrol \
-    filelight \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
@@ -27,11 +26,9 @@ declare -A RPM_PACKAGES=(
     kcalc \
     kgpg \
     ksystemlog \
-    libmicrodns \
     neovim \
     nmap \
     openrgb \
-    protobuf \
     qemu-kvm \
     rclone \
     virt-manager \
@@ -47,10 +44,8 @@ declare -A RPM_PACKAGES=(
     mpv \
     vlc-plugin-bittorrent \
     vlc-plugin-ffmpeg \
-    vlc-plugin-gstreamer \
     vlc-plugin-kde \
     vlc-plugin-pause-click \
-    vlc-plugin-pipewire \
     vlc"
 
   ["docker-ce"]="\
