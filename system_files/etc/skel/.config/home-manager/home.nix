@@ -24,7 +24,6 @@
       glab
       john
       magic-wormhole-rs
-      neovim
       nerd-fonts.hack
       nerd-fonts.ubuntu
       nerd-fonts.ubuntu-mono
@@ -42,7 +41,6 @@
     ];
     sessionVariables = {
       SHELL = "${pkgs.zsh}/bin/zsh";
-      EDITOR = "${pkgs.neovim}/bin/nvim";
     };
   };
 
@@ -146,6 +144,13 @@
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
     };
 
     home-manager.enable = true;
