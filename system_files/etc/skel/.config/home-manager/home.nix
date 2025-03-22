@@ -43,14 +43,6 @@
       SHELL = "${pkgs.zsh}/bin/zsh";
       EDITOR = "/usr/bin/nvim";
     };
-
-    path = {
-      enable = true;
-      prepend = [
-        "$HOME/.nix-profile/bin"
-        "/nix/var/nix/profiles/default/bin"
-      ];
-    };
   };
 
   programs = {
