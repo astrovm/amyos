@@ -24,6 +24,7 @@
       glab
       john
       magic-wormhole-rs
+      neovim
       nerd-fonts.hack
       nerd-fonts.ubuntu
       nerd-fonts.ubuntu-mono
@@ -41,7 +42,7 @@
     ];
     sessionVariables = {
       SHELL = "${pkgs.zsh}/bin/zsh";
-      EDITOR = "/usr/bin/nvim";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
     };
   };
 

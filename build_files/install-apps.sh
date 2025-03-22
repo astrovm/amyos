@@ -26,7 +26,6 @@ declare -A RPM_PACKAGES=(
     kcalc \
     kgpg \
     ksystemlog \
-    neovim \
     nmap \
     openrgb \
     qemu-kvm \
