@@ -15,6 +15,7 @@
       audacious
       audacious-plugins
       bat
+      bun
       cargo
       cmatrix
       croc
