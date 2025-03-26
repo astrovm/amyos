@@ -105,6 +105,7 @@ aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeou
 tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
 install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
 ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
+ln -s /usr/share/cursor/bin/cursor-tunnel /usr/share/cursor/bin/code-tunnel
 
 log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
