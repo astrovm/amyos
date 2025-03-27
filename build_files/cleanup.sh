@@ -28,6 +28,6 @@ chmod -R 1777 /var/tmp
 
 # Commit and lint container
 ostree container commit
-bootc container lint || true
+bootc container lint
 
 log "Cleanup completed"
