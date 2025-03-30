@@ -23,7 +23,6 @@
       fd
       gh
       glab
-      john
       magic-wormhole-rs
       nerd-fonts.hack
       nerd-fonts.ubuntu
