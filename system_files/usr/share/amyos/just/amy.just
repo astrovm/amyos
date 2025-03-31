@@ -71,10 +71,10 @@ amy-install-nixpkgs:
   sudo -i nix profile install nixpkgs#nerd-fonts.{hack,ubuntu,ubuntu-mono,ubuntu-sans}
 
   echo "Installing Nix system drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE" nixpkgs#{amdvlk,mesa.drivers}
+  sudo -i nix profile install --profile "$OPENGL_PROFILE" nixpkgs#{amdvlk,mesa,mesa.opencl,rocmPackages.clr,rocmPackages.clr.icd}
 
   echo "Installing Nix system 32-bit drivers..."
-  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#driversi686Linux.{amdvlk,mesa.drivers}
+  sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#driversi686Linux.{amdvlk,mesa}
 
   echo "Setting up drivers symlink..."
   sudo rm -f "$OPENGL_SYMLINK_CONF"
