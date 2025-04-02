@@ -42,8 +42,9 @@
       yq
     ];
     sessionVariables = {
-      SHELL = "${pkgs.zsh}/bin/zsh";
       PATH = "$PATH:${user.homeDirectory}/.cargo/bin";
+      SHELL = "${pkgs.zsh}/bin/zsh";
+      TERMINAL = "${pkgs.ghostty}/bin/ghostty";
     };
   };
 
