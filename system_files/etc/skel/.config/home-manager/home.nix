@@ -30,6 +30,8 @@
       nerd-fonts.ubuntu-sans
       nixfmt-rfc-style
       p7zip-rar
+      rclone
+      rclone-browser
       ripgrep
       rustc
       shellcheck

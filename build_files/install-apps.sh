@@ -31,7 +31,6 @@ declare -A RPM_PACKAGES=(
     nmap \
     openrgb \
     qemu-kvm \
-    rclone \
     virt-manager \
     virt-viewer \
     wireshark \
