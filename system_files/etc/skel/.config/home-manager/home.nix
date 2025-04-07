@@ -40,6 +40,7 @@
       trash-cli
       trezor-suite
       ugrep
+      vscode
       yq
     ];
     sessionVariables = {
