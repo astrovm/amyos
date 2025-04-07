@@ -38,6 +38,7 @@
       shfmt
       tealdeer
       trash-cli
+      trezor-suite
       ugrep
       yq
     ];
@@ -106,6 +107,9 @@
         bindkey '^[[1;5C' forward-word                     #
         bindkey '^H' backward-kill-word                    # Delete previous word with Ctrl+Backspace
         bindkey '^[[Z' undo                                # Shift+Tab undo last action
+
+        # Homebrew setup
+        [[ -d /home/linuxbrew/.linuxbrew && $- == *i* ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
       '';
     };
 
