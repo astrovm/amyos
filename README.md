@@ -27,7 +27,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Audacious with Winamp skins
 - Brave Browser
 - Cloudflare WARP
-- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks) and [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages)
+- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks)
 - DNS over TLS, DNSSEC and MAC address randomization enabled
 - Docker, Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
@@ -65,9 +65,6 @@ ujust amy-install
 
 # Install only Flatpaks
 ujust amy-install-flatpaks
-
-# Install only AppImages
-ujust amy-install-appimages
 
 # Install only Nix packages
 ujust amy-install-nixpkgs
