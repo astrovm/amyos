@@ -22,9 +22,7 @@ declare -A RPM_PACKAGES=(
     gnome-disk-utility \
     gparted \
     gwenview \
-    hashcat \
     isoimagewriter \
-    john \
     kcalc \
     kgpg \
     ksystemlog \

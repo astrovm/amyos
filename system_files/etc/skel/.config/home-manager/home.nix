@@ -23,6 +23,9 @@
       fd
       gh
       glab
+      hashcat
+      hashcat-utils
+      john
       magic-wormhole-rs
       nerd-fonts.hack
       nerd-fonts.ubuntu
