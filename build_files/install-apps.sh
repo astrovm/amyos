@@ -85,7 +85,7 @@ systemctl enable docker.socket libvirtd.service
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
-DOWNLOAD_URL=$(curl -s "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | grep -o '"downloadUrl": "[^"]*' | cut -d'"' -f4)
+DOWNLOAD_URL=$(curl -s "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | grep -o '"downloadUrl":"[^"]*' | cut -d'"' -f4)
 if [[ -z "$DOWNLOAD_URL" ]]; then
   echo "Failed to extract download URL from JSON response"
   exit 1
