@@ -98,7 +98,7 @@ cp -r "$GUI_DIR/squashfs-root/usr/share/icons/"* /usr/share/icons
 rm -r "$GUI_DIR/squashfs-root/usr/share/icons"
 mkdir -p /usr/share/cursor/bin
 mv "$GUI_DIR/squashfs-root/"* /usr/share/cursor
-install -m 0755 /usr/share/cursor/resources/app/bin/cursor /usr/share/cursor/bin/cursor
+install -m 0755 /usr/share/cursor/usr/share/cursor/resources/linux/bin/cursor /usr/share/cursor/bin/cursor
 ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
 
 log "Installing Cursor CLI"
