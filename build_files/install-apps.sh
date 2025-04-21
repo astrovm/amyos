@@ -85,7 +85,12 @@ systemctl enable docker.socket libvirtd.service
 log "Installing Cursor GUI"
 GUI_DIR="/tmp/cursor-gui"
 mkdir -p "$GUI_DIR"
-aria2c --dir="$GUI_DIR" --out="cursor.appimage" --max-tries=3 --connect-timeout=30 "https://downloader.cursor.sh/linux/appImage/x64"
+DOWNLOAD_URL=$(curl -s "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | grep -o '"downloadUrl": "[^"]*' | cut -d'"' -f4)
+if [[ -z "$DOWNLOAD_URL" ]]; then
+  echo "Failed to extract download URL from JSON response"
+  exit 1
+fi
+aria2c --dir="$GUI_DIR" --out="cursor.appimage" --max-tries=3 --connect-timeout=30 "$DOWNLOAD_URL"
 chmod +x "$GUI_DIR/cursor.appimage"
 (cd "$GUI_DIR" && ./cursor.appimage --appimage-extract)
 chmod -R a+rX "$GUI_DIR/squashfs-root"
