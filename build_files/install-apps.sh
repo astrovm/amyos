@@ -28,6 +28,7 @@ declare -A RPM_PACKAGES=(
     ksystemlog \
     nmap \
     openrgb \
+    printer-driver-brlaser \
     qemu-kvm \
     virt-manager \
     virt-viewer \
