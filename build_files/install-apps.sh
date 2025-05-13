@@ -7,6 +7,8 @@ log() {
   echo "=== $* ==="
 }
 
+mkdir /nix
+
 # RPM packages list
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
