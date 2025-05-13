@@ -12,10 +12,8 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
-    audacity-freeworld \
     bchunk \
     bleachbit \
-    coolercontrol \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
@@ -35,6 +33,10 @@ declare -A RPM_PACKAGES=(
     wireshark \
     yakuake \
     yt-dlp"
+
+  ["terra"]="\
+    coolercontrol \
+    audacity-freeworld"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
