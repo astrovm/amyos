@@ -65,10 +65,10 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=stable
-            type=raw,value=stable-41
-            type=raw,value=stable-41.{{date 'YYYYMMDD'}}
-            type=raw,value=41
-            type=raw,value=41.{{date 'YYYYMMDD'}}
+            type=raw,value=stable-42
+            type=raw,value=stable-42.{{date 'YYYYMMDD'}}
+            type=raw,value=42
+            type=raw,value=42.{{date 'YYYYMMDD'}}
             type=sha,enable=${{ github.event_name == 'pull_request' }}
             type=ref,event=pr
           labels: |
