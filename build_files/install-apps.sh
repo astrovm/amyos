@@ -32,7 +32,8 @@ declare -A RPM_PACKAGES=(
     virt-viewer \
     wireshark \
     yakuake \
-    yt-dlp"
+    yt-dlp \
+    zsh"
 
   ["terra"]="\
     coolercontrol"
