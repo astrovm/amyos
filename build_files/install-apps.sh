@@ -12,10 +12,8 @@ declare -A RPM_PACKAGES=(
   ["fedora"]="\
     android-tools \
     aria2 \
-    audacity-freeworld \
     bchunk \
     bleachbit \
-    coolercontrol \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
@@ -35,6 +33,12 @@ declare -A RPM_PACKAGES=(
     wireshark \
     yakuake \
     yt-dlp"
+
+  ["terra"]="\
+    coolercontrol"
+
+  ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
+    audacity-freeworld"
 
   ["fedora-multimedia"]="\
     HandBrake-cli \
@@ -114,7 +118,7 @@ log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
 
 log "Hide incompatible Bazzite just recipes"
-for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb" "install-docker"; do
+for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb"; do
   if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
     echo "Error: Recipe $recipe not found in any just file"
     exit 1
