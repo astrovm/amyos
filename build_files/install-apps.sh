@@ -118,7 +118,7 @@ log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
 
 log "Hide incompatible Bazzite just recipes"
-for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb" "install-docker"; do
+for recipe in "bazzite-cli" "install-coolercontrol" "install-openrgb"; do
   if ! grep -l "^$recipe:" /usr/share/ublue-os/just/*.just | grep -q .; then
     echo "Error: Recipe $recipe not found in any just file"
     exit 1
