@@ -35,7 +35,9 @@ declare -A RPM_PACKAGES=(
     yt-dlp"
 
   ["terra"]="\
-    coolercontrol \
+    coolercontrol"
+
+  ["rpmfusion-free,rpmfusion-free-updates,rpmfusion-nonfree,rpmfusion-nonfree-updates"]="\
     audacity-freeworld"
 
   ["fedora-multimedia"]="\
