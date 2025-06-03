@@ -18,3 +18,6 @@ for dir in /var/opt/*/; do
 done
 
 log "Fix completed"
+
+log "Change sudoers setup"
+echo "%wheel	ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/cus
