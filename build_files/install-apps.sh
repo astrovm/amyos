@@ -16,25 +16,21 @@ declare -A RPM_PACKAGES=(
     android-tools \
     aria2 \
     bchunk \
-    bleachbit \
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
+    keepassxc \
+    tailscale \
     gnome-disk-utility \
     gparted \
     gwenview \
-    isoimagewriter \
     kcalc \
     kgpg \
     ksystemlog \
-    nmap \
     openrgb \
-    printer-driver-brlaser \
     qemu-kvm \
     virt-manager \
     virt-viewer \
-    wireshark \
-    yakuake \
     yt-dlp \
     zsh"
 
@@ -45,8 +41,6 @@ declare -A RPM_PACKAGES=(
     audacity-freeworld"
 
   ["fedora-multimedia"]="\
-    HandBrake-cli \
-    HandBrake-gui \
     haruna \
     mpv \
     vlc-plugin-bittorrent \
