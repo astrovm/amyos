@@ -2,7 +2,4 @@
 # Sign up and add the Repository ID to the right field. Owners fields are optional.
 # Examples: https://artifacthub.io/packages/search?ts_query_web=ublue&sort=relevance&page=1
 
-repositoryID: ff840251-c077-4d86-b7d2-dac00e27fd68
-owners:
-  - name: astrovm
-    email: ~@4st.li
+repositoryID: daf609ab-4e6a-484f-a540-378a5cc78d7a
