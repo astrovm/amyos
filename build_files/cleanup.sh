@@ -26,6 +26,9 @@ find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
+log "Remove un-used icd files"
+find /usr/share/vulkan/icd.d ! -name "radeon_icd.*" -type f -exec rm -f {} +
+
 # Commit and lint container
 ostree container commit
 bootc container lint
