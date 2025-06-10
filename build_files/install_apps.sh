@@ -8,7 +8,7 @@ log() {
 }
 
 # Workaround to allow installing nix with composefs
-mkdir /nix
+mkdir -p /nix /config/Sync
 
 # RPM packages list
 declare -A RPM_PACKAGES=(
