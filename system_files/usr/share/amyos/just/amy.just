@@ -54,56 +54,6 @@ amy-setup-nix:
   [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
   echo "Nix setup complete."
 
-# Setup Nix Home Manager with Amy OS config
-amy-setup-home:
-  #!/usr/bin/env bash
-  set -euo pipefail
-
-  # Source Nix daemon if available
-  NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
-  [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-  command -v nix &>/dev/null || ujust amy-setup-nix
-
-  echo "Setting up Nix Home Manager..."
-
-  # Resolve real home path in case it's a symlink
-  REAL_HOME=$(readlink -f "$HOME")
-  HM_CONFIG_DIR="${REAL_HOME}/.config/home-manager"
-  SKEL_CONFIG_DIR="/etc/skel/.config/home-manager"
-  CONFIG_FILES=("user.nix" "home.nix" "flake.nix")
-
-  # Create config directory if it doesn't exist
-  mkdir -p "$HM_CONFIG_DIR"
-
-  # Check and handle each config file
-  for file in "${CONFIG_FILES[@]}"; do
-    user_file="${HM_CONFIG_DIR}/${file}"
-    skel_file="${SKEL_CONFIG_DIR}/${file}"
-
-    if [ ! -f "$user_file" ]; then
-      echo "Copying $file from skeleton..."
-      cp "$skel_file" "$user_file"
-    elif ! cmp -s "$user_file" "$skel_file"; then
-      echo "Warning: $file exists and differs from skeleton file."
-      echo "Please manually merge your changes or backup and remove the file to use defaults."
-      exit 1
-    fi
-  done
-
-  # Configure user.nix
-  echo "Configuring user settings..."
-  sed -i "0,/userName = \"\"/s//userName = \"$USER\"/" "$HM_CONFIG_DIR/user.nix"
-  sed -i "s|homeDirectory = \"\"|homeDirectory = \"$REAL_HOME\"|" "$HM_CONFIG_DIR/user.nix"
-
-  # Prompt for Git configuration
-  read -p "Enter your Git user name: " git_name
-  read -p "Enter your Git email: " git_email
-  sed -i "/gitConfig = {/,/};/c\\  gitConfig = {\n    userName = \"$git_name\";\n    userEmail = \"$git_email\";\n  };" "$HM_CONFIG_DIR/user.nix"
-
-  # Initialize and switch to the new configuration
-  nix run home-manager/master -- init --switch "$HM_CONFIG_DIR"
-  echo "Nix Home Manager setup complete."
-
 # Setup Amy OS recommended settings for Cursor and VSCode
 amy-setup-editors:
   #!/usr/bin/env bash
