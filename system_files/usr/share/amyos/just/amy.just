@@ -43,7 +43,14 @@ amy-install-appimages:
     # Handle GitHub wildcards
     if [[ "$url" =~ github.com/([^/]+/[^/]+)/releases/download/[^/]*/([^/]*) ]] && [[ "$url" == *"*"* ]]; then
       pattern="$(echo "${BASH_REMATCH[2]}" | sed 's/\./\\./g' | sed 's/\*/.*/g')"
-      url=$(curl --retry 3 -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[0].assets[].browser_download_url" | grep -E "$pattern" | head -n1)
+      # Try each release until we find one with an AppImage
+      url=""
+      while read -r release_url; do
+        if [[ "$release_url" =~ $pattern ]]; then
+          url="$release_url"
+          break
+        fi
+      done < <(curl --retry 3 -sL "https://api.github.com/repos/${BASH_REMATCH[1]}/releases" | jq -r ".[].assets[].browser_download_url")
       [ -z "$url" ] && {
         echo "No release found for $name"
         continue
