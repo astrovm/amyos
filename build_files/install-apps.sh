@@ -20,6 +20,7 @@ declare -A RPM_PACKAGES=(
     fuse-btfs \
     fuse-devel \
     fuse3-devel \
+    fzf \
     gnome-disk-utility \
     gparted \
     gwenview \
@@ -33,6 +34,7 @@ declare -A RPM_PACKAGES=(
     openrgb \
     printer-driver-brlaser \
     qemu-kvm \
+    thefuck \
     virt-manager \
     virt-viewer \
     wireshark \
