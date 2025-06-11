@@ -44,6 +44,7 @@ declare -A RPM_PACKAGES=(
     coolercontrol \
     ghostty \
     hack-nerd-fonts \
+    starship \
     ubuntu-nerd-fonts \
     ubuntumono-nerd-fonts \
     ubuntusans-nerd-fonts"
