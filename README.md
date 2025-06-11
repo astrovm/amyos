@@ -78,6 +78,9 @@ ujust amy-install-nixpkgs
 # Setup Amy OS settings for Cursor and VSCode
 ujust amy-setup-editors
 
+# Setup Ghostty terminal configuration
+ujust amy-setup-ghostty
+
 # Setup Nix package manager
 ujust amy-setup-nix
 

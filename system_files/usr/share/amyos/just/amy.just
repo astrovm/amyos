@@ -125,6 +125,17 @@ amy-setup-editors:
     echo "$editor setup complete."
   done
 
+# Setup Ghostty terminal configuration
+amy-setup-ghostty:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up Ghostty configuration..."
+  config_dir="${HOME}/.config/ghostty"
+  mkdir -p "$config_dir"
+  cp -f "/etc/skel/.config/ghostty/config" "$config_dir/config"
+  echo "Ghostty setup complete."
+
 # Restart Bluetooth to fix issues
 amy-fix-bt:
   #!/usr/bin/env bash
