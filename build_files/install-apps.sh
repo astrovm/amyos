@@ -35,6 +35,7 @@ declare -A RPM_PACKAGES=(
     printer-driver-brlaser \
     qemu-kvm \
     thefuck \
+    util-linux \
     virt-manager \
     virt-viewer \
     wireshark \
