@@ -81,7 +81,7 @@ for repo in "${!RPM_PACKAGES[@]}"; do
     "${cmd[@]}"
   fi
 done
-dnf5 -y remove podman
+
 log "Enabling system services"
 systemctl enable docker.socket libvirtd.service
 
