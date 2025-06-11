@@ -29,6 +29,8 @@ chmod -R 1777 /var/tmp
 log "Remove un-used icd files"
 find /usr/share/vulkan/icd.d ! -name "radeon_icd.*" -type f -exec rm -f {} +
 
+dnf5 -y remove podman
+
 # Commit and lint container
 ostree container commit
 bootc container lint
