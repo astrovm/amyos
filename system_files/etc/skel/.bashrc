@@ -28,6 +28,9 @@ unset rc
 eval "$(starship init bash)"
 eval "$(thefuck --alias)"
 
+# Atuin
+export ATUIN_NOBIND="true"
 ### bling.sh source start
 test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
 ### bling.sh source end
+bind -x '"\C-r": __atuin_history'
