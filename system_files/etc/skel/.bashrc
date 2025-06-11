@@ -23,3 +23,7 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+# Starship and The Fuck
+eval "$(starship init bash)"
+eval "$(thefuck --alias)"

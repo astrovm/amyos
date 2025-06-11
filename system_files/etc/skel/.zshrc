@@ -32,3 +32,8 @@ setopt COMPLETE_IN_WORD
 
 # autoload -U colors
 #colors
+
+# Autosuggestions, Starship, and The Fuck
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+eval "$(starship init zsh)"
+eval "$(thefuck --alias)"
