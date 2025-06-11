@@ -70,3 +70,6 @@ export ATUIN_NOBIND="true"
 test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
 ### bling.sh source end
 bindkey '^r' atuin-search
+
+# fnm
+eval "$(fnm env --use-on-cd --shell zsh)"

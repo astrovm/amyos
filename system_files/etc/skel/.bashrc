@@ -34,3 +34,6 @@ export ATUIN_NOBIND="true"
 test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
 ### bling.sh source end
 bind -x '"\C-r": __atuin_history'
+
+# fnm
+eval "$(fnm env --use-on-cd --shell bash)"
