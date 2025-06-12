@@ -73,3 +73,6 @@ bindkey '^r' atuin-search
 
 # fnm
 eval "$(fnm env --use-on-cd --shell zsh)"
+
+# Rust
+export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"

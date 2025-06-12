@@ -37,3 +37,6 @@ bind -x '"\C-r": __atuin_history'
 
 # fnm
 eval "$(fnm env --use-on-cd --shell bash)"
+
+# Rust
+export PATH="/home/linuxbrew/.linuxbrew/opt/rustup/bin:$PATH"
