@@ -81,6 +81,9 @@ ujust amy-setup-editors
 # Setup Ghostty terminal configuration
 ujust amy-setup-ghostty
 
+# Setup shell configurations (zsh, bash)
+ujust amy-setup-shells
+
 # Setup Nix package manager
 ujust amy-setup-nix
 

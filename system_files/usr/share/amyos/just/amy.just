@@ -136,6 +136,28 @@ amy-setup-ghostty:
   cp -f "/etc/skel/.config/ghostty/config" "$config_dir/config"
   echo "Ghostty setup complete."
 
+# Setup shell configurations (zsh, bash)
+amy-setup-shells:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Setting up shell configurations..."
+
+  # Setup Zsh configuration
+  echo "Setting up Zsh configuration..."
+  cp -f "/etc/skel/.zshrc" "${HOME}/.zshrc"
+  cp -f "/etc/skel/.zprofile" "${HOME}/.zprofile"
+  echo "Zsh configuration complete."
+
+  # Setup Bash configuration
+  echo "Setting up Bash configuration..."
+  cp -f "/etc/skel/.bashrc" "${HOME}/.bashrc"
+  cp -f "/etc/skel/.bash_profile" "${HOME}/.bash_profile"
+  cp -f "/etc/skel/.bash_logout" "${HOME}/.bash_logout"
+  echo "Bash configuration complete."
+
+  echo "Shell configurations setup complete."
+
 # Restart Bluetooth to fix issues
 amy-fix-bt:
   #!/usr/bin/env bash
