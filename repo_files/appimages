@@ -1,1 +1,2 @@
+cursor,https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable
 trezor_suite,https://github.com/trezor/trezor-suite/releases/download/*/Trezor-Suite-*-linux-x86_64.AppImage
