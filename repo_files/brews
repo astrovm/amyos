@@ -12,6 +12,7 @@ magic-wormhole.rs
 oven-sh/bun/bun
 rg
 rustup
+shellcheck
 tealdeer
 trash-cli
 ugrep
