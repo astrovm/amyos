@@ -106,32 +106,12 @@ done
 log "Enabling system services"
 systemctl enable docker.socket libvirtd.service
 
-log "Installing Cursor GUI"
-GUI_DIR="/tmp/cursor-gui"
-mkdir -p "$GUI_DIR"
-DOWNLOAD_URL=$(curl -s "https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | grep -o '"downloadUrl":"[^"]*' | cut -d'"' -f4)
-if [[ -z "$DOWNLOAD_URL" ]]; then
-  echo "Failed to extract download URL from JSON response"
-  exit 1
-fi
-aria2c --dir="$GUI_DIR" --out="cursor.appimage" --max-tries=3 --connect-timeout=30 "$DOWNLOAD_URL"
-chmod +x "$GUI_DIR/cursor.appimage"
-(cd "$GUI_DIR" && ./cursor.appimage --appimage-extract)
-chmod -R a+rX "$GUI_DIR/squashfs-root"
-cp -r "$GUI_DIR/squashfs-root/usr/share/icons/"* /usr/share/icons
-mkdir -p /usr/share/cursor/bin
-cp -r "$GUI_DIR/squashfs-root/usr/share/cursor/"* /usr/share/cursor
-install -m 0755 /usr/share/cursor/resources/linux/bin/cursor /usr/share/cursor/bin/cursor
-ln -s /usr/share/cursor/bin/cursor /usr/bin/cursor
-
 log "Installing Cursor CLI"
 CLI_DIR="/tmp/cursor-cli"
 mkdir -p "$CLI_DIR"
 aria2c --dir="$CLI_DIR" --out="cursor-cli.tar.gz" --max-tries=3 --connect-timeout=30 "https://api2.cursor.sh/updates/download-latest?os=cli-alpine-x64"
 tar -xzf "$CLI_DIR/cursor-cli.tar.gz" -C "$CLI_DIR"
-install -m 0755 "$CLI_DIR/cursor" /usr/share/cursor/bin/cursor-tunnel
-ln -s /usr/share/cursor/bin/cursor-tunnel /usr/bin/cursor-cli
-ln -s /usr/share/cursor/bin/cursor-tunnel /usr/share/cursor/bin/code-tunnel
+install -m 0755 "$CLI_DIR/cursor" /usr/bin/cursor-cli
 
 log "Adding Amy OS just recipes"
 echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
