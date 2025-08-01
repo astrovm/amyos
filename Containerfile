@@ -1,7 +1,7 @@
 FROM scratch AS ctx
 COPY build_files /
 
-FROM ghcr.io/ublue-os/bazzite:42 as amyos
+FROM ghcr.io/ublue-os/bazzite:42@sha256:56c9f52aec21cd80bb176fd2763f6cf76d01d483ec36ca86097468bb0bdb3715 as amyos
 COPY system_files /
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
