@@ -31,6 +31,7 @@ declare -A RPM_PACKAGES=(
     ksystemlog \
     neovim \
     nmap \
+    ollama \
     openrgb \
     printer-driver-brlaser \
     qemu-kvm \
