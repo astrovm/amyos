@@ -29,6 +29,7 @@ declare -A RPM_PACKAGES=(
     kcalc \
     kgpg \
     ksystemlog \
+    llama-cpp \
     neovim \
     nmap \
     ollama \
