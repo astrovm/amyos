@@ -71,7 +71,6 @@ just clean                  # Clean build artifacts
 - **System packages**: Layered in container build
 - **Flatpaks**: GUI applications via Discover/FlatHub
 - **Homebrew**: CLI tools (`brew install ...`)
-- **Nix**: Packages with GPU driver compatibility (`nix profile install nixpkgs#...`)
 - **AppImages**: Portable applications
 
 ### Development Stack
@@ -82,7 +81,7 @@ just clean                  # Clean build artifacts
 
 ### Gaming Optimizations
 - **Base**: Bazzite gaming optimizations
-- **GPU**: AMD/Intel optimization, Nix GPU driver symlinks
+- **GPU**: AMD/Intel optimization
 - **Steam**: SteamOS session switching from login screen
 - **Mods**: Sonic Adventure (SADX/SA2) setup scripts
 
@@ -95,11 +94,9 @@ ujust amy-install           # Install all curated applications
 ujust amy-install-flatpaks  # Install only Flatpaks
 ujust amy-install-brews     # Install only Homebrew tools
 ujust amy-install-appimages # Install only AppImages
-ujust amy-install-nixpkgs   # Install only Nix packages
 ujust amy-setup-editors     # Setup Cursor and VSCode configurations
 ujust amy-setup-ghostty     # Setup Ghostty terminal configuration
 ujust amy-setup-shells      # Configure zsh/bash environments
-ujust amy-setup-nix         # Setup Nix package manager with GPU drivers
 ujust amy-setup-samods      # Setup Sonic Adventure mods (SADX and SA2)
 ujust amy-fix-bt            # Restart Bluetooth to fix issues
 ujust amy-ssd-crypto        # Manage SSD encryption optimizations

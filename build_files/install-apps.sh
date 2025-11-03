@@ -7,9 +7,6 @@ log() {
   echo "=== $* ==="
 }
 
-# Workaround to allow installing nix with composefs
-mkdir /nix
-
 # RPM packages list
 declare -A RPM_PACKAGES=(
   ["fedora"]="\
