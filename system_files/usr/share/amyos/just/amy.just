@@ -1,5 +1,5 @@
 # Install all Amy OS curated apps
-amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages amy-install-nixpkgs
+amy-install: amy-install-flatpaks amy-install-brews amy-install-appimages
 
 # Install only Flatpaks
 amy-install-flatpaks:
@@ -80,49 +80,7 @@ amy-install-appimages:
     done < <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
     echo "AppImages installation complete."
 
-# Install only Nix packages
-amy-install-nixpkgs:
-    #!/usr/bin/env bash
-    set -euo pipefail
 
-    NIX_PROFILE="/nix/var/nix/profiles/default"
-    NIX_DAEMON_SCRIPT="$NIX_PROFILE/etc/profile.d/nix-daemon.sh"
-    OPENGL_PROFILE="/nix/var/nix/profiles/opengl-driver"
-    OPENGL_PROFILE_32="/nix/var/nix/profiles/opengl-driver-32"
-    OPENGL_SYMLINK_CONF="/etc/tmpfiles.d/nix-opengl-driver.conf"
-
-    # Source Nix daemon if available
-    [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-    command -v nix &>/dev/null || ujust amy-setup-nix
-
-    echo "Installing Nix system fonts..."
-    sudo -i nix profile install nixpkgs#nerd-fonts.{hack,ubuntu,ubuntu-mono,ubuntu-sans}
-
-    echo "Installing Nix system drivers..."
-    sudo -i nix profile install --profile "$OPENGL_PROFILE" nixpkgs#{amdvlk,mesa,mesa.opencl,rocmPackages.clr,rocmPackages.clr.icd}
-
-    echo "Installing Nix system 32-bit drivers..."
-    sudo -i nix profile install --profile "$OPENGL_PROFILE_32" nixpkgs#driversi686Linux.{amdvlk,mesa}
-
-    echo "Setting up drivers symlink..."
-    sudo rm -f "$OPENGL_SYMLINK_CONF"
-    printf "L+ /run/opengl-driver - - - - %s\nL+ /run/opengl-driver-32 - - - - %s\n" "$OPENGL_PROFILE" "$OPENGL_PROFILE_32" | sudo tee "$OPENGL_SYMLINK_CONF"
-    sudo systemd-tmpfiles --create "$OPENGL_SYMLINK_CONF"
-
-    echo "Nix packages installation complete."
-
-# Setup Nix package manager
-amy-setup-nix:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
-    NIX_INSTALLER="https://install.determinate.systems/nix"
-
-    echo "Setting up Nix package manager..."
-    curl --proto '=https' --tlsv1.2 -sSf -L "$NIX_INSTALLER" | sh -s -- install --no-confirm
-    [ -f "$NIX_DAEMON_SCRIPT" ] && . "$NIX_DAEMON_SCRIPT"
-    echo "Nix setup complete."
 
 # Setup Amy OS recommended settings for Cursor and VSCode
 amy-setup-editors:
@@ -618,7 +576,5 @@ amy-clean:
     podman system prune -af
     flatpak uninstall --unused
     rpm-ostree cleanup -bm
-    nix-collect-garbage -d
     sudo docker system prune -af
     sudo podman system prune -af
-    sudo -i nix-collect-garbage -d
