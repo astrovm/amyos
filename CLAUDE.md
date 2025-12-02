@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Amy OS is a custom container-based Linux distribution built on Fedora 42 and Bazzite, optimized for gaming, development, and daily use. It uses OCI containers with bootc for immutable OS deployment and features KDE Plasma 6.3 with SteamOS theming.
+Amy OS is a custom container-based Linux distribution built on Fedora 43 and Bazzite, optimized for gaming, development, and daily use. It uses OCI containers with bootc for immutable OS deployment and features KDE Plasma with SteamOS theming.
 
 ## Common Development Commands
 
@@ -45,7 +45,7 @@ just clean                  # Clean build artifacts
 - **Primary**: Podman/Docker containerized builds using `Containerfile`
 - **Bootable Images**: Bootc Image Builder (BIB) converts containers to bootable images
 - **Task Runner**: Just (Justfile) manages all build operations
-- **Base Image**: ghcr.io/ublue-os/bazzite:stable (Fedora 42)
+- **Base Image**: ghcr.io/ublue-os/bazzite:stable (Fedora 43)
 
 ### Directory Structure
 - `build_files/`: Build scripts and automation

@@ -14,9 +14,9 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 ## Base System
 
-- Built on Fedora 42
+- Built on Fedora 43
 - Uses [Bazzite](https://bazzite.gg/) as the base image
-- KDE Plasma 6.3 with Valve's themes from SteamOS
+- KDE Plasma with Valve's themes from SteamOS
 - Optimized for AMD and Intel GPUs
 
 ## Features
