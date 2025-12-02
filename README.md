@@ -22,7 +22,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 ## Features
 
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
-- `cursor` and `cursor-cli` commands
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Audacious with Winamp skins
 - Brave Browser
