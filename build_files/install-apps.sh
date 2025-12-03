@@ -26,10 +26,8 @@ declare -A RPM_PACKAGES=(
     kcalc \
     kgpg \
     ksystemlog \
-    llama-cpp \
     neovim \
     nmap \
-    ollama \
     openrgb \
     printer-driver-brlaser \
     qemu-kvm \
