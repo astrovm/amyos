@@ -1,3 +1,5 @@
+
+
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
 [![Build Amy OS](https://github.com/astrovm/amyos/actions/workflows/build.yml/badge.svg)](https://github.com/astrovm/amyos/actions/workflows/build.yml)
 
@@ -40,7 +42,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
 
 ```bash
-sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
+sudo bootc switch ghcr.io/astrovm/amyos:latest
 ```
 
 If you want to install the image on a new system download and install Bazzite ISO first:
