@@ -80,8 +80,6 @@ amy-install-appimages:
     done < <(curl --retry 3 -sL https://raw.githubusercontent.com/astrovm/amyos/main/repo_files/appimages)
     echo "AppImages installation complete."
 
-
-
 # Setup Amy OS recommended settings for VSCode
 amy-setup-editors:
     #!/usr/bin/env bash

@@ -16,7 +16,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 
 - Built on Fedora 44
 - Uses [Bazzite](https://bazzite.gg/) as the base image
-- KDE Plasma with Valve's themes from SteamOS
+- KDE Plasma desktop
 - Optimized for AMD and Intel GPUs
 
 ## Features
@@ -30,7 +30,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Fixed Plasma integration with Google Drive
 - Ghostty terminal, Starship prompt, Zsh, `fuck` alias and Atuin history search (Ctrl+R)
 - OpenRGB and CoolerControl
-- Switch to standalone SteamOS session from login screen
 - Virtual Machine Manager, libvirt and QEMU
 - VLC, mpv and HandBrake
 - VSCode, Neovim
