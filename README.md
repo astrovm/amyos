@@ -26,7 +26,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - Brave Browser
 - Stable Wi-Fi MAC addressing enabled
 - Podman, Distrobox and Toolbx
-- Ghostty terminal, Starship prompt, Zsh and `fuck` alias
+- Ghostty terminal and Zsh
 - OpenRGB and CoolerControl
 - Virtual Machine Manager, libvirt and QEMU
 - VLC, mpv and HandBrake
