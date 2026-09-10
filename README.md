@@ -25,7 +25,7 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Brave Browser
 - Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [Homebrews](https://github.com/astrovm/amyos/blob/main/repo_files/brews) and [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages)
-- DNS over TLS, DNSSEC and MAC address randomization enabled
+- Stable Wi-Fi MAC addressing enabled
 - Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
 - Ghostty terminal, Starship prompt, Zsh, `fuck` alias and Atuin history search (Ctrl+R)
