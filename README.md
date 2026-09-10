@@ -24,7 +24,6 @@ A custom Fedora Atomic image designed for gaming, development and daily use.
 - [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
 - ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
 - Brave Browser
-- Curated list of [Flatpaks](https://github.com/astrovm/amyos/blob/main/repo_files/flatpaks), [Homebrews](https://github.com/astrovm/amyos/blob/main/repo_files/brews) and [AppImages](https://github.com/astrovm/amyos/blob/main/repo_files/appimages)
 - Stable Wi-Fi MAC addressing enabled
 - Podman, Distrobox and Toolbx
 - Fixed Plasma integration with Google Drive
@@ -45,42 +44,6 @@ sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
 If you want to install the image on a new system download and install Bazzite ISO first:
 
 <https://download.bazzite.gg/bazzite-stable-amd64.iso>
-
-## Custom commands
-
-The following `ujust` commands are available:
-
-```bash
-# Clean up old packages and Podman images and volumes
-ujust amy-clean
-
-# Install all Amy OS apps
-ujust amy-install
-
-# Install only Flatpaks
-ujust amy-install-flatpaks
-
-# Install only Homebrews
-ujust amy-install-brews
-
-# Install only AppImages
-ujust amy-install-appimages
-
-# Setup Amy OS settings for VSCode
-ujust amy-setup-editors
-
-# Setup Ghostty terminal configuration
-ujust amy-setup-ghostty
-
-# Setup shell configurations (zsh, bash)
-ujust amy-setup-shells
-
-# Restart Bluetooth to fix issues
-ujust amy-fix-bt
-
-# Manage SSD encryption optimizations (Workqueue and TRIM)
-ujust amy-ssd-crypto
-```
 
 ## Package management
 

@@ -87,7 +87,4 @@ for repo in "${!RPM_PACKAGES[@]}"; do
   fi
 done
 
-log "Adding Amy OS just recipes"
-echo "import \"/usr/share/amyos/just/amy.just\"" >>/usr/share/ublue-os/justfile
-
 log "Build process completed"
