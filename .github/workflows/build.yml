@@ -83,6 +83,16 @@ jobs:
             ${IMAGE_NAME} \
             ${DEFAULT_TAG}
 
+      - name: Verify image metadata
+        run: |
+          podman image inspect "${IMAGE_NAME}:${DEFAULT_TAG}" \
+            --format '{{json .Config.Labels}}' |
+            jq -e '[
+              .["io.artifacthub.package.readme-url"],
+              .["org.opencontainers.image.created"],
+              .["org.opencontainers.image.description"]
+            ] | all(type == "string" and length > 0)'
+
       # If you are feeling adventurous, use the new distro agnostic rechunker
       # https://github.com/coreos/chunkah
       # You can delete the Rechunk with rpm-ostree portion then if you use this
