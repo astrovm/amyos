@@ -19,12 +19,13 @@ env:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build_push:
     name: Build and push image
     runs-on: ubuntu-26.04
+    timeout-minutes: 60
 
     permissions:
       contents: read
