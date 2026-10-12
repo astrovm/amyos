@@ -22,19 +22,20 @@ def svg(width, height, content):
 def cat(x, y, size, color='#ffffff'):
     return f'<g color="{color}" transform="translate({x} {y}) scale({size / 512})">{paths}</g>'
 
-for color, value in [('black', '#000000'), ('white', '#ffffff')]:
-    (temporary / f'{color}.svg').write_text(svg(512, 512, cat(0, 0, 512, value)))
-icon = '<g stroke="#ffffff" stroke-width="8" stroke-linejoin="round" paint-order="stroke">' + cat(0, 0, 256, '#1b1e20') + '</g>'
-(temporary / 'icon.svg').write_text(svg(256, 256, icon))
+def outlined(x, y, size):
+    # White cat over a black, slightly grown copy of itself: readable on any background.
+    grown = f'<g stroke="#000000" stroke-width="{size * 0.03:g}" stroke-linejoin="round">{cat(x, y, size, "#000000")}</g>'
+    return grown + cat(x, y, size)
+
+(temporary / 'white.svg').write_text(svg(512, 512, outlined(0, 0, 512)))
+(temporary / 'icon.svg').write_text(svg(256, 256, outlined(0, 0, 256)))
 (temporary / 'watermark.svg').write_text(svg(149, 149, cat(0, 0, 149)))
 (temporary / 'logo.svg').write_text(svg(256, 256, cat(0, 0, 256)))
-welcome = '<g stroke="#ffffff" stroke-width="8" stroke-linejoin="round" paint-order="stroke">' + cat(78.5, 0, 300, '#1b1e20') + '</g>'
-(temporary / 'welcome.svg').write_text(svg(457, 300, welcome))
-boot = '<rect width="640" height="480" fill="#1b1e20"/>' + cat(250, 28, 140)
+(temporary / 'welcome.svg').write_text(svg(457, 300, outlined(78.5, 0, 300)))
+boot = '<rect width="640" height="480" fill="#000000"/>' + cat(250, 28, 140)
 pathlib.Path('debian/live/config/bootloaders/splash.svg').write_text(svg(640, 480, boot))
 PY
 installer=debian/live/config/includes.chroot_after_packages/etc/calamares/branding/amyos
-rsvg-convert "$temporary/black.svg" -o repo_files/amy-logo-black.png
 rsvg-convert "$temporary/white.svg" -o repo_files/amy-logo-white.png
 rsvg-convert "$temporary/icon.svg" -o branding/usr/share/icons/hicolor/256x256/apps/amyos.png
 rsvg-convert "$temporary/watermark.svg" -o branding/usr/share/plymouth/themes/amyos/watermark.png

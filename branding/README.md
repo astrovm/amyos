@@ -8,8 +8,10 @@ Concept brief: “An original standing cat in side profile, facing right, with
 a raised tail, natural proportions and a smooth, solid silhouette. No lettering
 or interior detail.”
 
-The artwork is monochrome: no wordmark, colored tile or decorative line.
+The artwork is black and white only: no wordmark, colored tile or decorative
+line. The cat is always white. Where the background is unknown (README,
+desktop icon, installer welcome) it has a black outline; on the dark boot
+splash, Plymouth and installer sidebar it has none.
 
-The same geometry supplies the black and white README marks, desktop and
-installer icons, welcome graphic and boot splash. The old downloaded cat is
-replaced throughout.
+The same geometry supplies every variant. The old downloaded cat is replaced
+throughout.
