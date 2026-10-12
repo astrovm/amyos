@@ -1,16 +1,11 @@
 #!/bin/sh
-# live-build settings for the Amy OS live ISO (Debian testing, KDE Plasma).
 set -e
 
 lb config noauto \
   --distribution testing \
   --archive-areas "main contrib non-free non-free-firmware" \
-  --mirror-bootstrap http://deb.debian.org/debian/ \
-  --mirror-binary http://deb.debian.org/debian/ \
   --debian-installer none \
   --iso-application "Amy OS" \
-  --iso-publisher "Amy OS; https://github.com/astrovm/amyos" \
   --iso-volume "Amy OS testing" \
-  --image-name amyos-debian-testing \
   --bootappend-live "boot=live components quiet splash hostname=amyos" \
   "${@}"

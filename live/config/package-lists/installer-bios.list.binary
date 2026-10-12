@@ -1,0 +1,2 @@
+# Conflicts with grub-efi, so it gets its own list.
+grub-pc

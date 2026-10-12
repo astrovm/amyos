@@ -2,7 +2,7 @@ Package: amyos-branding
 Version: 0.1
 Architecture: all
 Maintainer: astrovm <astrovm@users.noreply.github.com>
-Depends: base-files, plymouth, plymouth-themes
+Depends: plymouth, plymouth-themes
 Section: misc
 Priority: optional
 Homepage: https://github.com/astrovm/amyos/tree/debian

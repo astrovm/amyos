@@ -1,13 +1,4 @@
-# KDE Plasma
 kde-plasma-desktop
-sddm
-plasma-nm
-plasma-pa
-bluedevil
-network-manager
 pipewire-audio
-locales
-
-# Live session and installer
 live-task-base
 calamares-settings-debian

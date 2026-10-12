@@ -2,29 +2,22 @@
 # Points Debian's Calamares setup at Amy OS and Debian testing.
 set -e
 
-calamares=/etc/calamares
 helpers=/usr/share/calamares/helpers
 
-# Amy OS branding (files come from includes.chroot_after_packages).
-sed -i 's/^branding: .*/branding: amyos/' "$calamares/settings.conf"
-grep -qx 'branding: amyos' "$calamares/settings.conf"
-
-# Debian's signed GRUB only looks in EFI/debian.
-echo 'efiBootloaderId: "debian"' >>"$calamares/modules/bootloader.conf"
+sed -i 's/^branding: .*/branding: amyos/' /etc/calamares/settings.conf
+grep -qx 'branding: amyos' /etc/calamares/settings.conf
 
 # The package pool on the USB is published as "testing".
 sed -i 's/^RELEASE=.*/RELEASE="testing"/' "$helpers/calamares-sources-media"
 grep -qx 'RELEASE="testing"' "$helpers/calamares-sources-media"
 
-# Installed systems follow Debian testing.
+# Runs last on the installed system: point APT at testing, drop installer files.
 cat >"$helpers/calamares-sources-final" <<'EOS'
 #!/bin/sh
-# Writes the installed system's APT sources (Debian testing).
-
 CHROOT=$(mount | grep proc | grep calamares | awk '{print $3}' | sed -e "s#/proc##g")
 
-rm -f "$CHROOT/etc/apt/sources.list"
-cat <<EOF2 >"$CHROOT/etc/apt/sources.list.d/debian.sources"
+rm -rf "$CHROOT/etc/apt/sources.list" "$CHROOT/etc/calamares"
+cat <<EOF >"$CHROOT/etc/apt/sources.list.d/debian.sources"
 Types: deb
 URIs: http://deb.debian.org/debian
 Suites: testing testing-updates
@@ -36,16 +29,9 @@ URIs: http://security.debian.org/debian-security
 Suites: testing-security
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.pgp
-EOF2
-
-exit 0
+EOF
 EOS
 
-# Installer launcher.
 desktop=/usr/share/applications/calamares-install-debian.desktop
-sed -i \
-  -e 's/^Name=.*/Name=Install Amy OS/' \
-  -e 's/^Comment=.*/Comment=Install Amy OS on this computer/' \
-  -e 's/^Icon=.*/Icon=amyos/' \
-  "$desktop"
+sed -i -e 's/^Name=.*/Name=Install Amy OS/' -e 's/^Icon=.*/Icon=amyos/' "$desktop"
 grep -qx 'Name=Install Amy OS' "$desktop"

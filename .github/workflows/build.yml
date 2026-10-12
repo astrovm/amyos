@@ -7,12 +7,7 @@ on:
       - debian
     paths-ignore:
       - "**/README.md"
-      - "repo_files/**"
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
-  cancel-in-progress: false
 
 jobs:
   build_iso:
@@ -24,7 +19,6 @@ jobs:
       contents: write
 
     steps:
-      # These stage versions are pinned by https://github.com/renovatebot/renovate
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -34,16 +28,9 @@ jobs:
       - name: Install just
         uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
 
-      - name: Check Just Syntax
-        run: |
-          just check
-
-      # live-build needs real root to create the chroot and mount /proc in it
+      # live-build needs real root to build the chroot
       - name: Build ISO
-        run: |
-          sudo "$(command -v just)" build
-          sudo chown -R "$(id -u):$(id -g)" output
-          ls -lh output
+        run: sudo "$(command -v just)" build
 
       - name: Upload ISO
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -52,7 +39,6 @@ jobs:
           path: output/
           compression-level: 0
           retention-days: 7
-          if-no-files-found: error
 
       # Only manual runs publish a release
       - name: Publish release
@@ -60,11 +46,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          tag="debian-$(date -u +%Y%m%d)-${GITHUB_SHA::7}"
-          gh release create "$tag" output/* \
+          gh release create "debian-$(date -u +%Y%m%d)-${GITHUB_SHA::7}" output/* \
             --target "$GITHUB_SHA" \
             --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
-            --notes "Live ISO with KDE Plasma and the Calamares installer, built from Debian testing." \
+            --notes "Live ISO with KDE Plasma and the Calamares installer." \
             --prerelease \
             --latest=false

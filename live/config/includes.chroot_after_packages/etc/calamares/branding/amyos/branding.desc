@@ -1,5 +1,4 @@
 ---
-# Calamares branding for Amy OS, based on Debian's.
 componentName:  amyos
 welcomeStyleCalamares: true
 welcomeExpandingLogo: true
@@ -14,7 +13,7 @@ strings:
     shortVersion:        testing
     versionedName:       Amy OS (Debian testing)
     shortVersionedName:  Amy OS
-    # Writes GRUB_DISTRIBUTOR. amyos-branding renames the menu entry on its own.
+    # Also names the EFI folder. Debian's signed GRUB only looks in EFI/debian.
     bootloaderEntryName: Debian
     productUrl:          https://github.com/astrovm/amyos/tree/debian
     supportUrl:          https://github.com/astrovm/amyos/issues

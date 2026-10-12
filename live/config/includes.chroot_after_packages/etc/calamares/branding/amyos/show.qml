@@ -1,4 +1,4 @@
-/* Calamares install slideshow for Amy OS, based on Debian's. */
+/* Calamares install slideshow. */
 
 import QtQuick 2.0;
 import calamares.slideshow 1.0;
