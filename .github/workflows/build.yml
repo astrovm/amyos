@@ -101,15 +101,15 @@ jobs:
           done
 
           if [[ "$draft" == true ]]; then
-            gh release upload "$tag" "${assets[@]}" --repo "$GITHUB_REPOSITORY" --clobber
-          else
-            gh release create "$tag" "${assets[@]}" \
-              --repo "$GITHUB_REPOSITORY" \
-              --target "$GITHUB_SHA" \
-              --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
-              --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
-              --draft --prerelease --latest=false
+            # Rebuilt filenames may have a new date; discard the incomplete draft.
+            gh release delete "$tag" --repo "$GITHUB_REPOSITORY" --yes
           fi
+          gh release create "$tag" "${assets[@]}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
+            --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
+            --draft --prerelease --latest=false
           gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
 
   # The Fedora bootc image publishes from the default branch only, never from PRs.
