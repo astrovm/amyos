@@ -24,7 +24,7 @@ def cat(x, y, size, color='#ffffff'):
 
 for color, value in [('black', '#000000'), ('white', '#ffffff')]:
     (temporary / f'{color}.svg').write_text(svg(512, 512, cat(0, 0, 512, value)))
-icon = '<rect x="12" y="12" width="232" height="232" rx="56" fill="#176787"/>' + cat(10, 4, 232)
+icon = '<g stroke="#ffffff" stroke-width="14" stroke-linejoin="round" paint-order="stroke">' + cat(0, 0, 256, '#1b1e20') + '</g>'
 (temporary / 'icon.svg').write_text(svg(256, 256, icon))
 (temporary / 'watermark.svg').write_text(svg(149, 149, cat(0, 0, 149)))
 (temporary / 'logo.svg').write_text(svg(256, 256, cat(0, 0, 256)))
