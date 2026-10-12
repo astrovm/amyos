@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+remove | purge)
+  if [ -x /usr/sbin/plymouth-set-default-theme ] &&
+    [ "$(plymouth-set-default-theme)" = amyos ]; then
+    plymouth-set-default-theme --reset
+    dpkg-trigger --no-await update-initramfs || true
+  fi
+  ;;
+esac
+
+case "$1" in
+remove | abort-install | disappear)
+  rm -f /usr/lib/os-release
+  dpkg-divert --package amyos-branding --remove --rename \
+    --divert /usr/lib/os-release.debian /usr/lib/os-release
+  ;;
+esac

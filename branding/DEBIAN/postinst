@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+configure)
+  /usr/lib/amyos/update-os-release
+
+  # Only pick the boot splash on first install, so a later change sticks.
+  if [ -z "$2" ] && [ -x /usr/sbin/plymouth-set-default-theme ]; then
+    plymouth-set-default-theme amyos
+    dpkg-trigger --no-await update-initramfs || true
+  fi
+  ;;
+triggered)
+  /usr/lib/amyos/update-os-release
+  ;;
+esac

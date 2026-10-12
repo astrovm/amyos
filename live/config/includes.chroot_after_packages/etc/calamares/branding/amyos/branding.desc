@@ -1,0 +1,39 @@
+---
+# Calamares branding for Amy OS, based on Debian's.
+componentName:  amyos
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 800px,580px
+windowPlacement: center
+
+strings:
+    productName:         Amy OS
+    shortProductName:    Amy OS
+    version:             testing
+    shortVersion:        testing
+    versionedName:       Amy OS (Debian testing)
+    shortVersionedName:  Amy OS
+    # Writes GRUB_DISTRIBUTOR. amyos-branding renames the menu entry on its own.
+    bootloaderEntryName: Debian
+    productUrl:          https://github.com/astrovm/amyos/tree/debian
+    supportUrl:          https://github.com/astrovm/amyos/issues
+    knownIssuesUrl:      https://github.com/astrovm/amyos/issues
+    releaseNotesUrl:     https://github.com/astrovm/amyos/releases
+
+sidebar: widget
+navigation: widget
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "icon.png"
+    productWelcome:      "welcome.png"
+
+slideshow:               "show.qml"
+slideshowAPI: 2
+
+style:
+   SidebarBackground:        "#1b1e20"
+   SidebarText:              "#ffffff"
+   SidebarTextCurrent:       "#ffffff"
+   SidebarBackgroundCurrent: "#3daee9"

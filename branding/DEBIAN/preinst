@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+install | upgrade)
+  # Keep Debian's os-release next to ours so base-files upgrades still land.
+  dpkg-divert --package amyos-branding --add --rename \
+    --divert /usr/lib/os-release.debian /usr/lib/os-release
+  # Never leave the system without an os-release while we unpack.
+  if [ ! -e /usr/lib/os-release ] && [ -e /usr/lib/os-release.debian ]; then
+    cp /usr/lib/os-release.debian /usr/lib/os-release
+  fi
+  ;;
+esac

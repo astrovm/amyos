@@ -1,0 +1,20 @@
+#!/bin/sh
+# Writes /usr/lib/os-release from Debian's copy, swapping in the Amy OS name.
+set -e
+
+src=/usr/lib/os-release.debian
+dst=/usr/lib/os-release
+
+[ -e "$src" ] || exit 0
+
+tmp="$dst.amyos-new"
+{
+  echo 'PRETTY_NAME="Amy OS (Debian testing)"'
+  echo 'NAME="Amy OS"'
+  grep -v -E '^(PRETTY_NAME|NAME|HOME_URL|BUG_REPORT_URL|LOGO)=' "$src"
+  echo 'HOME_URL="https://github.com/astrovm/amyos/tree/debian"'
+  echo 'BUG_REPORT_URL="https://github.com/astrovm/amyos/issues"'
+  echo 'LOGO=amyos'
+} >"$tmp"
+chmod 0644 "$tmp"
+mv "$tmp" "$dst"

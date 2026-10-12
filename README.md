@@ -1,5 +1,4 @@
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
-[![Build Amy OS](https://github.com/astrovm/amyos/actions/workflows/build.yml/badge.svg)](https://github.com/astrovm/amyos/actions/workflows/build.yml)
+[![Build live ISO](https://github.com/astrovm/amyos/actions/workflows/build.yml/badge.svg?branch=debian)](https://github.com/astrovm/amyos/actions/workflows/build.yml?query=branch%3Adebian)
 
 <div align="center">
   <picture>
@@ -8,48 +7,40 @@
   </picture>
 </div>
 
-# Amy OS
+# Amy OS (Debian testing)
 
-A custom Fedora Atomic image designed for gaming, development and daily use.
+Debian testing with KDE Plasma, on a live USB with the Calamares installer.
 
-## Base System
+It's plain Debian under the Amy OS name and logo. You update it with `apt`.
 
-- Built on Fedora 44
-- Uses [Bazzite](https://bazzite.gg/) as the base image
-- KDE Plasma desktop
-- Optimized for AMD and Intel GPUs
+## What's different from Debian
 
-## Features
-
-- [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
-- ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
-- Brave Browser
-- Stable Wi-Fi MAC addressing enabled
-- Podman, Distrobox and Toolbx
-- Ghostty terminal and Zsh
-- OpenRGB and CoolerControl
-- Virtual Machine Manager, libvirt and QEMU
-- VLC, mpv and HandBrake
-- VSCode, Neovim
+- Amy OS name in **About this System**, `/etc/os-release` and the GRUB menu.
+- Amy OS logo in the boot menu, boot splash and installer.
+- The system still reports `ID=debian`, so Debian tools and repos work as usual.
+- Installed systems follow `testing`, with `contrib`, `non-free` and `non-free-firmware` enabled.
 
 ## Install
 
-From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
+1. Download the ISO from [Releases](https://github.com/astrovm/amyos/releases).
+2. Write it to a USB stick (Fedora Media Writer, Impression, `dd`, etc.).
+3. Boot from it and open **Install Amy OS** on the desktop.
+
+## Build
+
+Needs `just` and `podman`. The ISO lands in `output/`.
 
 ```bash
-sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
+sudo just build
+just run-vm        # UEFI
+just run-vm bios
 ```
 
-If you want to install the image on a new system download and install Bazzite ISO first:
+CI builds the ISO on every push to `debian`.
+Run the workflow by hand on the `debian` branch to publish a release.
 
-<https://download.bazzite.gg/bazzite-stable-amd64.iso>
+## Layout
 
-## Package management
-
-GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flathub.org/) and installed with `flatpak install ...`.
-
-CLI apps are available from [Homebrew](https://formulae.brew.sh/) using `brew install ...`.
-
-## Acknowledgments
-
-This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template) and builds upon the excellent work of the Universal Blue community.
+- `live/`: live-build config (packages, hooks, boot menu art, Calamares branding).
+- `branding/`: the `amyos-branding` package (os-release name, logo, GRUB name, Plymouth theme).
+- `build.sh`: builds the package and the ISO inside a Debian testing container.
