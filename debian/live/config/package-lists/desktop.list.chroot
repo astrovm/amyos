@@ -38,5 +38,5 @@ btrfs-progs
 # EFI installation needs FAT formatting and firmware boot-entry management.
 dosfstools
 efibootmgr
-# Debian's default security layer. Standard priority, so recommends-off builds skip it.
+# Debian's default security layer. Nothing here depends on it, so list it explicitly.
 apparmor
