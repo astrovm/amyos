@@ -8,6 +8,11 @@ on:
     paths-ignore:
       - "**/README.md"
   workflow_dispatch:
+  pull_request:
+    branches:
+      - debian
+    paths-ignore:
+      - "**/README.md"
 
 jobs:
   build_iso:
@@ -30,15 +35,17 @@ jobs:
 
       # live-build needs real root to build the chroot
       - name: Build ISO
-        run: sudo "$(command -v just)" build
+        run: sudo nice -n 10 "$(command -v just)" build
 
       - name: Upload ISO
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: amyos-debian-testing-iso
           path: output/
           compression-level: 0
           retention-days: 7
+          if-no-files-found: ignore
 
       # Only manual runs publish a release
       - name: Publish release

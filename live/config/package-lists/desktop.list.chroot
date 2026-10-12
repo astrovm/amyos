@@ -1,4 +1,34 @@
 kde-plasma-desktop
+# Keep a usable desktop when optional package recommendations are disabled.
+sddm
+sddm-theme-debian-breeze
+libpam-systemd
+kwin-x11
+xserver-xorg
+xserver-xorg-input-libinput
+xserver-xorg-video-all
+systemsettings
+kscreen
+powerdevil
+plasma-nm
+network-manager
+wpasupplicant
+wireless-regdb
+plasma-pa
 pipewire-audio
+bluedevil
+bluez
+xdg-desktop-portal-kde
+xdg-desktop-portal-gtk
+fonts-noto-core
+fonts-noto-color-emoji
+firefox-esr
+# live-config recommends these, but needs them to create the live user.
 live-task-base
+live-tools
+user-setup
+sudo
+locales
+keyboard-configuration
+uuid-runtime
 calamares-settings-debian

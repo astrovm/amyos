@@ -1,0 +1,8 @@
+#!/bin/sh
+# Log the installed package and directory sizes before SquashFS compression.
+set -eu
+
+echo "Largest installed packages (KiB):"
+dpkg-query -W -f='${Installed-Size}\t${binary:Package}\n' | sort -nr | head -40
+echo "Filesystem usage before compression (KiB):"
+du -x -k -d 1 /usr /var /usr/lib/firmware
