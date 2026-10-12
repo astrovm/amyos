@@ -16,12 +16,18 @@ on:
 
 jobs:
   build_iso:
-    name: Build ISO
-    runs-on: ubuntu-26.04
+    name: Build ISO (${{ matrix.arch }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { arch: amd64, runner: ubuntu-26.04 }
+          - { arch: arm64, runner: ubuntu-26.04-arm }
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
 
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - name: Checkout
@@ -38,21 +44,30 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: amyos-debian-testing-iso
+          name: amyos-debian-testing-iso-${{ matrix.arch }}
           path: output/
           compression-level: 0
           retention-days: 7
           if-no-files-found: ignore
 
-      # Only manual runs publish a release
+  # Only manual runs publish, once both ISOs build. gh is included on the runner.
+  publish:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build_iso
+    runs-on: ubuntu-26.04
+    permissions:
+      actions: read
+      contents: write
+    steps:
       - name: Publish release
-        if: github.event_name == 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "debian-$(date -u +%Y%m%d)-${GITHUB_SHA::7}" output/* \
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --dir output
+          gh release create "debian-$(date -u +%Y%m%d)-${GITHUB_SHA::7}" output/*/* \
+            --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
-            --notes "Live ISO with KDE Plasma and the Calamares installer." \
+            --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer." \
             --prerelease \
             --latest=false

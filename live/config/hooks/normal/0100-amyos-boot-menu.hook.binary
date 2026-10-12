@@ -2,9 +2,13 @@
 # Renames the live boot menu entries and titles.
 set -e
 
-sed -i 's/Live system/Amy OS live/g' boot/grub/grub.cfg isolinux/live.cfg
+sed -i 's/Live system/Amy OS live/g' boot/grub/grub.cfg
 sed -i 's/^title-text: .*/title-text: ""/' boot/grub/live-theme/theme.txt
-sed -i 's/^menu title Boot menu$/menu title Amy OS/' isolinux/menu.cfg
-
 grep -q 'Amy OS live' boot/grub/grub.cfg
-grep -q 'Amy OS live' isolinux/live.cfg
+
+# Only BIOS builds (amd64) have isolinux.
+if [ -d isolinux ]; then
+  sed -i 's/Live system/Amy OS live/g' isolinux/live.cfg
+  sed -i 's/^menu title Boot menu$/menu title Amy OS/' isolinux/menu.cfg
+  grep -q 'Amy OS live' isolinux/live.cfg
+fi
