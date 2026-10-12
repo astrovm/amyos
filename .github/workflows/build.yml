@@ -104,7 +104,14 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build image
-        run: podman build --pull=newer -f fedora/Containerfile -t "amyos:fedora-${{ matrix.arch }}" .
+        run: |
+          podman build --pull=newer -f fedora/Containerfile -t "localhost/amyos:fedora-${{ matrix.arch }}" \
+            --label "org.opencontainers.image.created=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+            --label "org.opencontainers.image.version=fedora.$(date -u +%Y%m%d)-${GITHUB_SHA::7}" .
+
+      - name: Rechunk image
+        run: fedora/rechunk.sh "localhost/amyos:fedora-${{ matrix.arch }}"
 
       - name: Push image
         id: push
@@ -113,7 +120,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "$GH_TOKEN" | podman login ghcr.io -u "${{ github.actor }}" --password-stdin
-          podman push --digestfile digest "amyos:fedora-${{ matrix.arch }}" "${IMAGE,,}:fedora-${{ matrix.arch }}"
+          podman push --digestfile digest "localhost/amyos:fedora-${{ matrix.arch }}" "${IMAGE,,}:fedora-${{ matrix.arch }}"
           echo "digest-${{ matrix.arch }}=$(cat digest)" >> "$GITHUB_OUTPUT"
 
   publish_fedora:
@@ -122,6 +129,7 @@ jobs:
     if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-26.04
     permissions:
+      contents: read
       packages: write
     env:
       IMAGE: ghcr.io/${{ github.repository_owner }}/amyos
@@ -155,3 +163,20 @@ jobs:
         run: |
           echo "$GH_TOKEN" | cosign login ghcr.io -u "${{ github.actor }}" --password-stdin
           cosign sign -y --new-bundle-format=false --use-signing-config=false --key env://COSIGN_PRIVATE_KEY "$IMAGE_REF"
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install ORAS
+        uses: oras-project/setup-oras@005458ad77f1c8facd38a094e4af2e69e5607ff4 # v2.0.2
+
+      # Artifact Hub reads the repository metadata from this tag.
+      - name: Push Artifact Hub metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE_NAME: ${{ steps.manifest.outputs.image }}
+        run: |
+          echo "$GH_TOKEN" | oras login ghcr.io -u "${{ github.actor }}" --password-stdin
+          oras push "$IMAGE_NAME:artifacthub.io" \
+            --config /dev/null:application/vnd.cncf.artifacthub.config.v1+yaml \
+            artifacthub-repo.yml:application/vnd.cncf.artifacthub.repository-metadata.layer.v1.yaml

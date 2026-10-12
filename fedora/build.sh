@@ -15,7 +15,6 @@ dnf -y install --setopt=install_weak_deps=False \
   plymouth-theme-spinner
 # Fedora remixes drop the Fedora logos.
 dnf -y swap fedora-logos generic-logos
-dnf clean all
 
 # Branding, shared with the Debian package in branding/.
 install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
@@ -23,6 +22,25 @@ install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
 install -Dm644 /ctx/branding/usr/share/plymouth/themes/amyos/watermark.png \
   /usr/share/plymouth/themes/spinner/watermark.png
 plymouth-set-default-theme spinner
+
+# Plasma's own look instead of Fedora's, like the Debian ISO.
+# Fedora's wallpaper and login theme are hard dependencies, so point them away.
+ln -sfn Next /usr/share/wallpapers/Default
+install -Dm644 /dev/stdin /etc/sddm.conf.d/amyos.conf <<'CONF'
+[Theme]
+Current=breeze
+CONF
+# The app launcher shows the start-here icon, which Fedora sets to its logo.
+rm -f /usr/share/icons/hicolor/scalable/{apps,places}/start-here.svg
+for dir in apps places; do
+  install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
+    "/usr/share/icons/hicolor/256x256/$dir/start-here.png"
+done
+cat >/etc/xdg/kcm-about-distrorc <<'CONF'
+[General]
+LogoPath=/usr/share/icons/hicolor/256x256/apps/amyos.png
+Website=https://github.com/astrovm/amyos
+CONF
 
 # Plain KDE look, login screen and wallpaper instead of Fedora's, like the Debian build.
 mkdir -p /etc/sddm.conf.d
@@ -54,6 +72,5 @@ kernel="$(find /usr/lib/modules -mindepth 1 -maxdepth 1 -printf '%f\n' | sort -V
 dracut --no-hostonly --kver "$kernel" --reproducible --zstd --add ostree \
   -f "/usr/lib/modules/$kernel/initramfs.img"
 
-# /var and /run are not updated with the image; drop build leftovers.
-rm -rf /var/log/dnf5.log* /var/lib/dnf /run/dnf /run/sddm
-find /var/cache -mindepth 1 -maxdepth 1 ! -name libdnf5 -exec rm -rf {} +
+# /run is not part of the image; drop build leftovers.
+rm -rf /var/lib/dnf /run/dnf /run/sddm

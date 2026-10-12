@@ -1,5 +1,7 @@
 # Amy OS
 
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
+
 A minimal KDE Plasma desktop with the Amy OS name and logo.
 
 - **Debian testing:** live ISO with the Calamares installer, for AMD64 and ARM64.

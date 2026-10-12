@@ -5,6 +5,7 @@ build:
 # Build the Fedora bootc image as localhost/amyos:fedora
 build-fedora:
     podman build --pull=newer -f fedora/Containerfile -t localhost/amyos:fedora "{{ justfile_directory() }}"
+    "{{ justfile_directory() }}/fedora/rechunk.sh" localhost/amyos:fedora
 
 # Boot the newest native ISO with a disposable installation disk
 run-vm firmware="uefi":

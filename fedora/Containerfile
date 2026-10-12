@@ -3,12 +3,22 @@
 # `latest` follows each new Fedora release.
 FROM quay.io/fedora/fedora-bootc:latest
 
+# Artifact Hub reads these: https://artifacthub.io/docs/topics/repositories/container-images/
 LABEL org.opencontainers.image.title="Amy OS" \
       org.opencontainers.image.description="Fedora bootc image with a minimal KDE Plasma desktop" \
-      org.opencontainers.image.source="https://github.com/astrovm/amyos"
+      org.opencontainers.image.source="https://github.com/astrovm/amyos" \
+      org.opencontainers.image.url="https://github.com/astrovm/amyos" \
+      org.opencontainers.image.vendor="astrovm" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      io.artifacthub.package.readme-url="https://raw.githubusercontent.com/astrovm/amyos/main/README.md" \
+      io.artifacthub.package.logo-url="https://raw.githubusercontent.com/astrovm/amyos/main/branding/usr/share/icons/hicolor/256x256/apps/amyos.png" \
+      io.artifacthub.package.keywords="bootc,fedora,kde,plasma,linux" \
+      io.artifacthub.package.license="Apache-2.0"
 
 RUN --mount=type=bind,source=.,target=/ctx \
-    --mount=type=cache,dst=/var/cache/libdnf5 \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
     /ctx/fedora/build.sh
 
 RUN bootc container lint
