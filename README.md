@@ -4,6 +4,10 @@ Debian testing with KDE Plasma, as a live USB with the Calamares installer.
 
 It's plain Debian with the Amy OS name and logo. Update it with `apt`.
 
+The image includes a minimal Plasma desktop, a terminal, and Calamares.
+A web browser is not preinstalled. After installation, install Firefox with
+`sudo apt install firefox-esr`.
+
 ## Install
 
 1. Download the ISO from [Releases](https://github.com/astrovm/amyos/releases).

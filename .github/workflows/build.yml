@@ -8,6 +8,11 @@ on:
     paths-ignore:
       - "**/README.md"
   workflow_dispatch:
+  pull_request:
+    branches:
+      - debian
+    paths-ignore:
+      - "**/README.md"
 
 jobs:
   build_iso:
@@ -22,9 +27,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Maximize build space
-        uses: ublue-os/remove-unwanted-software@695eb75bc387dbcd9685a8e72d23439d8686cba6 # v10 (master, newer than latest tag v9)
-
       - name: Install just
         uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
 
@@ -33,12 +35,14 @@ jobs:
         run: sudo "$(command -v just)" build
 
       - name: Upload ISO
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: amyos-debian-testing-iso
           path: output/
           compression-level: 0
           retention-days: 7
+          if-no-files-found: ignore
 
       # Only manual runs publish a release
       - name: Publish release

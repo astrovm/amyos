@@ -12,7 +12,8 @@ cp -a live _build
 mkdir -p _build/config/packages.chroot output
 dpkg-deb --root-owner-group --build branding _build/config/packages.chroot/
 
-(cd _build && lb config && lb build)
+# Larger XZ blocks and the x86 filter reduce the filesystem without dropping files.
+(cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj x86" lb build)
 
 name="amyos-debian-testing-$(date -u +%Y%m%d)-amd64.iso"
 mv _build/*.iso "output/$name"
