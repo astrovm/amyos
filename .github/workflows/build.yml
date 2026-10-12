@@ -14,16 +14,17 @@ on:
       - "**/README.md"
   schedule:
     - cron: "05 10 * * *" # Daily, to pick up Fedora updates in the bootc image
+    - cron: "35 10 * * 1" # Weekly Debian ISOs, Monday at 10:35 UTC
 
 # A newer commit replaces the running build. Manual runs publish, so they always finish.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || github.event.schedule || github.head_ref || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build_iso:
     name: Build ISO (${{ matrix.arch }})
-    if: github.event_name != 'schedule'
+    if: github.event_name != 'schedule' || github.event.schedule == '35 10 * * 1'
     strategy:
       fail-fast: false
       matrix:
@@ -57,9 +58,12 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
-  # Only manual runs publish, once both ISOs build. gh is included on the runner.
+  # Main pushes, weekly builds and manual runs publish after both ISOs pass.
   publish:
-    if: github.event_name == 'workflow_dispatch'
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '35 10 * * 1'))
     needs: build_iso
     runs-on: ubuntu-26.04
     permissions:
@@ -70,18 +74,48 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --dir output
-          gh release create "debian-$(date -u +%Y%m%d)-${GITHUB_SHA::7}" output/*/* \
-            --repo "$GITHUB_REPOSITORY" \
-            --target "$GITHUB_SHA" \
-            --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
-            --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer." \
-            --prerelease \
-            --latest=false
+          # Run IDs stay the same on retries and distinguish weekly rebuilds of a commit.
+          tag="debian-$GITHUB_RUN_ID"
+          draft=$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null || true)
+          if [[ "$draft" == false ]]; then
+            echo "Release $tag is already published."
+            exit 0
+          fi
+
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" \
+            --pattern 'amyos-debian-testing-iso-*' --dir output
+          assets=()
+          for arch in amd64 arm64; do
+            files=(output/amyos-debian-testing-iso-"$arch"/*-"$arch".iso)
+            if [[ ${#files[@]} != 1 || ! -f "${files[0]}" ]]; then
+              echo "Expected exactly one $arch ISO" >&2
+              exit 1
+            fi
+            iso="${files[0]}"
+            if (( $(stat -c %s "$iso") >= 2 * 1024 ** 3 )); then
+              echo "$iso exceeds the GitHub release size limit" >&2
+              exit 1
+            fi
+            (cd "$(dirname "$iso")" && sha256sum --check "$(basename "$iso").sha256")
+            assets+=("$iso" "$iso.sha256")
+          done
+
+          if [[ "$draft" == true ]]; then
+            gh release upload "$tag" "${assets[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$tag" "${assets[@]}" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
+              --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
+              --draft --prerelease --latest=false
+          fi
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
 
   # The Fedora bootc image publishes from the default branch only, never from PRs.
   build_fedora:
     name: Build Fedora image (${{ matrix.arch }})
+    if: github.event_name != 'schedule' || github.event.schedule == '05 10 * * *'
     strategy:
       fail-fast: false
       matrix:
