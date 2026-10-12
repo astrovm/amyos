@@ -1,7 +1,10 @@
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
 
 <div align="center">
-  <img alt="Amy OS cat logo" src="repo_files/amy-logo-white.png" width="100">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="repo_files/amy-logo-black.png">
+    <img alt="Amy OS cat logo" src="repo_files/amy-logo-white.png" width="100">
+  </picture>
 </div>
 
 # Amy OS
