@@ -109,7 +109,7 @@ jobs:
             --target "$GITHUB_SHA" \
             --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
             --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
-            --draft --prerelease --latest=false
+            --draft --latest=false
           gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
 
   # The Fedora bootc image publishes from the default branch only, never from PRs.
