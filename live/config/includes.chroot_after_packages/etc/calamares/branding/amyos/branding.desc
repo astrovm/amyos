@@ -1,0 +1,38 @@
+---
+componentName:  amyos
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 800px,580px
+windowPlacement: center
+
+strings:
+    productName:         Amy OS
+    shortProductName:    Amy OS
+    version:             testing
+    shortVersion:        testing
+    versionedName:       Amy OS (Debian testing)
+    shortVersionedName:  Amy OS
+    # Also names the EFI folder. Debian's signed GRUB only looks in EFI/debian.
+    bootloaderEntryName: Debian
+    productUrl:          https://github.com/astrovm/amyos
+    supportUrl:          https://github.com/astrovm/amyos/issues
+    knownIssuesUrl:      https://github.com/astrovm/amyos/issues
+    releaseNotesUrl:     https://github.com/astrovm/amyos/releases
+
+sidebar: widget
+navigation: widget
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "icon.png"
+    productWelcome:      "welcome.png"
+
+slideshow:               "show.qml"
+slideshowAPI: 2
+
+style:
+   SidebarBackground:        "#1b1e20"
+   SidebarText:              "#ffffff"
+   SidebarTextCurrent:       "#ffffff"
+   SidebarBackgroundCurrent: "#3daee9"

@@ -1,0 +1,25 @@
+#!/bin/sh
+# Leaves the big GPU and server network drivers out of the initramfs, with
+# their firmware (about 300 MB). They load from the root filesystem after
+# boot, where the firmware is. Without this, a 1 GB Raspberry Pi 3 can't boot.
+set -e
+
+case "$1" in
+  prereqs) exit 0 ;;
+esac
+
+# mkinitramfs sets these. Hooks in /etc run after the plymouth hook.
+# shellcheck disable=SC2154
+drivers="$DESTDIR/lib/modules/$version/kernel/drivers"
+
+# Plymouth queues every GPU driver; drop the big ones before they're copied.
+# Installed systems run this too, so warn rather than break kernel updates.
+if [ ! -f "$__MODULES_TO_ADD" ]; then
+  echo "W: zz-amyos-trim: mkinitramfs no longer queues modules, GPU drivers stay in" >&2
+  exit 0
+fi
+sed -i -E '/^(amdgpu|radeon|nouveau|i915|xe)$/d' "$__MODULES_TO_ADD"
+
+# Network drivers were copied, with their firmware, before the hooks ran.
+rm -rf "$drivers/net/ethernet/netronome" "$drivers/net/ethernet/cavium" \
+  "$DESTDIR/lib/firmware/netronome" "$DESTDIR/lib/firmware/liquidio"

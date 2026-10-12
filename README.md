@@ -1,55 +1,32 @@
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
-[![Build Amy OS](https://github.com/astrovm/amyos/actions/workflows/build.yml/badge.svg)](https://github.com/astrovm/amyos/actions/workflows/build.yml)
-
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/astrovm/amyos/refs/heads/main/repo_files/amy-logo-black.png">
-    <img alt="Amy OS Logo" src="https://raw.githubusercontent.com/astrovm/amyos/refs/heads/main/repo_files/amy-logo-white.png" width="100">
-  </picture>
-</div>
-
 # Amy OS
 
-A custom Fedora Atomic image designed for gaming, development and daily use.
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
 
-## Base System
+A minimal KDE Plasma desktop with the Amy OS name and logo.
 
-- Built on Fedora 44
-- Uses [Bazzite](https://bazzite.gg/) as the base image
-- KDE Plasma desktop
-- Optimized for AMD and Intel GPUs
+- **Debian testing:** live ISO with the Calamares installer, for AMD64 and ARM64.
+- **Fedora:** bootc image, for AMD64 and ARM64.
 
-## Features
+## Debian
 
-- [Bazzite features](https://github.com/ublue-os/bazzite#about--features)
-- ADB, Fastboot and [Waydroid](https://docs.bazzite.gg/Installing_and_Managing_Software/Waydroid_Setup_Guide/)
-- Brave Browser
-- Stable Wi-Fi MAC addressing enabled
-- Podman, Distrobox and Toolbx
-- Ghostty terminal and Zsh
-- OpenRGB and CoolerControl
-- Virtual Machine Manager, libvirt and QEMU
-- VLC, mpv and HandBrake
-- VSCode, Neovim
+Download the ISO from [Releases](https://github.com/astrovm/amyos/releases),
+write it to a USB stick and boot it.
 
-## Install
+The ARM64 ISO also boots on:
 
-From existing Fedora Atomic/Universal Blue installation switch to Amy OS image:
+- **Raspberry Pi 3, 4 and 5:** from an SD card. Live session only.
+- **Apple Silicon Macs:** through the Asahi installer's **UEFI environment only** option.
+
+## Fedora
 
 ```bash
-sudo bootc switch --enforce-container-sigpolicy ghcr.io/astrovm/amyos:latest
+sudo bootc switch ghcr.io/astrovm/amyos:fedora
 ```
 
-If you want to install the image on a new system download and install Bazzite ISO first:
+## Build
 
-<https://download.bazzite.gg/bazzite-stable-amd64.iso>
-
-## Package management
-
-GUI apps can be found as Flatpaks in the Discover app or [FlatHub](https://flathub.org/) and installed with `flatpak install ...`.
-
-CLI apps are available from [Homebrew](https://formulae.brew.sh/) using `brew install ...`.
-
-## Acknowledgments
-
-This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template) and builds upon the excellent work of the Universal Blue community.
+```bash
+sudo just build      # Debian ISO, into output/
+just build-fedora    # Fedora image, as localhost/amyos:fedora
+just run-vm          # Boot the newest ISO
+```

@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+lb config noauto \
+  --distribution testing \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --apt-recommends false \
+  --debian-installer none \
+  --iso-application "Amy OS" \
+  --iso-volume "Amy OS testing" \
+  --bootappend-live "boot=live components quiet splash hostname=amyos" \
+  "${@}"
