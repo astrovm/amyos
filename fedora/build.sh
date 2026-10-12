@@ -19,9 +19,8 @@ dnf -y swap fedora-logos generic-logos
 # Shared branding assets.
 install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
   /usr/share/icons/hicolor/256x256/apps/amyos.png
-install -Dm644 /ctx/branding/usr/share/plymouth/themes/amyos/watermark.png \
-  /usr/share/plymouth/themes/spinner/watermark.png
-plymouth-set-default-theme spinner
+cp -a /ctx/branding/usr/share/plymouth/themes/amyos /usr/share/plymouth/themes/
+plymouth-set-default-theme amyos
 
 # Plasma's own look instead of Fedora's, like the Debian ISO.
 # Fedora's wallpaper and login theme are hard dependencies, so point them away.
