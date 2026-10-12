@@ -1,6 +1,6 @@
-# Build the live ISO for this machine's architecture into output/
+# Build the Debian live ISO for this machine's architecture into output/
 build:
-    podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./build.sh
+    podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./debian/build.sh
 
 # Build the Fedora bootc image as localhost/amyos:fedora
 build-fedora:

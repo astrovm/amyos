@@ -1,3 +1,5 @@
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
+
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="repo_files/amy-logo-black.png">
@@ -6,8 +8,6 @@
 </div>
 
 # Amy OS
-
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/amyos)](https://artifacthub.io/packages/container/amyos/amyos)
 
 A minimal KDE Plasma desktop with the Amy OS name and logo.
 
