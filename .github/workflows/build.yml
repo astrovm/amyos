@@ -35,7 +35,7 @@ jobs:
 
       # live-build needs real root to build the chroot
       - name: Build ISO
-        run: sudo nice -n 10 "$(command -v just)" build
+        run: sudo "$(command -v just)" build
 
       - name: Upload ISO
         if: ${{ !cancelled() }}
