@@ -22,6 +22,10 @@ dpkg-deb --root-owner-group --build branding _build/config/packages.chroot/
 # Larger XZ blocks and the native instruction filter reduce the filesystem without dropping files.
 (cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj $filter" lb build)
 
+if [[ "$architecture" == arm64 ]]; then
+  ./raspberry-pi.sh
+fi
+
 name="amyos-debian-testing-$(date -u +%Y%m%d)-$architecture.iso"
 mv _build/*.iso "output/$name"
 (cd output && sha256sum "$name" >"$name.sha256")

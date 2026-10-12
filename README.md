@@ -17,11 +17,10 @@ A web browser is not preinstalled. After installation, install Firefox with
 
 ### ARM
 
-The `arm64` ISO boots on any ARM computer with UEFI firmware.
+The `arm64` ISO boots on ARM computers with UEFI firmware, and also on:
 
-- **Raspberry Pi:** put the UEFI firmware for your model on an SD card
-  ([Pi 3](https://github.com/pftf/RPi3), [Pi 4](https://github.com/pftf/RPi4),
-  [Pi 5](https://github.com/worproject/rpi5-uefi)), then boot the USB stick.
+- **Raspberry Pi 3, 4 and 5:** write the ISO to an SD card or USB stick and
+  boot it. A Pi 5 boots it from an SD card only.
 - **Apple Silicon Macs:** run the [Asahi installer](https://asahilinux.org),
   pick **UEFI environment only**, then boot the USB stick.
   Works on the Macs Asahi supports. Debian's kernel lacks some Mac drivers,
@@ -45,3 +44,4 @@ Run the workflow by hand on `debian` to publish a release.
 - `live/`: live-build config (packages, boot menu, Calamares).
 - `branding/`: the `amyos-branding` package (name, logo, boot splash).
 - `build.sh`: builds both inside a Debian testing container.
+- `raspberry-pi.sh`: adds the Raspberry Pi boot files to the ARM64 ISO.
