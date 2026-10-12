@@ -19,8 +19,9 @@ A web browser is not preinstalled. After installation, install Firefox with
 
 The `arm64` ISO boots on ARM computers with UEFI firmware, and also on:
 
-- **Raspberry Pi 3, 4 and 5:** write the ISO to an SD card or USB stick and
-  boot it. A Pi 5 boots it from an SD card only.
+- **Raspberry Pi 3, 4 and 5:** write the ISO to an SD card and boot it.
+  USB also works on a Pi 4, and on a Pi 3 with USB boot turned on.
+  This runs the live session; installing onto a Pi isn't supported yet.
 - **Apple Silicon Macs:** run the [Asahi installer](https://asahilinux.org),
   pick **UEFI environment only**, then boot the USB stick.
   Works on the Macs Asahi supports. Debian's kernel lacks some Mac drivers,

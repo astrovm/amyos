@@ -21,8 +21,11 @@ mcopy -s -m -i "$efi" '::*' pi/files/
 firmware=pi/root/usr/lib/raspi-firmware
 cp "$firmware"/{bootcode.bin,start.elf,fixup.dat,start4.elf,fixup4.dat} pi/files/
 cp pi/root/usr/lib/u-boot/rpi_arm64/u-boot.bin pi/files/
+# Broadcom's license must ship with its firmware.
+cp pi/root/usr/share/doc/raspi-firmware/copyright pi/files/LICENCE.broadcom
 # The firmware picks the device tree for its model; upstream_kernel selects these names.
-mapfile -t dtbs < <(find chroot/usr/lib -path '*/broadcom/bcm2*-rpi-*.dtb')
+kernel="$(find chroot/usr/lib/modules -mindepth 1 -maxdepth 1 -printf '%f\n' | sort -V | tail -n 1)"
+mapfile -t dtbs < <(find "chroot/usr/lib/modules/$kernel" -path '*/broadcom/bcm2*-rpi-*.dtb')
 if ((${#dtbs[@]} == 0)); then
   echo "No Raspberry Pi device trees in the kernel package" >&2
   exit 1
@@ -51,7 +54,11 @@ if [[ "$command" != *"$lb_efi"* ]]; then
 fi
 command="${command/"$lb_efi"/-append_partition 1 0x0c pi/boot.img -e --interval:appended_partition_1:all:: -no-emul-boot}"
 rm "$efi"
-sed -i '\|  \./boot/grub/efi\.img$|d' binary/sha256sum.txt
+sed -i '\|  \./boot/grub/efi\.img$|d' binary/*sum.txt
+if grep -q 'boot/grub/efi\.img' binary/*sum.txt; then
+  echo "Couldn't drop efi.img from the checksum list" >&2
+  exit 1
+fi
 echo "$command" >binary/.disk/mkisofs
 rm -f ./*.iso
 eval "$command"

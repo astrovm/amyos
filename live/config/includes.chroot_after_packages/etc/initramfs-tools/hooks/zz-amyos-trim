@@ -13,9 +13,10 @@ esac
 drivers="$DESTDIR/lib/modules/$version/kernel/drivers"
 
 # Plymouth queues every GPU driver; drop the big ones before they're copied.
+# Installed systems run this too, so warn rather than break kernel updates.
 if [ ! -f "$__MODULES_TO_ADD" ]; then
-  echo "E: zz-amyos-trim: mkinitramfs no longer queues modules, update this hook" >&2
-  exit 1
+  echo "W: zz-amyos-trim: mkinitramfs no longer queues modules, GPU drivers stay in" >&2
+  exit 0
 fi
 sed -i -E '/^(amdgpu|radeon|nouveau|i915|xe)$/d' "$__MODULES_TO_ADD"
 
