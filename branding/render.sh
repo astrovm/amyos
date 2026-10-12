@@ -24,15 +24,13 @@ def cat(x, y, size, color='#ffffff'):
 
 for color, value in [('black', '#000000'), ('white', '#ffffff')]:
     (temporary / f'{color}.svg').write_text(svg(512, 512, cat(0, 0, 512, value)))
-icon = '<g stroke="#ffffff" stroke-width="14" stroke-linejoin="round" paint-order="stroke">' + cat(0, 0, 256, '#1b1e20') + '</g>'
+icon = '<g stroke="#ffffff" stroke-width="8" stroke-linejoin="round" paint-order="stroke">' + cat(0, 0, 256, '#1b1e20') + '</g>'
 (temporary / 'icon.svg').write_text(svg(256, 256, icon))
 (temporary / 'watermark.svg').write_text(svg(149, 149, cat(0, 0, 149)))
 (temporary / 'logo.svg').write_text(svg(256, 256, cat(0, 0, 256)))
-welcome = '<rect width="457" height="300" rx="12" fill="#1b1e20"/>' + cat(156, 35, 145)
-welcome += '<text x="228.5" y="233" fill="#ffffff" font-family="DejaVu Sans, sans-serif" font-size="36" font-weight="bold" text-anchor="middle">Amy OS</text><rect x="205" y="255" width="47" height="4" rx="2" fill="#3daee9"/>'
+welcome = '<g stroke="#ffffff" stroke-width="8" stroke-linejoin="round" paint-order="stroke">' + cat(78.5, 0, 300, '#1b1e20') + '</g>'
 (temporary / 'welcome.svg').write_text(svg(457, 300, welcome))
 boot = '<rect width="640" height="480" fill="#1b1e20"/>' + cat(250, 28, 140)
-boot += '<text x="320" y="200" fill="#ffffff" font-family="DejaVu Sans, sans-serif" font-size="26" font-weight="bold" text-anchor="middle">Amy OS</text><rect x="302" y="216" width="36" height="3" rx="1.5" fill="#3daee9"/>'
 pathlib.Path('debian/live/config/bootloaders/splash.svg').write_text(svg(640, 480, boot))
 PY
 installer=debian/live/config/includes.chroot_after_packages/etc/calamares/branding/amyos
