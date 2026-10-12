@@ -5,7 +5,7 @@ Maintainer: astrovm <~@4st.li>
 Depends: plymouth, plymouth-themes
 Section: misc
 Priority: optional
-Homepage: https://github.com/astrovm/amyos/tree/debian
+Homepage: https://github.com/astrovm/amyos
 Description: Amy OS name and logo for Debian
  Renames the system to Amy OS in os-release, the GRUB menu and the boot
  splash. The system still identifies as Debian (ID=debian), so Debian

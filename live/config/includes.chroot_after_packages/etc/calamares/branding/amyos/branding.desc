@@ -15,7 +15,7 @@ strings:
     shortVersionedName:  Amy OS
     # Also names the EFI folder. Debian's signed GRUB only looks in EFI/debian.
     bootloaderEntryName: Debian
-    productUrl:          https://github.com/astrovm/amyos/tree/debian
+    productUrl:          https://github.com/astrovm/amyos
     supportUrl:          https://github.com/astrovm/amyos/issues
     knownIssuesUrl:      https://github.com/astrovm/amyos/issues
     releaseNotesUrl:     https://github.com/astrovm/amyos/releases

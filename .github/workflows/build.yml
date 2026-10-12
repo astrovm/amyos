@@ -1,18 +1,15 @@
 ---
-# Same file name as on main, so "Run workflow" on the debian branch runs this one.
 name: Build Amy OS
 on:
   push:
     branches:
       - main
-      - debian
     paths-ignore:
       - "**/README.md"
   workflow_dispatch:
   pull_request:
     branches:
       - main
-      - debian
     paths-ignore:
       - "**/README.md"
   schedule:
