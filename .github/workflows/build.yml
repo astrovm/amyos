@@ -14,6 +14,11 @@ on:
     paths-ignore:
       - "**/README.md"
 
+# A newer commit replaces the running build. Manual runs publish, so they always finish.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_iso:
     name: Build ISO (${{ matrix.arch }})
