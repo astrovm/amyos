@@ -44,7 +44,7 @@ CONF
 # Plain KDE look, login screen and wallpaper instead of Fedora's, like the Debian build.
 mkdir -p /etc/sddm.conf.d
 printf '[Theme]\nCurrent=breeze\n' >/etc/sddm.conf.d/amyos.conf
-printf '[KDE]\nLookAndFeelPackage=org.kde.breeze.desktop\n' >/etc/xdg/kdeglobals
+printf '[KDE]\nLookAndFeelPackage=org.kde.breezedark.desktop\n' >/etc/xdg/kdeglobals
 cat >/etc/xdg/kscreenlockerrc <<'CONF'
 [Greeter][Wallpaper][org.kde.image][General]
 Image=file:///usr/share/wallpapers/Next/
