@@ -13,6 +13,8 @@ dnf -y install --setopt=install_weak_deps=False \
   xdg-desktop-portal-kde xdg-desktop-portal-gtk \
   google-noto-sans-fonts google-noto-color-emoji-fonts \
   plymouth-theme-spinner
+# Fedora remixes drop the Fedora logos.
+dnf -y swap fedora-logos generic-logos
 dnf clean all
 
 # Branding, shared with the Debian package in branding/.
@@ -21,6 +23,16 @@ install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
 install -Dm644 /ctx/branding/usr/share/plymouth/themes/amyos/watermark.png \
   /usr/share/plymouth/themes/spinner/watermark.png
 plymouth-set-default-theme spinner
+
+# Plain KDE look, login screen and wallpaper instead of Fedora's, like the Debian build.
+mkdir -p /etc/sddm.conf.d
+printf '[Theme]\nCurrent=breeze\n' >/etc/sddm.conf.d/amyos.conf
+printf '[KDE]\nLookAndFeelPackage=org.kde.breeze.desktop\n' >/etc/xdg/kdeglobals
+cat >/etc/xdg/kscreenlockerrc <<'CONF'
+[Greeter][Wallpaper][org.kde.image][General]
+Image=file:///usr/share/wallpapers/Next/
+PreviewImage=file:///usr/share/wallpapers/Next/
+CONF
 
 # Keep ID=fedora so Fedora tools keep working; only the shown name changes.
 release="$(readlink -f /usr/lib/os-release)"
