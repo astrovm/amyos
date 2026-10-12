@@ -10,9 +10,22 @@ A web browser is not preinstalled. After installation, install Firefox with
 
 ## Install
 
-1. Download the ISO from [Releases](https://github.com/astrovm/amyos/releases).
+1. Download the ISO for your computer from [Releases](https://github.com/astrovm/amyos/releases):
+   `amd64` for Intel and AMD, `arm64` for ARM.
 2. Write it to a USB stick.
 3. Boot it and open **Install Amy OS** on the desktop.
+
+### ARM
+
+The `arm64` ISO boots on any ARM computer with UEFI firmware.
+
+- **Raspberry Pi:** put the UEFI firmware for your model on an SD card
+  ([Pi 3](https://github.com/pftf/RPi3), [Pi 4](https://github.com/pftf/RPi4),
+  [Pi 5](https://github.com/worproject/rpi5-uefi)), then boot the USB stick.
+- **Apple Silicon Macs:** run the [Asahi installer](https://asahilinux.org),
+  pick **UEFI environment only**, then boot the USB stick.
+  Works on the Macs Asahi supports. Debian's kernel lacks some Mac drivers,
+  so not all hardware works yet.
 
 ## Build
 
@@ -23,7 +36,8 @@ sudo just build
 just run-vm        # or: just run-vm bios
 ```
 
-CI builds the ISO on every push to `debian`.
+It builds for the machine's own architecture.
+CI builds both ISOs on every push to `debian`.
 Run the workflow by hand on `debian` to publish a release.
 
 ## Layout

@@ -1,6 +1,11 @@
 # Copied to the USB so Calamares can install offline.
 grub-efi
+#if ARCHITECTURE amd64
 grub-efi-amd64-signed
+#endif
+#if ARCHITECTURE arm64
+grub-efi-arm64-signed
+#endif
 shim-signed
 cryptsetup-initramfs
 keyutils

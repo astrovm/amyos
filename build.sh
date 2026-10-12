@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
-# Builds the Amy OS live ISO into output/.
+# Builds the Amy OS live ISO for the host architecture into output/.
 # Runs as root inside a Debian testing container, see `just build`.
 set -euo pipefail
 cd "$(dirname "$0")"
+
+architecture="$(dpkg --print-architecture)"
+case "$architecture" in
+  amd64) filter=x86 ;;
+  arm64) filter=arm64 ;;
+  *) echo "Unsupported architecture: $architecture" >&2; exit 1 ;;
+esac
 
 apt-get update
 apt-get install -y live-build
@@ -12,10 +19,10 @@ cp -a live _build
 mkdir -p _build/config/packages.chroot output
 dpkg-deb --root-owner-group --build branding _build/config/packages.chroot/
 
-# Larger XZ blocks and the x86 filter reduce the filesystem without dropping files.
-(cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj x86" lb build)
+# Larger XZ blocks and the native instruction filter reduce the filesystem without dropping files.
+(cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj $filter" lb build)
 
-name="amyos-debian-testing-$(date -u +%Y%m%d)-amd64.iso"
+name="amyos-debian-testing-$(date -u +%Y%m%d)-$architecture.iso"
 mv _build/*.iso "output/$name"
 (cd output && sha256sum "$name" >"$name.sha256")
 

@@ -1,2 +1,4 @@
 # Conflicts with grub-efi, so it gets its own list.
+#if ARCHITECTURE amd64
 grub-pc
+#endif
