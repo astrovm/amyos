@@ -16,7 +16,7 @@ dnf -y install --setopt=install_weak_deps=False \
 # Fedora remixes drop the Fedora logos.
 dnf -y swap fedora-logos generic-logos
 
-# Branding, shared with the Debian package in branding/.
+# Shared branding assets.
 install -Dm644 /ctx/branding/usr/share/icons/hicolor/256x256/apps/amyos.png \
   /usr/share/icons/hicolor/256x256/apps/amyos.png
 install -Dm644 /ctx/branding/usr/share/plymouth/themes/amyos/watermark.png \

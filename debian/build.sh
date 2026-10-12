@@ -2,7 +2,7 @@
 # Builds the Amy OS live ISO for the host architecture into output/.
 # Runs as root inside a Debian testing container, see `just build`.
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 
 architecture="$(dpkg --print-architecture)"
 case "$architecture" in
@@ -15,15 +15,17 @@ apt-get update
 apt-get install -y live-build
 
 rm -rf _build output
-cp -a live _build
+cp -a debian/live _build
 mkdir -p _build/config/packages.chroot output
-dpkg-deb --root-owner-group --build branding _build/config/packages.chroot/
+cp -a branding _build/branding
+cp -a debian/branding/. _build/branding/
+dpkg-deb --root-owner-group --build _build/branding _build/config/packages.chroot/
 
 # Larger XZ blocks and the native instruction filter reduce the filesystem without dropping files.
 (cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj $filter" lb build)
 
 if [[ "$architecture" == arm64 ]]; then
-  ./raspberry-pi.sh
+  ./debian/raspberry-pi.sh
 fi
 
 name="amyos-debian-testing-$(date -u +%Y%m%d)-$architecture.iso"

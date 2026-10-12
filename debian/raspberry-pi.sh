@@ -3,7 +3,7 @@
 # The Pi firmware starts U-Boot, which loads the same EFI boot loader UEFI computers use.
 # Runs after `lb build`, see build.sh.
 set -euo pipefail
-cd "$(dirname "$0")/_build"
+cd "$(dirname "$0")/../_build"
 
 # raspi-firmware is in non-free-firmware.
 sed -i 's/^Components: main$/Components: main non-free-firmware/' /etc/apt/sources.list.d/debian.sources
