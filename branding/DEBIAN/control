@@ -1,7 +1,7 @@
 Package: amyos-branding
 Version: 0.1
 Architecture: all
-Maintainer: astrovm <astrovm@users.noreply.github.com>
+Maintainer: astrovm <~@4st.li>
 Depends: plymouth, plymouth-themes
 Section: misc
 Priority: optional
