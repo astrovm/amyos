@@ -2,6 +2,10 @@
 build:
     podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./build.sh
 
+# Build the Fedora bootc image as localhost/amyos:fedora
+build-fedora:
+    podman build --pull=newer -f fedora/Containerfile -t localhost/amyos:fedora "{{ justfile_directory() }}"
+
 # Boot the newest native ISO with a disposable installation disk
 run-vm firmware="uefi":
     #!/usr/bin/env bash

@@ -1,0 +1,14 @@
+# Amy OS on Fedora: a minimal KDE Plasma bootc image.
+# Build from the repo root: just build-fedora
+# `latest` follows each new Fedora release.
+FROM quay.io/fedora/fedora-bootc:latest
+
+LABEL org.opencontainers.image.title="Amy OS" \
+      org.opencontainers.image.description="Fedora bootc image with a minimal KDE Plasma desktop" \
+      org.opencontainers.image.source="https://github.com/astrovm/amyos"
+
+RUN --mount=type=bind,source=.,target=/ctx \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    /ctx/fedora/build.sh
+
+RUN bootc container lint
