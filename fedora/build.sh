@@ -63,6 +63,12 @@ sed -i -E \
   -e "s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"https://github.com/astrovm/amyos/issues\"|" \
   "$release"
 
+# Same memory limits as the Debian ISO: games and Wine need many maps, editors many watches.
+install -Dm644 /dev/stdin /etc/sysctl.d/99-amyos.conf <<'CONF'
+vm.max_map_count = 2147483642
+fs.inotify.max_user_watches = 524288
+CONF
+
 systemctl enable sddm
 systemctl set-default graphical.target
 
