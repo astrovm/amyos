@@ -214,3 +214,19 @@ jobs:
           oras push "$IMAGE_NAME:artifacthub.io" \
             --config /dev/null:application/vnd.cncf.artifacthub.config.v1+yaml \
             artifacthub-repo.yml:application/vnd.cncf.artifacthub.repository-metadata.layer.v1.yaml
+
+  required-ci:
+    name: CI / Required
+    # Always report a result, including when a prerequisite failed or was skipped.
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    needs:
+      - build_iso
+      - build_fedora
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Require every PR validation job to pass
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: jq --exit-status 'length > 0 and all(. != "failure" and . != "cancelled")' <<< "$RESULTS"
