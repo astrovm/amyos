@@ -224,6 +224,7 @@ jobs:
       - build_fedora
     runs-on: ubuntu-26.04
     timeout-minutes: 5
+    permissions: {}
     steps:
       - name: Require every PR validation job to pass
         env:
