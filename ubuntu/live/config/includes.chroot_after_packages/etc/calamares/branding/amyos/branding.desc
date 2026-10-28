@@ -1,0 +1,38 @@
+---
+componentName:  amyos
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 800px,580px
+windowPlacement: center
+
+strings:
+    productName:         Amy OS
+    shortProductName:    Amy OS
+    version:             "26.04"
+    shortVersion:        "26.04"
+    versionedName:       Amy OS (Ubuntu 26.04)
+    shortVersionedName:  Amy OS
+    # Also names the EFI folder. Ubuntu's signed GRUB only looks in EFI/ubuntu.
+    bootloaderEntryName: Ubuntu
+    productUrl:          https://github.com/astrovm/amyos
+    supportUrl:          https://github.com/astrovm/amyos/issues
+    knownIssuesUrl:      https://github.com/astrovm/amyos/issues
+    releaseNotesUrl:     https://github.com/astrovm/amyos/releases
+
+sidebar: widget
+navigation: widget
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "icon.png"
+    productWelcome:      "welcome.png"
+
+slideshow:               "show.qml"
+slideshowAPI: 2
+
+style:
+   SidebarBackground:        "#000000"
+   SidebarText:              "#ffffff"
+   SidebarTextCurrent:       "#ffffff"
+   SidebarBackgroundCurrent: "#3daee9"

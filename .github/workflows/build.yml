@@ -23,14 +23,18 @@ concurrency:
 
 jobs:
   build_iso:
-    name: Build ISO (${{ matrix.arch }})
+    name: Build ISO (${{ matrix.distro }}, ${{ matrix.arch }})
     if: github.event_name != 'schedule' || github.event.schedule == '35 10 * * 1'
     strategy:
       fail-fast: false
       matrix:
+        distro: [debian, ubuntu]
+        arch: [amd64, arm64]
         include:
           - { arch: amd64, runner: ubuntu-26.04 }
           - { arch: arm64, runner: ubuntu-26.04-arm }
+          - { distro: debian, recipe: build, artifact: amyos-debian-testing-iso }
+          - { distro: ubuntu, recipe: build-ubuntu, artifact: amyos-ubuntu-26.04-iso }
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
 
@@ -46,25 +50,33 @@ jobs:
 
       # live-build needs real root to build the chroot
       - name: Build ISO
-        run: sudo "$(command -v just)" build
+        run: sudo "$(command -v just)" ${{ matrix.recipe }}
 
       - name: Upload ISO
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: amyos-debian-testing-iso-${{ matrix.arch }}
+          name: ${{ matrix.artifact }}-${{ matrix.arch }}
           path: output/
           compression-level: 0
           retention-days: 7
           if-no-files-found: ignore
 
-  # Main pushes, weekly builds and manual runs publish after both ISOs pass.
+  # Main pushes, weekly builds and manual runs publish each distribution after both its ISOs
+  # pass, so a broken build of one doesn't hold back the other. Debian stays the latest release.
   publish:
+    name: Publish ${{ matrix.name }} ISOs
     if: >-
-      github.ref == 'refs/heads/main' &&
+      !cancelled() && github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'schedule' && github.event.schedule == '35 10 * * 1'))
     needs: build_iso
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { distro: debian, name: Debian testing, artifact: amyos-debian-testing-iso, latest: true }
+          - { distro: ubuntu, name: Ubuntu 26.04, artifact: amyos-ubuntu-26.04-iso, latest: false }
     runs-on: ubuntu-26.04
     permissions:
       actions: read
@@ -73,9 +85,13 @@ jobs:
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
+          DISTRO: ${{ matrix.distro }}
+          NAME: ${{ matrix.name }}
+          ARTIFACT: ${{ matrix.artifact }}
+          LATEST: ${{ matrix.latest }}
         run: |
           # Run IDs stay the same on retries and distinguish weekly rebuilds of a commit.
-          tag="debian-$GITHUB_RUN_ID"
+          tag="$DISTRO-$GITHUB_RUN_ID"
           draft=$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null || true)
           if [[ "$draft" == false ]]; then
             echo "Release $tag is already published."
@@ -83,10 +99,10 @@ jobs:
           fi
 
           gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" \
-            --pattern 'amyos-debian-testing-iso-*' --dir output
+            --pattern "$ARTIFACT-*" --dir output
           assets=()
           for arch in amd64 arm64; do
-            files=(output/amyos-debian-testing-iso-"$arch"/*-"$arch".iso)
+            files=(output/"$ARTIFACT-$arch"/*-"$arch".iso)
             if [[ ${#files[@]} != 1 || ! -f "${files[0]}" ]]; then
               echo "Expected exactly one $arch ISO" >&2
               exit 1
@@ -107,10 +123,10 @@ jobs:
           gh release create "$tag" "${assets[@]}" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Amy OS Debian testing $(date -u +%Y-%m-%d)" \
-            --notes "Live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
-            --draft --latest
-          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest
+            --title "Amy OS $NAME $(date -u +%Y-%m-%d)" \
+            --notes "$NAME live ISOs for AMD64 and ARM64 with KDE Plasma and the Calamares installer. Each ISO is a single file; SHA256 checksums are included." \
+            --draft --latest="$LATEST"
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest="$LATEST"
 
   # The Fedora bootc image publishes from the default branch only, never from PRs.
   build_fedora:
