@@ -1,0 +1,44 @@
+kde-plasma-desktop
+# Keep a usable desktop when optional package recommendations are disabled.
+konsole
+sddm
+sddm-theme-breeze
+libpam-systemd
+kwin-x11
+xserver-xorg
+xserver-xorg-input-libinput
+xserver-xorg-video-all
+systemsettings
+kscreen
+powerdevil
+plasma-nm
+network-manager
+wpasupplicant
+wireless-regdb
+plasma-pa
+pipewire-audio
+bluedevil
+bluez
+xdg-desktop-portal-kde
+xdg-desktop-portal-gtk
+fonts-noto-core
+fonts-noto-color-emoji
+# Ubuntu has no live-task-base, so list what it and live-config pull in.
+# live-config recommends most of these, but needs them to create the live user.
+live-boot
+live-config
+libnss-myhostname
+live-tools
+user-setup
+sudo
+locales
+keyboard-configuration
+uuid-runtime
+calamares-settings-debian
+# Calamares recommends these, but needs them to unpack the ISO and format Btrfs.
+squashfs-tools
+btrfs-progs
+# EFI installation needs FAT formatting and firmware boot-entry management.
+dosfstools
+efibootmgr
+apparmor

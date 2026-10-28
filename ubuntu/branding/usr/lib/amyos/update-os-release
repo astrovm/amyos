@@ -1,0 +1,21 @@
+#!/bin/sh
+# Writes /usr/lib/os-release from Ubuntu's copy, swapping in the Amy OS name.
+set -e
+
+# preinst keeps the distribution's copy under this name on Debian and Ubuntu.
+src=/usr/lib/os-release.debian
+dst=/usr/lib/os-release
+
+[ -e "$src" ] || exit 0
+
+tmp="$dst.amyos-new"
+{
+  echo 'PRETTY_NAME="Amy OS (Ubuntu 26.04)"'
+  echo 'NAME="Amy OS"'
+  grep -v -E '^(PRETTY_NAME|NAME|HOME_URL|BUG_REPORT_URL|LOGO)=' "$src"
+  echo 'HOME_URL="https://github.com/astrovm/amyos"'
+  echo 'BUG_REPORT_URL="https://github.com/astrovm/amyos/issues"'
+  echo 'LOGO=amyos'
+} >"$tmp"
+chmod 0644 "$tmp"
+mv "$tmp" "$dst"

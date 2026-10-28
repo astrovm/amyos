@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+# Ubuntu keeps ARM64 on its ports mirror.
+if [ "$(dpkg --print-architecture)" = amd64 ]; then
+  mirror=http://archive.ubuntu.com/ubuntu/
+  security=http://security.ubuntu.com/ubuntu/
+else
+  mirror=http://ports.ubuntu.com/ubuntu-ports/
+  security=$mirror
+fi
+
+# linux-image-generic already pulls in linux-firmware, so skip live-build's
+# Debian firmware search.
+lb config noauto \
+  --distribution resolute \
+  --mirror-bootstrap "$mirror" \
+  --mirror-binary "$mirror" \
+  --mirror-chroot-security "$security" \
+  --mirror-binary-security "$security" \
+  --archive-areas "main restricted universe multiverse" \
+  --keyring-packages ubuntu-keyring \
+  --linux-flavours generic \
+  --firmware-chroot false \
+  --firmware-binary false \
+  --apt-recommends false \
+  --debian-installer none \
+  --iso-application "Amy OS" \
+  --iso-volume "Amy OS 26.04" \
+  --bootappend-live "boot=live components quiet splash hostname=amyos" \
+  "${@}"

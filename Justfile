@@ -2,6 +2,10 @@
 build:
     podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./debian/build.sh
 
+# Build the Ubuntu 26.04 live ISO for this machine's architecture into output/
+build-ubuntu:
+    podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./ubuntu/build.sh
+
 # Build the Fedora bootc image as localhost/amyos:fedora
 build-fedora:
     podman build --pull=newer -f fedora/Containerfile -t localhost/amyos:fedora "{{ justfile_directory() }}"
