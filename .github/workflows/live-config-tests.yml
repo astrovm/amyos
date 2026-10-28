@@ -1,0 +1,17 @@
+name: Live session settings
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  screen-lock:
+    runs-on: ubuntu-latest
+    container: debian:testing
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install KDE config tools
+        run: apt-get update -qq && apt-get install -y --no-install-recommends libkf6config-bin passwd
+      - name: Check live-user settings and installed-user isolation
+        run: sh tests/live-screen-lock.sh

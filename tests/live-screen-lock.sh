@@ -1,7 +1,8 @@
 #!/bin/sh
 # Run as root in a disposable Debian container with libkf6config-bin installed.
 set -eu
-component=/repo/debian/live/config/includes.chroot_after_packages/usr/lib/live/config/1190-amyos-screen-lock
+repo=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
+component=$repo/debian/live/config/includes.chroot_after_packages/usr/lib/live/config/1190-amyos-screen-lock
 state=/var/lib/live/config/amyos-screen-lock
 useradd --create-home user
 useradd --create-home visitor
