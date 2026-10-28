@@ -9,6 +9,12 @@ rm -rf /root/amyos
 # livesys creates the live user and logs it into Plasma.
 echo 'livesys_session="kde"' >/etc/sysconfig/livesys
 
+# livesys puts this on the desktop. Its icon comes from fedora-logos, which
+# Amy OS leaves out, so use the Amy OS name and logo like the Debian ISO.
+desktop=/usr/share/applications/liveinst.desktop
+sed -i -e 's/^Name=.*/Name=Install Amy OS/' -e 's/^Icon=.*/Icon=amyos/' "$desktop"
+grep -qx 'Icon=amyos' "$desktop"
+
 # Like Fedora's live images: each boot and install gets its own machine ID,
 # root has no password, and GRUB matches what Anaconda sets up.
 rm -f /etc/machine-id /var/lib/systemd/random-seed
