@@ -24,6 +24,8 @@ for dir in apps places; do
   install -Dm644 "$repo/branding/usr/share/icons/hicolor/256x256/apps/amyos.png" \
     "/usr/share/icons/hicolor/256x256/$dir/start-here.png"
 done
+install -Dm644 -t /usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates \
+  "$repo/branding/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/amyos-unpin-missing-apps.js"
 cat >/etc/xdg/kcm-about-distrorc <<'CONF'
 [General]
 LogoPath=/usr/share/icons/hicolor/256x256/apps/amyos.png
