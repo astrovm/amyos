@@ -5,9 +5,11 @@ sddm
 sddm-theme-breeze
 libpam-systemd
 kwin-x11
-# live-config only sets up autologin when startplasma-x11 exists. Debian's Plasma
-# ships it; Ubuntu splits it out with the X11 session.
+# live-config only sets up autologin when startplasma-x11 exists, then logs into
+# plasma.desktop, the Wayland session. Debian's Plasma ships both; Ubuntu splits
+# them into these, and installs only one of them unless both are listed.
 plasma-session-x11
+plasma-session-wayland
 xserver-xorg
 xserver-xorg-input-libinput
 xserver-xorg-video-all

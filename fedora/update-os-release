@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+# Shows the Amy OS name in os-release. ID=fedora stays, so Fedora tools keep working.
+# Fedora's release package replaces the file on updates, so systems installed from
+# the live ISO run this again from amyos-os-release.path.
+set -euo pipefail
+
+release="$(readlink -f /usr/lib/os-release)"
+version="$(sed -n 's/^VERSION_ID=//p' "$release")"
+new="$(mktemp "$release.XXXXXX")"
+trap 'rm -f "$new"' EXIT
+sed -E \
+  -e "s/^NAME=.*/NAME=\"Amy OS\"/" \
+  -e "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Amy OS (Fedora $version)\"/" \
+  -e "s/^LOGO=.*/LOGO=amyos/" \
+  -e "s/^DEFAULT_HOSTNAME=.*/DEFAULT_HOSTNAME=\"amyos\"/" \
+  -e "s|^HOME_URL=.*|HOME_URL=\"https://github.com/astrovm/amyos\"|" \
+  -e "s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"https://github.com/astrovm/amyos/issues\"|" \
+  "$release" >"$new"
+
+# Only replace a changed file, so the path unit doesn't run this again.
+if [[ "$(<"$new")" != "$(<"$release")" ]]; then
+  chmod 644 "$new"
+  mv "$new" "$release"
+fi
