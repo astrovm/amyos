@@ -51,6 +51,8 @@
 		<package name="livesys-scripts"/>
 		<package name="anaconda-live"/>
 		<package name="anaconda-install-env-deps"/>
+		<!-- The installer's web UI opens in this browser, set by Fedora's Anaconda profile. -->
+		<package name="slitherer"/>
 		<package name="btrfs-progs"/>
 		<package name="systemd-oomd-defaults"/>
 		<package name="systemd-resolved"/>
