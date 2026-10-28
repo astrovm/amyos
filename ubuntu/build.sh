@@ -21,7 +21,9 @@ rm -rf _build output
 cp -a debian/live _build
 cp -a ubuntu/live/. _build/
 mkdir -p _build/config/packages.chroot output
-cp -a branding _build/branding
+# Only the installed files: the artwork sources next to them stay out of /.
+mkdir -p _build/branding
+cp -a branding/usr _build/branding/
 cp -a debian/branding/. _build/branding/
 cp -a ubuntu/branding/. _build/branding/
 dpkg-deb --root-owner-group --build _build/branding _build/config/packages.chroot/
