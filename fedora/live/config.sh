@@ -9,6 +9,9 @@ rm -rf /root/amyos
 # livesys creates the live user and logs it into Plasma.
 echo 'livesys_session="kde"' >/etc/sysconfig/livesys
 
+# Without these the installer doesn't open or fails at the end, see config.kiwi.
+rpm -q slitherer efibootmgr cryptsetup glibc-all-langpacks
+
 # livesys puts this on the desktop. Its icon comes from fedora-logos, which
 # Amy OS leaves out, so use the Amy OS name and logo like the Debian ISO.
 desktop=/usr/share/applications/liveinst.desktop
