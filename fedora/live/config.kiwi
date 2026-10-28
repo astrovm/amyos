@@ -51,6 +51,9 @@
 		<package name="livesys-scripts"/>
 		<package name="anaconda-live"/>
 		<package name="anaconda-install-env-deps"/>
+		<!-- What the installer runs on the new system, like Fedora's live ISOs: boot
+		     entries, encryption, file systems and every language it offers. -->
+		<namedCollection name="anaconda-tools"/>
 		<!-- The installer's web UI opens in this browser, set by Fedora's Anaconda profile. -->
 		<package name="slitherer"/>
 		<package name="btrfs-progs"/>
