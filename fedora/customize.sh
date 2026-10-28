@@ -24,6 +24,7 @@ for dir in apps places; do
   install -Dm644 "$repo/branding/usr/share/icons/hicolor/256x256/apps/amyos.png" \
     "/usr/share/icons/hicolor/256x256/$dir/start-here.png"
 done
+# Unpins taskbar apps that aren't installed, like Discover.
 install -Dm644 -t /usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates \
   "$repo/branding/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/amyos-unpin-missing-apps.js"
 cat >/etc/xdg/kcm-about-distrorc <<'CONF'
@@ -40,17 +41,8 @@ Image=file:///usr/share/wallpapers/Next/
 PreviewImage=file:///usr/share/wallpapers/Next/
 CONF
 
-# Keep ID=fedora so Fedora tools keep working; only the shown name changes.
-release="$(readlink -f /usr/lib/os-release)"
-version="$(sed -n 's/^VERSION_ID=//p' "$release")"
-sed -i -E \
-  -e "s/^NAME=.*/NAME=\"Amy OS\"/" \
-  -e "s/^PRETTY_NAME=.*/PRETTY_NAME=\"Amy OS (Fedora $version)\"/" \
-  -e "s/^LOGO=.*/LOGO=amyos/" \
-  -e "s/^DEFAULT_HOSTNAME=.*/DEFAULT_HOSTNAME=\"amyos\"/" \
-  -e "s|^HOME_URL=.*|HOME_URL=\"https://github.com/astrovm/amyos\"|" \
-  -e "s|^BUG_REPORT_URL=.*|BUG_REPORT_URL=\"https://github.com/astrovm/amyos/issues\"|" \
-  "$release"
+install -Dm755 "$repo/fedora/update-os-release" /usr/lib/amyos/update-os-release
+/usr/lib/amyos/update-os-release
 
 # Same memory limits as the Debian ISO: games and Wine need many maps, editors many watches.
 install -Dm644 /dev/stdin /etc/sysctl.d/99-amyos.conf <<'CONF'
