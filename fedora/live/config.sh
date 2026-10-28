@@ -26,7 +26,7 @@ Description=Show the Amy OS name in os-release
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/amyos/update-os-release
+ExecStart=/usr/libexec/amyos/update-os-release
 
 [Install]
 WantedBy=multi-user.target
@@ -42,6 +42,9 @@ PathChanged=/usr/lib/os-release
 WantedBy=paths.target
 UNIT
 systemctl enable amyos-os-release.service amyos-os-release.path
+# systemd runs bin_t programs as unconfined_service_t. From a lib_t path the service
+# ran as init_t, and SELinux kept it from writing os-release.
+[[ "$(matchpathcon -n /usr/libexec/amyos/update-os-release)" == *:bin_t:* ]]
 
 # Like Fedora's live images: each boot and install gets its own machine ID,
 # root has no password, and GRUB matches what Anaconda sets up.
