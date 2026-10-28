@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Amy OS live ISO on Fedora, built by fedora/build-iso.sh. Based on Fedora's own KDE live
+     image: https://forge.fedoraproject.org/releng/fedora-kiwi-descriptions
+     build-iso.sh fills in @RELEASE@ and adds the packages from fedora/desktop.list. -->
+<image schemaversion="7.4" name="amyos-fedora" displayname="Amy OS">
+	<description type="system">
+		<author>astrovm</author>
+		<contact>https://github.com/astrovm/amyos/issues</contact>
+		<specification>Amy OS live ISO with a minimal KDE Plasma desktop on Fedora</specification>
+	</description>
+	<preferences>
+		<version>@RELEASE@.0.0</version>
+		<packagemanager>dnf5</packagemanager>
+		<locale>en_US</locale>
+		<keytable>us</keytable>
+		<timezone>UTC</timezone>
+		<release-version>@RELEASE@</release-version>
+		<type image="iso" primary="true" flags="dmsquash"
+		      filesystem="erofs" erofscompression="lzma,level=6" fscreateoptions="-Efragments -C 1048576"
+		      firmware="uefi" efiparttable="gpt" efifatimagesize="30"
+		      volid="Amy_OS" application_id="Amy OS" publisher="astrovm" kernelcmdline="quiet rhgb">
+			<bootloader name="grub2" console="console" timeout="10"/>
+		</type>
+	</preferences>
+	<repository type="rpm-md" alias="fedora" sourcetype="metalink">
+		<source path="https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&amp;arch=$basearch">
+			<signing key="file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-$releasever-primary"/>
+		</source>
+	</repository>
+	<repository type="rpm-md" alias="updates" sourcetype="metalink">
+		<source path="https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&amp;arch=$basearch">
+			<signing key="file:///usr/share/distribution-gpg-keys/fedora/RPM-GPG-KEY-fedora-$releasever-primary"/>
+		</source>
+	</repository>
+	<packages type="bootstrap">
+		<package name="filesystem"/>
+	</packages>
+	<!-- Weak dependencies stay out, like in the bootc image. -->
+	<packages type="image" patternType="onlyRequired">
+		<namedCollection name="core"/>
+		<!-- GPU, Wi-Fi and other firmware -->
+		<namedCollection name="hardware-support"/>
+		<!-- The plain Fedora release. Fedora KDE's variant makes the installer skip user
+		     creation and leave it to Plasma Setup on first boot. -->
+		<package name="fedora-release"/>
+		<package name="generic-logos"/>
+		<ignore name="fedora-logos"/>
+		<package name="kernel"/>
+		<package name="glibc-langpack-en"/>
+		<package name="dracut-live"/>
+		<package name="livesys-scripts"/>
+		<package name="anaconda-live"/>
+		<package name="anaconda-install-env-deps"/>
+		<package name="btrfs-progs"/>
+		<package name="systemd-oomd-defaults"/>
+		<package name="systemd-resolved"/>
+		<package name="grubby"/>
+		<package name="grub2-efi-x64" arch="x86_64"/>
+		<package name="grub2-efi-x64-modules" arch="x86_64"/>
+		<package name="grub2-efi-ia32" arch="x86_64"/>
+		<package name="grub2-efi-ia32-modules" arch="x86_64"/>
+		<package name="grub2-pc" arch="x86_64"/>
+		<package name="grub2-pc-modules" arch="x86_64"/>
+		<package name="shim-signed-x64" arch="x86_64"/>
+		<package name="shim-signed-ia32" arch="x86_64"/>
+		<package name="grub2-efi-aa64" arch="aarch64"/>
+		<package name="grub2-efi-aa64-modules" arch="aarch64"/>
+		<package name="shim-signed-aa64" arch="aarch64"/>
+	</packages>
+	<packages type="iso">
+		<package name="grub2-efi-x64-cdboot" arch="x86_64"/>
+		<package name="grub2-efi-ia32-cdboot" arch="x86_64"/>
+		<package name="grub2-efi-aa64-cdboot" arch="aarch64"/>
+	</packages>
+</image>

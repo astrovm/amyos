@@ -28,13 +28,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [debian, ubuntu]
+        distro: [debian, ubuntu, fedora]
         arch: [amd64, arm64]
         include:
           - { arch: amd64, runner: ubuntu-26.04 }
           - { arch: arm64, runner: ubuntu-26.04-arm }
           - { distro: debian, recipe: build, artifact: amyos-debian-testing-iso }
           - { distro: ubuntu, recipe: build-ubuntu, artifact: amyos-ubuntu-26.04-iso }
+          - { distro: fedora, recipe: build-fedora-iso, artifact: amyos-fedora-iso }
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
 
@@ -77,6 +78,7 @@ jobs:
         include:
           - { distro: debian, name: Debian testing, artifact: amyos-debian-testing-iso, latest: true }
           - { distro: ubuntu, name: Ubuntu 26.04, artifact: amyos-ubuntu-26.04-iso, latest: false }
+          - { distro: fedora, name: Fedora, artifact: amyos-fedora-iso, latest: false }
     runs-on: ubuntu-26.04
     permissions:
       actions: read

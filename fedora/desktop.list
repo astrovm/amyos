@@ -1,0 +1,25 @@
+# Same desktop as the Debian ISO: Plasma, a terminal, files, network, sound, Bluetooth.
+# Installed without weak dependencies by the bootc image (build.sh) and the live ISO (build-iso.sh).
+plasma-desktop
+plasma-workspace-wayland
+sddm
+sddm-breeze
+sddm-wayland-plasma
+konsole
+dolphin
+systemsettings
+kscreen
+powerdevil
+plasma-nm
+NetworkManager-wifi
+wpa_supplicant
+plasma-pa
+pipewire-pulseaudio
+wireplumber
+bluedevil
+bluez
+xdg-desktop-portal-kde
+xdg-desktop-portal-gtk
+google-noto-sans-fonts
+google-noto-color-emoji-fonts
+plymouth-theme-spinner
