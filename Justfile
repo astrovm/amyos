@@ -6,6 +6,10 @@ build:
 build-ubuntu:
     podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./ubuntu/build.sh
 
+# Build the Fedora live ISO for this machine's architecture into output/
+build-fedora-iso:
+    podman run --rm --privileged -v "{{ justfile_directory() }}:/src" -w /src registry.fedoraproject.org/fedora:latest ./fedora/build-iso.sh
+
 # Build the Fedora bootc image as localhost/amyos:fedora
 build-fedora:
     podman build --pull=newer -f fedora/Containerfile -t localhost/amyos:fedora "{{ justfile_directory() }}"

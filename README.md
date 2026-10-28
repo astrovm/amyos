@@ -13,7 +13,7 @@ A minimal KDE Plasma desktop with the Amy OS name and logo.
 
 - **Debian testing:** live ISO with the Calamares installer, for AMD64 and ARM64.
 - **Ubuntu 26.04 LTS:** live ISO with the Calamares installer, for AMD64 and ARM64.
-- **Fedora:** bootc image, for AMD64 and ARM64.
+- **Fedora:** live ISO with the Anaconda installer, and a bootc image, for AMD64 and ARM64.
 
 ## Debian
 
@@ -33,6 +33,12 @@ write it to a USB stick and boot it.
 
 ## Fedora
 
+The live ISO installs a regular Fedora system, updated with `dnf`. Download it from
+[Releases](https://github.com/astrovm/amyos/releases?q=fedora&expanded=true),
+write it to a USB stick and boot it.
+
+The bootc image is the image-based version. Switch an existing Fedora Atomic or bootc system to it:
+
 ```bash
 sudo bootc switch ghcr.io/astrovm/amyos:fedora
 ```
@@ -40,8 +46,9 @@ sudo bootc switch ghcr.io/astrovm/amyos:fedora
 ## Build
 
 ```bash
-sudo just build         # Debian ISO, into output/
-sudo just build-ubuntu  # Ubuntu ISO, into output/
-just build-fedora       # Fedora image, as localhost/amyos:fedora
-just run-vm             # Boot the newest ISO
+sudo just build             # Debian ISO, into output/
+sudo just build-ubuntu      # Ubuntu ISO, into output/
+sudo just build-fedora-iso  # Fedora ISO, into output/
+just build-fedora           # Fedora bootc image, as localhost/amyos:fedora
+just run-vm                 # Boot the newest ISO
 ```
