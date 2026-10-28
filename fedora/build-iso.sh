@@ -27,6 +27,9 @@ kiwi-ng --type iso system build --description _build/description --target-dir _b
 
 name="amyos-fedora-$release-$(date -u +%Y%m%d)-$architecture.iso"
 mv _build/image/*.iso "output/$name"
+if [[ "$architecture" == arm64 ]]; then
+  ./fedora/raspberry-pi.sh "output/$name"
+fi
 (cd output && sha256sum "$name" >"$name.sha256")
 
 size=$(stat -c %s "output/$name")

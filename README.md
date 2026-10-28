@@ -20,11 +20,6 @@ A minimal KDE Plasma desktop with the Amy OS name and logo.
 Download the ISO from [Releases](https://github.com/astrovm/amyos/releases),
 write it to a USB stick and boot it.
 
-The ARM64 ISO also boots on:
-
-- **Raspberry Pi 3, 4 and 5:** from an SD card. Live session only.
-- **Apple Silicon Macs:** through the Asahi installer's **UEFI environment only** option.
-
 ## Ubuntu
 
 The same desktop and installer on Ubuntu 26.04 LTS. Download the ISO from
@@ -42,6 +37,13 @@ The bootc image is the image-based version. Switch an existing Fedora Atomic or 
 ```bash
 sudo bootc switch ghcr.io/astrovm/amyos:fedora
 ```
+
+## Raspberry Pi and Apple Silicon
+
+Every ARM64 ISO also boots on:
+
+- **Raspberry Pi 3, 4 and 5:** write the ISO to an SD card. Live session only.
+- **Apple Silicon Macs:** through the Asahi installer's **UEFI environment only** option.
 
 ## Build
 
