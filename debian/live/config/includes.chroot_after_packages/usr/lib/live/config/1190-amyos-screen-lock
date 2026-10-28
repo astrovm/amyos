@@ -1,0 +1,26 @@
+#!/bin/sh
+# Only the live user gets this setting. Calamares creates installed users from
+# /etc/skel, so their normal screen-lock defaults are preserved.
+set -eu
+
+state=/var/lib/live/config/amyos-screen-lock
+[ ! -e "$state" ] || exit 0
+
+# live-config exports the configured default; command-line overrides are parsed
+# by each component independently, like 0030-user-setup.
+for parameter in ${LIVE_CONFIG_CMDLINE:-}; do
+  case "$parameter" in
+    live-config.username=*|username=*) LIVE_USERNAME=${parameter#*username=} ;;
+  esac
+done
+
+user=${LIVE_USERNAME:-user}
+home=$(getent passwd "$user" | cut -d: -f6)
+[ -n "$home" ] && [ -d "$home" ]
+mkdir -p "$home/.config"
+for key in Autolock LockOnResume; do
+  kwriteconfig6 --file "$home/.config/kscreenlockerrc" --group Daemon --key "$key" --type bool false
+done
+chown "$user:$(id -gn "$user")" "$home/.config" "$home/.config/kscreenlockerrc"
+mkdir -p /var/lib/live/config
+touch "$state"
