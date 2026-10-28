@@ -31,11 +31,18 @@ size=$(($(du -sk pi/files | cut -f1) + 4096))
 mkfs.fat -F 16 -n AMYOS_BOOT -C pi/boot.img "$size"
 mcopy -s -m -i pi/boot.img pi/files/* ::/
 
-# Replace kiwi's GPT with an MBR whose partition 1 is that FAT image, since the Pi 3
-# only reads MBR. The EFI El Torito entry points at the same partition.
+# Replace kiwi's GPT with an MBR, since the Pi 3 only reads MBR: partition 1 is that
+# FAT image, partition 2 kiwi's EFI image. UEFI firmware boots the EFI image through
+# El Torito, which can't describe a boot image over 32 MB like the Pi's.
+efi=pi/boot-images/eltorito_img1_uefi.img
+if (($(stat -c %s "$efi") >= 65536 * 512)); then
+  echo "kiwi's EFI image is over 32 MB, too big for El Torito" >&2
+  exit 1
+fi
 xorriso -indev "$iso" -outdev pi/amyos.iso \
   -boot_image any discard \
   -append_partition 1 0x0c pi/boot.img \
-  -boot_image any efi_path=--interval:appended_partition_1:all:: \
+  -append_partition 2 0xef "$efi" \
+  -boot_image any efi_path=--interval:appended_partition_2:all:: \
   -boot_image any cat_hidden=on
 mv pi/amyos.iso "$iso"

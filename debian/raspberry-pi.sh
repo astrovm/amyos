@@ -45,20 +45,20 @@ mkfs.fat -F 16 -n AMYOS_BOOT -C pi/boot.img "$size"
 mcopy -s -m -i pi/boot.img pi/files/* ::/
 
 # Rebuild the ISO with that FAT image as partition 1, so the Pi finds it.
-# The EFI El Torito entry points at the same partition, so it isn't stored twice.
+# UEFI firmware keeps booting El Torito's efi.img: El Torito can't describe a boot
+# image over 32 MB, and EDK2 then fails to read it. The GPT and Apple options
+# would hide the MBR from the Pi 3.
 command="$(cat binary/.disk/mkisofs)"
 lb_efi='-e boot/grub/efi.img -no-emul-boot -isohybrid-gpt-basdat -isohybrid-apm-hfsplus'
 if [[ "$command" != *"$lb_efi"* ]]; then
   echo "live-build's EFI options changed, update raspberry-pi.sh" >&2
   exit 1
 fi
-command="${command/"$lb_efi"/-append_partition 1 0x0c pi/boot.img -e --interval:appended_partition_1:all:: -no-emul-boot}"
-rm "$efi"
-sed -i '\|  \./boot/grub/efi\.img$|d' binary/*sum.txt
-if grep -q 'boot/grub/efi\.img' binary/*sum.txt; then
-  echo "Couldn't drop efi.img from the checksum list" >&2
+if (($(stat -c %s "$efi") >= 65536 * 512)); then
+  echo "$efi is over 32 MB, too big for El Torito" >&2
   exit 1
 fi
+command="${command/"$lb_efi"/-e boot/grub/efi.img -no-emul-boot -append_partition 1 0x0c pi/boot.img}"
 echo "$command" >binary/.disk/mkisofs
 rm -f ./*.iso
 eval "$command"
