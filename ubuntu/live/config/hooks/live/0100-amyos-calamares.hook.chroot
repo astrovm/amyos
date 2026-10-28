@@ -19,6 +19,21 @@ if grep -q live-task- "$packages"; then
   exit 1
 fi
 
+# Ubuntu's Calamares only creates the partitions listed here, and Debian's
+# settings list none, so Erase disk made no root partition.
+partition=/etc/calamares/modules/partition.conf
+if grep -q '^partitionLayout:' "$partition"; then
+  echo "Debian's Calamares settings now have a partition layout, check $partition" >&2
+  exit 1
+fi
+cat >>"$partition" <<'EOF'
+partitionLayout:
+    - name: "root"
+      filesystem: unknown
+      mountPoint: "/"
+      size: 100%
+EOF
+
 # Runs last on the installed system: point APT at Ubuntu, drop installer files.
 cat >"$helpers/calamares-sources-final" <<'EOS'
 #!/bin/sh
