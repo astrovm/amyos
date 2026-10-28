@@ -11,6 +11,12 @@ grep -qx 'branding: amyos' /etc/calamares/settings.conf
 sed -i 's/^RELEASE=.*/RELEASE="resolute"/' "$helpers/calamares-sources-media"
 grep -qx 'RELEASE="resolute"' "$helpers/calamares-sources-media"
 
+# grub-efi only recommends the signed boot loaders, and the installed system
+# skips recommends, so ask for them by name to keep Secure Boot working.
+bootloader="$helpers/calamares-bootloader-config"
+sed -i "s/apt-get -y install grub-efi\$/apt-get -y install grub-efi grub-efi-$(dpkg --print-architecture)-signed shim-signed/" "$bootloader"
+grep -q 'install grub-efi grub-efi-.*-signed shim-signed$' "$bootloader"
+
 # Ubuntu has no live-task packages, and APT stops on names it doesn't know.
 packages=/etc/calamares/modules/packages.conf
 sed -i '/live-task-/d' "$packages"
