@@ -31,6 +31,10 @@ dpkg-deb --root-owner-group --build _build/branding _build/config/packages.chroo
 # Larger XZ blocks and the native instruction filter reduce the filesystem without dropping files.
 (cd _build && lb config && MKSQUASHFS_OPTIONS="-b 1M -Xbcj $filter" lb build)
 
+if [[ "$architecture" == arm64 ]]; then
+  ./ubuntu/raspberry-pi.sh
+fi
+
 name="amyos-ubuntu-26.04-$(date -u +%Y%m%d)-$architecture.iso"
 mv _build/*.iso "output/$name"
 (cd output && sha256sum "$name" >"$name.sha256")
