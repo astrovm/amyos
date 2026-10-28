@@ -41,3 +41,6 @@ EOS
 desktop=/usr/share/applications/calamares-install-debian.desktop
 sed -i -e 's/^Name=.*/Name=Install Amy OS/' -e 's/^Icon=.*/Icon=amyos/' "$desktop"
 grep -qx 'Name=Install Amy OS' "$desktop"
+
+# add-calamares-desktop-icon puts that launcher on the live desktop with xdg-user-dir.
+command -v xdg-user-dir >/dev/null

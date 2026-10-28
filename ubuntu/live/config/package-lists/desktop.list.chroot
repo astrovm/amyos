@@ -40,6 +40,8 @@ locales
 keyboard-configuration
 uuid-runtime
 calamares-settings-debian
+# Its live session script puts the installer on the desktop with xdg-user-dir.
+xdg-user-dirs
 # Calamares recommends these, but needs them to unpack the ISO and format Btrfs.
 squashfs-tools
 btrfs-progs
