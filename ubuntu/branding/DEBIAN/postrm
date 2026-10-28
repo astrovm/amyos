@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+remove | abort-install | disappear)
+  rm -f /usr/lib/os-release
+  dpkg-divert --package amyos-branding --remove --rename \
+    --divert /usr/lib/os-release.debian /usr/lib/os-release
+  ;;
+esac

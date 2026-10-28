@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+remove | deconfigure)
+  update-alternatives --remove default.plymouth /usr/share/plymouth/themes/amyos/amyos.plymouth
+  dpkg-trigger --no-await update-initramfs || true
+  ;;
+esac

@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+configure)
+  /usr/lib/amyos/update-os-release
+
+  # Ubuntu picks the boot splash through alternatives. The higher priority wins
+  # over Ubuntu's themes, unless the user picked one by hand.
+  update-alternatives --install /usr/share/plymouth/themes/default.plymouth \
+    default.plymouth /usr/share/plymouth/themes/amyos/amyos.plymouth 150
+  if [ -z "$2" ]; then
+    dpkg-trigger --no-await update-initramfs || true
+  fi
+  ;;
+triggered)
+  /usr/lib/amyos/update-os-release
+  ;;
+esac
