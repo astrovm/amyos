@@ -16,7 +16,10 @@ done
 
 user=${LIVE_USERNAME:-user}
 home=$(getent passwd "$user" | cut -d: -f6)
-[ -n "$home" ] && [ -d "$home" ]
+if [ -z "$home" ] || [ ! -d "$home" ]; then
+  echo "Live user has no home directory: $user" >&2
+  exit 1
+fi
 mkdir -p "$home/.config"
 for key in Autolock LockOnResume; do
   kwriteconfig6 --file "$home/.config/kscreenlockerrc" --group Daemon --key "$key" --type bool false

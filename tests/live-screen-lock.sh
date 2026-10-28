@@ -40,4 +40,5 @@ if LIVE_USERNAME=missing "$component"; then
   exit 1
 fi
 test ! -e "$state"
+test ! -e /.config/kscreenlockerrc
 echo 'Live screen-lock tests passed'
