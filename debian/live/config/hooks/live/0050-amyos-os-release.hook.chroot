@@ -1,0 +1,7 @@
+#!/bin/sh
+# live-build copies os-release to /etc before any package is installed, so the
+# Amy OS name from amyos-branding never reached it. Link it like base-files does.
+set -e
+
+ln -sfn ../usr/lib/os-release /etc/os-release
+grep -qx 'NAME="Amy OS"' /etc/os-release

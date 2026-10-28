@@ -1,0 +1,10 @@
+#!/bin/sh
+# Ubuntu's NetworkManager leaves wired devices to netplan. Hand them all to
+# NetworkManager, like Ubuntu Desktop does.
+set -e
+
+install -m 600 /dev/stdin /etc/netplan/01-network-manager-all.yaml <<'YAML'
+network:
+  version: 2
+  renderer: NetworkManager
+YAML
