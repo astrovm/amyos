@@ -41,8 +41,8 @@ Image=file:///usr/share/wallpapers/Next/
 PreviewImage=file:///usr/share/wallpapers/Next/
 CONF
 
-install -Dm755 "$repo/fedora/update-os-release" /usr/lib/amyos/update-os-release
-/usr/lib/amyos/update-os-release
+install -Dm755 "$repo/fedora/update-os-release" /usr/libexec/amyos/update-os-release
+/usr/libexec/amyos/update-os-release
 
 # Same memory limits as the Debian ISO: games and Wine need many maps, editors many watches.
 install -Dm644 /dev/stdin /etc/sysctl.d/99-amyos.conf <<'CONF'
