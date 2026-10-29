@@ -1,0 +1,11 @@
+#!/bin/sh
+# SDDM shows a blank white login screen when its theme's background is missing.
+set -e
+
+theme="/usr/share/sddm/themes/$(sed -n 's/^Current=//p' /etc/sddm.conf.d/amyos.conf)"
+background="$(cat "$theme/theme.conf" "$theme/theme.conf.user" 2>/dev/null | sed -n 's/^background=//p' | tail -n 1)"
+case "$background" in
+  /*) ;;
+  *) background="$theme/$background" ;;
+esac
+test -f "$background"

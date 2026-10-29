@@ -2,7 +2,7 @@ kde-plasma-desktop
 # Keep a usable desktop when optional package recommendations are disabled.
 konsole
 sddm
-sddm-theme-debian-breeze
+sddm-theme-breeze
 libpam-systemd
 kwin-x11
 xserver-xorg
