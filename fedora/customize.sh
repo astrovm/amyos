@@ -18,6 +18,9 @@ install -Dm644 /dev/stdin /etc/sddm.conf.d/amyos.conf <<'CONF'
 [Theme]
 Current=breeze
 CONF
+# SDDM shows a blank white login screen when its theme's background is missing.
+background="$(cat /usr/share/sddm/themes/breeze/theme.conf{,.user} 2>/dev/null | sed -n 's/^background=//p' | tail -n 1)"
+[[ "$background" == /* && -f "$background" ]]
 # The app launcher shows the start-here icon, which Fedora sets to its logo.
 rm -f /usr/share/icons/hicolor/scalable/{apps,places}/start-here.svg
 for dir in apps places; do
