@@ -12,18 +12,11 @@
 A minimal KDE Plasma desktop with the Amy OS name and logo.
 
 - **Debian testing:** live ISO with the Calamares installer, for AMD64 and ARM64.
-- **Ubuntu 26.04 LTS:** live ISO with the Calamares installer, for AMD64 and ARM64.
 - **Fedora:** live ISO with the Anaconda installer, and a bootc image, for AMD64 and ARM64.
 
 ## Debian
 
 Download the ISO from [Releases](https://github.com/astrovm/amyos/releases),
-write it to a USB stick and boot it.
-
-## Ubuntu
-
-The same desktop and installer on Ubuntu 26.04 LTS. Download the ISO from
-[Releases](https://github.com/astrovm/amyos/releases?q=ubuntu&expanded=true),
 write it to a USB stick and boot it.
 
 ## Fedora
@@ -49,7 +42,6 @@ Every ARM64 ISO also boots on:
 
 ```bash
 sudo just build             # Debian ISO, into output/
-sudo just build-ubuntu      # Ubuntu ISO, into output/
 sudo just build-fedora-iso  # Fedora ISO, into output/
 just build-fedora           # Fedora bootc image, as localhost/amyos:fedora
 just run-vm                 # Boot the newest ISO
