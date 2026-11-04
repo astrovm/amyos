@@ -44,5 +44,6 @@ Every ARM64 ISO also boots on:
 sudo just build             # Debian ISO, into output/
 sudo just build-fedora-iso  # Fedora ISO, into output/
 just build-fedora           # Fedora bootc image, as localhost/amyos:fedora
+just test-iso output/X.iso  # Boot an AMD64 ISO in a VM and check that Plasma starts
 just run-vm                 # Boot the newest ISO
 ```

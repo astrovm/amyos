@@ -52,8 +52,28 @@ jobs:
       - name: Build ISO
         run: sudo "$(command -v just)" ${{ matrix.recipe }}
 
+      # ARM64 runners have no KVM, and booting without it is too slow.
+      - name: Boot ISO
+        if: matrix.arch == 'amd64'
+        run: sudo "$(command -v just)" test-iso "$(ls output/*.iso)"
+
+      - name: Upload boot test logs
+        if: ${{ !cancelled() && matrix.arch == 'amd64' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: boot-test-${{ matrix.distro }}
+          path: _build/boot-test/
+          retention-days: 7
+          if-no-files-found: ignore
+
+      # TEMPORARY: measures whether ARM64 runners have KVM. Remove before merging.
+      - name: Check for KVM
+        if: matrix.arch == 'arm64'
+        run: ls -l /dev/kvm || echo "No KVM on this runner"
+
+      # Only after the boot test: publishing takes any ISO that was uploaded, so a broken
+      # one must never get here.
       - name: Upload ISO
-        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ matrix.artifact }}-${{ matrix.arch }}
