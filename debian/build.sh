@@ -12,7 +12,9 @@ case "$architecture" in
 esac
 
 apt-get update
-apt-get install -y live-build
+# live-build needs apt-ftparchive but only recommends apt-utils, and apt skips recommended
+# packages it can't install without upgrading the image's older apt.
+apt-get install -y live-build apt-utils
 
 rm -rf _build output
 cp -a debian/live _build
