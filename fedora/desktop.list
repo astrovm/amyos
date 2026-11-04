@@ -1,6 +1,8 @@
 # Same desktop as the Debian ISO: Plasma, a terminal, files, network, sound, Bluetooth.
 # Installed without weak dependencies by the bootc image (build.sh) and the live ISO (build-iso.sh).
 plasma-desktop
+# KWin aborts at login without libGLESv2. It loads it at runtime, so no package requires it.
+libglvnd-gles
 plasma-workspace-wayland
 sddm
 sddm-breeze
