@@ -11,6 +11,10 @@ build-fedora:
     podman build --pull=newer -f fedora/Containerfile -t localhost/amyos:fedora "{{ justfile_directory() }}"
     "{{ justfile_directory() }}/fedora/rechunk.sh" localhost/amyos:fedora
 
+# Boot an AMD64 ISO in a VM and fail unless Plasma starts and stays up. Logs go to _build/boot-test.
+test-iso iso:
+    podman run --rm --device /dev/kvm -v "{{ justfile_directory() }}:/src" -w /src docker.io/library/debian:testing ./tests/boot-iso.sh {{ quote(iso) }}
+
 # Boot the newest native ISO with a disposable installation disk
 run-vm firmware="uefi":
     #!/usr/bin/env bash
