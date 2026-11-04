@@ -33,6 +33,9 @@
 		</source>
 	</repository>
 	<packages type="bootstrap">
+		<!-- Otherwise this step picks coreutils-single, which conflicts with the coreutils
+		     in the core group below, and the image fails to install. -->
+		<package name="coreutils"/>
 		<package name="filesystem"/>
 	</packages>
 	<!-- Weak dependencies stay out, like in the bootc image. -->
